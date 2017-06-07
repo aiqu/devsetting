@@ -183,3 +183,9 @@ let g:ycm_confirm_extra_conf = 0
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 let g:airline_theme='bubblegum'
+
+"make autostart NERDtree if no args supplied
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"make autostart NERDtree
+"autocmd vimenter * NERDTree
