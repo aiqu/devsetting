@@ -14,6 +14,11 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'scrooloose/nerdcommenter'
+"Plugin 'rust-lang/rust.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 "Plugin 'rdnetto/YCM-Generator'
 
 " All of your Plugins must be added before the following line
@@ -154,8 +159,6 @@ set cinoptions=:0
 
 "set bg=dark
 set nu
-set nu
-set nu
 set ai
 set wa
 set sm
@@ -163,6 +166,20 @@ set ts=4
 set sw=4
 set laststatus=2
 set wrap
+set title
+set hlsearch
+syntax on
+colo desert
+set csprg=/usr/bin/cscope
+set csto=0
+set cst
+set nocsverb
+if filereadable("./cscope.out")
+	cs add cscope.out
+endif
+set csverb
 
 let g:ycm_confirm_extra_conf = 0
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+let g:airline_theme='bubblegum'
