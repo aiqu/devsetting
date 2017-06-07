@@ -3,7 +3,7 @@
 WD=$(pwd)
 
 sudo apt update
-sudo apt install cscope ctags
+sudo apt install cscope ctags unzip
 
 mkdir -p ~/bin
 rm -f ~/bin/mktags
@@ -17,3 +17,4 @@ then
 fi
 
 vim +PluginInstall +PluginUpdate +qall
+unzip taglist_46.zip -d ~/.vim/
