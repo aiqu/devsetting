@@ -154,6 +154,7 @@ map <F11> :cp<CR>
 map <F12> :cn<CR>
 
 set fileencodings=utf-8,euc-kr
+set encoding=utf-8
 
 set cinoptions=:0
 
@@ -189,3 +190,5 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "make autostart NERDtree
 "autocmd vimenter * NERDTree
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
