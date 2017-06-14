@@ -114,8 +114,8 @@ let Tlist_WinWidth=35
 
 runtime ftplugin/man.vim
 
-map F <ESC>ggVG==
-map T <ESC>:%s/\s\+$//e
+map F <ESC>ggVG=
+map T <ESC>:%s/\s\+$//e<CR>
 map <C-l> :Tlist<CR><C-w>w
 
 map <F2> <C-]>
@@ -171,3 +171,4 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 0
