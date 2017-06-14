@@ -115,6 +115,7 @@ let Tlist_WinWidth=35
 runtime ftplugin/man.vim
 
 map F <ESC>ggVG==
+map T <ESC>:%s/\s\+$//e
 map <C-l> :Tlist<CR><C-w>w
 
 map <F2> <C-]>
