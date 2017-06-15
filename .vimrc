@@ -107,7 +107,7 @@ set tags+=../../../../tags
 set tags+=../../../../../tags
 set tags+=../../../../../../tags
 
-let Tlist_Display_Tag_Scope=1
+"let Tlist_Display_Tag_Scope=1
 let Tlist_Display_Prototype=1
 let Tlist_Use_Right_Window=1
 let Tlist_WinWidth=35
@@ -124,8 +124,8 @@ map <F4> :tabnew<CR>
 map <F5> :tabp<CR>
 map <F6> :tabn<CR>
 map <F7> <ESC>:gr -r '\<<C-R><C-W>\>' *<CR>
-map <F8> <ESC>:gr '\<<C-R><C-W>\>' `find ./ -name "*.c"`<CR>
-map <F9> <ESC>:gr '\<<C-R><C-W>\>' `find ./ -name "*.[ch]"`<CR>
+map <F8> <ESC>:gr '\<<C-R><C-W>\>' `find ./ -name "*.cp*"`<CR>
+map <F9> <ESC>:gr '\<<C-R><C-W>\>' `find ./ -name "*.[ch]p*"`<CR>
 
 map <F10> :cc<CR>
 map <F11> :cp<CR>
@@ -172,3 +172,4 @@ let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#tabline#buffer_nr_show = 1
