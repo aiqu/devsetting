@@ -1,8 +1,7 @@
 #!/bin/bash
 
 if [[ $OSTYPE == *'linux'* ]]; then
-	PKG_LIST="git \
-		build-essential \
+	PKG_LIST="build-essential \
 		cmake \
 		libncurses5-dev \
 		cscope \
@@ -22,8 +21,7 @@ if [[ $OSTYPE == *'linux'* ]]; then
 	sudo apt install $PKG_LIST
 elif [[ $OSTYPE == *'darwin'* ]]; then
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	PKG_LIST="git \
-		cmake \
+	PKG_LIST="cmake \
 		ncurses \
 		cscope \
 		ctags \
