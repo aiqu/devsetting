@@ -16,8 +16,8 @@ cd $HOME/.lib
 FILENAME=v${TAG}.zip
 if [ ! -f $FILENAME ];then
     curl -LO https://github.com/git/git/archive/${FILENAME}
+    unzip ${FILENAME}
 fi
-unzip ${FILENAME}
 cd git-${TAG}
-make prefix=${HOME}/bin -j$(cat /proc/cpuinfo | grep processor | wc -l) all && make install
+make prefix=${HOME}/bin -j$(cat /proc/cpuinfo | grep processor | wc -l) all doc info && make install
 cd $PWD

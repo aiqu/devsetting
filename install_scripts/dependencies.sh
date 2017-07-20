@@ -16,6 +16,8 @@ if [[ $OSTYPE == *'linux'* ]]; then
 		libconfuse-dev \
         libssl-dev \
         libcurl4-openssl-dev \
+        libexpat1-dev \
+        libopenssh-server \
 		"
 	sudo apt update
 	sudo apt install $PKG_LIST
@@ -33,6 +35,8 @@ elif [[ $OSTYPE == *'darwin'* ]]; then
         coreutils \
         curl \
         openssl \
+        expat \
+        openssh \
 		"
 	brew install $PKG_LIST
 	alias ctags="`brew --prefix`/bin/ctags"
