@@ -2,7 +2,7 @@
 
 PWD=$(pwd)
 
-if [ -f repo ];then
+if [ -d repo ];then
     ROOT=$(pwd)
 else
     ROOT=$(readlink -f ..)
