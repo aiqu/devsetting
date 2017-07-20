@@ -14,7 +14,9 @@ if [[ $OSTYPE == *'linux'* ]]; then
 		dh-autoreconf \
 		autotools-dev \
 		debhelper \
-		libconfuse-dev
+		libconfuse-dev \
+        libssl-dev \
+        libcurl4-openssl-dev \
 		"
 	sudo apt update
 	sudo apt install $PKG_LIST
@@ -30,7 +32,9 @@ elif [[ $OSTYPE == *'darwin'* ]]; then
 		autoconf \
 		automake \
 		confuse \
-        coreutils
+        coreutils \
+        curl \
+        openssl \
 		"
 	brew install $PKG_LIST
 	alias ctags="`brew --prefix`/bin/ctags"
