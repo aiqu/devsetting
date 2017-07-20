@@ -1,0 +1,31 @@
+[user]
+	name = Dongwon Kim
+	email = dongwon.kim@navercorp.com
+[core]
+    editor = vim
+	excludesfile = /Users/Naver/.gitignore_global
+[diff]
+    tool = vimdiff
+[color]
+    ui = auto
+    branch = auto
+    interactive = auto
+    status = auto
+[alias]
+    st = status
+    stat = status
+    sb = submodule
+    co = checkout
+    br = branch
+[push]
+    default = current
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[credential]
+    helper = cache --timeout=3600
+[credential "https://github.com"]
+    username = dkim010

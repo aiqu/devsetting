@@ -1,31 +1,24 @@
 #!/bin/bash
 
 PWD=$(pwd)
-REPOPATH=$HOME'/.repo'
+REPOPATH=$HOME/.lib
 mkdir -p $REPOPATH
 
 #install prerequisite
 sudo add-apt-repository ppa:moka/daily
 sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install vim git dh-autoreconf autotools-dev debhelper dh-autoreconf libconfuse-dev libgtk-3-dev libvte-2.91-dev pkg-config autoconf automake gnome-themes-standard gtk2-engines-murrine moka-icon-theme gnome-tweak-tool
-
-#install Vundle plugin
-cp .vimrc $HOME
-mkdir -p ~/.vim/bundle/
-cd ~/.vim/bundle
-git clone https://github.com/VundleVim/Vundle.vim.git
-vim +PluginInstall +qall
+sudo apt-get install libgtk-3-dev libvte-2.91-dev gnome-themes-standard gtk2-engines-murrine moka-icon-theme gnome-tweak-tool
 
 #install tilda
 cd $REPOPATH
 git clone https://github.com/lanoxx/tilda.git
 cd tilda && mkdir build && cd build
 ../autogen.sh --prefix=/usr
-make --silent
+make --silent -j$(cat /proc/cpuinfo | grep processors | wc -l)
 sudo make install
-cd $PWD
-mkdir -p $HOME'/.config/tilda'
-cp config* $HOME'/.config/tilda'
+cd $PWD/../configurations
+mkdir -p ${HOME}/.config/tilda
+ln -s $(readlink -f config*) ${HOME}/.config/tilda
 
 #install Arc-theme and Moka icon theme
 cd $REPOPATH
@@ -40,4 +33,3 @@ cd arc-icon-theme
 sudo make install
 
 cd $HOME
-gnome-tweak-tool
