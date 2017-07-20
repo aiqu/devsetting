@@ -10,6 +10,9 @@ fi
 
 REPO=$ROOT/repo
 
+cd $ROOT
+git submodule init
+git submodule update
 cd $REPO/vim
 make -j$(cat /proc/cpuinfo | grep processor | wc -l) && sudo make install
 
