@@ -5,5 +5,5 @@ PKG_LIST="git \
 	cmake \
 	libncurses5-dev \
 	"
-
+sudo apt update
 sudo apt install $PKG_LIST
