@@ -29,8 +29,10 @@ elif [[ $OSTYPE == *'darwin'* ]]; then
 		pkg-config \
 		autoconf \
 		automake \
-		confuse
+		confuse \
+        coreutils
 		"
 	brew install $PKG_LIST
 	alias ctags="`brew --prefix`/bin/ctags"
+    alias readlink=greadlink
 fi

@@ -1,14 +1,20 @@
 #!/bin/bash
 
-CONF_FOLDER=`readlink -f $(pwd)/../configurations`
+if [ ! -f configurations ];then
+	ROOT=$(pwd)/..
+else
+	ROOT=$(pwd)
+fi
+
+CONF_FOLDER=`readlink -f $ROOT/configurations`
 
 for f in `ls $CONF_FOLDER/.[^\.]*`;do
-	echo ln -s $f $HOME/
+	ln -si $f $HOME/
 done
 
-BIN_FOLDER=`readlink -f $(pwd)/../bin`
+BIN_FOLDER=`readlink -f $ROOT/bin`
 
 for f in `ls $BIN_FOLDER/*`;do
-	echo ln -s $f $HOME/bin/
+	ln -si $f $HOME/bin/
 done
 

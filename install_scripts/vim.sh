@@ -1,13 +1,20 @@
 #!/bin/bash
 
 PWD=$(pwd)
-REPO=repo
+
+if [ -f repo ];then
+    ROOT=$(pwd)
+else
+    ROOT=$(readlink -f ..)
+fi
+
+REPO=$ROOT/repo
 
 cd $REPO/vim
 make -j$(cat /proc/cpuinfo | grep processor | wc -l) && sudo make install
-cd $PWD
 
 mkdir -p $HOME/.vim
+cd $HOME/.vim
 
 if [[ ! -d $HOME/.vim/bundle/Vundle.vim ]]
 then
@@ -15,4 +22,6 @@ then
 fi
 
 vim +PluginInstall +PluginUpdate +qall
-unzip ../taglist_46.zip -d ~/.vim/
+unzip $ROOT/taglist_46.zip -d ~/.vim/
+
+cd $PWD

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+if [[ $OSTYPE == *'linux'* ]];then
 sudo apt-get remove docker docker-engine docker.io
 sudo apt-get install \
     apt-transport-https \
@@ -13,3 +14,6 @@ sudo add-apt-repository \
    stable"
 sudo apt-get update
 sudo apt install docker-ce
+else [[ $OSTYPE == *'darwin'* ]];then
+    curl -L https://download.docker.com/mac/stable/Docker.dmg -o $HOME/Docker.dmg
+fi
