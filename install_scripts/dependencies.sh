@@ -17,7 +17,7 @@ if [[ $OSTYPE == *'linux'* ]]; then
         libssl-dev \
         libcurl4-openssl-dev \
         libexpat1-dev \
-        libopenssh-server \
+        openssh-server \
 		"
 	sudo apt update
 	sudo apt install $PKG_LIST

@@ -3,6 +3,7 @@
 set -e
 
 PWD=$(pwd)
+CORE=$(cat /proc/cpuinfo | grep processor | wc -l)
 
 mkdir -p $HOME/.lib
 
@@ -14,7 +15,7 @@ if [ ! -f Python-$VERSION.tgz ];then
 fi
 cd Python-$VERSION
 ./configure --prefix=$HOME/bin
-make -j$(cat /proc/cpuinfo | grep processors | wc -l)
+make -j$CORE
 make test
 make install
 
@@ -26,6 +27,6 @@ if [ ! -f Python-$VERSION.tgz ];then
 fi
 cd Python-$VERSION
 ./configure --prefix=$HOME/bin
-make -j$(cat /proc/cpuinfo | grep processors | wc -l)
+make -j$CORE
 make test
 make altinstall
