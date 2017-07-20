@@ -1,9 +1,11 @@
 [user]
-	name = Dongwon Kim
-	email = dongwon.kim@navercorp.com
+	name = Gwangmin Lee
+	email = gwangmin.lee@naverlabs.com
 [core]
     editor = vim
-	excludesfile = /Users/Naver/.gitignore_global
+	excludesfile = /home/gmlee/.gitignore_global
+	autocrlf = input
+	whitespace = trailing-space,space-before-tab,cr-at-eol
 [diff]
     tool = vimdiff
 [color]
@@ -19,13 +21,11 @@
     br = branch
 [push]
     default = current
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [credential]
     helper = cache --timeout=3600
 [credential "https://github.com"]
-    username = dkim010
+    username = aiqu
+[credential "https://es.naverlabs.com"]
+    username = gwangmin.lee
+[help]
+	autocorrect = 1
