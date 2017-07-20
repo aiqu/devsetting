@@ -1,0 +1,3 @@
+[submodule "install_scripts/repo/vim"]
+	path = install_scripts/repo/vim
+	url = https://github.com/aiqu/vim.git
