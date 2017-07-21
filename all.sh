@@ -1,6 +1,12 @@
 #!/bin/bash
 
-install_scripts/dependencies.sh
-install_scripts/configurations.sh
-install_scripts/git.sh
-install_scripts/vim.sh
+if [ ! -d install_scripts ];then
+	ROOT=$(pwd)/..
+else
+	ROOT=$(pwd)
+fi
+
+source "$ROOT/install_scripts/dependencies.sh"
+source "$ROOT/install_scripts/configurations.sh"
+source "$ROOT/install_scripts/git.sh"
+#source "$ROOT/install_scripts/vim.sh"

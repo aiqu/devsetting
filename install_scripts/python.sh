@@ -1,9 +1,22 @@
 #!/bin/bash
 
+PYTHONE_DONE=
+
 set -e
 
+if [ ! -d configurations ];then
+	ROOT=$(pwd)/..
+else
+	ROOT=$(pwd)
+fi
+
+if [ ! $CONFIGURATIONS_DONE ];then
+    $($ROOT/install_scripts/configurations.sh)
+fi
+
+echo "Git installation.. pwd: $PWD, root: $ROOT"
+
 PWD=$(pwd)
-CORE=$(cat /proc/cpuinfo | grep processor | wc -l)
 
 mkdir -p $HOME/.lib
 
@@ -30,3 +43,5 @@ cd Python-$VERSION
 make -j$CORE
 make test
 make altinstall
+
+PYTHONE_DONE=1

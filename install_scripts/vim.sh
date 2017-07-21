@@ -1,12 +1,20 @@
 #!/bin/bash
 
-PWD=$(pwd)
+set -e
 
-if [ -d repo ];then
-    ROOT=$(pwd)
+VIM_DONE=
+
+if [ ! -d 'install_scripts' ];then
+	ROOT=$(pwd)/..
 else
-    ROOT=$(readlink -f ..)
+	ROOT=$(pwd)
 fi
+
+if [ ! $CONFIGURATIONS_DONE ];then
+    source $ROOT/install_scripts/configurations.sh
+fi
+
+echo "vim installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 
 REPO=$ROOT/repo
 
@@ -14,7 +22,7 @@ cd $ROOT
 git submodule init
 git submodule update
 cd $REPO/vim
-make -j$(cat /proc/cpuinfo | grep processor | wc -l) && sudo make install
+make -j$CORE && sudo make install
 
 mkdir -p $HOME/.vim
 cd $HOME/.vim
@@ -28,3 +36,5 @@ vim +PluginInstall +PluginUpdate +qall
 unzip $ROOT/taglist_46.zip -d ~/.vim/
 
 cd $PWD
+
+VIM_DONE=1

@@ -1,15 +1,34 @@
 #!/bin/bash
 
 set -e
-PWD=$(pwd)
 
-if [[ -d repo ]];then
-    ROOT=$PWD
+GIT_DONE=
+
+if [ ! -d 'install_scripts' ];then
+	ROOT=$(pwd)/..
 else
-    ROOT=$(readlink -f ..)
+	ROOT=$(pwd)
 fi
 
+if [ ! $CONFIGURATIONS_DONE ];then
+    source "$ROOT/install_scripts/configurations.sh"
+fi
+
+echo "Git installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+
 TAG=2.14.0-rc0
+
+if [ $(echo $OSTYPE | grep 'darwin') ]; then
+    export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
+    ALIAS_FILE='/usr/local/bin/docbook2texi'
+    ln -fs $ALIAS_FILE /usr/local/bin/docbook2x-texi
+
+    if brew ls --versions docbook-xsl; then
+        brew install docbook-xsl
+    else
+        brew upgrade docbook-xsl
+    fi
+fi
 
 mkdir -p $HOME/.lib
 cd $HOME/.lib
@@ -19,5 +38,9 @@ if [ ! -f $FILENAME ];then
     unzip ${FILENAME}
 fi
 cd git-${TAG}
-make prefix=${HOME}/bin -j$(cat /proc/cpuinfo | grep processor | wc -l) all doc info && make install
+make configure
+./configure --prefix=/usr/local
+make -j$CORE all doc && sudo make install install-doc
 cd $PWD
+
+GIT_DONE=1
