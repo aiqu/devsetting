@@ -31,6 +31,9 @@ if [ $(echo $OSTYPE | grep 'linux') ]; then
         libcurl4-openssl-dev \
         libexpat1-dev \
         openssh-server \
+        asciidoc \
+        xmlto \
+        docbook2x \
 		"
 	sudo apt update
 	sudo apt install $PKG_LIST
@@ -90,9 +93,10 @@ elif [ $(echo $OSTYPE | grep 'darwin') ]; then
     ENVFILE='.bash_profile'
 fi
 
+source $HOME/$ENVFILE
 if [ ! $DEVSETTING ];then
     echo 'export DEVSETTING=1' >> $HOME/$ENVFILE
-    echo 'export PATH=$HOME/bin:$PATH' >> $HOME/$ENVFILE
+    echo 'export PATH=$HOME/.local/bin:$HOME/bin:$PATH' >> $HOME/$ENVFILE
     echo 'export TERM="xterm-256color"' >> $HOME/$ENVFILE
     echo 'alias ll="ls -al"' >> $HOME/$ENVFILE
     echo 'alias l="lsl"' >> $HOME/$ENVFILE

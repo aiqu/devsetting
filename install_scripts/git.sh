@@ -39,8 +39,8 @@ if [ ! -f $FILENAME ];then
 fi
 cd git-${TAG}
 make configure
-./configure --prefix=/usr/local
-make -j$CORE all doc && sudo make install install-doc
+./configure --prefix=$HOME/.local
+make -j$CORE all doc && make install install-doc
 cd $PWD
 
 GIT_DONE=1

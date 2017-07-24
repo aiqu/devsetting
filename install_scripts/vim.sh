@@ -22,7 +22,7 @@ cd $ROOT
 git submodule init
 git submodule update
 cd $REPO/vim
-make -j$CORE && sudo make install
+make -j$CORE && make install
 
 mkdir -p $HOME/.vim
 cd $HOME/.vim
