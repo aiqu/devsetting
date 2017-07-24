@@ -139,8 +139,8 @@ let g:airline_theme='bubblegum'
 
 hi Search cterm=NONE ctermfg=grey ctermbg=yellow
 hi VIsual cterm=NONE ctermfg=grey ctermbg=yellow
-hi ColorColumn ctermbg=235 guibg=#2c2d27
-execute "set colorcolumn=" . join(range(81,335), ',')
+"hi ColorColumn ctermbg=235 guibg=#2c2d27
+"execute "set colorcolumn=" . join(range(81,335), ',')
 
 ">> fold
 
