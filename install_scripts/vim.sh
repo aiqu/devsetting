@@ -4,10 +4,12 @@ set -e
 
 VIM_DONE=
 
-if [ ! -d 'install_scripts' ];then
-	ROOT=$(pwd)/..
-else
-	ROOT=$(pwd)
+if [ ! $ROOT ];then
+    if [ ! -d 'install_scripts' ];then
+        ROOT=$(pwd)/..
+    else
+        ROOT=$(pwd)
+    fi
 fi
 
 if [ ! $CONFIGURATIONS_DONE ];then

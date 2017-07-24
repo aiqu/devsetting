@@ -4,10 +4,12 @@ set -e
 
 CONFIGURATIONS_DONE=
 
-if [ ! -d 'install_scripts' ];then
-	ROOT=$(pwd)/..
-else
-	ROOT=$(pwd)
+if [ ! $ROOT ];then
+    if [ ! -d 'install_scripts' ];then
+        ROOT=$(pwd)/..
+    else
+        ROOT=$(pwd)
+    fi
 fi
 
 if [ ! $DEPENDENCIES_DONE ];then
