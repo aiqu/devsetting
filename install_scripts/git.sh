@@ -16,33 +16,38 @@ if [ ! $CONFIGURATIONS_DONE ];then
     source "$ROOT/install_scripts/configurations.sh"
 fi
 
-echo "Git installation.. pwd: $PWD, root: $ROOT, core: $CORE"
-
 TAG=2.14.0-rc0
+INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
 
-if [ $(echo $OSTYPE | grep 'darwin') ]; then
-    export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
-    ALIAS_FILE='/usr/local/bin/docbook2texi'
-    ln -fs $ALIAS_FILE /usr/local/bin/docbook2x-texi
+if [ "$TAG" == "$INSTALLED_VERSION" ];then
+    echo "Git is installed already"
+else
+    echo "Git installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 
-    if brew ls --versions docbook-xsl; then
-        brew install docbook-xsl
-    else
-        brew upgrade docbook-xsl
+    if [ $(echo $OSTYPE | grep 'darwin') ]; then
+        export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
+        ALIAS_FILE='/usr/local/bin/docbook2texi'
+        ln -fs $ALIAS_FILE /usr/local/bin/docbook2x-texi
+
+        if brew ls --versions docbook-xsl; then
+            brew install docbook-xsl
+        else
+            brew upgrade docbook-xsl
+        fi
     fi
-fi
 
-mkdir -p $HOME/.lib
-cd $HOME/.lib
-FILENAME=v${TAG}.zip
-if [ ! -f $FILENAME ];then
-    curl -LO https://github.com/git/git/archive/${FILENAME}
-    unzip ${FILENAME}
+    mkdir -p $HOME/.lib
+    cd $HOME/.lib
+    FILENAME=v${TAG}.zip
+    if [ ! -f $FILENAME ];then
+        curl -LO https://github.com/git/git/archive/${FILENAME}
+        unzip ${FILENAME}
+    fi
+    cd git-${TAG}
+    make configure
+    ./configure --prefix=$HOME/.local
+    make -j$CORE all doc && make install install-doc
+    cd $PWD
 fi
-cd git-${TAG}
-make configure
-./configure --prefix=$HOME/.local
-make -j$CORE all doc && make install install-doc
-cd $PWD
 
 GIT_DONE=1

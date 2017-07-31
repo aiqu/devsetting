@@ -10,8 +10,8 @@ else
     ROOT=$(pwd)
 fi
 
-if [ ! $DEPENDENCIES_DONE ];then
-    source "$ROOT/install_scripts/dependencies.sh"
+if [ ! $GIT_DONE ];then
+    source "$ROOT/install_scripts/git.sh"
 fi
 
 echo "Pyenv installation.. pwd: $PWD, root: $ROOT"
