@@ -104,9 +104,9 @@ set csverb
 ">> Taglist
 
 "let Tlist_Display_Tag_Scope=1
-let Tlist_Display_Prototype=1
+let Tlist_Display_Prototype=0
 let Tlist_Use_Right_Window=1
-let Tlist_WinWidth=35
+let Tlist_WinWidth=50
 let Tlist_Exit_OnlyWindow = 1					"Close Vim if the taglist is the only window.
 
 ">> Shortcuts
