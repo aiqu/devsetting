@@ -127,6 +127,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "autocmd vimenter * NERDTree
 let g:NERDTreeDirArrowExpandable = '+'
 let g:NERDTreeDirArrowCollapsible = '-'
+let g:NERDTreeShowHidden = 1
 
 ">> airline
 
