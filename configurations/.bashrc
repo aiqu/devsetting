@@ -115,9 +115,8 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-[ -r /home/gmlee/.byobu/prompt ] && . /home/gmlee/.byobu/prompt   #byobu-prompt#
 
-export LC_ALL=C
+export LC_ALL=en_US.utf8
 alias startvpn='sudo systemctl start openvpn@client.service'
 alias stopvpn='sudo systemctl stop openvpn@client.service'
 alias resetvpn='sudo systemctl stop openvpn@client.service && sudo systemctl start openvpn@client.service'
@@ -133,3 +132,4 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+. ~/.promptrc
