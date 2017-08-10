@@ -91,7 +91,7 @@ set tags+=../../../../../../tags
 
 ">> cscope
 
-set csprg=/usr/bin/cscope
+set csprg=cscope
 set csto=0						"search cscope db first and tags later
 set cst							"":tag" and CTRL-] will always use :cstag instead of the default :tag
 set nocsverb					
