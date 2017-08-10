@@ -31,9 +31,8 @@ git_branch() {
   fi
 }
 
-# Ensure that we're in bash, in a byobu environment
+# Ensure that we're in bash
 if [ -n "$BASH" ]; then
-  byobu_prompt_status() { local e=$?; [ $e != 0 ] && echo -e "$e "; }
   [ -n "$BYOBU_CHARMAP" ] || BYOBU_CHARMAP=$(locale charmap 2>/dev/null || echo)
 	byobu_prompt_symbol() {
 		if [ "$USER" = "root" ]; then
@@ -42,22 +41,13 @@ if [ -n "$BASH" ]; then
 			printf "%s" "\$"
 		fi
 	}
-  case "$BYOBU_DISTRO" in
-    "Ubuntu")
-      # Use Ubuntu colors (grey / aubergine / orange)
-      PS1="${debian_chroot:+($debian_chroot)}\[\e[38;5;202m\]\@ | \[\e[38;5;245m\]\u\[\e[00m\]@\[\e[38;5;172m\]\h \[\e[0m\]\w\[\e[38;5;202m\]\$(git_branch)\[\e[0m\]\$(byobu_prompt_symbol) "
-      export GREP_COLORS="ms=01;38;5;202:mc=01;31:sl=:cx=:fn=01;38;5;132:ln=32:bn=32:se=00;38;5;242"
-      export LESS_TERMCAP_mb=$(printf '\e[01;31m')       # enter blinking mode – red
-      export LESS_TERMCAP_md=$(printf '\e[01;38;5;180m') # enter double-bright mode – bold light orange
-      export LESS_TERMCAP_me=$(printf '\e[0m')           # turn off all appearance modes (mb, md, so, us)
-      export LESS_TERMCAP_se=$(printf '\e[0m')           # leave standout mode
-      export LESS_TERMCAP_so=$(printf '\e[03;38;5;202m') # enter standout mode – orange background highlight (or italics)
-      export LESS_TERMCAP_ue=$(printf '\e[0m')           # leave underline mode
-      export LESS_TERMCAP_us=$(printf '\e[04;38;5;139m') # enter underline mode – underline aubergine
-    ;;
-    *)
-      # Use nice colors (green / red / blue)
-      PS1="${debian_chroot:+($debian_chroot)}\[\e[31m\]\@ | \[\e[00;32m\]\u\[\e[0m\]@\[\e[00;31m\]\h\[\e[0m\]:\[\e[00;36m\]\w\[\e[31m\]\$(git_branch)\[\e[0m\]\$(byobu_prompt_symbol) "
-    ;;
-  esac
+  PS1="${debian_chroot:+($debian_chroot)}\[\e[38;5;202m\]\@ | \[\e[38;5;245m\]\u\[\e[00m\]@\[\e[38;5;172m\]\h \[\e[0m\]\w\[\e[38;5;202m\]\$(git_branch)\[\e[0m\]\$(byobu_prompt_symbol) "
+  export GREP_COLORS="ms=01;38;5;202:mc=01;31:sl=:cx=:fn=01;38;5;132:ln=32:bn=32:se=00;38;5;242"
+  export LESS_TERMCAP_mb=$(printf '\e[01;31m')       # enter blinking mode – red
+  export LESS_TERMCAP_md=$(printf '\e[01;38;5;180m') # enter double-bright mode – bold light orange
+  export LESS_TERMCAP_me=$(printf '\e[0m')           # turn off all appearance modes (mb, md, so, us)
+  export LESS_TERMCAP_se=$(printf '\e[0m')           # leave standout mode
+  export LESS_TERMCAP_so=$(printf '\e[03;38;5;202m') # enter standout mode – orange background highlight (or italics)
+  export LESS_TERMCAP_ue=$(printf '\e[0m')           # leave underline mode
+  export LESS_TERMCAP_us=$(printf '\e[04;38;5;139m') # enter underline mode – underline aubergine
 fi
