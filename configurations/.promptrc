@@ -57,7 +57,7 @@ if [ -n "$BASH" ]; then
     ;;
     *)
       # Use nice colors (green / red / blue)
-      PS1="${debian_chroot:+($debian_chroot)}\[\e[31m\]\$(byobu_prompt_status)\[\e[00;32m\]\u\[\e[0m\]@\[\e[00;31m\]\h\[\e[0m\]:\[\e[00;36m\]\w\[\e[0m\]\$(byobu_prompt_symbol) "
+      PS1="${debian_chroot:+($debian_chroot)}\[\e[31m\]\@ | \[\e[00;32m\]\u\[\e[0m\]@\[\e[00;31m\]\h\[\e[0m\]:\[\e[00;36m\]\w\[\e[31m\]\$(git_branch)\[\e[0m\]\$(byobu_prompt_symbol) "
     ;;
   esac
 fi
