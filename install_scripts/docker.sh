@@ -10,28 +10,34 @@ else
 	ROOT=$(pwd)
 fi
 
-if [ ! $CONFIGURATIONS_DONE ];then
-    $($ROOT/install_scripts/dependencies.sh)
-fi
+. $ROOT/envset.sh
 
 echo "Docker Installation.. pwd: $PWD, root: $ROOT, core: $CORE"
-
-if [ $(echo $OSTYPE | grep linux) ];then
-    sudo apt-get remove docker docker-engine docker.io
-    sudo apt-get install \
+if [ $OS == "ubuntu" ];then
+    ${SUDO} apt-get remove docker docker-engine docker.io
+    ${SUDO} apt-get install \
         apt-transport-https \
         ca-certificates \
         curl \
         software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${SUDO} apt-key add -
+    ${SUDO} add-apt-repository \
        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
        $(lsb_release -cs) \
        stable"
-    sudo apt-get update
-    sudo apt install docker-ce
-else [ $(echo $OSTYPE | grep darwin) ];then
+    ${SUDO} apt-get update
+    ${SUDO} apt install docker-ce
+elif [ $OS == "cent" ];then
+    ${SUDO} yum remove docker docker-common docker-selinux docker-engine
+    ${SUDO} yum install yum-utils device-mapper-persistent-data lvm2
+    ${SUDO} yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    ${SUDO} yum makecache fast
+    ${SUDO} yum install docker-ce
+    ${SUDO} systemctl start docker
+    ${SUDO} docker run hello-world
+elif [ $OS == "mac" ];then
     curl -L https://download.docker.com/mac/stable/Docker.dmg -o $HOME/Docker.dmg
+    echo "Run $HOME/Docker.dmg manually"
 fi
 
 DOCKER_DONE=1

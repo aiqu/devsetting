@@ -17,14 +17,18 @@ if [ ! $CONFIGURATIONS_DONE ];then
 fi
 
 TAG=2.14.0-rc0
-INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
+if [ -z ${REINSTALL_GIT+x}];then
+    INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
+else
+    INSTALLED_VERSION=""
+fi
 
 if [ "$TAG" == "$INSTALLED_VERSION" ];then
     echo "Git is installed already"
 else
     echo "Git installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 
-    if [ $(echo $OSTYPE | grep 'darwin') ]; then
+    if [ $OS == "mac" ]; then
         export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
         ALIAS_FILE='/usr/local/bin/docbook2texi'
         ln -fs $ALIAS_FILE /usr/local/bin/docbook2x-texi
@@ -44,6 +48,7 @@ else
         unzip ${FILENAME}
     fi
     cd git-${TAG}
+    make clean
     make configure
     ./configure --prefix=$HOME/.local
     make -j$CORE all doc && make install install-doc

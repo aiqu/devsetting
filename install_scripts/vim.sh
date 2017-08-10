@@ -24,6 +24,10 @@ cd $ROOT
 git submodule init
 git submodule update
 cd $REPO/vim
+if [ ! -z ${REINSTALL_VIM+x} ];then
+    make uninstall
+    make clean
+fi
 make -j$CORE && make install
 
 mkdir -p $HOME/.vim
@@ -35,7 +39,7 @@ then
 fi
 
 vim +PluginInstall +PluginUpdate +qall
-unzip $ROOT/taglist_46.zip -d ~/.vim/
+unzip -u $ROOT/taglist_46.zip -d ~/.vim/
 
 cd $PWD
 

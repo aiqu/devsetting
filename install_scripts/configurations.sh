@@ -19,7 +19,7 @@ fi
 if [ $(echo $OSTYPE | grep 'linux') ];then
 	READLINK='readlink'
     CORE=$(cat /proc/cpuinfo | grep processor | wc -l)
-elif [ $(echo $OSTYPE | grep 'darwin') ];then
+elif [ $OS == "mac" ];then
 	READLINK='greadlink'
     CORE=$(sysctl -n hw.ncpu)
 fi
@@ -34,7 +34,7 @@ done
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
     rm $HOME/.bash_profile
-elif [$(echo $OSTYPE | grep 'darwin') ];then
+elif [ $OS == "mac" ];then
     rm $HOME/.bashrc
 fi
 

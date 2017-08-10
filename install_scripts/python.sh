@@ -18,14 +18,6 @@ echo "Pyenv installation.. pwd: $PWD, root: $ROOT"
 
 mkdir -p $HOME/.lib
 
-if ! grep -q "PYENV_ROOT" "$ENVFILE" ;then
-    echo '## PYENV CONFIGURATION ##' >> $ENVFILE
-    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $ENVFILE
-    echo 'export PATH=$PYENV_ROOT/bin:$PATH' >> $ENVFILE
-    echo 'eval "$(pyenv init -)"' >> $ENVFILE
-    echo 'eval "$(pyenv virtualenv-init -)"' >> $ENVFILE
-fi
-
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"

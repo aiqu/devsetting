@@ -12,23 +12,24 @@ if [ ! $ROOT ];then
     fi
 fi
 
-PWD=$(pwd)
+. $ROOT/envset.sh
+
 echo "Dependencies installation.. pwd: $PWD, root: $ROOT"
 
-if [ $(echo $OSTYPE | grep 'linux') ]; then
-	PKG_LIST="build-essential \
-		cmake \
-		libncurses5-dev \
-		cscope \
-		ctags \
-		unzip \
-		pkg-config \
-		autoconf \
-		automake \
-		dh-autoreconf \
-		autotools-dev \
-		debhelper \
-		libconfuse-dev \
+if [ $OS == "ubuntu" ]; then
+    PKG_LIST="build-essential \
+        cmake \
+        libncurses5-dev \
+        cscope \
+        ctags \
+        unzip \
+        pkg-config \
+        autoconf \
+        automake \
+        dh-autoreconf \
+        autotools-dev \
+        debhelper \
+        libconfuse-dev \
         libssl-dev \
         libcurl4-openssl-dev \
         libexpat1-dev \
@@ -36,12 +37,40 @@ if [ $(echo $OSTYPE | grep 'linux') ]; then
         asciidoc \
         xmlto \
         docbook2x \
-		"
-	sudo apt update
-	sudo apt install $PKG_LIST
-
-    ENVFILE="$HOME/.bashrc"
-elif [ $(echo $OSTYPE | grep 'darwin') ]; then
+        "
+    ${SUDO} apt update
+    ${SUDO} apt install $PKG_LIST
+elif [ $OS == "cent" ];then
+    ${SUDO} yum install epel-release
+    ${SUDO} yum update
+    ${SUDO} yum groupinstall "Development Tools"
+    PKG_LIST="\
+        cmake \
+        ncurses-libs \
+        cscope \
+        ctags \
+        unzip \
+        pkgconfig \
+        autoconf \
+        automake \
+        libconfuse-devel \
+        openssl-devel openssl-libs \
+        curl-devel libcurl \
+        expat-devel \
+        gettext-devel \
+        zlib-devel \
+        openssh-server \
+        asciidoc \
+        xmlto \
+        docbook2X \
+        perl-ExtUtils-MakeMaker \
+        readline \
+        bzip2-devel \
+        readline-devel \
+        libsqlite3x-devel \
+        "
+    ${SUDO} yum install ${PKG_LIST}
+elif [ $OS == "mac" ]; then
     set +e
     which -s brew
     if [ $? != 0 ];then
@@ -88,9 +117,6 @@ elif [ $(echo $OSTYPE | grep 'darwin') ]; then
     brew link --force gettext
 
     set -e
-    
-    ENVFILE="$HOME/.bash_profile"
 fi
 
 DEPENDENCIES_DONE=1
-
