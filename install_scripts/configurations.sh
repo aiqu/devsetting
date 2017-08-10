@@ -32,6 +32,12 @@ for f in `ls $CONF_FOLDER/.[^\.]*`;do
 	ln -sf $f $HOME/
 done
 
+if [ $(echo $OSTYPE | grep 'linux') ];then
+    rm $HOME/.bash_profile
+elif [$(echo $OSTYPE | grep 'darwin') ];then
+    rm $HOME/.bashrc
+fi
+
 BIN_FOLDER=`$READLINK -f $ROOT/bin`
 
 mkdir -p $HOME/bin
