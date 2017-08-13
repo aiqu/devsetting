@@ -46,7 +46,11 @@ fi
 
 #install tensorflow
 cd $SRC_DIR
-if [ -f tensorflow ];then
+if [ -d $TF_SRC_DIR ];then
+    cd $TF_SRC_DIR
+    git fetch
+    git checkout v1.3.0-rc1
+else
     git clone https://github.com/tensorflow/tensorflow -b v1.3.0-rc1
 fi
 cd $TF_SRC_DIR

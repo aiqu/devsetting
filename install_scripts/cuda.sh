@@ -57,7 +57,7 @@ if [ $OS == "ubuntu" ];then
             cuda-driver-dev-$CUDA_PKG_VERSION \
             libcudnn7=$CUDNN_VERSION-1+cuda8.0 \
             libcudnn7-dev=$CUDNN_VERSION-1+cuda8.0 && \
-            ${SUDO} ln -s cuda-8.0 /usr/local/cuda
+            ${SUDO} ln -s /usr/local/cuda-8.0 /usr/local/cuda
 
     echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/cuda.conf && ldconfig
 
@@ -97,7 +97,7 @@ elif [ $OS == "cent" ];then
             cuda-npp-dev-$CUDA_PKG_VERSION \
             cuda-cudart-dev-$CUDA_PKG_VERSION \
             cuda-driver-dev-$CUDA_PKG_VERSION && \
-            ln -s cuda-8.0 /usr/local/cuda && \
+            ln -s /usr/local/cuda-8.0 /usr/local/cuda && \
             echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/cuda.conf && ldconfig
         
     CUDNN_DOWNLOAD_SUM=9b09110af48c9a4d7b6344eb4b3e344daa84987ed6177d5c44319732f3bb7f9c && \
