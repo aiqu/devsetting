@@ -28,7 +28,7 @@ echo "Configurations. pwd: $PWD, root: $ROOT, core: $CORE"
 
 CONF_FOLDER=`$READLINK -f $ROOT/configurations`
 
-for f in `ls $CONF_FOLDER/.[^\.]*`;do
+for f in `ls -d $CONF_FOLDER/.[^\.]*`;do
 	ln -sf $f $HOME/
 done
 
@@ -39,5 +39,7 @@ mkdir -p $HOME/bin
 for f in `ls $BIN_FOLDER/*`;do
 	ln -sf $f $HOME/bin/
 done
+
+byobu-enable
 
 CONFIGURATIONS_DONE=1
