@@ -37,6 +37,7 @@ if [ $OS == "ubuntu" ]; then
         asciidoc \
         xmlto \
         docbook2x \
+        byobu \
         "
     ${SUDO} apt update
     ${SUDO} apt install $PKG_LIST
@@ -68,6 +69,7 @@ elif [ $OS == "cent" ];then
         bzip2-devel \
         readline-devel \
         libsqlite3x-devel \
+        byobu \
         "
     ${SUDO} yum install ${PKG_LIST}
 elif [ $OS == "mac" ]; then
