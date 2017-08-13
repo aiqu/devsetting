@@ -12,6 +12,11 @@ fi
 
 . $ROOT/envset.sh
 
+if [ ! $(whoami) == 'root' ];then
+    echo "run it with sudo"
+    exit 1
+fi
+
 if [ $OS == "ubuntu" ];then
     NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
         NVIDIA_GPGKEY_FPR=ae09fe4bbd223a84b2ccfce3f60f4b3d7fa2af80 && \
@@ -23,7 +28,7 @@ if [ $OS == "ubuntu" ];then
 
     export CUDA_VERSION=8.0.61
     export CUDA_PKG_VERSION=8-0=$CUDA_VERSION-1
-    export CUDNN_VERSION=7.0.1.13
+    export CUDNN_VERSION=6.0.21
 
     apt update
     apt-get install -y --no-install-recommends \
@@ -65,7 +70,7 @@ elif [ $OS == "cent" ];then
 
     export CUDA_VERSION=8.0.61
     export CUDA_PKG_VERSION=8-0-$CUDA_VERSION-1
-    export CUDNN_VERSION=7.0.1.13
+    export CUDNN_VERSION=6.0.21
 
     yum install -y \
             cuda-nvrtc-$CUDA_PKG_VERSION \
@@ -95,14 +100,10 @@ elif [ $OS == "cent" ];then
             ln -s cuda-8.0 /usr/local/cuda && \
             echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/cuda.conf && ldconfig
         
-    CUDNN_DOWNLOAD_SUM=288d844ab289b56d0c7b6719a34c7c0b57a01c58ffbe4d582c9b539da96ed2a7 && \
-        curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.0.1/cudnn-8.0-linux-x64-v7.tgz -O && \
-        echo "$CUDNN_DOWNLOAD_SUM  cudnn-8.0-linux-x64-v7.tgz" | sha256sum -c - && \
-        tar --no-same-owner -xzf cudnn-8.0-linux-x64-v7.tgz -C /usr/local && \
-        rm cudnn-8.0-linux-x64-v7.tgz && \
+    CUDNN_DOWNLOAD_SUM=9b09110af48c9a4d7b6344eb4b3e344daa84987ed6177d5c44319732f3bb7f9c && \
+        curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-8.0-linux-x64-v6.0.tgz -O && \
+        echo "$CUDNN_DOWNLOAD_SUM  cudnn-8.0-linux-x64-v6.0.tgz" | sha256sum -c - && \
+        tar --no-same-owner -xzf cudnn-8.0-linux-x64-v6.0.tgz -C /usr/local && \
+        rm cudnn-8.0-linux-x64-v6.0.tgz && \
         ldconfig
-
-    curl -LO https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-8.0.61-1.x86_64.rpm
-    ${SUDO} rpm -i cuda-repo-rhel7-8.0.61-1.x86_64.rpm
-    ${SUDO} yum install cuda
 fi
