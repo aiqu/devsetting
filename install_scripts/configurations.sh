@@ -43,6 +43,6 @@ for f in `ls $BIN_FOLDER/*`;do
 	ln -sf $f $HOME/bin/
 done
 
-byobu-enable
+byobu-enable&
 
 CONFIGURATIONS_DONE=1
