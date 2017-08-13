@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e 
+set -e
 
 if [ ! $ROOT ];then
     if [ ! -d 'configurations' ];then
@@ -11,6 +11,11 @@ if [ ! $ROOT ];then
 fi
 
 source $ROOT/envset.sh
+
+SRC_DIR=$HOME
+BAZEL_DIR=${SRC_DIR}/bazel
+TF_SRC_DIR=${SRC_DIR}/tensorflow
+TF_PKG_DIR=${TF_SRC_DIR}/tensorflow_pkg
 
 #install prerequisites
 $SUDO yum install epel-release
@@ -32,7 +37,7 @@ fi
 # tensorflow v1.3.0-rc1 branch cannot build with bazel-0.5.3
 # use 0.5.2
 if ! bazel version | grep -q '0.5.2' ;then
-    cd ~
+    cd $SRC_DIR
     curl -LO https://github.com/bazelbuild/bazel/releases/download/0.5.2/bazel-0.5.2-dist.zip
     unzip bazel-0.5.2-dist.zip -d bazel && cd bazel
     ./compile.sh
@@ -40,16 +45,15 @@ if ! bazel version | grep -q '0.5.2' ;then
 fi
 
 #install tensorflow
-cd ~
+cd $SRC_DIR
 if [ -f tensorflow ];then
     git clone https://github.com/tensorflow/tensorflow -b v1.3.0-rc1
 fi
-cd tensorflow
+cd $TF_SRC_DIR
 #if you are using pyenv, make sure disable pyenv environment configuration
 #otherwise, it will cause error because of the shim wrapper
 ./configure
 bazel build -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-msse4.2 --copt=-mfpmath=both --config=cuda -k //tensorflow/tools/pip_package:build_pip_package
-bazel-bin/tensorflow/tools/pip_package/build_pip_package tensorflow_pkg
-cd ~
-$SUDO pip install tensorflow/tensorflow_pkg/tensorflow-1.3.0rc1-cp27-cp27mu-linux_x86_64.whl
+bazel-bin/tensorflow/tools/pip_package/build_pip_package $TF_PKG_DIR
+echo "output file created at $TF_PKG_DIR"
 #test with python;import tensorflow as tf
