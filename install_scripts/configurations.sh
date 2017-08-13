@@ -29,6 +29,9 @@ echo "Configurations. pwd: $PWD, root: $ROOT, core: $CORE"
 CONF_FOLDER=`$READLINK -f $ROOT/configurations`
 
 for f in `ls -d $CONF_FOLDER/.[^\.]*`;do
+    if [ -d $HOME/$(basename $f) ];then
+        rm -rf $HOME/$(basename $f)
+    fi
 	ln -sf $f $HOME/
 done
 
