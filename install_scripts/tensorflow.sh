@@ -65,5 +65,6 @@ cd $TF_SRC_DIR
 ./configure
 bazel build -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-msse4.2 --copt=-mfpmath=both --config=cuda -k //tensorflow/tools/pip_package:build_pip_package
 bazel-bin/tensorflow/tools/pip_package/build_pip_package $TF_PKG_DIR
+echo "---------------------------------"
 echo "output file created at $TF_PKG_DIR"
 #test with python;import tensorflow as tf
