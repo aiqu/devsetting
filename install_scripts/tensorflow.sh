@@ -24,7 +24,7 @@ $SUDO yum groupinstall 'Development Tools'
 $SUDO yum install which wget git unzip zip python-devel.x86_64 python-pip python-wheel numpy scipy
 
 #install jdk8
-if ! java -version 2>&1 | grep -q '1.8' | ! javac -version 2>&1 | grep -q '1.8' ;then
+if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8' || ! which jar 2>/dev/null ;then
     cd /opt
     JDK_FILENAME=jdk-8u141-linux-x64.tar.gz
     $SUDO wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/$JDK_FILENAME"
