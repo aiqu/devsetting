@@ -38,6 +38,7 @@ then
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
+. $ENVFILE
 vim +PluginInstall +PluginUpdate +qall
 unzip -u $ROOT/taglist_46.zip -d ~/.vim/
 
