@@ -141,3 +141,7 @@ export PATH=$PYENV_ROOT/bin:$PATH
 #eval "$(pyenv virtualenv-init -)"
 . $HOME/.promptrc
 . $HOME/.git-completion
+
+if [ -d $HOME/c3 ];then
+    source $HOME/c3/source.me
+fi
