@@ -71,7 +71,7 @@ elif [ $OS == "cent" ];then
         readline-devel \
         libsqlite3x-devel \
         byobu \
-        xy-devel \
+        xz-devel \
         "
     ${SUDO} yum install -y ${PKG_LIST}
 elif [ $OS == "mac" ]; then
