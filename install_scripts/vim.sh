@@ -39,7 +39,7 @@ then
 fi
 
 . $ENVFILE
-vim +PluginInstall +PluginUpdate +qall
+$HOME/.local/bin/vim +PluginInstall +PluginUpdate +qall
 unzip -u $ROOT/taglist_46.zip -d ~/.vim/
 
 cd $PWD
