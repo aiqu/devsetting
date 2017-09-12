@@ -70,10 +70,8 @@ elif [ $OS == "cent" ];then
         readline-devel \
         libsqlite3x-devel \
         byobu \
-        cmake3 \
         "
     ${SUDO} yum install -y ${PKG_LIST}
-    ln -s /usr/bin/cmake3 $HOME/bin/cmake
 elif [ $OS == "mac" ]; then
     set +e
     which -s brew
