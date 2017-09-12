@@ -142,6 +142,15 @@ export PATH=$PYENV_ROOT/bin:$PATH
 . $HOME/.promptrc
 . $HOME/.git-completion
 
+MY_INCLUDE_DIR=$HOME/.local/include
+MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
+MY_PKG_CONFIG_DIR=$HOME/.local/lib/pkgconfig:$HOME/.local/lib64/pkgconfig
+
+export CPATH=$MY_INCLUDE_DIR:$CPATH
+export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:$LD_LIBRARY_PATH
+export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
+export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
+
 if [ -d $HOME/c3 ];then
     source $HOME/c3/source.me
 fi
