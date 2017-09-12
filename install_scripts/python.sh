@@ -27,8 +27,8 @@ curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv
 
 set +e
 
-pyenv install 2.7.13
-pyenv install 3.6.1
+pyenv install -s 2.7.13
+pyenv install -s 3.6.1
 
 echo "---"
 echo "Type \"source $ENVFILE\""
