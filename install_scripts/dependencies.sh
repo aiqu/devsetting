@@ -40,11 +40,11 @@ if [ $OS == "ubuntu" ]; then
         byobu \
         "
     ${SUDO} apt update
-    ${SUDO} apt install $PKG_LIST
+    ${SUDO} apt install -y $PKG_LIST
 elif [ $OS == "cent" ];then
-    ${SUDO} yum install epel-release
+    ${SUDO} yum install -y epel-release
     ${SUDO} yum update
-    ${SUDO} yum groupinstall "Development Tools"
+    ${SUDO} yum groupinstall -y "Development Tools"
     PKG_LIST="\
         cmake \
         ncurses-libs \
@@ -71,7 +71,7 @@ elif [ $OS == "cent" ];then
         libsqlite3x-devel \
         byobu \
         "
-    ${SUDO} yum install ${PKG_LIST}
+    ${SUDO} yum install -y ${PKG_LIST}
 elif [ $OS == "mac" ]; then
     set +e
     which -s brew
