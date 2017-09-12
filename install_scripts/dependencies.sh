@@ -38,7 +38,6 @@ if [ $OS == "ubuntu" ]; then
         xmlto \
         docbook2x \
         byobu \
-        liblzma-dev \
         "
     ${SUDO} apt update
     ${SUDO} apt install -y $PKG_LIST
@@ -71,9 +70,10 @@ elif [ $OS == "cent" ];then
         readline-devel \
         libsqlite3x-devel \
         byobu \
-        xz-devel \
+        cmake3 \
         "
     ${SUDO} yum install -y ${PKG_LIST}
+    ln -s /usr/bin/cmake3 $HOME/bin/cmake
 elif [ $OS == "mac" ]; then
     set +e
     which -s brew
@@ -100,7 +100,6 @@ elif [ $OS == "mac" ]; then
         asciidoc \
         xmlto \
         docbook2x \
-        xz \
         "
     for pkg in $PKG_LIST;do
         version=`brew ls --versions $pkg`
