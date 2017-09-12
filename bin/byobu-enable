@@ -24,13 +24,4 @@ PKG="byobu"
 
 byobu-launcher-install
 
-echo
-echo "The Byobu window manager will be launched automatically at each text login."
-echo
-echo "To disable this behavior later, just run:"
-echo "  byobu-disable"
-echo
-printf "Press <enter> to continue..."
-$(head -n1)
-
 # vi: syntax=sh ts=4 noexpandtab
