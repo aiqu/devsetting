@@ -27,8 +27,8 @@ curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv
 
 set +e
 
-env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv -s install 2.7.13
-env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv -s install 3.6.1
+env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -s 2.7.13
+env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -s 3.6.1
 
 echo "---"
 echo "Type \"source $ENVFILE\""
