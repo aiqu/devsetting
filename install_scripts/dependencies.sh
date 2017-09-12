@@ -38,6 +38,7 @@ if [ $OS == "ubuntu" ]; then
         xmlto \
         docbook2x \
         byobu \
+        liblzma-dev \
         "
     ${SUDO} apt update
     ${SUDO} apt install -y $PKG_LIST
@@ -70,6 +71,7 @@ elif [ $OS == "cent" ];then
         readline-devel \
         libsqlite3x-devel \
         byobu \
+        xy-devel \
         "
     ${SUDO} yum install -y ${PKG_LIST}
 elif [ $OS == "mac" ]; then
@@ -98,6 +100,7 @@ elif [ $OS == "mac" ]; then
         asciidoc \
         xmlto \
         docbook2x \
+        xz \
         "
     for pkg in $PKG_LIST;do
         version=`brew ls --versions $pkg`
