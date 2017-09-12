@@ -17,10 +17,10 @@ if [ ! $DEPENDENCIES_DONE ];then
 fi
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
-	READLINK='readlink'
+    READLINK='readlink'
     CORE=$(cat /proc/cpuinfo | grep processor | wc -l)
 elif [ $OS == "mac" ];then
-	READLINK='greadlink'
+    READLINK='greadlink'
     CORE=$(sysctl -n hw.ncpu)
 fi
 
@@ -32,7 +32,7 @@ for f in `ls -d $CONF_FOLDER/.[^\.]*`;do
     if [ -d $HOME/$(basename $f) ];then
         rm -rf $HOME/$(basename $f)
     fi
-	ln -sf $f $HOME/
+    ln -sf $f $HOME/$(basename $f)
 done
 
 BIN_FOLDER=`$READLINK -f $ROOT/bin`
@@ -43,6 +43,6 @@ for f in `ls $BIN_FOLDER/*`;do
 	ln -sf $f $HOME/bin/
 done
 
-byobu-enable&
+bash $(ROOT)/bin/byobu-enable
 
 CONFIGURATIONS_DONE=1
