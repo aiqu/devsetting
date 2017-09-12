@@ -117,7 +117,7 @@ if [ $(echo $OSTYPE | grep 'linux') ];then
       fi
     fi
 
-    export LC_ALL=en_US.utf8
+    #export LC_ALL=en_US.utf8
     alias startvpn='sudo systemctl start openvpn@client.service'
     alias stopvpn='sudo systemctl stop openvpn@client.service'
     alias resetvpn='sudo systemctl stop openvpn@client.service && sudo systemctl start openvpn@client.service'
