@@ -28,7 +28,8 @@ if [ ! -z ${REINSTALL_CMAKE+x} ];then
     make uninstall
     make clean
 fi
-./bootstrap --prefix=$HOME/.local
+mkdir -p build;cd build
+../bootstrap --parallel=$(nproc) --prefix=$HOME/.local
 make -j$CORE && make install
 
 cd $PWD
