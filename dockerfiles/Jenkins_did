@@ -3,7 +3,7 @@ FROM jenkins:latest
 USER root
 
 RUN mkdir -p /tmp && git clone https://github.com/aiqu/devsetting && \
-        cd devsetting && bash install_scripts/docker.sh
+        cd devsetting && bash install_scripts/docker.sh && rm -rf /tmp/devsetting
 
 RUN usermod -aG sudo jenkins
 
