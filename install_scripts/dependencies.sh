@@ -41,7 +41,7 @@ if [ $OS == "ubuntu" ]; then
         "
     ${SUDO} apt update
     ${SUDO} apt install -y $PKG_LIST
-elif [ $OS == "cent" ];then
+elif [ $OS == "centos" ];then
     ${SUDO} yum install -y epel-release
     ${SUDO} yum update -y
     ${SUDO} yum groupinstall -y "Development Tools"

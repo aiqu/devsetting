@@ -19,10 +19,8 @@ fi
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
     ENVFILE="$HOME/.bashrc"
-    if [ -f /etc/lsb-release ]; then
-        OS="ubuntu"
-    elif [ -f /etc/redhat-release ];then
-        OS="cent"
+    if [[ -f /etc/os-release ]]; then
+        OS=$(cat /etc/os-release | grep ^ID= | sed 's/ID=[^a-zA-Z]*\([a-zA-Z]\+\)[^a-zA-Z]*/\1/')
     else
         echo "Unknown linux distro"
         exit 1
@@ -34,3 +32,5 @@ else
     echo "Unkown distro"
     exit 1
 fi
+
+echo "Current OS is "$OS
