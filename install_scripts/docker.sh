@@ -14,8 +14,12 @@ fi
 
 echo "Docker Installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
+    PREV_PACKAGE="docker docker.io"
+    if [ $OS == "ubuntu" ];then
+        PREV_PACKAGE="${PREV_PACKAGE} docker-engine"
+    fi
     ${SUDO} apt-get update -y
-    ${SUDO} apt-get remove -y docker docker-engine docker.io
+    ${SUDO} apt-get remove -y ${PREV_PACKAGE}
     ${SUDO} apt-get install -y \
         apt-transport-https \
         ca-certificates \
