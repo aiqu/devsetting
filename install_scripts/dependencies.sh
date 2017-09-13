@@ -16,7 +16,7 @@ fi
 
 echo "Dependencies installation.. pwd: $PWD, root: $ROOT"
 
-if [ $OS == "ubuntu" ]; then
+if [ $OS == "ubuntu" ] || [ $OS == "debian" ]; then
     PKG_LIST="build-essential \
         cmake \
         libncurses5-dev \

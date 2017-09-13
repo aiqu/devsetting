@@ -13,7 +13,7 @@ fi
 . $ROOT/envset.sh
 
 echo "Docker Installation.. pwd: $PWD, root: $ROOT, core: $CORE"
-if [ $OS == "ubuntu" ];then
+if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
     ${SUDO} apt-get remove -y docker docker-engine docker.io
     ${SUDO} apt-get install -y \
         apt-transport-https \
