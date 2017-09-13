@@ -10,6 +10,7 @@ fi
 
 DEPENDENCIES_DONE=true
 source "$ROOT/install_scripts/configurations.sh"
+source "$ROOT/install_scripts/cmake.sh"
 source "$ROOT/install_scripts/git.sh"
 source "$ROOT/install_scripts/vim.sh"
 source "$ROOT/install_scripts/python.sh"
