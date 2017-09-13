@@ -2,9 +2,15 @@ FROM jenkins:latest
 
 USER root
 
-RUN mkdir -p /tmp && \
-        git clone https://github.com/aiqu/devsetting /tmp/devsetting && \
-        cd /tmp/devsetting && \
-        OS=bash install_scripts/docker.sh
+RUN mkdir -p /tmp && git clone https://github.com/aiqu/devsetting && \
+        cd devsetting && bash install_scripts/docker.sh
 
-VOLUME /var/jenkins_home /var/lib/docker
+RUN usermod -aG sudo jenkins
+
+RUN chmod u+w /etc/sudoers && \
+        sed -i 's/ALL=(ALL:ALL) /\0NOPASSWD:/g' /etc/sudoers && \
+        chmod u-w /etc/sudoers
+
+VOLUME /var/jenkins_home /var/run/docker.sock /workspace
+
+USER jenkins
