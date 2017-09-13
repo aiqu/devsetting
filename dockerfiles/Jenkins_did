@@ -1,0 +1,10 @@
+FROM jenkins:latest
+
+USER root
+
+RUN mkdir -p /tmp && \
+        git clone https://github.com/aiqu/devsetting /tmp/devsetting && \
+        cd /tmp/devsetting && \
+        OS=bash install_scripts/docker.sh
+
+VOLUME /var/jenkins_home /var/lib/docker
