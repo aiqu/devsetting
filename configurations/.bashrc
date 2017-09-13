@@ -154,6 +154,8 @@ export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:
 export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
 export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
 
+export EDITOR=vim
+
 if [ -d $HOME/c3 ];then
     source $HOME/c3/source.me
 fi
