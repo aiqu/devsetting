@@ -1,5 +1,8 @@
 FROM centos:7.3.1611
 
+ARG CFLAGS
+ENV CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS
+
 RUN yum update -y && \
         yum install -y epel-release && \
         yum update -y && \
