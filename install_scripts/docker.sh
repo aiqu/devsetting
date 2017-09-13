@@ -14,12 +14,8 @@ fi
 
 echo "Docker Installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
-    PREV_PACKAGE="docker docker.io"
-    if [ $OS == "ubuntu" ];then
-        PREV_PACKAGE="${PREV_PACKAGE} docker-engine"
-    fi
     ${SUDO} apt-get update -y
-    ${SUDO} apt-get remove -y ${PREV_PACKAGE}
+    ${SUDO} apt-get remove -y docker docker-engine docker.io
     ${SUDO} apt-get install -y \
         apt-transport-https \
         ca-certificates \
@@ -28,6 +24,22 @@ if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${SUDO} apt-key add -
     ${SUDO} add-apt-repository -y \
        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       stable"
+    ${SUDO} apt-get update -y
+    ${SUDO} apt install -y docker-ce
+elif [ $OS == "debian" ];then
+    ${SUDO} apt-get update -y
+    ${SUDO} apt-get remove -y docker docker.io
+    ${SUDO} apt-get install -y \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg2 \
+        software-properties-common
+    curl -fsSL https://download.docker.com/linux/debian/gpg | ${SUDO} apt-key add -
+    ${SUDO} add-apt-repository -y \
+       "deb [arch=amd64] https://download.docker.com/linux/debian \
        $(lsb_release -cs) \
        stable"
     ${SUDO} apt-get update -y
