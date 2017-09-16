@@ -3,14 +3,14 @@ FROM jenkins:latest
 USER root
 
 RUN mkdir -p /tmp && git clone https://github.com/aiqu/devsetting && \
-        cd devsetting && bash install_scripts/docker.sh && rm -rf /tmp/devsetting
+        cd devsetting && bash install_scripts/docker.sh && \
+        rm -rf /tmp/devsetting && yum clean
 
-RUN usermod -aG sudo jenkins
-
-RUN chmod u+w /etc/sudoers && \
+RUN usermod -aG sudo docker jenkins && chmod u+w /etc/sudoers && \
         sed -i 's/ALL=(ALL:ALL) /\0NOPASSWD:/g' /etc/sudoers && \
         chmod u-w /etc/sudoers
 
 VOLUME /var/jenkins_home /var/run/docker.sock /workspace
+EXPOSE 8080 50000
 
 USER jenkins
