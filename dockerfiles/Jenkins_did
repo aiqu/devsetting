@@ -6,7 +6,7 @@ RUN mkdir -p /tmp && git clone https://github.com/aiqu/devsetting && \
         cd devsetting && bash install_scripts/docker.sh && \
         rm -rf /tmp/devsetting && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-RUN usermod -aG sudo docker jenkins && chmod u+w /etc/sudoers && \
+RUN usermod -aG sudo,docker jenkins && chmod u+w /etc/sudoers && \
         sed -i 's/ALL=(ALL:ALL) /\0NOPASSWD:/g' /etc/sudoers && \
         chmod u-w /etc/sudoers
 
