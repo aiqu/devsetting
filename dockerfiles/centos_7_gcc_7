@@ -1,0 +1,31 @@
+FROM gwangmin/devsetting:centos_7_dev
+
+ARG VER="7_2_0"
+ARG TEMP_DIR=/tmpgcc
+ARG GCC_SOURCE_DIR=$TEMP_DIR/gcc-gcc-$VER-release
+ARG GCC_BUILD_DIR=$TEMP_DIR/gcc-build
+ARG CFLAGS="-O2 -pipe"
+ENV CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS
+
+ARG GMP="gmp-6.1.2"
+ARG MPFR="mpfr-3.1.6"
+ARG MPC="mpc-1.0.3"
+ARG ISL="isl-0.16.1"
+
+RUN mkdir -p $TEMP_DIR && cd $TEMP_DIR && \
+        curl -LO https://github.com/gcc-mirror/gcc/archive/gcc-$VER-release.zip && unzip gcc-$VER-release.zip && \
+        cd $GCC_SOURCE_DIR && \
+        curl -L https://gmplib.org/download/gmp/$GMP.tar.xz | tar xJf - && \
+        curl -L http://www.mpfr.org/mpfr-current/$MPFR.tar.xz | tar xJf - && \
+        curl -L ftp://ftp.gnu.org/gnu/mpc/$MPC.tar.gz | tar xzf - && \
+        curl -L ftp://gcc.gnu.org/pub/gcc/infrastructure/$ISL.tar.bz2 | tar xjf - && \
+        mv $GMP gmp && \
+        mv $MPFR mpfr && \
+        mv $MPC mpc && \
+        mv $ISL isl && \
+        mkdir $GCC_BUILD_DIR && \
+        cd $GCC_BUILD_DIR && \
+        $GCC_SOURCE_DIR/configure --disable-multilib --with-arch=core-avx2 --with-language=c,c++,fortran,go && \
+        make -j$(nproc) && \
+        make install-strip && \
+        rm -rf $TEMP_DIR && unset CFLAGS && unset CXXFLAGS
