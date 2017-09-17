@@ -1,0 +1,14 @@
+ARG BASEIMG=centos_7_dev
+FROM gwangmin/$BASEIMG
+
+ARG CFLAGS="-march=core2 -O2 -pipe"
+
+RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
+        yum update -y && \
+        yum install -y epel-release && \
+        yum update -y && \
+        yum install -y git sudo && \
+        cd $HOME && mkdir .lib && cd .lib && \
+        git clone https://github.com/aiqu/devsetting.git && \
+        cd devsetting && bash all.sh && \
+        yum clean all && rm -rf /var/cache/yum

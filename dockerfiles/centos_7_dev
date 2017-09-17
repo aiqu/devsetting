@@ -1,6 +1,8 @@
 FROM centos:7.3.1611
 
-RUN yum update -y
-RUN yum install -y epel-release && yum update -y
-RUN yum groupinstall -y 'Development Tools'
-RUN yum install git
+RUN yum update -y && \
+        yum install -y epel-release && \
+        yum update -y && \
+        yum groupinstall -y 'Development Tools' && \
+        yum install git && \
+        yum clean all && rm -rf /var/cache/yum

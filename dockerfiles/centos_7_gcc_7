@@ -1,18 +1,13 @@
-FROM gwangmin/devsetting:centos_7_dev
+FROM gwangmin/centos_7_dev
 
-ARG VER="7_2_0"
-ARG TEMP_DIR=/tmpgcc
-ARG GCC_SOURCE_DIR=$TEMP_DIR/gcc-gcc-$VER-release
-ARG GCC_BUILD_DIR=$TEMP_DIR/gcc-build
 ARG CFLAGS="-O2 -pipe"
-ENV CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS
 
-ARG GMP="gmp-6.1.2"
-ARG MPFR="mpfr-3.1.6"
-ARG MPC="mpc-1.0.3"
-ARG ISL="isl-0.16.1"
-
-RUN mkdir -p $TEMP_DIR && cd $TEMP_DIR && \
+RUN export CLFAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
+        export VER="7_2_0" TEMP_DIR="/tmpgcc" && \
+        export GCC_SOURCE_DIR="$TEMP_DIR/gcc-gcc-$VER-release" && \
+        export GCC_BUILD_DIR="$TEMP_DIR/gcc-build" && \
+        export GMP="gmp-6.1.2" MPFR="mpfr-3.1.6" MPC="mpc-1.0.3" ISL="isl-0.16.1" && \
+        mkdir -p $TEMP_DIR && cd $TEMP_DIR && \
         curl -LO https://github.com/gcc-mirror/gcc/archive/gcc-$VER-release.zip && unzip gcc-$VER-release.zip && \
         cd $GCC_SOURCE_DIR && \
         curl -L https://gmplib.org/download/gmp/$GMP.tar.xz | tar xJf - && \
@@ -28,4 +23,6 @@ RUN mkdir -p $TEMP_DIR && cd $TEMP_DIR && \
         $GCC_SOURCE_DIR/configure --disable-multilib --with-arch=core2 --with-language=c,c++,fortran,go && \
         make -j$(nproc) && \
         make install-strip && \
-        rm -rf $TEMP_DIR && unset CFLAGS && unset CXXFLAGS
+        rm -rf $TEMP_DIR
+
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
