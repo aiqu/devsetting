@@ -13,4 +13,3 @@ VOLUME /var/jenkins_home /var/run/docker.sock /workspace
 EXPOSE 8080 50000
 
 USER jenkins
-

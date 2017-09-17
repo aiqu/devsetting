@@ -12,4 +12,3 @@ RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
         git clone https://github.com/aiqu/devsetting.git && \
         cd devsetting && bash all.sh && \
         yum clean all && rm -rf /var/cache/yum
-

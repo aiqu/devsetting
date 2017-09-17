@@ -91,6 +91,17 @@ fi'''
       slackSend(message: "${MSG_PREFIX} failed ${MSG_LINK}", failOnError: true, color: 'danger')
       
     }
-    
+    changed {
+      slackSend(message: "${MSG_PREFIX} changed ${MSG_LINK}", failOnError: true, color: 'danger')
+      
+    }
+    unstable {
+      slackSend(message: "${MSG_PREFIX} unstable ${MSG_LINK}", failOnError: true, color: 'danger')
+      
+    }
+    aborted {
+      slackSend(message: "${MSG_PREFIX} aborted ${MSG_LINK}", failOnError: true, color: 'danger')
+      
+    }
   }
 }
