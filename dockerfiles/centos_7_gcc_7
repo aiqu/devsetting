@@ -25,7 +25,7 @@ RUN mkdir -p $TEMP_DIR && cd $TEMP_DIR && \
         mv $ISL isl && \
         mkdir $GCC_BUILD_DIR && \
         cd $GCC_BUILD_DIR && \
-        $GCC_SOURCE_DIR/configure --disable-multilib --with-arch=core-avx2 --with-language=c,c++,fortran,go && \
+        $GCC_SOURCE_DIR/configure --disable-multilib --with-arch=core2 --with-language=c,c++,fortran,go && \
         make -j$(nproc) && \
         make install-strip && \
         rm -rf $TEMP_DIR && unset CFLAGS && unset CXXFLAGS
