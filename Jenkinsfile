@@ -7,8 +7,8 @@ pipeline {
         sh '''
             if [ ! -z "$(git diff --name-only @~1 | grep centos_7_dev)" ];
             then
-                docker build -t gwangmin/centos_7_dev -f dockerfiles/centos_7_dev ${DOCKER_BUILD_OPTION} .
-                docker push gwangmin/centos_7_dev
+                docker build -t gwangmin/centos_7_dev:latest -f dockerfiles/centos_7_dev ${DOCKER_BUILD_OPTION} .
+                docker push gwangmin/centos_7_dev:latest
             fi
         '''
       }
@@ -18,31 +18,43 @@ pipeline {
         sh '''
             if [ ! -z "$(git diff --name-only @~1 | grep centos_7)" ];
             then
-                docker build -t gwangmin/centos_7_gcc_7 -f dockerfiles/centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
-                docker push gwangmin/centos_7_gcc_7
+                docker build -t gwangmin/centos_7_gcc_7:latest -f dockerfiles/centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
+                docker push gwangmin/centos_7_gcc_7:latest
             fi
         '''
       }
     }
-    stage('base') {
+    stage('base & jenkins') {
       steps {
-        sh '''
-            docker build -t gwangmin/base -f dockerfiles/base --build-arg BASEIMG=centos_7_dev ${DOCKER_BUILD_OPTION} .
-            docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
-            docker push gwangmin/base
-            docker push gwangmin/base:gcc7
-        '''
-      }
-    }
-    stage('jenkins_did') {
-      steps {
-        sh '''
-            if [ ! -z "$(git diff --name-only @~1 | grep dockerfiles/jenkins_did)" ];
-            then
-                docker build -t gwangmin/jenkins_did -f dockerfiles/jenkins_did ${DOCKER_BUILD_OPTION} .
-                docker push gwangmin/jenkins_did
-            fi
-        '''
+          parallel (
+              "base:latest" : {
+                  node {
+                    sh '''
+                        docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos_7_dev ${DOCKER_BUILD_OPTION} .
+                        docker push gwangmin/base:latest
+                    '''
+                    }
+                }
+              "base:gcc7" : {
+                  node {
+                    sh '''
+                        docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
+                        docker push gwangmin/base:gcc7
+                    '''
+                    }
+                }
+              "jenkins_did" : {
+                  node {
+                    sh '''
+                        if [ ! -z "$(git diff --name-only @~1 | grep dockerfiles/jenkins_did)" ];
+                        then
+                            docker build -t gwangmin/jenkins_did:latest -f dockerfiles/jenkins_did ${DOCKER_BUILD_OPTION} .
+                            docker push gwangmin/jenkins_did:latest
+                        fi
+                    '''
+                    }
+                }
+          )
       }
     }
   }
