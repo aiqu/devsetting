@@ -34,7 +34,7 @@ pipeline {
                         docker push gwangmin/base:latest
                     '''
                     }
-                }
+                },
               "base:gcc7" : {
                   node {
                     sh '''
@@ -42,7 +42,7 @@ pipeline {
                         docker push gwangmin/base:gcc7
                     '''
                     }
-                }
+                },
               "jenkins_did" : {
                   node {
                     sh '''
