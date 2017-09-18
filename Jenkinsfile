@@ -22,7 +22,7 @@ pipeline {
                 docker push gwangmin/centos_7_gcc_7:latest
             fi
         '''
-        stash includes: '*', name: 'source'
+        stash name: 'source'
       }
     }
     stage('base & jenkins') {
