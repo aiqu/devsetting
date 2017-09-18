@@ -4,5 +4,5 @@ RUN yum update -y && \
         yum install -y epel-release && \
         yum update -y && \
         yum groupinstall -y 'Development Tools' && \
-        yum install git && \
+        yum install -y git cmake && \
         yum clean all && rm -rf /var/cache/yum

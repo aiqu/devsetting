@@ -18,20 +18,19 @@ fi
 
 echo "cmake installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 
-REPO=$ROOT/repo
+TMP_DIR=$ROOT/tmp
+REPO_URL=https://github.com/Kitware/CMake
+TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -t '/' -k 3 -V | tail -n1)
+FOLDER="CMake-$(echo $TAG | sed 's/v//')"
 
-cd $ROOT
-git submodule init
-git submodule update
-cd $REPO/cmake
-if [ ! -z ${REINSTALL_CMAKE+x} ];then
-    make uninstall
-    make clean
-fi
-mkdir -p build;cd build
-../bootstrap --parallel=$(nproc) --prefix=$HOME/.local
-make -j$CORE && make install
+mkdir -p $TMP_DIR && cd $TMP_DIR
+
+curl -LO ${REPO_URL}/archive/${TAG}.zip
+unzip ${TAG}.zip
+cd $FOLDER && mkdir build && cd build
+cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && make -j$(nproc) && make install
 
 cd $PWD
+rm -rf $TMP_DIR
 
 CMAKE_DONE=1

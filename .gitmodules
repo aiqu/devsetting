@@ -1,6 +1,0 @@
-[submodule "repo/vim"]
-	path = repo/vim
-	url = https://github.com/aiqu/vim.git
-[submodule "repo/cmake"]
-	path = repo/cmake
-	url = https://github.com/Kitware/CMake

@@ -20,7 +20,7 @@ RUN export CLFAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
         mv $ISL isl && \
         mkdir $GCC_BUILD_DIR && \
         cd $GCC_BUILD_DIR && \
-        $GCC_SOURCE_DIR/configure --disable-multilib --with-arch=core2 --with-language=c,c++,fortran,go && \
+        $GCC_SOURCE_DIR/configure --prefix=/usr --disable-multilib --with-arch=core2 --with-language=c,c++,fortran,go && \
         make -j$(nproc) && \
         make install-strip && \
         rm -rf $TEMP_DIR
