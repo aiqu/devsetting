@@ -47,7 +47,7 @@ pipeline {
     }
   }
   environment {
-    MSG_PRFIX = "${env.JOB_NAME} - ${env.BUILD_DISPLAY_NAME}"
+    MSG_PREFIX = "${env.JOB_NAME} - ${env.BUILD_DISPLAY_NAME}"
     MSG_LINK = "(<${env.BUILD_URL}|Open>)"
     DOCKER_BUILD_OPTION="--force-rm --no-cache --pull"
   }
