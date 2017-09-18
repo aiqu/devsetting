@@ -54,7 +54,7 @@ pipeline {
                     '''
                     }
                 },
-              "jenkins_did" : {
+              "jenkins_slave_did" : {
                   node() {
                     sh '''
                         if [ ! -z "$(git diff --name-only @~1 | grep dockerfiles/jenkins_slave_did)" ];
