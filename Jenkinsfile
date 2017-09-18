@@ -26,44 +26,42 @@ pipeline {
     }
     stage('base') {
       steps {
-          catchError {
-            parallel(
-              "base": {
-                sh '''
-                    docker build -t gwangmin/base -f dockerfiles/base --build-arg BASEIMG=centos_7_dev ${DOCKER_BUILD_OPTION} .
-                    docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
-                    docker push gwangmin/base
-                    docker push gwangmin/base:gcc7
-                '''
-              },
-              "base_ivybridge": {
-                sh '''
-                    docker build -t gwangmin/base:ivybridge -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 --build-arg CFLAGS="-march=ivybridge -O2 -pipe" ${DOCKER_BUILD_OPTION} .
-                    docker push gwangmin/base:ivybridge
-                '''
-                
-              },
-              "base_haswell": {
-                sh '''
-                    docker build -t gwangmin/base:haswell -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 --build-arg CFLAGS="-march=haswell -O2 -pipe" ${DOCKER_BUILD_OPTION} .
-                    docker push gwangmin/base:haswell
-                '''
-                
-              },
-              "base_broadwell": {
-                sh '''
-                    docker build -t gwangmin/base:broadwell -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 --build-arg CFLAGS="-march=broadwell -O2 -pipe" ${DOCKER_BUILD_OPTION} .
-                    docker push gwangmin/base:broadwell
-                '''
-              },
-              "base_skylake": {
-                sh '''
-                    docker build -t gwangmin/base:skylake -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 --build-arg CFLAGS="-march=skylake -O2 -pipe" ${DOCKER_BUILD_OPTION} .
-                    docker push gwangmin/base:skylake
-                '''
-              }
-            )
+        parallel(
+          "base": {
+            sh '''
+                docker build -t gwangmin/base -f dockerfiles/base --build-arg BASEIMG=centos_7_dev ${DOCKER_BUILD_OPTION} .
+                docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
+                docker push gwangmin/base
+                docker push gwangmin/base:gcc7
+            '''
+          },
+          "base_ivybridge": {
+            sh '''
+                docker build -t gwangmin/base:ivybridge -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 --build-arg CFLAGS="-march=ivybridge -O2 -pipe" ${DOCKER_BUILD_OPTION} .
+                docker push gwangmin/base:ivybridge
+            '''
+            
+          },
+          "base_haswell": {
+            sh '''
+                docker build -t gwangmin/base:haswell -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 --build-arg CFLAGS="-march=haswell -O2 -pipe" ${DOCKER_BUILD_OPTION} .
+                docker push gwangmin/base:haswell
+            '''
+            
+          },
+          "base_broadwell": {
+            sh '''
+                docker build -t gwangmin/base:broadwell -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 --build-arg CFLAGS="-march=broadwell -O2 -pipe" ${DOCKER_BUILD_OPTION} .
+                docker push gwangmin/base:broadwell
+            '''
+          },
+          "base_skylake": {
+            sh '''
+                docker build -t gwangmin/base:skylake -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 --build-arg CFLAGS="-march=skylake -O2 -pipe" ${DOCKER_BUILD_OPTION} .
+                docker push gwangmin/base:skylake
+            '''
           }
+        )
       }
     }
     stage('jenkins_did') {
