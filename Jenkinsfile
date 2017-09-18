@@ -28,7 +28,7 @@ pipeline {
       steps {
           parallel (
               "base:latest" : {
-                  node() {
+                  node('slave') {
                     sh '''
                         docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos_7_dev ${DOCKER_BUILD_OPTION} .
                         docker push gwangmin/base:latest
@@ -36,7 +36,7 @@ pipeline {
                     }
                 },
               "base:gcc7" : {
-                  node() {
+                  node('slave') {
                     sh '''
                         docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
                         docker push gwangmin/base:gcc7
@@ -44,7 +44,7 @@ pipeline {
                     }
                 },
               "jenkins_did" : {
-                  node() {
+                  node('slave') {
                     sh '''
                         if [ ! -z "$(git diff --name-only @~1 | grep dockerfiles/jenkins_did)" ];
                         then
@@ -55,7 +55,7 @@ pipeline {
                     }
                 },
               "jenkins_slave_did" : {
-                  node() {
+                  node('slave') {
                     sh '''
                         if [ ! -z "$(git diff --name-only @~1 | grep dockerfiles/jenkins_slave_did)" ];
                         then
