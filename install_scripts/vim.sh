@@ -38,7 +38,7 @@ sed -i 's/#CONF_OPT_TERMINAL = --enable-terminal/CONF_OPT_TERMINAL = --enable-te
 sed -i 's/#CONF_OPT_MULTIBYTE = --enable-multibyte/CONF_OPT_MULTIBYTE = --enable-multibyte/' src/Makefile
 sed -i 's/#CONF_OPT_GPM = --disable-gpm/CONF_OPT_GPM = --disable-gpm/' src/Makefile
 sed -i 's/#CONF_OPT_SYSMOUSE = --disable-sysmouse/CONF_OPT_SYSMOUSE = --disable-sysmouse/' src/Makefile
-sed -i 's/#prefix = \$(HOME)/prefix = \$(HOME)/.local/' src/Makefile
+sed -i 's/#prefix = \$(HOME)/prefix = \$(HOME)\/.local/' src/Makefile
 
 make -j$(nproc) && make install
 
