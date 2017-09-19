@@ -1,9 +1,11 @@
 pipeline {
   agent any
   stages {
+    stage('pre-build') {
+        slackSend(message: "${env.JOB_NAME} - ${env.BUILD_DISPLAY_NAME} started (<${env.BUILD_URL}|Open>)", failOnError: true, color: 'good')
+    }
     stage('centos_7_dev') {
       steps {
-        slackSend(message: "${env.JOB_NAME} - ${env.BUILD_DISPLAY_NAME} started (<${env.BUILD_URL}|Open>)", failOnError: true, color: 'good')
         sh '''
             if [ ! -z "$(git diff --name-only @~1 | grep centos_7_dev)" ];
             then
