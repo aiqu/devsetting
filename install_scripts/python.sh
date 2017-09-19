@@ -30,6 +30,9 @@ set +e
 env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -s 2.7.13
 env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -s 3.6.1
 
+pip install jupyter jupyterthemes
+jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
+
 echo "---"
 echo "Type \"source $ENVFILE\""
 
