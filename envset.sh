@@ -34,3 +34,5 @@ else
 fi
 
 echo "Current OS is "$OS
+
+GUI=$XDG_CURRENT_DESKTOP
