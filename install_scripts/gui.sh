@@ -10,7 +10,7 @@ fi
 
 . $ROOT/envset.sh
 
-if [ -z $GUI ];then
+if [ -z $XDG_CURRENT_DESKTOP ];then
     echo "Don't have GUI"
     exit 1
 fi
