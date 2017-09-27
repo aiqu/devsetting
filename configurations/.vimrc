@@ -36,7 +36,7 @@ filetype plugin indent on    " required
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-set ignorecase
+set noic              " case sensitive
 set history=50						" keep 50 lines of command line history
 set ruler							" show the cursor position all the time
 set showcmd							" display incomplete commands
@@ -44,7 +44,7 @@ set incsearch						" do incremental searching
 set fileencodings=utf-8,euc-kr		"set file write encoding
 set encoding=utf-8					"set screen encoding
 set ai si cindent et				"enable auto / smart / C indenting & tab expansion
-set ts=4 sts=4 sw=4					"tapstop softtapstop shiftwidth
+set ts=2 sts=2 sw=2					"tapstop softtapstop shiftwidth
 set cinoptions=:0,l1,g0,)100		"see :help cinoptions-values
 set nu								"show line number
 set showmatch						"When a bracket is inserted, briefly jump to the matching one.
