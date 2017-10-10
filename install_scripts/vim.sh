@@ -55,6 +55,7 @@ fi
 
 $HOME/.local/bin/vim +PluginInstall +PluginUpdate +qall
 unzip -u $ROOT/taglist_46.zip -d ~/.vim/
+curl -L https://raw.githubusercontent.com/ajh17/VimCompletesMe/master/plugin/VimCompletesMe.vim -o $HOME/.vim/plugin/VimCompletesMe.vim
 
 cd $PWD
 
