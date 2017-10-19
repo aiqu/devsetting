@@ -134,22 +134,14 @@ fi
 
 export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 export TERM="xterm-256color"
-## PYENV CONFIGURATION ##
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH=$PYENV_ROOT/bin:$PATH
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
 . $HOME/.promptrc
 . $HOME/.git-completion
 
 MY_INCLUDE_DIR=$HOME/.local/include
 MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
 MY_PKG_CONFIG_DIR=$HOME/.local/lib/pkgconfig:$HOME/.local/lib64/pkgconfig
-PYENV_INCLUDE_DIR=$HOME/.pyenv/versions/2.7.13/include/python2.7
-PYENV_BIN_DIR=$HOME/.pyenv/versions/2.7.13/bin:$HOME/.pyenv/versions/3.6.1/bin
 
-export PATH=$PYENV_BIN_DIR:$PATH
-export CPATH=$MY_INCLUDE_DIR:$PYENV_INCLUDE_DIR:$CPATH
+export CPATH=$MY_INCLUDE_DIR:$CPATH
 export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64:$LD_LIBRARY_PATH
 export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
 export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH

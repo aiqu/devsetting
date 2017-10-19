@@ -10,27 +10,32 @@ else
     ROOT=$(pwd)
 fi
 
-if [ ! $GIT_DONE ];then
-    source "$ROOT/install_scripts/git.sh"
-fi
-
 echo "Pyenv installation.. pwd: $PWD, root: $ROOT"
 
-mkdir -p $HOME/.lib
+function install_python {
+  VER=$1
+  WORKDIR="/tmp/tmp_$VER"
+  mkdir -p $WORKDIR && cd $WORKDIR
+  curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
+  cd Python-$VER
+  ./configure --prefix=$HOME/.local --enable-shared
+  make -j$(nproc)
+  make install
+  rm -rf $WORKDIR
+}
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH=$PYENV_ROOT/bin:$PATH
+PYTHON2_VER='2.7.13'
+PYTHON3_VER='3.6.3'
 
-curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
+install_python $PYTHON2_VER
+install_python $PYTHON3_VER
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+curl -L https://bootstrap.pypa.io/get-pip.py | python2
+pip install -U pip
+pip3 install -U pip
 
-env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -s 2.7.13
-env PYTHON_CONFIGURE_OPTS="--enable-shared" pyenv install -s 3.6.1
-
-$HOME/.pyenv/versions/2.7.13/bin/pip install jupyter jupyterthemes
-$HOME/.pyenv/versions/2.7.13/bin/jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
+pip install jupyter jupyterthemes
+jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
 
 echo "---"
 echo "Type \"source $ENVFILE\""
