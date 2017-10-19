@@ -45,7 +45,7 @@ else
     FILENAME=v${TAG}.zip
     if [ ! -f $FILENAME ];then
         curl -LO https://github.com/git/git/archive/${FILENAME}
-        unzip ${FILENAME}
+        unzip ${FILENAME} && rm $FILENAME
     fi
     cd git-${TAG}
     make clean

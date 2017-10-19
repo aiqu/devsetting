@@ -25,7 +25,7 @@ WORKDIR=$HOME/.lib
 cd $WORKDIR
 REPO_URL=https://gitlab.kitware.com/vtk/vtk
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -t '/' -k 3 -V | tail -n1)
-COMMIT_HASH=$(git ls-remove --tags $REPO_URL | grep "$TAG^{}" | awk '{print $1}')
+COMMIT_HASH=$(git ls-remote --tags $REPO_URL | grep "$TAG^{}" | awk '{print $1}')
 SRCDIR="vtk-$TAG-$COMMIT_HASH"
 if [ ! -d $SRCDIR ]; then
   curl -L https://gitlab.kitware.com/vtk/vtk/repository/$TAG/archive.tar.bz2 | tar xjf -

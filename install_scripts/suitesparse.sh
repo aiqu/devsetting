@@ -16,13 +16,10 @@ PWD=$(pwd)
 WORKDIR=$HOME/.lib
 
 cd $WORKDIR
-VER='4.5.5'
+VER='4.5.6'
 SRCFILE="SuiteSparse-$VER.tar.gz"
 if [ ! -d SuiteSparse ]; then
-  if [ ! -f $SRCFILE ]; then
-    curl -LO http://faculty.cse.tamu.edu/davis/SuiteSparse/$SRCFILE
-  fi
-  tar xf $SRCFILE
+  curl -L http://faculty.cse.tamu.edu/davis/SuiteSparse/$SRCFILE | tar xzf -
 fi
 cd SuiteSparse
 make metis  # At this step, "No rule to make target 'w'" would happen. It is safe to ignore it.

@@ -29,9 +29,8 @@ VERSTR='1_65_1'
 SRCFILE="boost_$VERSTR.tar.bz2"
 if [ ! -d boost_$VERSTR ];then
   if [ ! -f $SRCFILE ]; then
-    curl -LO https://dl.bintray.com/boostorg/release/$VER/source/$SRCFILE
+    curl -L https://dl.bintray.com/boostorg/release/$VER/source/$SRCFILE | tar xjf -
   fi
-  tar xf $SRCFILE
 fi
 cd boost_$VERSTR
 ./bootstrap.sh --prefix=$HOME/.local

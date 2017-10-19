@@ -13,14 +13,11 @@ fi
 source $ROOT/envset.sh
 
 PWD=$(pwd)
+WORKDIR=$HOME/.lib
 
-if [ $OS == 'centos' ];then
-
-elif [ $OS == 'ubuntu' ];then
-
-fi
+cd $WORKDIR
 REPO_URL=https://github.com/PointCloudLibrary/pcl
-TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' | sort -t '/' -k 3 -V | tail -n1)
+TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' -e 'ros' | sort -V | tail -n1)
 if [ ! -d pcl-${TAG} ];then
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip ${TAG}.zip && rm ${TAG}.zip
