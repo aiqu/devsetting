@@ -30,8 +30,9 @@ PYTHON3_VER='3.6.3'
 install_python $PYTHON2_VER
 install_python $PYTHON3_VER
 
+cd $HOME
 curl -L https://bootstrap.pypa.io/get-pip.py | python2
-pip install -U pip
+pip2 install -U pip
 pip3 install -U pip
 
 pip install jupyter jupyterthemes
