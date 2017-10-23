@@ -27,7 +27,7 @@ fi
 cd $WORKDIR
 REPO_URL=https://github.com/opencv/opencv
 CONTRIB_REPO_URL=https://github.com/opencv/opencv_contrib
-TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' | sort -t '/' -k 3 -V | tail -n1)
+TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' | sort -V | tail -n1)
 if [ ! -d opencv-${TAG} ];then
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip && rm ${TAG}.zip

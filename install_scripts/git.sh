@@ -24,7 +24,7 @@ else
 fi
 
 if [ "$TAG" == "$INSTALLED_VERSION" ];then
-    echo "Git is installed already"
+    echo "Git $TAG is already installed"
 else
     echo "Git installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 

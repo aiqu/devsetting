@@ -23,7 +23,7 @@ fi
 
 cd $WORKDIR
 REPO_URL=https://github.com/google/protobuf
-#TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -t '/' -k 3 -V | tail -n1)
+#TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 TAG='v3.4.0'
 VER=$(echo $TAG | sed 's/v//' -)
 INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
