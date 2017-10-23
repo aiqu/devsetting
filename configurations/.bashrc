@@ -1,13 +1,29 @@
+export PATH=$HOME/.local/bin:$HOME/bin:$PATH
+export TERM="xterm-256color"
+
+MY_INCLUDE_DIR=$HOME/.local/include
+MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
+MY_PKG_CONFIG_DIR=$HOME/.local/lib/pkgconfig:$HOME/.local/lib64/pkgconfig
+
+export CPATH=$MY_INCLUDE_DIR:$CPATH
+export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64:$LD_LIBRARY_PATH
+export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
+export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
+
+export EDITOR=vim
+
+if [ -d $HOME/c3 ];then
+    source $HOME/c3/source.me
+fi
+
+if [ ! $(echo $- | grep i) ];then
+  return;
+fi
+
 if [ $(echo $OSTYPE | grep 'linux') ];then
     # ~/.bashrc: executed by bash(1) for non-login shells.
     # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
     # for examples
-
-    # If not running interactively, don't do anything
-    case $- in
-        *i*) ;;
-          *) return;;
-    esac
 
     # don't put duplicate lines or lines starting with space in the history.
     # See bash(1) for more options
@@ -132,22 +148,5 @@ elif [ $(echo $OSTYPE | grep 'darwin') ];then
     alias l="ls -lG"
 fi
 
-export PATH=$HOME/.local/bin:$HOME/bin:$PATH
-export TERM="xterm-256color"
 . $HOME/.promptrc
 . $HOME/.git-completion
-
-MY_INCLUDE_DIR=$HOME/.local/include
-MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
-MY_PKG_CONFIG_DIR=$HOME/.local/lib/pkgconfig:$HOME/.local/lib64/pkgconfig
-
-export CPATH=$MY_INCLUDE_DIR:$CPATH
-export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64:$LD_LIBRARY_PATH
-export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
-export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
-
-export EDITOR=vim
-
-if [ -d $HOME/c3 ];then
-    source $HOME/c3/source.me
-fi
