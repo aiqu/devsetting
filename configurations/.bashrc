@@ -6,8 +6,16 @@ MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
 MY_PKG_CONFIG_DIR=$HOME/.local/lib/pkgconfig:$HOME/.local/lib64/pkgconfig
 
 export CPATH=$MY_INCLUDE_DIR:$CPATH
-export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64:$LD_LIBRARY_PATH
-export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
+if [ -z $LD_LIBRARY_PATH ];then
+  export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
+else
+  export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64:$LD_LIBRARY_PATH
+fi
+if [ -z $LIBRARY_PATH ];then
+  export LIBRARY_PATH=$MY_LIBRARY_DIR
+else
+  export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
+fi
 export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
 
 export EDITOR=vim
