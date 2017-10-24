@@ -28,14 +28,14 @@ ${SUDO} apt-get install -y terminator
 
 # install nanum gothic coding font
 FILENAME=nanum.zip
-curl -L https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip -o $FILENAME && unzip $FILENAME NanumGothic* -d $HOME/.fonts && rm $FILENAME
+curl -L https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip -o $FILENAME && unzip -q $FILENAME NanumGothic* -d $HOME/.fonts && rm $FILENAME
 ${SUDO} fc-cache
 
 #install Arc-theme and Moka icon theme
 cd $WORKDIR
 ARCFILE=arc.zip
 ARCFOLDER=arc-theme-master
-curl -L https://github.com/horst3180/arc-theme/archive/master.zip -o $ARCFILE && unzip $ARCFILE
+curl -L https://github.com/horst3180/arc-theme/archive/master.zip -o $ARCFILE && unzip -q $ARCFILE
 cd $ARCFOLDER
 ./autogen.sh --prefix=$HOME/.local
 make install
@@ -43,7 +43,7 @@ make install
 cd $WORKDIR
 ARCICONFILE=arc-icon.zip
 ARCICONFOLDER=arc-icon-theme
-git clone https://github.com/horst3180/arc-icon-theme/archive/master.zip -o $ARCICONFILE && unzip $ARCICONFILE
+git clone https://github.com/horst3180/arc-icon-theme/archive/master.zip -o $ARCICONFILE && unzip -q $ARCICONFILE
 cd $ARCICONFOLDER
 ./autogen.sh --prefix=$HOME/.local
 make install

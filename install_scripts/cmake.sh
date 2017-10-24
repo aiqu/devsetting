@@ -29,7 +29,7 @@ if [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
   curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip ${TAG}.zip
+  unzip -q ${TAG}.zip
   cd $FOLDER && mkdir build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && make -j$(nproc) && make install
 

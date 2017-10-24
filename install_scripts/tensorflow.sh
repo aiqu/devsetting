@@ -45,7 +45,7 @@ fi
 if ! bazel version | grep -q '0.5.2' ;then
     cd $SRC_DIR
     curl -LO https://github.com/bazelbuild/bazel/releases/download/0.5.2/bazel-0.5.2-dist.zip
-    unzip bazel-0.5.2-dist.zip -d bazel && cd bazel
+    unzip -q bazel-0.5.2-dist.zip -d bazel && cd bazel
     ./compile.sh
     $SUDO cp output/bazel /usr/local/bin/bazel
 fi

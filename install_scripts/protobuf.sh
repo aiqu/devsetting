@@ -29,7 +29,7 @@ VER=$(echo $TAG | sed 's/v//' -)
 INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
 if [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ]; then
   curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip ${TAG}.zip && rm -rf ${TAG}.zip protobuf
+  unzip -q ${TAG}.zip && rm -rf ${TAG}.zip protobuf
   mv protobuf-$VER protobuf
   cd protobuf && 
     ./autogen.sh && ./configure --prefix=$HOME/.local

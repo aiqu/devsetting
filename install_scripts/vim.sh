@@ -28,7 +28,7 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
   curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip ${TAG}.zip
+  unzip -q ${TAG}.zip
   cd $FOLDER
 
   sed -i 's/#CONF_ARGS = --with-modified-by="John Doe"/CONF_ARGS = --with-modified-by="Gwangmin Lee"/' src/Makefile
@@ -56,7 +56,7 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   fi
 
   $HOME/.local/bin/vim +PluginInstall +PluginUpdate +qall
-  unzip -u $ROOT/taglist_46.zip -d ~/.vim/
+  unzip -qu $ROOT/taglist_46.zip -d ~/.vim/
   curl -L https://raw.githubusercontent.com/ajh17/VimCompletesMe/master/plugin/VimCompletesMe.vim -o $HOME/.vim/plugin/VimCompletesMe.vim
 else
   echo "Vim $INSTALLED_VERSION is already installed"
