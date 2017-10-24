@@ -1,4 +1,4 @@
-FROM gwangmin/centos_7_dev
+FROM gwangmin/centos_7_dev:latest
 
 ARG CFLAGS="-O2 -pipe"
 

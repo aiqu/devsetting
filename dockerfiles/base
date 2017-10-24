@@ -1,4 +1,4 @@
-ARG BASEIMG=centos_7_dev
+ARG BASEIMG=centos_7_dev:latest
 FROM gwangmin/$BASEIMG
 
 ARG CFLAGS="-march=core2 -O2 -pipe"

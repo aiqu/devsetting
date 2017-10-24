@@ -54,11 +54,8 @@ pipeline {
                   node('slave') {
                     unstash 'source'
                     sh '''
-                        if [ ! -z "$(git diff --name-only @~1 | grep dockerfiles/jenkins_did)" ];
-                        then
-                            docker build -t gwangmin/jenkins_did:latest -f dockerfiles/jenkins_did ${DOCKER_BUILD_OPTION} .
-                            docker push gwangmin/jenkins_did:latest
-                        fi
+                          docker build -t gwangmin/jenkins_did:latest -f dockerfiles/jenkins_did ${DOCKER_BUILD_OPTION} .
+                          docker push gwangmin/jenkins_did:latest
                     '''
                     }
                 },
@@ -66,11 +63,8 @@ pipeline {
                   node('slave') {
                     unstash 'source'
                     sh '''
-                        if [ ! -z "$(git diff --name-only @~1 | grep dockerfiles/jenkins_slave_did)" ];
-                        then
-                            docker build -t gwangmin/jenkins_slave_did:latest -f dockerfiles/jenkins_slave_did ${DOCKER_BUILD_OPTION} .
-                            docker push gwangmin/jenkins_slave_did:latest
-                        fi
+                          docker build -t gwangmin/jenkins_slave_did:latest -f dockerfiles/jenkins_slave_did ${DOCKER_BUILD_OPTION} .
+                          docker push gwangmin/jenkins_slave_did:latest
                     '''
                     }
                 }
