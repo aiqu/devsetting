@@ -3,7 +3,7 @@ export TERM="xterm-256color"
 
 MY_INCLUDE_DIR=$HOME/.local/include
 MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
-MY_PKG_CONFIG_DIR=$HOME/.local/lib/pkgconfig:$HOME/.local/lib64/pkgconfig
+MY_PKG_CONFIG_DIR=$HOME/.local/share/pkgconfig:$HOME/.local/lib/pkgconfig:$HOME/.local/lib64/pkgconfig
 
 export CPATH=$MY_INCLUDE_DIR:$CPATH
 if [ -z $LD_LIBRARY_PATH ];then
@@ -16,6 +16,8 @@ if [ -z $LIBRARY_PATH ];then
 else
   export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
 fi
+export CMAKE_LIBRARY_PATH=$LD_LIBRARY_PATH:$CMAKE_LIBRARY_PATH
+export CMAKE_INCLUDE_PATH=$CPATH:$CMAKE_INCLUDE_PATH
 export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
 
 export EDITOR=vim
