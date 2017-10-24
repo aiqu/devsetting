@@ -15,9 +15,9 @@ source $ROOT/envset.sh
 PWD=$(pwd)
 
 if [ $OS == 'centos' ];then
-  $SUDO yum install -y libXt-devel
+  $SUDO yum install -y libXt-devel freeglut-devel
 elif [ $OS == 'ubuntu' ];then
-  $SUDO apt install -y libxt-dev
+  $SUDO apt install -y libxt-dev freeglut3-dev
 fi
 
 WORKDIR=$HOME/.lib
