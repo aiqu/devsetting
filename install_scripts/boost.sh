@@ -27,6 +27,12 @@ cd $WORKDIR
 VER='1.65.1'
 VERSTR='1_65_1'
 SRCFILE="boost_$VERSTR.tar.bz2"
+REQUIRED_CMAKE_VER='3.9.3'
+INSTALLED_CMAKE_VER=$(cmake --version 2>/dev/null | head -n1 | awk '{print $3}')
+if [ ! $REQUIRED_CMAKE_VER == "$(echo -e "$INSTALLED_CMAKE_VER\n$REQUIRED_CMAKE_VER" | sort -V | head -n1)" ]; then
+  echo "Require CMake $REQUIRED_CMAKE_VER ( $INSTALLED_CMAKE_VER installed)"
+fi
+
 if [ ! -d boost_$VERSTR ];then
   if [ ! -f $SRCFILE ]; then
     curl -L https://dl.bintray.com/boostorg/release/$VER/source/$SRCFILE | tar xjf -
