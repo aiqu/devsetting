@@ -27,7 +27,6 @@ REPO_URL=https://github.com/google/protobuf
 TAG='v3.4.0'
 VER=$(echo $TAG | sed 's/v//' -)
 INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
-echo $INSTALLED_VER
 if [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ]; then
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip ${TAG}.zip && rm -rf ${TAG}.zip protobuf
@@ -35,4 +34,6 @@ if [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ]; then
   cd protobuf && 
     ./autogen.sh && ./configure --prefix=$HOME/.local
     make -j$(nproc) && make check -j$(nproc) && make install
+else
+  echo "Protobuf $VER is already installed"
 fi
