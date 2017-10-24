@@ -3,12 +3,18 @@ FROM gwangmin/$BASEIMG
 
 ARG CFLAGS="-march=core2 -O2 -pipe"
 
+#initial password is '123'
+RUN yum update -y && \
+      yum install -y epel-release sudo && \
+      useradd -m -G wheel -s /bin/bash gmlee -p '.EAj5F3pcpV2s' && \
+      chmod +w /etc/sudoers && \
+      echo -e "gmlee\tALL=(ALL:ALL)\tNOPASSWD:ALL" >> /etc/sudoers && \
+      chmod -w /etc/sudoers
+USER gmlee
+
 RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
-        yum update -y && \
-        yum install -y epel-release && \
-        yum update -y && \
-        yum install -y git sudo && \
+        sudo yum install -y git && \
         cd $HOME && mkdir .lib && cd .lib && \
         git clone https://github.com/aiqu/devsetting.git && \
         cd devsetting && bash all.sh && \
-        yum clean all && rm -rf /var/cache/yum
+        sudo yum clean all && sudo rm -rf /var/cache/yum
