@@ -29,6 +29,12 @@ REPO_URL=https://github.com/opencv/opencv
 CONTRIB_REPO_URL=https://github.com/opencv/opencv_contrib
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' | sort -V | tail -n1)
 INSTALLED_VERSION=$(opencv_version 2>/dev/null)
+CUDA_BIN_PATH="/usr/local/cuda-8.0"
+
+if [ ! -d $CUDA_BIN_PATH ];then
+  echo "Please specify CUDA 8.0 toolkit path! (default: $CUDA_BIN_PATH)"
+  return;
+fi
 
 if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   if [ ! -d opencv-${TAG} ];then
