@@ -31,11 +31,6 @@ TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e
 INSTALLED_VERSION=$(opencv_version 2>/dev/null)
 CUDA_BIN_PATH="/usr/local/cuda-8.0"
 
-if [ ! -d $CUDA_BIN_PATH ];then
-  echo "Please specify CUDA 8.0 toolkit path! (default: $CUDA_BIN_PATH)"
-  return;
-fi
-
 if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   if [ ! -d opencv-${TAG} ];then
     curl -LO ${REPO_URL}/archive/${TAG}.zip
@@ -68,8 +63,6 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   else
     cmake -DCMAKE_BUILD_TYPE=RELEASE \
       -DCMAKE_CXX_FLAGS="-std=c++11" \
-      -DCUDA_NVCC_FLAGS="-std=c++11 --expt-relaxed-constexpr" \
-      -DCUDA_PROPAGATE_HOST_FLAGS=OFF \
       -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
       -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR \
       -DBUILD_opencv_python3=ON \

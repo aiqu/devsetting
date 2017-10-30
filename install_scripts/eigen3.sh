@@ -19,7 +19,7 @@ VER='3.3'
 if [ $OS == 'centos' ]; then
   $SUDO yum install -y hg
 elif [ $OS == 'ubuntu' ]; then
-  $SUDO apt install -y hg
+  $SUDO apt install -y mercurial
 fi
 
 cd $WORKDIR
