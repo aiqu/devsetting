@@ -20,7 +20,7 @@ function install_python {
   mkdir -p $WORKDIR && cd $WORKDIR
   curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
   cd Python-$VER
-  ./configure --prefix=$HOME/.local --enable-shared
+  ./configure --prefix=$HOME/.local --enable-shared --enable-unicode=ucs4 --with-threads --with-system-ffi
   make -j$(nproc)
   make install
   rm -rf $WORKDIR
@@ -34,8 +34,8 @@ function install_python {
 
 PYTHON2_VER='2.7.13'
 PYTHON3_VER='3.6.3'
-INSTALLED_PYTHON2_VER=$($HOME/.local/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
-INSTALLED_PYTHON3_VER=$($HOME/.local/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
+#INSTALLED_PYTHON2_VER=$($HOME/.local/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
+#INSTALLED_PYTHON3_VER=$($HOME/.local/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
 
 if [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
   install_python $PYTHON2_VER
