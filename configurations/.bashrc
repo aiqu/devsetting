@@ -22,6 +22,13 @@ export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
 
 export EDITOR=vim
 
+if [ -d $HOME/.local/gradle-4.3 ];then
+  export GRADLE_HOME=$HOME/.local/gradle-4.3
+fi
+if [ -d $HOME/.local/jdk1.8.0_152 ];then
+  export JAVA_HOME=$HOME/.local/jdk1.8.0_152
+fi
+
 if [ -d $HOME/c3 ];then
     source $HOME/c3/source.me
 fi
