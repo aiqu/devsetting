@@ -1,13 +1,13 @@
 FROM jenkinsci/jnlp-slave:latest
 
 USER root
-RUN mkdir -p /tmp && git clone https://github.com/aiqu/devsetting && \
+RUN mkdir -p /tmp && cd /tmp && git clone https://github.com/aiqu/devsetting && \
         cd devsetting && bash install_scripts/docker.sh && \
         rm -rf /tmp/devsetting && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
         usermod -aG sudo,docker jenkins && chmod u+w /etc/sudoers && \
         sed -i 's/ALL=(ALL:ALL) /\0NOPASSWD:/g' /etc/sudoers && \
         chmod u-w /etc/sudoers
 
-VOLUME /var/jenkins_home /var/run/docker.sock /workspace
+VOLUME /home/jenkins /var/run/docker.sock /workspace
 
 USER jenkins
