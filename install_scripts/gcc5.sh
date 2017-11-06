@@ -18,6 +18,7 @@ echo "gcc installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 CFLAGS="-O2 -pipe"
 
 VER='5_4_0'
+VER_STR=$(echo $VER | sed 's/_/./g')
 WORKDIR=$HOME/.lib/gcc-$VER
 GCC_SOURCE_DIR="$WORKDIR/gcc-gcc-$VER-release"
 GCC_BUILD_DIR="$WORKDIR/gcc-build"
@@ -25,6 +26,11 @@ GMP="gmp-6.1.2"
 MPFR="mpfr-3.1.6"
 MPC="mpc-1.0.3"
 ISL="isl-0.16.1"
+
+if [ -f $HOME/.local/bin/gcc ] && [ $($HOME/.local/bin/gcc --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
+  echo "gcc $VER_STR is already installed"
+  exit 0
+fi
 
 mkdir -p $WORKDIR && cd $WORKDIR
 if [ ! -d $GCC_SOURCE_DIR ];then
@@ -52,4 +58,4 @@ export CLFAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
   cd $GCC_BUILD_DIR && \
   $GCC_SOURCE_DIR/configure --prefix=$HOME/.local --disable-multilib --with-arch=core2 --with-language=c,c++,fortran,go && \
   make -j$(nproc) && \
-  make install-strip
+  make install
