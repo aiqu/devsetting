@@ -10,6 +10,12 @@ else
     ROOT=$(pwd)
 fi
 
+source $ROOT/envset.sh
+
+if [ $OS == 'mac' ];then
+  exit 0
+fi
+
 source "$HOME/.bashrc"
 
 echo "Python installation.. pwd: $PWD, root: $ROOT"
@@ -34,8 +40,8 @@ function install_python {
 
 PYTHON2_VER='2.7.13'
 PYTHON3_VER='3.6.3'
-#INSTALLED_PYTHON2_VER=$($HOME/.local/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
-#INSTALLED_PYTHON3_VER=$($HOME/.local/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
+INSTALLED_PYTHON2_VER=$($HOME/.local/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
+INSTALLED_PYTHON3_VER=$($HOME/.local/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
 
 if [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
   install_python $PYTHON2_VER
