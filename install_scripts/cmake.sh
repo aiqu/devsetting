@@ -39,4 +39,6 @@ else
   echo "CMake $VER is already installed"
 fi
 
+cd $ROOT
+
 CMAKE_DONE=1

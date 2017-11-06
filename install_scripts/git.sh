@@ -55,4 +55,6 @@ else
     cd $PWD
 fi
 
+cd $ROOT
+
 GIT_DONE=1

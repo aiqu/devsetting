@@ -71,10 +71,10 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   $HOME/.local/bin/vim +PluginInstall +PluginUpdate +qall
   unzip -qu $ROOT/taglist_46.zip -d ~/.vim/
   curl -L https://raw.githubusercontent.com/ajh17/VimCompletesMe/master/plugin/VimCompletesMe.vim -o $HOME/.vim/plugin/VimCompletesMe.vim
-
-  cd $ROOT
 else
   echo "Vim $INSTALLED_VERSION is already installed"
 fi
+
+cd $ROOT
 
 VIM_DONE=1
