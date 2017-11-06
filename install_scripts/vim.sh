@@ -12,9 +12,9 @@ if [ ! $ROOT ];then
     fi
 fi
 
-#if [ ! $CONFIGURATIONS_DONE ];then
-    #source $ROOT/install_scripts/configurations.sh
-#fi
+if [ ! $CONFIGURATIONS_DONE ];then
+    source $ROOT/install_scripts/configurations.sh
+fi
 
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/vim/vim
@@ -27,8 +27,8 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
-  #curl -LO ${REPO_URL}/archive/${TAG}.zip
-  #unzip -q ${TAG}.zip
+  curl -LO ${REPO_URL}/archive/${TAG}.zip
+  unzip -q ${TAG}.zip
   cd $FOLDER
 
   sed -i '' 's/#CONF_ARGS = --with-modified-by="John Doe"/CONF_ARGS = --with-modified-by="Gwangmin Lee"/' src/Makefile
