@@ -12,9 +12,9 @@ if [ ! $ROOT ];then
     fi
 fi
 
-if [ ! $CONFIGURATIONS_DONE ];then
-    source $ROOT/install_scripts/configurations.sh
-fi
+#if [ ! $CONFIGURATIONS_DONE ];then
+    #source $ROOT/install_scripts/configurations.sh
+#fi
 
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/vim/vim
@@ -27,20 +27,20 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
-  curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip -q ${TAG}.zip
+  #curl -LO ${REPO_URL}/archive/${TAG}.zip
+  #unzip -q ${TAG}.zip
   cd $FOLDER
 
-  sed -i 's/#CONF_ARGS = --with-modified-by="John Doe"/CONF_ARGS = --with-modified-by="Gwangmin Lee"/' src/Makefile
-  sed -i 's/#CONF_OPT_GUI = --disable-gui/CONF_OPT_GUI = --disable-gui/' src/Makefile
-  sed -i 's/#CONF_OPT_PYTHON = --enable-pythoninterp/CONF_OPT_PYTHON = --enable-pythoninterp/' src/Makefile
-  sed -i 's/#CONF_OPT_PYTHON3 = --enable-python3interp/CONF_OPT_PYTHON3 = --enable-python3interp/' src/Makefile
-  sed -i 's/#CONF_OPT_CSCOPE = --enable-cscope/CONF_OPT_CSCOPE = --enable-cscope/' src/Makefile
-  sed -i 's/#CONF_OPT_TERMINAL = --enable-terminal/CONF_OPT_TERMINAL = --enable-terminal/' src/Makefile
-  sed -i 's/#CONF_OPT_MULTIBYTE = --enable-multibyte/CONF_OPT_MULTIBYTE = --enable-multibyte/' src/Makefile
-  sed -i 's/#CONF_OPT_GPM = --disable-gpm/CONF_OPT_GPM = --disable-gpm/' src/Makefile
-  sed -i 's/#CONF_OPT_SYSMOUSE = --disable-sysmouse/CONF_OPT_SYSMOUSE = --disable-sysmouse/' src/Makefile
-  sed -i 's/#prefix = \$(HOME)/prefix = \$(HOME)\/.local/' src/Makefile
+  sed -i '' 's/#CONF_ARGS = --with-modified-by="John Doe"/CONF_ARGS = --with-modified-by="Gwangmin Lee"/' src/Makefile
+  sed -i '' 's/#CONF_OPT_GUI = --disable-gui/CONF_OPT_GUI = --disable-gui/' src/Makefile
+  sed -i '' 's/#CONF_OPT_PYTHON = --enable-pythoninterp/CONF_OPT_PYTHON = --enable-pythoninterp/' src/Makefile
+  sed -i '' 's/#CONF_OPT_PYTHON3 = --enable-python3interp/CONF_OPT_PYTHON3 = --enable-python3interp/' src/Makefile
+  sed -i '' 's/#CONF_OPT_CSCOPE = --enable-cscope/CONF_OPT_CSCOPE = --enable-cscope/' src/Makefile
+  sed -i '' 's/#CONF_OPT_TERMINAL = --enable-terminal/CONF_OPT_TERMINAL = --enable-terminal/' src/Makefile
+  sed -i '' 's/#CONF_OPT_MULTIBYTE = --enable-multibyte/CONF_OPT_MULTIBYTE = --enable-multibyte/' src/Makefile
+  sed -i '' 's/#CONF_OPT_GPM = --disable-gpm/CONF_OPT_GPM = --disable-gpm/' src/Makefile
+  sed -i '' 's/#CONF_OPT_SYSMOUSE = --disable-sysmouse/CONF_OPT_SYSMOUSE = --disable-sysmouse/' src/Makefile
+  sed -i '' 's/#prefix = \$(HOME)/prefix = \$(HOME)\/.local/' src/Makefile
 
   make -j$(nproc) && make install
 
