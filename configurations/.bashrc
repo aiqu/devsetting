@@ -33,6 +33,11 @@ if [ -d $HOME/c3 ];then
     source $HOME/c3/source.me
 fi
 
+if [ -f $HOME/.local/bin/gcc ];then
+  export CC=$HOME/.local/bin/gcc
+  export CXX=$HOME/.local/bin/g++
+fi
+
 if [ ! $(echo $- | grep i) ];then
   return;
 fi
