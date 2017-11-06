@@ -20,8 +20,8 @@ if [ ! -d gflags ]; then
   git clone https://github.com/gflags/gflags
 fi
 cd gflags
-LATEST_TAG=$(git tag | sort -V | tail -n1)
-TAG='v2.1.2'
+TAG=$(git tag | sort -V | tail -n1)
+#TAG='v2.1.2'
 git checkout $TAG && mkdir -p build && cd build && \
 cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
 make -j$(nproc) && make install
