@@ -4,10 +4,12 @@ PYTHONE_DONE=
 
 set -e
 
-if [ ! -d configurations ];then
-    ROOT=$(pwd)/..
-else
-    ROOT=$(pwd)
+if [ -z $ROOT ];then
+  if [ ! -d configurations ];then
+      ROOT=$(pwd)/..
+  else
+      ROOT=$(pwd)
+  fi
 fi
 
 source $ROOT/envset.sh

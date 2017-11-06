@@ -21,7 +21,6 @@ REPO_URL=https://github.com/vim/vim
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 FOLDER="vim-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=v$(vim --version | head -1 | awk '{print $5}').$(vim --version | sed -n '3p' | awk -F'-' '{print $2}')
-echo $INSTALLED_VERSION
 
 if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   echo "vim $TAG installation.. pwd: $PWD, root: $ROOT, core: $CORE"
@@ -73,7 +72,7 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   unzip -qu $ROOT/taglist_46.zip -d ~/.vim/
   curl -L https://raw.githubusercontent.com/ajh17/VimCompletesMe/master/plugin/VimCompletesMe.vim -o $HOME/.vim/plugin/VimCompletesMe.vim
 
-  cd $PWD
+  cd $ROOT
 else
   echo "Vim $INSTALLED_VERSION is already installed"
 fi
