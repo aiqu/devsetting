@@ -12,8 +12,6 @@ echo "Dependencies installation.. pwd: $PWD, root: $ROOT"
 
 if [ $OS == "ubuntu" ] || [ $OS == "debian" ]; then
     PKG_LIST="build-essential \
-        cmake \
-        libncurses5-dev \
         cscope \
         ctags \
         unzip \
@@ -31,7 +29,6 @@ if [ $OS == "ubuntu" ] || [ $OS == "debian" ]; then
         asciidoc \
         xmlto \
         docbook2x \
-        byobu \
         "
     ${SUDO} apt update
     ${SUDO} apt install -y $PKG_LIST
@@ -40,8 +37,6 @@ elif [ $OS == "centos" ];then
     ${SUDO} yum update -y
     ${SUDO} yum groupinstall -y "Development Tools"
     PKG_LIST="\
-        cmake \
-        ncurses-libs \
         cscope \
         ctags \
         unzip \
@@ -63,7 +58,6 @@ elif [ $OS == "centos" ];then
         bzip2-devel \
         readline-devel \
         libsqlite3x-devel \
-        byobu \
         "
     ${SUDO} yum install -y ${PKG_LIST}
 elif [ $OS == "mac" ]; then
@@ -75,9 +69,7 @@ elif [ $OS == "mac" ]; then
     else
         brew update
     fi
-    PKG_LIST="cmake \
-        ncurses \
-        cscope \
+    PKG_LIST="cscope \
         ctags \
         unzip \
         pkg-config \

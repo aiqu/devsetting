@@ -19,6 +19,7 @@ fi
 export CMAKE_LIBRARY_PATH=$LD_LIBRARY_PATH:$CMAKE_LIBRARY_PATH
 export CMAKE_INCLUDE_PATH=$CPATH:$CMAKE_INCLUDE_PATH
 export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
+export BYOBU_CONFIG_DIR=$HOME/.byobu
 
 export EDITOR=vim
 
@@ -37,6 +38,8 @@ if [ -f $HOME/.local/bin/gcc ];then
   export CC=$HOME/.local/bin/gcc
   export CXX=$HOME/.local/bin/g++
 fi
+
+alias byobu='byobu -L gmlee'
 
 if [ ! $(echo $- | grep i) ];then
   return;
