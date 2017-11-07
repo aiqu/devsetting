@@ -25,8 +25,7 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   ./autogen.sh && ./configure --prefix=$HOME/.local
   make -j$(nproc) && make install
 
-  cd $PWD
-  rm -rf $TMP_DIR
+  cd $ROOT && rm -rf $TMP_DIR
 else
   echo "tmux $INSTALLED_VERSION is already installed"
 fi

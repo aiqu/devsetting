@@ -16,6 +16,8 @@ else
   curl -L $REPO_URL | tar xz && cd ncurses*
   ./configure --prefix=$HOME/.local --enable-widec --with-shared && \
     make -j$(nproc) && make install
+
+  cd $ROOT && rm -rf $TMP_DIR
 fi
 
 cd $ROOT

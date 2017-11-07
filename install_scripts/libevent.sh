@@ -26,6 +26,8 @@ if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   mkdir -p build && cd build && \
     cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
     make -j$(nproc) && make install
+
+  cd $ROOT && rm -rf $TMP_DIR
 else
   echo "libevent $INSTALLED_VERSION is already installed"
 fi
