@@ -2,13 +2,7 @@
 
 set -e
 
-if [ ! $ROOT ];then
-    if [ ! -d 'install_scripts' ];then
-        ROOT=$(pwd)/..
-    else
-        ROOT=$(pwd)
-    fi
-fi
+ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 source $ROOT/envset.sh
 

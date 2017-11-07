@@ -4,13 +4,7 @@ PYTHONE_DONE=
 
 set -e
 
-if [ -z $ROOT ];then
-  if [ ! -d configurations ];then
-      ROOT=$(pwd)/..
-  else
-      ROOT=$(pwd)
-  fi
-fi
+ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 source $ROOT/envset.sh
 

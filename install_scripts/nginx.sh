@@ -2,11 +2,12 @@
 
 set -e
 
+ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+
 VER='1.13.5'
 PCRE='pcre-8.41'
 ZLIB='zlib-1.2.11'
 OPENSSL='openssl-1.0.2k'
-ROOT=$(pwd)
 WORKDIR=$ROOT/tmp
 
 mkdir -p $WORKDIR && cd $WORKDIR

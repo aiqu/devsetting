@@ -4,13 +4,7 @@ set -e
 
 CONFIGURATIONS_DONE=
 
-if [ ! $ROOT ];then
-    if [ ! -d 'install_scripts' ];then
-        ROOT=$(pwd)/..
-    else
-        ROOT=$(pwd)
-    fi
-fi
+ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 if [ ! $DEPENDENCIES_DONE ];then
     source "$ROOT/install_scripts/dependencies.sh"
