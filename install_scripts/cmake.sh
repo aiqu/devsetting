@@ -28,6 +28,7 @@ INSTALLED_VER=$(cmake --version 2>/dev/null | grep version | awk '{print $3}')
 if [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
+  echo "Downloading CMake $VER"
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER && mkdir build && cd build

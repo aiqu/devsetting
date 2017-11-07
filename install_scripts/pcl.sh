@@ -19,6 +19,7 @@ cd $WORKDIR
 REPO_URL=https://github.com/PointCloudLibrary/pcl
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' -e 'ros' | sort -V | tail -n1)
 if [ ! -d pcl-${TAG} ];then
+  echo "Downloading pcl $TAG"
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip && rm ${TAG}.zip
 fi

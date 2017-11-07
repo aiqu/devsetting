@@ -35,6 +35,7 @@ fi
 
 if [ ! -d boost_$VERSTR ];then
   if [ ! -f $SRCFILE ]; then
+    echo "Downloading Boost $VER"
     curl -L https://dl.bintray.com/boostorg/release/$VER/source/$SRCFILE | tar xjf -
   fi
 fi

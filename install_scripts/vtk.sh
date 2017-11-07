@@ -28,6 +28,7 @@ TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e
 COMMIT_HASH=$(git ls-remote --tags $REPO_URL | grep "$TAG^{}" | awk '{print $1}')
 SRCDIR="vtk-$TAG-$COMMIT_HASH"
 if [ ! -d $SRCDIR ]; then
+  echo "Downloading vtk $TAG"
   curl -L https://gitlab.kitware.com/vtk/vtk/repository/$TAG/archive.tar.bz2 | tar xjf -
 fi
 cd $SRCDIR && mkdir -p build && cd build
