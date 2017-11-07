@@ -6,6 +6,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 bash $ROOT/install_scripts/libevent.sh
 bash $ROOT/install_scripts/ncurses.sh
+bash $ROOT/install_scripts/newt.sh
 
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/tmux/tmux
