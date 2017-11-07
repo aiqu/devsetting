@@ -27,5 +27,7 @@
     username = aiqu
 [credential "https://es.naverlabs.com"]
     username = gwangmin.lee
+[credential "https://oss.navercorp.com"]
+    username = gwangmin.lee
 [help]
 	autocorrect = 1
