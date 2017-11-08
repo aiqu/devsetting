@@ -39,7 +39,8 @@ if [ -f $HOME/.local/bin/gcc ];then
   export CXX=$HOME/.local/bin/g++
 fi
 
-alias byobu='byobu -L gmlee'
+export TMUX_TMPDIR=$HOME/.tmux
+mkdir -p $TMUX_TMPDIR
 
 if [ ! $(echo $- | grep i) ];then
   return;
