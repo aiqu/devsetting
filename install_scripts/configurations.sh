@@ -6,10 +6,6 @@ CONFIGURATIONS_DONE=
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
-if [ ! $DEPENDENCIES_DONE ];then
-    source "$ROOT/install_scripts/dependencies.sh"
-fi
-
 if [ $(echo $OSTYPE | grep 'linux') ];then
     READLINK='readlink'
     CORE=$(cat /proc/cpuinfo | grep processor | wc -l)
