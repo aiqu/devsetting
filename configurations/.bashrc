@@ -1,5 +1,11 @@
 export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 export TERM="xterm-256color"
+export BYOBU_CONFIG_DIR=$HOME/.byobu
+export LANG='en_US.UTF-8'
+export EDITOR=vim
+export TMUX_TMPDIR=$HOME/.tmux
+mkdir -p $TMUX_TMPDIR
+
 
 MY_INCLUDE_DIR=$HOME/.local/include
 MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
@@ -19,9 +25,11 @@ fi
 export CMAKE_LIBRARY_PATH=$LD_LIBRARY_PATH:$CMAKE_LIBRARY_PATH
 export CMAKE_INCLUDE_PATH=$CPATH:$CMAKE_INCLUDE_PATH
 export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
-export BYOBU_CONFIG_DIR=$HOME/.byobu
 
-export EDITOR=vim
+if [ -f $HOME/.local/bin/gcc ];then
+  export CC=$HOME/.local/bin/gcc
+  export CXX=$HOME/.local/bin/g++
+fi
 
 if [ -d $HOME/.local/gradle-4.3 ];then
   export GRADLE_HOME=$HOME/.local/gradle-4.3
@@ -33,14 +41,6 @@ fi
 if [ -d $HOME/c3 ];then
     source $HOME/c3/source.me
 fi
-
-if [ -f $HOME/.local/bin/gcc ];then
-  export CC=$HOME/.local/bin/gcc
-  export CXX=$HOME/.local/bin/g++
-fi
-
-export TMUX_TMPDIR=$HOME/.tmux
-mkdir -p $TMUX_TMPDIR
 
 if [ ! $(echo $- | grep i) ];then
   return;

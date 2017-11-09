@@ -5,16 +5,13 @@ set -e
 VIM_DONE=
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-if [ ! $CONFIGURATIONS_DONE ];then
-    source $ROOT/install_scripts/configurations.sh
-fi
+. $ROOT/envset.sh
 
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/vim/vim
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 FOLDER="vim-$(echo $TAG | sed 's/v//')"
-INSTALLED_VERSION=v$(vim --version | head -1 | awk '{print $5}').$(vim --version | sed -n '3p' | awk -F'-' '{print $2}')
+INSTALLED_VERSION=v$(vim --version | head -1 | awk '{print $5}').$(vim --version | grep 'patches:'| awk -F'-' '{print $2}')
 
 if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   echo "vim $TAG installation.. pwd: $PWD, root: $ROOT, core: $CORE"
