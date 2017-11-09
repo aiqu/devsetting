@@ -5,6 +5,7 @@ set -e
 GIT_DONE=
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
 
 if [ ! $CONFIGURATIONS_DONE ];then
     source "$ROOT/install_scripts/configurations.sh"
