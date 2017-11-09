@@ -23,8 +23,8 @@ if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER
-  mkdir -p build && cd build && \
-    cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
+  ./autogen.sh && \
+    ./configure --prefix=$HOME/.local --disable-debug-mode --disable-samples && \
     make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR
