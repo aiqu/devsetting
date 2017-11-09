@@ -16,7 +16,6 @@ if [ $OS == "ubuntu" ] || [ $OS == "debian" ]; then
         ctags \
         unzip \
         pkg-config \
-        autoconf \
         automake \
         dh-autoreconf \
         autotools-dev \
@@ -41,7 +40,6 @@ elif [ $OS == "centos" ];then
         ctags \
         unzip \
         pkgconfig \
-        autoconf \
         automake \
         libconfuse-devel \
         openssl-devel openssl-libs \
@@ -73,7 +71,6 @@ elif [ $OS == "mac" ]; then
         ctags \
         unzip \
         pkg-config \
-        autoconf \
         automake \
         confuse \
         coreutils \
@@ -107,5 +104,10 @@ elif [ $OS == "mac" ]; then
 
     set -e
 fi
+
+$ROOT/install_scripts/cmake.sh
+$ROOT/install_scripts/ncurses.sh
+$ROOT/install_scripts/byobu.sh
+$ROOT/install_scripts/autoconf.sh
 
 DEPENDENCIES_DONE=1
