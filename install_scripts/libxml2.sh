@@ -8,8 +8,7 @@ PWD=$(pwd)
 
 PKG_NAME="libxml2"
 TMP_DIR=$ROOT/tmp
-REPO_URL="git://git.gnome.org/libxml2"
-DOWN_URL="http://git.gnome.org/browse/libxml2/snapshot/libxml2-"
+REPO_URL="http://github.com/GNOME/libxml2"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//g')
 FOLDER="$PKG_NAME*"
@@ -20,7 +19,8 @@ if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $DOWN_URL$TAG.tar.xz | tar xJ && cd $FOLDER
+  curl -LO $REPO_URL/archive/$TAG.zip && \
+    unzip -q $TAG.zip && rm $TAG.zip && cd $FOLDER
   ./autogen.sh
   ./configure --prefix=$HOME/.local && \
     make -j$(nproc) && make install
