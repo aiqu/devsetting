@@ -11,7 +11,7 @@ REPO_URL=https://github.com/dustinkirkland/byobu
 
 echo "Byobu installation.. pwd: $PWD, root: $ROOT"
 
-cd $HOME/.lib
+mkdir -p $HOME/.lib && cd $HOME/.lib
 
 if [ ! -d byobu ];then
   git clone $REPO_URL
