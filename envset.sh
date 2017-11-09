@@ -2,7 +2,7 @@
 
 set -e 
 
-if [ -z $__ENVSET ];then
+if [ ! $__ENVSET ];then
   if [ ! $ROOT ];then
       if [ ! -d 'configurations' ];then
           ROOT=$(pwd)/..
