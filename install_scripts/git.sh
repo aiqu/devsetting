@@ -7,21 +7,22 @@ GIT_DONE=
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-if [ ! $CONFIGURATIONS_DONE ];then
-    source "$ROOT/install_scripts/configurations.sh"
-fi
-
-TAG=2.14.0-rc0
+TMP_DIR=$ROOT/tmp
+PKG='git'
+REPO_URL='https://github.com/git/git'
+TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc' | cut -d/ -f3 | sort -V | tail -n1)
+VER=$(echo $TAG | sed 's/v//')
+FOLDER="$PKG*"
 if [ -z ${REINSTALL_GIT+x}];then
     INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
 else
     INSTALLED_VERSION=""
 fi
 
-if [ "$TAG" == "$INSTALLED_VERSION" ];then
-    echo "Git $TAG is already installed"
+if [ "$VER" == "$INSTALLED_VERSION" ];then
+    echo "$PKG $VER is already installed"
 else
-    echo "Git installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+    echo "$PKG $VER installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 
     if [ $OS == "mac" ]; then
         export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
@@ -35,19 +36,12 @@ else
         fi
     fi
 
-    mkdir -p $HOME/.lib
-    cd $HOME/.lib
-    FILENAME=v${TAG}.zip
-    if [ ! -f $FILENAME ];then
-        curl -LO https://github.com/git/git/archive/${FILENAME}
-        unzip -q ${FILENAME} && rm $FILENAME
-    fi
-    cd git-${TAG}
-    make clean
-    make configure
-    ./configure --prefix=$HOME/.local
-    make -j$CORE all doc && make install install-doc
-    cd $PWD
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+    curl -LO $REPO_URL/archive/$TAG.zip && unzip -q $TAG.zip && rm $TAG.zip
+    cd $FOLDER
+    make configure && ./configure --prefix=$HOME/.local
+    make -j$(nproc) all && make install
+    cd $ROOT && rm -rf $TMP_DIR
 fi
 
 cd $ROOT
