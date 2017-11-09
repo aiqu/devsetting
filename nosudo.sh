@@ -1,12 +1,8 @@
 #!/bin/bash
 
-if [ ! -d install_scripts ];then
-	ROOT=$(pwd)/..
-else
-	ROOT=$(pwd)
-fi
+ROOT=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 
-. envset.sh
+. $ROOT/envset.sh
 
 DEPENDENCIES_DONE=true
 source "$ROOT/install_scripts/configurations.sh"
