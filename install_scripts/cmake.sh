@@ -5,10 +5,7 @@ set -e
 CMAKE_DONE=
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-if [ ! $CONFIGURATIONS_DONE ];then
-    source $ROOT/install_scripts/configurations.sh
-fi
+. $ROOT/envset.sh
 
 echo "cmake installation.. pwd: $PWD, root: $ROOT, core: $CORE"
 

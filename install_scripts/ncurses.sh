@@ -3,6 +3,7 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
 
 TMP_DIR=$ROOT/tmp
 REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz

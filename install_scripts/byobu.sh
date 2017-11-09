@@ -3,6 +3,7 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
 
 bash $ROOT/install_scripts/tmux.sh
 
