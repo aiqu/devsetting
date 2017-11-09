@@ -8,5 +8,7 @@ fi
 
 . envset.sh
 
+. $ROOT/install_scripts/configurations.sh
+. $HOME/.bashrc
 source "$ROOT/install_scripts/dependencies.sh"
 source "$ROOT/nosudo.sh"
