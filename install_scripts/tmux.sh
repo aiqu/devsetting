@@ -22,7 +22,6 @@ if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER
-  echo $(pwd)
   ./autogen.sh && ./configure --prefix=$HOME/.local
   make -j$(nproc) && make install
 
