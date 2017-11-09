@@ -2,6 +2,10 @@
 
 set -e 
 
+if [ ! -z $__ENVSET ];then
+  exit 0
+fi
+
 if [ ! $ROOT ];then
     if [ ! -d 'configurations' ];then
         ROOT=$(pwd)/..
@@ -36,3 +40,4 @@ else
 fi
 
 echo "Current OS is "$OS
+__ENVSET='done'
