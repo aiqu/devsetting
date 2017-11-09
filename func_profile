@@ -1,0 +1,40 @@
+# Originated from https://github.com/dkim010/settings
+
+unset profile
+
+function profile() {
+  if [ -z $PROFILE_PATH_HOME ];then
+    echo "PROFILE_PATH_HOME is not set"
+    exit 1
+  fi
+  PROFILE_USERID=${PROFILE_DEFAULT_USER}
+
+  if [ $# -ge 1 ]; then
+    if [ $1 == '--help' ]; then
+      echo "Change User's profile"
+      echo "Usage : profile [user_id]"
+      echo "Options :"
+      echo -e "user_id\tUser ID [default : '${PROFILE_USERID}']"
+      echo -e "--help\tThis help"
+
+      unset PROFILE_USERID
+      return ;
+    fi
+    PROFILE_USERID=$1
+  fi
+
+  if [ -d "${PROFILE_PATH_HOME}/${PROFILE_USERID}" ]; then
+    export HOME="${PROFILE_PATH_HOME}/${PROFILE_USERID}"
+    if [ -f "${PROFILE_PATH_HOME}/${PROFILE_USERID}/.bash_profile" ]; then
+      source "${PROFILE_PATH_HOME}/${PROFILE_USERID}/.bash_profile"
+    fi
+    if [ -f "${PROFILE_PATH_HOME}/${PROFILE_USERID}/.bashrc" ]; then
+      source "${PROFILE_PATH_HOME}/${PROFILE_USERID}/.bashrc"
+    fi
+    cd ~
+  else
+    echo "Error : Cannot find user ID '${PROFILE_USERID}' '${PROFILE_PATH_HOME}'"
+  fi
+
+  unset PROFILE_USERID
+}
