@@ -15,7 +15,7 @@ FOLDER="tmux-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=$(tmux -V | cut -d' ' -f2)
 
 if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
-  echo "tmux $TAG installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+  echo "tmux $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 

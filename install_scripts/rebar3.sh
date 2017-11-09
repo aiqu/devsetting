@@ -18,7 +18,7 @@ FOLDER="rebar3-$TAG"
 INSTALLED_VERSION=$(rebar3 -v | cut -d' ' -f2)
 
 if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
-  echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+  echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip

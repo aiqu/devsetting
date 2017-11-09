@@ -7,7 +7,7 @@ CMAKE_DONE=
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-echo "cmake installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+echo "cmake installation.. pwd: $PWD, root: $ROOT"
 
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/Kitware/CMake

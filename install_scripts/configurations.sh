@@ -8,13 +8,11 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
     READLINK='readlink'
-    CORE=$(cat /proc/cpuinfo | grep processor | wc -l)
 elif [ $OS == "mac" ];then
     READLINK='greadlink'
-    CORE=$(sysctl -n hw.ncpu)
 fi
 
-echo "Configurations. pwd: $PWD, root: $ROOT, core: $CORE"
+echo "Configurations. pwd: $PWD, root: $ROOT"
 
 CONF_FOLDER=`$READLINK -f $ROOT/configurations`
 

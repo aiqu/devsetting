@@ -9,7 +9,7 @@ bash $ROOT/install_scripts/tmux.sh
 
 REPO_URL=https://github.com/dustinkirkland/byobu
 
-echo "Byobu installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+echo "Byobu installation.. pwd: $PWD, root: $ROOT"
 
 cd $HOME/.lib
 

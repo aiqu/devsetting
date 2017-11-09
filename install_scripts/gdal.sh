@@ -16,7 +16,7 @@ VERFILE="$HOME/.local/include/gdal_version.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define GDAL_RELEASE_NAME' | cut -d'"' -f2)
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+  echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz && cd $FOLDER

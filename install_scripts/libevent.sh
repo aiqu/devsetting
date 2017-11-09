@@ -16,7 +16,7 @@ if [ -r $VERFILE ];then
 fi
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  echo "libevent $VER installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+  echo "libevent $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 

@@ -4,7 +4,6 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 
 . $ROOT/envset.sh
 
-DEPENDENCIES_DONE=true
 source "$ROOT/install_scripts/configurations.sh"
 source "$ROOT/install_scripts/cmake.sh"
 source "$ROOT/install_scripts/git.sh"

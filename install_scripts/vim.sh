@@ -14,7 +14,7 @@ FOLDER="vim-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=v$(vim --version | head -1 | awk '{print $5}').$(vim --version | grep 'patches:'| awk -F'-' '{print $2}')
 
 if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
-  echo "vim $TAG installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+  echo "vim $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 

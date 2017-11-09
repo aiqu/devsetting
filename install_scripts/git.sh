@@ -22,7 +22,7 @@ fi
 if [ "$VER" == "$INSTALLED_VERSION" ];then
     echo "$PKG $VER is already installed"
 else
-    echo "$PKG $VER installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+    echo "$PKG $VER installation.. pwd: $PWD, root: $ROOT"
 
     if [ $OS == "mac" ]; then
         export XML_CATALOG_FILES=/usr/local/etc/xml/catalog

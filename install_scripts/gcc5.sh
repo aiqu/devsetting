@@ -8,7 +8,7 @@ if [ ! $CONFIGURATIONS_DONE ];then
     source $ROOT/install_scripts/configurations.sh
 fi
 
-echo "gcc installation.. pwd: $PWD, root: $ROOT, core: $CORE"
+echo "gcc installation.. pwd: $PWD, root: $ROOT"
 CFLAGS="-O2 -pipe"
 
 VER='5_4_0'
