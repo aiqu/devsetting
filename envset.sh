@@ -37,5 +37,6 @@ if [ ! $__ENVSET ];then
   fi
 
   echo "Current OS is "$OS
+  . $HOME/.bashrc
   __ENVSET='done'
 fi
