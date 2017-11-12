@@ -19,9 +19,9 @@ if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  git clone $REPO_URL --branch $TAG --depth=1 && cd $FOLDER
-  ./autogen.sh
-  ./configure --prefix=$HOME/.local && \
+  git clone $REPO_URL --branch $TAG --depth=1
+  cd $FOLDER
+  ./autogen.sh --prefix=$HOME/.local --with-internal-glib && \
     make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR
