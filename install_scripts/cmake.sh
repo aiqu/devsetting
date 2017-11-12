@@ -23,7 +23,7 @@ if [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER
-  if [ $(which cmake 2>/dev/null) ];then
+  if [ $(cmake 2>/dev/null) ];then
     mkdir build && cd build
     cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
   else
