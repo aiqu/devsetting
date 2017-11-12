@@ -12,8 +12,9 @@ REPO_URL="https://github.com/martinh/libconfuse"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|version' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
-VERFILE=""
-INSTALLED_VERSION=$(pkg-config libconfuse --modversion)
+if pkg-config libconfuse --exists; then
+  INSTALLED_VERSION=$(pkg-config libconfuse --modversion)
+fi
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"

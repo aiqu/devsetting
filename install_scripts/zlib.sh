@@ -12,7 +12,9 @@ TAG='1.2.11'
 VER=$TAG
 REPO_URL="https://zlib.net/zlib-$TAG.tar.xz"
 FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=$(pkg-config zlib --modversion)
+if pkg-config zlib --exists; then
+  INSTALLED_VERSION=$(pkg-config zlib --modversion)
+fi
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
