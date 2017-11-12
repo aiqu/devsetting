@@ -38,6 +38,10 @@ if [ -d $HOME/.local/jdk1.8.0_152 ];then
   export JAVA_HOME=$HOME/.local/jdk1.8.0_152
 fi
 
+if [ -d $HOME/.local/lib/perl5 ];then
+  export PERL5LIB=$HOME/.local/lib/perl5
+fi
+
 if [ -d $HOME/c3 ];then
     source $HOME/c3/source.me
 fi
