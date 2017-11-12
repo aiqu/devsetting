@@ -15,8 +15,10 @@ if [ -r $VERFILE ];then
 else
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz && cd ncurses*
-  ./configure --prefix=$HOME/.local --enable-widec --with-shared && \
+  ./configure --prefix=$HOME/.local --enable-widec --without-develop --without-cxx-binding --with-shared CPPFLAGS='-P' && \
     make -j$(nproc) && make install
+  ln -sf $HOME/.local/include/ncursesw/*.h $HOME/.local/include/
+  ln -sf libncursesw.so $HOME/.local/lib/libcurses.so
 
   cd $ROOT && rm -rf $TMP_DIR
 fi
