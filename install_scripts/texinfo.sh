@@ -19,7 +19,6 @@ if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xJ && cd $FOLDER
-  mkdir -p build && cd build && \
   ./configure --prefix=$HOME/.local && \
     make -j$(nproc) && make install
 

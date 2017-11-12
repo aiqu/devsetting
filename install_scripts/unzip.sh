@@ -17,9 +17,9 @@ if unzip 2>/dev/null == ''; then
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz && cd $FOLDER
   if [ $OS == 'mac' ]; then
-    make -f macos/Makefile -j$(nproc) generic && \
+    make -f macos/Makefile -j$(nproc) generic
   else
-    make -f unix/Makefile -j$(nproc) generic && \
+    make -f unix/Makefile -j$(nproc) generic
   fi
     make prefix=$HOME/.local MANDIR=$HOME/.local/share/man/man1 -f unix/Makefile install
 

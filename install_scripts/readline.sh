@@ -15,7 +15,6 @@ VER=$(echo $TAG | sed 's/readline-//')
 FOLDER="$PKG_NAME*"
 VERFILE="$HOME/.local/include/readline/readline.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep 'define RL_READLINE_VERSION' | cut -d' ' -f4)
-echo $INSTALLED_VERSION
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
