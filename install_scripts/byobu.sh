@@ -7,14 +7,14 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 bash $ROOT/install_scripts/tmux.sh
 
-REPO_URL=https://github.com/dustinkirkland/byobu
+REPO_URL=https://github.com/aiqu/byobu
 
 echo "Byobu installation.. pwd: $PWD, root: $ROOT"
 
 mkdir -p $HOME/.lib && cd $HOME/.lib
 
 if [ ! -d byobu ];then
-  git clone $REPO_URL
+  git clone --depth=1 $REPO_URL
 fi
 
 cd byobu && git pull && \
