@@ -13,7 +13,9 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1
 VER=$(echo $TAG | sed 's/pkg-config-//')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(pkg-config --version)
+set +e
+INSTALLED_VERSION=$(pkg-config --version 2>/dev/null)
+set -e
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
