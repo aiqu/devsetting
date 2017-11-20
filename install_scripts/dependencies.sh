@@ -21,9 +21,11 @@ if [ $OS == "mac" ]; then
     fi
 fi
 
+. $ROOT/install_scripts/make.sh
+. $ROOT/install_scripts/m4.sh
 . $ROOT/install_scripts/libtool.sh
-. $ROOT/install_scripts/automake.sh
 . $ROOT/install_scripts/autoconf.sh
+. $ROOT/install_scripts/automake.sh
 . $ROOT/install_scripts/which.sh
 . $ROOT/install_scripts/pkg-config.sh
 . $ROOT/install_scripts/ncurses.sh
