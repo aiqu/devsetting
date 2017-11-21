@@ -8,7 +8,7 @@ PWD=$(pwd)
 
 PKG_NAME="readline"
 TMP_DIR=$ROOT/tmp
-REPO_URL="git://git.savannah.gnu.org/readline"
+REPO_URL="https://git.savannah.gnu.org/git/readline.git"
 DOWN_URL="http://git.savannah.gnu.org/cgit/readline.git/snapshot"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta\|rc' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/readline-//')
