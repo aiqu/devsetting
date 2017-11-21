@@ -39,6 +39,8 @@ else
     mkdir -p $TMP_DIR && cd $TMP_DIR
     curl -LO $REPO_URL/archive/$TAG.zip && unzip -q $TAG.zip && rm $TAG.zip
     cd $FOLDER
+    export CC=gcc
+    export LDFLAGS=-L$HOME/.local/lib
     make configure && ./configure --prefix=$HOME/.local
     make -j$(nproc) all && make install
     cd $ROOT && rm -rf $TMP_DIR
