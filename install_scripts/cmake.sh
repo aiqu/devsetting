@@ -23,7 +23,7 @@ if [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER
-  ./bootstrap --prefix=$HOME/.local --parallel=$(nproc) --no-system-libs --system-curl --system-libarchive --system-libexpat
+  ./bootstrap --prefix=$HOME/.local --parallel=$(nproc) --no-system-libs --system-curl --system-libarchive --system-expat
 
   make -j$(nproc) && make install
 
