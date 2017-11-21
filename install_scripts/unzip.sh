@@ -11,7 +11,7 @@ TMP_DIR=$ROOT/tmp
 REPO_URL="https://downloads.sourceforge.net/infozip/unzip60.tar.gz"
 FOLDER="$PKG_NAME*"
 
-if unzip 2>/dev/null == ''; then
+if [ ! -f $HOME/.local/bin/unzip ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

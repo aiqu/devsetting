@@ -20,7 +20,7 @@ if [ -z $INSTALLED_VERSION ] || [ "$(printf "$VER\n$INSTALLED_VERSION" | sort -V
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
-  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  $HOME/.local/bin/unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   ./buildconf
   ./configure --prefix=$HOME/.local \
     --disable-debug \
