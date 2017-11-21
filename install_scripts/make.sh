@@ -8,7 +8,7 @@ PWD=$(pwd)
 
 PKG_NAME="make"
 TMP_DIR=$ROOT/tmp
-REPO_URL="http://ftp.gnu.org/gnu/make/make-4.2.tar.bz2"
+REPO_URL="http://ftp.gnu.org/gnu/make/make-3.82.tar.bz2"
 TAG=$(echo $REPO_URL | cut -d'-' -f2 | sed 's/.tar.bz2//');
 VER=$TAG
 FOLDER="$PKG_NAME*"
