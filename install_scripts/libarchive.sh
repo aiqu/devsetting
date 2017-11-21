@@ -21,7 +21,8 @@ if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
-  ./configure --prefix=$HOME/.local && \
+  build/autogen.sh && \
+    ./configure --prefix=$HOME/.local && \
     make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR
