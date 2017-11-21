@@ -149,3 +149,5 @@ set foldmethod=indent					"Lines with equal indent form a fold.
 set foldlevelstart=20
 nnoremap <space> za
 vnoremap <space> zf
+
+au BufNewFile,BufRead *.ejs set filetype=ejs
