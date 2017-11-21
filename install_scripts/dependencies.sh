@@ -36,6 +36,7 @@ fi
 . $ROOT/install_scripts/zlib.sh
 . $ROOT/install_scripts/curl.sh
 . $ROOT/install_scripts/bzip2.sh
+. $ROOT/install_scripts/libarchive.sh
 . $ROOT/install_scripts/cmake.sh
 . $ROOT/install_scripts/texinfo.sh
 . $ROOT/install_scripts/cscope.sh
