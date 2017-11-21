@@ -10,10 +10,11 @@ PKG_NAME="libarchive"
 TMP_DIR=$ROOT/tmp
 REPO_URL="https://github.com/libarchive/libarchive"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
-VER=$TAG
+VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
-VERFILE=""
-INSTALLED_VERSION=""
+if pkg-config libarchive --exists; then
+  INSTALLED_VERSION=$(pkg-config libarchive --modversion)
+fi
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
