@@ -13,7 +13,7 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|pre\|FIPS' | grep OpenSSL | c
 VER=$(echo $TAG | sed 's/OpenSSL.//' | sed 's/_/./g')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-#INSTALLED_VERSION=$(openssl version | cut -d' ' -f2)
+INSTALLED_VERSION=$(openssl version | cut -d' ' -f2)
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
