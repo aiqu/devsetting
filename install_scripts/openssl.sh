@@ -13,14 +13,14 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|pre\|FIPS' | grep OpenSSL | c
 VER=$(echo $TAG | sed 's/OpenSSL.//' | sed 's/_/./g')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(openssl version | cut -d' ' -f2)
+#INSTALLED_VERSION=$(openssl version | cut -d' ' -f2)
 
 if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
-  ./config --prefix=$HOME/.local --openssldir=$HOME/.local/ssl threads && \
+  ./config --prefix=$HOME/.local --openssldir=$HOME/.local/ssl threads no-shared && \
     make -j$(nproc) && make install_sw && make install_man_docs
 
   cd $ROOT && rm -rf $TMP_DIR

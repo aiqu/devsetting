@@ -22,7 +22,7 @@ function install_python {
   mkdir -p $WORKDIR && cd $WORKDIR
   curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
   cd Python-$VER
-  ./configure --prefix=$HOME/.local --enable-shared --enable-unicode=ucs4 --with-threads --with-system-ffi
+  ./configure --prefix=$HOME/.local --enable-unicode=ucs4 --with-threads --with-system-ffi
   make -j$(nproc)
   make install
   rm -rf $WORKDIR
