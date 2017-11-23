@@ -15,7 +15,7 @@ FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
 
-if [ -z $INSTALLED_VERSION ] || [ "$(printf "$VER\n$INSTALLED_VERSION" | sort -V | head -n1)" == $INSTALLED_VERSION ]; then
+if [ ! -f /usr/bin/curl ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
