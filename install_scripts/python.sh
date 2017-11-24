@@ -54,7 +54,8 @@ fi
 pip2 install -U pip
 pip3 install -U pip
 
-pip install jupyter jupyterthemes
+pip2 install jupyter jupyterthemes
+pip3 install jupyter jupyterthemes
 jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
 
 echo "---"
