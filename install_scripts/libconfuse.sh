@@ -16,7 +16,7 @@ if pkg-config libconfuse --exists; then
   INSTALLED_VERSION=$(pkg-config libconfuse --modversion)
 fi
 
-if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

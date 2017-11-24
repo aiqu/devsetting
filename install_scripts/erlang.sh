@@ -13,7 +13,7 @@ VER=$(echo $TAG | cut -d'-' -f2)
 FOLDER="otp-$TAG"
 INSTALLED_VERSION=$(find $HOME/.local/lib/erlang/releases -name OTP_VERSION | xargs cat | sort -V | tail -n1)
 
-if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

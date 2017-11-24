@@ -25,7 +25,7 @@ TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e
 INSTALLED_VERSION=$(opencv_version 2>/dev/null)
 CUDA_BIN_PATH="/usr/local/cuda-8.0"
 
-if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   if [ ! -d opencv-${TAG} ];then
     curl -LO ${REPO_URL}/archive/${TAG}.zip
     unzip -q ${TAG}.zip && rm ${TAG}.zip

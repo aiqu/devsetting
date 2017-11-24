@@ -14,7 +14,7 @@ VER=$TAG
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=$($HOME/.local/bin/autoconf --version | head -n1 | cut -d' ' -f4)
 
-if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

@@ -15,7 +15,7 @@ FOLDER="$PKG_NAME*"
 VERFILE="$HOME/.local/include/libxml2/libxml/xmlversion.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define LIBXML_DOTTED_VERSION "' | cut -d'"' -f2)
 
-if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

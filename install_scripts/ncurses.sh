@@ -9,7 +9,7 @@ TMP_DIR=$ROOT/tmp
 REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz
 FOLDER='ncurses'
 VERFILE="$HOME/.local/include/ncursesw/curses.h"
-if [ -r $VERFILE ];then
+if [ -z $REINSTALL ] && [ -r $VERFILE ];then
   INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define NCURSES_VERSION ' | cut -d'"' -f2)
   echo "ncurses $INSTALLED_VERSION is already installed"
 else

@@ -39,13 +39,13 @@ PYTHON3_VER='3.6.3'
 INSTALLED_PYTHON2_VER=$($HOME/.local/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
 INSTALLED_PYTHON3_VER=$($HOME/.local/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
 
-if [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
   install_python $PYTHON2_VER
 else
   echo "Python $PYTHON2_VER is already installed"
 fi
 
-if [ -z $INSTALLED_PYTHON3_VER ] || [ $PYTHON3_VER != $INSTALLED_PYTHON3_VER ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON3_VER ] || [ $PYTHON3_VER != $INSTALLED_PYTHON3_VER ]; then
   install_python $PYTHON3_VER
 else
   echo "Python $PYTHON3_VER is already installed"

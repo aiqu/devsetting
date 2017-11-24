@@ -16,7 +16,7 @@ FOLDER="$PKG_NAME*"
 VERFILE="$HOME/.local/include/readline/readline.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep 'define RL_READLINE_VERSION' | cut -d' ' -f4)
 
-if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

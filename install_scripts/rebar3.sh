@@ -17,7 +17,7 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta' | cut -d/ -f3 | 
 FOLDER="rebar3-$TAG"
 INSTALLED_VERSION=$(rebar3 -v | cut -d' ' -f2)
 
-if [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

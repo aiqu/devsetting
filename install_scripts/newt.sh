@@ -38,7 +38,7 @@ TAG=$(git ls-remote -t $REPO_URL | cut -d'/' -f3 | grep -v v | sort -V | tail -n
 VER=$(echo $TAG | sed 's/[r|.zip]//g' | sed 's/-/./g')
 FOLDER="newt-$VER"
 INSTALLED_VER=$(find $HOME/.local/lib -mindepth 1 -maxdepth 1 -type f | grep newt.so | sed 's/.*libnewt.so.//')
-if [ -z $INSTALLED_VER ] || [ $VER != $INSTALLED_VER ];then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $VER != $INSTALLED_VER ];then
   mkdir -p $TMP_DIR && cd $TMP_DIR
   DOWN_URL=https://releases.pagure.org/newt/newt-$VER.tar.gz
   curl -L $DOWN_URL | tar xz && cd $FOLDER

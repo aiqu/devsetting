@@ -7,7 +7,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://ftp.postgresql.org/pub/source/v10.0/postgresql-10.0.tar.bz2
 BIN=$HOME/.local/bin/postgres
-if [ -f $BIN ];then
+if [ -z $REINSTALL ] && [ -f $BIN ];then
   INSTALLED_VERSION=$($BIN -V | cut -d' ' -f3)
   echo "Postgresql $INSTALLED_VERSION is already installed"
 else

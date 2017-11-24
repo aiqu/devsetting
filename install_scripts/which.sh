@@ -11,7 +11,7 @@ TMP_DIR=$ROOT/tmp
 REPO_URL="http://ftp.gnu.org/gnu/which/which-2.21.tar.gz"
 FOLDER="$PKG_NAME*"
 
-if [ ! -f $HOME/.local/bin/which ]; then
+if [ ! -z $REINSTALL] || [ ! -f $HOME/.local/bin/which ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

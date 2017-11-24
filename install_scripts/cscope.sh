@@ -14,7 +14,7 @@ REPO_URL="https://downloads.sourceforge.net/project/cscope/cscope/15.8b/cscope-$
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=$(cscope --version 2>&1 | cut -d' ' -f3)
 
-if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

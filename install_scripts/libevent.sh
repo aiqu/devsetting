@@ -15,7 +15,7 @@ if [ -r $VERFILE ];then
   INSTALLED_VERSION=$(cat $VERFILE | head -n1 | cut -d'"' -f2)
 fi
 
-if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "libevent $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

@@ -13,13 +13,9 @@ REPO_URL='https://github.com/git/git'
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG*"
-if [ -z ${REINSTALL_GIT+x}];then
-    INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
-else
-    INSTALLED_VERSION=""
-fi
+INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
 
-if [ "$VER" == "$INSTALLED_VERSION" ];then
+if [ -z $REINSTALL ] && [ $VER == $INSTALLED_VERSION ];then
     echo "$PKG $VER is already installed"
 else
     echo "$PKG $VER installation.. pwd: $PWD, root: $ROOT"

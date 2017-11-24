@@ -15,7 +15,7 @@ VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=$(gettext --version 2>/dev/null | head -n1 | cut -d' ' -f4)
 
-if [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
