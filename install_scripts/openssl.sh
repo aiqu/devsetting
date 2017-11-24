@@ -20,7 +20,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
-  ./config --prefix=$HOME/.local --openssldir=$HOME/.local/ssl threads no-shared && \
+  ./config --prefix=$HOME/.local --openssldir=$HOME/.local/ssl threads && \
     make -j$(nproc) && make install_sw && make install_man_docs
 
   cd $ROOT && rm -rf $TMP_DIR
