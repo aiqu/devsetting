@@ -1,5 +1,5 @@
 #### Usage
 
-`./all.sh # run all install scripts`
+`./base.sh # run basic install scripts`
 
-`REINSTALL_GIT=1 REINSTALL_VIM=1 ./all.sh # run all install scripts with force reinstall`
+`REINSTALL=1 [INSTALL_SCRIPT] # run install scripts with force reinstall`
