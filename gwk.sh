@@ -65,7 +65,7 @@ USER_LIST_ITER=1
 USER_LIST_FOR_RLOGIN=(${USER_LIST_FOR_RLOGIN1[@]})
 PROTOCOL_LIST=(rlogin ssh )
  
-VERSION="1.3.5"
+VERSION="1.3.6"
 #========================================
 # kinit
 #========================================
