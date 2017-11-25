@@ -22,44 +22,38 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+PWD=$(pwd)
+. $ROOT/envset.sh
 
-VER='1.13.5'
-PCRE='pcre-8.41'
-ZLIB='zlib-1.2.11'
-OPENSSL='openssl-1.0.2k'
-WORKDIR=$ROOT/tmp
+. $ROOT/install_scripts/pcre.sh
+. $ROOT/install_scripts/zlib.sh
+. $ROOT/install_scripts/openssl.sh
 
-mkdir -p $WORKDIR && cd $WORKDIR
+PKG_NAME="nginx"
+TMP_DIR=$ROOT/tmp
+REPO_URL="https://github.com/nginx/nginx"
+TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
+VER=$(echo $TAG | cut -d'-' -f2)
+FOLDER="$PKG_NAME*"
+VERFILE=""
+INSTALLED_VERSION=$(nginx -v 2>&1 | cut -d/ -f2)
 
-curl -L http://nginx.org/download/nginx-${VER}.tar.gz | tar xzf -
-curl -L ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/${PCRE}.tar.gz | tar xzf -
-curl -L http://zlib.net/${ZLIB}.tar.gz | tar xzf -
-curl -L http://www.openssl.org/source/${OPENSSL}.tar.gz | tar xzf -
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
-cd $WORKDIR/$PCRE
-./configure --prefix=$HOME/.local
-make -j$(nproc)
-make install
-
-cd $WORKDIR/$ZLIB
-./configure --prefix=$HOME/.local
-make -j$(nproc)
-make install
-
-cd $WORKDIR/$OPENSSL
-./config --prefix=$HOME/.local
-make -j$(nproc)
-make install
-
-cd $WORKDIR/nginx-${VER}
-./configure --prefix=$HOME/.local/nginx \
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl -LO $REPO_URL/archive/$TAG.zip
+  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  auto/configure --prefix=$HOME/.local/nginx \
+    --with-threads \
     --sbin-path=$HOME/.local/bin/nginx \
     --with-http_ssl_module \
-    --with-pcre=../${PCRE} \
-    --with-zlib=../${ZLIB} \
-    --with-openssl=../${OPENSSL}
+    --with-pcre
+  make -j$(nproc) && make install
 
-make -j$(nproc)
-make install
+  cd $ROOT && rm -rf $TMP_DIR
+else
+  echo "$PKG_NAME $VER is already installed"
+fi
 
-cd $ROOT && rm -rf $WORKDIR
+cd $ROOT
