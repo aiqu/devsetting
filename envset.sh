@@ -54,7 +54,6 @@ else
     exit 1
 fi
 
-echo "Current OS is "$OS
 if [ -f $ENVFILE ];then
   . $ENVFILE
 fi
