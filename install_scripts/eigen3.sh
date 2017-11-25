@@ -22,23 +22,31 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-source $ROOT/envset.sh
-
 PWD=$(pwd)
-WORKDIR=$HOME/.lib
-VER='3.3'
+. $ROOT/envset.sh
 
-if [ $OS == 'centos' ]; then
-  $SUDO yum install -y hg
-elif [ $OS == 'ubuntu' ]; then
-  $SUDO apt install -y mercurial
+PKG_NAME="eigen"
+TMP_DIR=$ROOT/tmp
+REPO_URL="https://github.com/RLovelett/eigen"
+TAG=$(git ls-remote -t $REPO_URL | cut -d/ -f3 | grep -v -e '{}\|[^0-9\.]' | sort -V | tail -n1)
+VER=$TAG
+FOLDER="$PKG_NAME*"
+VERFILE=""
+INSTALLED_VERSION=""
+
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl -LO $REPO_URL/archive/$TAG.zip
+  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  mkdir -p build && cd build && \
+    cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
+    make install
+
+  cd $ROOT && rm -rf $TMP_DIR
+else
+  echo "$PKG_NAME $VER is already installed"
 fi
 
-cd $WORKDIR
-if [ ! -d eigen ]; then
-  hg clone https://bitbucket.org/eigen/eigen/
-fi
-cd eigen && hg up $VER &&  mkdir -p build && cd build && \
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
-make install
+cd $ROOT
