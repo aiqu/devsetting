@@ -28,11 +28,11 @@ source $ROOT/envset.sh
 PWD=$(pwd)
 WORKDIR=$HOME/.lib
 
-if [ $OS == 'centos' ];then
-	$SUDO yum install -y autoconf automake curl make unzip
-elif [ $OS == 'ubuntu' ];then
-	$SUDO apt-get install -y autoconf automake libtool curl make g++ unzip
-fi
+. $ROOT/install_scripts/autoconf.sh
+. $ROOT/install_scripts/automake.sh
+. $ROOT/install_scripts/make.sh
+. $ROOT/install_scripts/unzip.sh
+. $ROOT/install_scripts/libtool.sh
 
 cd $WORKDIR
 REPO_URL=https://github.com/google/protobuf
