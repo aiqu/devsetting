@@ -79,7 +79,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   fi
 
   $HOME/.local/bin/vim +PluginInstall +PluginUpdate +qall
-  unzip -qu $ROOT/taglist_46.zip -d ~/.vim/
+  unzip -qu $ROOT/resources/taglist_46.zip -d ~/.vim/
   curl -L https://raw.githubusercontent.com/ajh17/VimCompletesMe/master/plugin/VimCompletesMe.vim -o $HOME/.vim/plugin/VimCompletesMe.vim
   cp $ROOT/resources/ejs.vim $HOME/.local/share/vim/vim80/syntax/ejs.vim
 else
