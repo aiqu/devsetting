@@ -1,37 +1,58 @@
 #!/bin/bash
-#==============================================================================
-# GW-Kit
-
-#   @author : (origin) yunsang.choi(oddpoet@gmail.com)
-#       @author : (forked) jinkwon(master@bdyne.net)
-#       @author : (forked) dongwon(dkim010@gmail.com)
-#   @src : (origin) https://gist.github.com/gists/3115022
-#   @src : (forked) https://github.com/Jinkwon/naver-gw-kit/
-#-------
-#   v1.3.6 (dkim010@gmail.com)
+#
+#    NAVER gateway utility
+#
+#   ================================================================
+#    Original Copyright information
+#
+#    @author : (origin) yunsang.choi(oddpoet@gmail.com)
+#    @author : (forked) jinkwon(master@bdyne.net)
+#    @author : (forked) dongwon(dkim010@gmail.com)
+#    @src : (origin) https://gist.github.com/gists/3115022
+#    @src : (forked) https://github.com/Jinkwon/naver-gw-kit/
+#   -------
+#    v1.3.6 (dkim010@gmail.com)
 #       - add feature : highlight specific hosts
 #       - add feature : change to custom user
-#   v1.3.5 (dkim010@gmail.com)
+#    v1.3.5 (dkim010@gmail.com)
 #       - add feature : ssh with authorized key 
-#   v1.3.4
+#    v1.3.4
 #       - minor change (display text) 
-#   v1.3.3 
+#    v1.3.3 
 #       - allow '-' character in hostname
-#   v1.3.2
+#    v1.3.2
 #       - add feature : manage host description.
-#   v1.3.1
+#    v1.3.1
 #       - rearrange key 
-#   v1.3.0
+#    v1.3.0
 #       - support interactive kinit
-#   v1.2.2
+#    v1.2.2
 #       - display message when rlogin 
-#   v1.2.1
+#    v1.2.1
 #       - fix tab auto-completion
-#   v1.2.0
+#    v1.2.0
 #       - support bash key map
 #       - improve tab auto-completion
 #       - thanx to @worwornf for feedback
-#==============================================================================
+#   ================================================================
+#
+#    Copyright (C) 2017 Gwangmin Lee
+#    
+#    Author: Gwangmin Lee <gwangmin0123@gmail.com>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
  
 #========================================
 # Constants for configuration

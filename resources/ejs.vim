@@ -1,13 +1,22 @@
-" Vim syntax file
-" Language:             HTML
-" Maintainer:           Jorge Maldonado Ventura <jorgesumle@freakspot.net>
-" Previous Maintainer:  Claudio Fleiner <claudio@fleiner.com>
-" Repository:           https://notabug.org/jorgesumle/vim-html-syntax
-" Last Change:          2017 Sep 30
-" included patch from Christian Brabandt to make use of the strikethrough attributes
+"    ejs vim syntax file
+"     - modified javascript vim syntax
 "
-
-" Please check :help html.vim for some comments and a description of the options
+"    Copyright (C) 2017 Gwangmin Lee
+"    
+"    Author: Gwangmin Lee <gwangmin0123@gmail.com>
+"
+"    This program is free software: you can redistribute it and/or modify
+"    it under the terms of the GNU General Public License as published by
+"    the Free Software Foundation, either version 3 of the License, or
+"    (at your option) any later version.
+"
+"    This program is distributed in the hope that it will be useful,
+"    but WITHOUT ANY WARRANTY; without even the implied warranty of
+"    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+"    GNU General Public License for more details.
+"
+"    You should have received a copy of the GNU General Public License
+"    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 " quit when a syntax file was already loaded
 if !exists("main_syntax")

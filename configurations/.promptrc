@@ -1,8 +1,11 @@
 #!/bin/bash
-#    modified from byobu's bashrc -- colorize the prompt
-#    Copyright (C) 2014 Dustin Kirkland
+#    Colorize the prompt
+#     - modified from byobu bashrc
 #
-#    Authors: Dustin Kirkland <kirkland@byobu.co>
+#    Copyright (C) 2014 Dustin Kirkland
+#    Copyright (C) 2017 Gwangmin Lee
+#
+#    Author: Gwangmin Lee <gwangmin0123@gmail.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
