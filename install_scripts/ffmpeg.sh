@@ -25,6 +25,10 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/nasm.sh
+. $ROOT/install_scripts/yasm.sh
+. $ROOT/install_scripts/freetype2.sh
+
 PKG_NAME="ffmpeg"
 TMP_DIR=$ROOT/tmp
 REPO_URL="https://git.ffmpeg.org/ffmpeg.git"
