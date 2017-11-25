@@ -25,6 +25,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/xz.sh
+
 PKG_NAME="libarchive"
 TMP_DIR=$ROOT/tmp
 REPO_URL="https://github.com/libarchive/libarchive"
@@ -42,7 +44,10 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   build/autogen.sh && \
-    ./configure --prefix=$HOME/.local && \
+    ./configure --prefix=$HOME/.local \
+                --disable-maintainer-mode \
+                --disable-dependency-tracking \
+                --with-sysroot=$HOME/.local && \
     make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR
