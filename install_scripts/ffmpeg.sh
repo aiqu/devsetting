@@ -22,32 +22,45 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-source $ROOT/envset.sh
-
 PWD=$(pwd)
-WORKDIR=$HOME/.lib/ffmpeg
-BUILDDIR=$WORKDIR/build
-BINDIR=$HOME/.local/bin
+. $ROOT/envset.sh
 
-if [ $OS == 'centos' ];then
-  cd $WORKDIR
-  TAG=$(git ls-remote https://git.ffmpeg.org/ffmpeg.git | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' -e 'v' -e 'release' -e 'oldabi' | sort -V | tail -n1)
-  VER=$(echo $TAG | sed 's/n//')
-  curl -L https://ffmpeg.org/releases/ffmpeg-${VER}.tar.xz | tar xJf -
-  cd ffmpeg-${VER}
+PKG_NAME="ffmpeg"
+TMP_DIR=$ROOT/tmp
+REPO_URL="https://git.ffmpeg.org/ffmpeg.git"
+TAG=$(git ls-remote https://git.ffmpeg.org/ffmpeg.git | awk -F/ '{print $3}' | grep -v -e '{}\|-\|v\|release\|oldabi' | sort -V | tail -n1)
+VER=$(echo $TAG | sed 's/n//')
+DOWN_URL="https://ffmpeg.org/releases/ffmpeg-${VER}.tar.xz"
+FOLDER="$PKG_NAME*"
+VERFILE=""
+INSTALLED_VERSION=$(ffmpeg --version 2>&1 | head -n1 | cut -d' ' -f3)
 
-  PKG_CONFIG_PATH="$BUILDDIR/lib/pkgconfig" ./configure \
-    --prefix="$BUILDDIR" \
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  BUILDDIR=$WORKDIR/build
+  BINDIR=$HOME/.local/bin
+
+  curl -L $DOWN_URL | tar xJ && cd $FOLDER
+
+  ./configure \
+    --prefix=$HOME/.local \
+    --disable-htmlpages \
+    --disable-podpages \
+    --disable-txtpages \
     --pkg-config-flags="--static" \
-    --extra-cflags="-I$BUILDDIR/include" \
-    --extra-ldflags="-L$BUILDDIR/lib" \
     --extra-libs=-lpthread \
-    --bindir="$BINDIR" \
     --enable-gpl \
     --enable-libfreetype \
     --enable-nonfree
   make -j$(nproc)
   make install
-  rm -rf $WORKDIR
+
+  cd $ROOT && rm -rf $TMP_DIR
+else
+  echo "$PKG_NAME $VER is already installed"
 fi
+
+cd $ROOT
+rm -rf $WORKDIR
