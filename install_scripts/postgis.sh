@@ -36,13 +36,13 @@ PKG_NAME="postgis"
 TMP_DIR=$ROOT/tmp
 REPO_URL="https://github.com/postgis/postgis"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta\|rc\|start\|gis\|pre' | cut -d/ -f3 | sort -V | tail -n1)
-VER=""
+VER=$(echo $TAG | awk -F'.' '{print $1 "." $2}')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=""
+INSTALLED_VERSION=$(basename -a -s .so $(find $HOME/.local/lib/postgresql -name 'postgis-*' -type f) | cut -d'-' -f2 | sort -V | tail -n1)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
-  echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
