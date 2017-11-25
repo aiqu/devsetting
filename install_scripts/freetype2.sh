@@ -25,6 +25,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/libpng.sh
+
 PKG_NAME="freetype2"
 TMP_DIR=$ROOT/tmp
 REPO_URL="https://git.savannah.gnu.org/git/freetype/freetype2.git"
