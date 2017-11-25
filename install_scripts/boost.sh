@@ -28,13 +28,8 @@ source $ROOT/envset.sh
 PWD=$(pwd)
 WORKDIR=$HOME/.lib
 
-if [ $OS == 'centos' ];then
-  $SUDO yum install -y xz-devel
-elif [ $OS == 'ubuntu' ];then
-  $SUDO apt install -y liblzma-dev
-elif [ $OS == 'macos' ];then
-  brew install xz
-fi
+. $ROOT/install_scripts/xz.sh
+. $ROOT/install_scripts/cmake.sh
 
 cd $WORKDIR
 VER='1.65.1'
