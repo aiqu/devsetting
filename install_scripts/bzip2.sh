@@ -40,6 +40,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $REPO_URL | tar xz && cd $FOLDER
   make -j$(nproc) && make install PREFIX=$HOME/.local
   make -f Makefile-libbz2_so clean && make -f Makefile-libbz2_so -j$(nproc) && cp -a libbz2.so* $HOME/.local/lib
+  SHAREDLIB=$(find . -name 'libbz2.so*' -type f)
+  ln -s $SHAREDLIB $HOME/.local/lib/libbz2.so
 
   cd $ROOT && rm -rf $TMP_DIR
 else
