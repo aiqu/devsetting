@@ -41,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ ! -f $HOME/.local/bin/curl ]; then
   curl -LO $REPO_URL/archive/$TAG.zip
   $HOME/.local/bin/unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   ./buildconf
-  ./configure --prefix=$HOME/.local \
+  ./configure -q --prefix=$HOME/.local \
     --disable-debug \
     --enable-optimize \
     --disable-curldebug \

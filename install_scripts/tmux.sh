@@ -41,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER
-  ./autogen.sh && ./configure --prefix=$HOME/.local
+  ./autogen.sh && ./configure -q --prefix=$HOME/.local
   make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR

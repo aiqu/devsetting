@@ -41,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xj && cd $FOLDER
-  ./configure --prefix=$HOME/.local
+  ./configure -q --prefix=$HOME/.local
   if [ ! -f $HOME/.local/bin/make ];then
     sh build.sh && ./make install
   else

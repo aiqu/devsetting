@@ -41,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   export ERL_TOP=$(pwd)
-  ./otp_build autoconf && ./configure --prefix=$HOME/.local --with-ssl=$HOME/.local/include/openssl --with-ssl-rpath=$HOME/.local/lib && \
+  ./otp_build autoconf && ./configure -q --prefix=$HOME/.local --with-ssl=$HOME/.local/include/openssl --with-ssl-rpath=$HOME/.local/lib && \
     make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR

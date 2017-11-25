@@ -44,7 +44,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   build/autogen.sh && \
-    ./configure --prefix=$HOME/.local \
+    ./configure -q --prefix=$HOME/.local \
                 --disable-maintainer-mode \
                 --disable-dependency-tracking \
                 --with-sysroot=$HOME/.local && \

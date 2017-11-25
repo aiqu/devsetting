@@ -60,7 +60,7 @@ fi
 cd $TF_SRC_DIR
 #if you are using pyenv, make sure disable pyenv environment configuration
 #otherwise, it will cause error because of the shim wrapper
-./configure
+./configure -q
 bazel build -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-msse4.2 --copt=-mfpmath=both --config=cuda -k //tensorflow/tools/pip_package:build_pip_package
 bazel-bin/tensorflow/tools/pip_package/build_pip_package $TF_PKG_DIR
 echo "---------------------------------"

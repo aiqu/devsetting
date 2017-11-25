@@ -32,7 +32,7 @@ if [ -z $REINSTALL ] && [ -f $BIN ];then
 else
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xj && cd postgresql*
-  ./configure --prefix=$HOME/.local && \
+  ./configure -q --prefix=$HOME/.local && \
     make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR
