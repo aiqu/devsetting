@@ -31,26 +31,11 @@ TF_SRC_DIR=${SRC_DIR}/tensorflow
 TF_PKG_DIR=${TF_SRC_DIR}/tensorflow_pkg
 
 #install prerequisites
-$SUDO yum install epel-release
-$SUDO yum update
-$SUDO yum groupinstall 'Development Tools'
-$SUDO yum install which wget git unzip zip python-devel.x86_64 python-pip python-wheel numpy scipy
+pip2 install numpy scipy
+pip3 install numpy scipy
 
 #install jdk8
-if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8' || ! which jar 2>/dev/null ;then
-    cd /opt
-    JDK_FILENAME=jdk-8u141-linux-x64.tar.gz
-    $SUDO wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/$JDK_FILENAME"
-    $SUDO tar xzf $JDK_FILENAME
-    $SUDO rm $JDK_FILENAME
-    cd /opt/jdk1.8.0_141/
-    $SUDO alternatives --install /usr/bin/java java /opt/jdk1.8.0_141/bin/java 2
-    $SUDO alternatives --install /usr/bin/jar jar /opt/jdk1.8.0_141/bin/jar 2
-    $SUDO alternatives --install /usr/bin/javac javac /opt/jdk1.8.0_141/bin/javac 2
-    $SUDO alternatives --set java /opt/jdk1.8.0_141/bin/java
-    $SUDO alternatives --set jar /opt/jdk1.8.0_141/bin/jar
-    $SUDO alternatives --set javac /opt/jdk1.8.0_141/bin/javac
-fi
+. $ROOT/install_scripts/jdk8.sh
 
 #insatll bazel
 # tensorflow v1.3.0-rc1 branch cannot build with bazel-0.5.3
