@@ -31,10 +31,12 @@ INSTALL_DIR=$HOME/.local
 
 pip2 install numpy && pip3 install numpy
 
+#TODO
+# remove package manager dependency
 if [ $OS == 'centos' ];then
-	$SUDO yum install -y libpng-devel libjpeg-turbo-devel jasper-devel openexr-devel libtiff-devel libwebp-devel libdc1394-devel libv4l-devel gstreamer-plugins-base-devel tbb-devel
+	$SUDO yum install -y libjpeg-turbo-devel jasper-devel openexr-devel libtiff-devel libwebp-devel libdc1394-devel libv4l-devel gstreamer-plugins-base-devel tbb-devel
 elif [ $OS == 'ubuntu' ];then
-	$SUDO apt install -y build-essential cmake git pkg-config libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk2.0-dev libatlas-base-dev gfortran tesseract-ocr libtesseract-dev libleptonica-dev libatlas-dev libdc1394-22-dev
+	$SUDO apt install -y libjpeg8-dev libtiff5-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk2.0-dev gfortran tesseract-ocr libtesseract-dev libleptonica-dev libatlas-dev libdc1394-22-dev
 fi
 
 cd $WORKDIR

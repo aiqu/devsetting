@@ -27,6 +27,9 @@ source $ROOT/envset.sh
 
 PWD=$(pwd)
 
+#TODO 
+# remove package manager dependency
+# Change code style
 if [ $OS == 'centos' ];then
   $SUDO yum install -y libXt-devel freeglut-devel
 elif [ $OS == 'ubuntu' ];then
