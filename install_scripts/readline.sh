@@ -25,6 +25,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/ncurses.sh
+
 PKG_NAME="readline"
 TMP_DIR=$ROOT/tmp
 REPO_URL="https://git.savannah.gnu.org/git/readline.git"
@@ -40,7 +42,11 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL/$TAG.tar.gz | tar xz && cd $FOLDER
-  ./configure --prefix=$HOME/.local && \
+  ./configure --prefix=$HOME/.local \
+    --enable-multibyte \
+    --enable-shared \
+    --enable-static \
+    --with-curses && \
     make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR
