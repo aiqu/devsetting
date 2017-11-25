@@ -31,15 +31,6 @@ BUILDDIR=$WORKDIR/build
 BINDIR=$HOME/.local/bin
 
 if [ $OS == 'centos' ];then
-  #$SUDO yum-config-manager --add-repo http://www.nasm.us/nasm.repo
-  #$SUDO yum install -y autoconf automake bzip2 cmake freetype-devel gcc gcc-c++ git libtool make mercurial nasm pkgconfig zlib-devel
-  #mkdir -p $WORKDIR && cd $WORKDIR
-  #curl -L http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz | tar xzf -
-  #cd yasm-1.3.0
-  #./configure --prefix="$BUILDDIR" --bindir="$BINDIR"
-  #make -j$(nproc)
-  #make install
-
   cd $WORKDIR
   TAG=$(git ls-remote https://git.ffmpeg.org/ffmpeg.git | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' -e 'v' -e 'release' -e 'oldabi' | sort -V | tail -n1)
   VER=$(echo $TAG | sed 's/n//')
