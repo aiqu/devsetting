@@ -2,8 +2,6 @@
 
 set -e
 
-DEPENDENCIES_DONE=
-
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
@@ -47,5 +45,3 @@ fi
 . $ROOT/install_scripts/perl-extutiles-makemaker.sh
 
 . $ROOT/install_scripts/byobu.sh
-
-DEPENDENCIES_DONE=1
