@@ -40,7 +40,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL$VER.tar.gz | tar xz && cd $FOLDER
   ./configure -q --prefix=$HOME/.local && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else

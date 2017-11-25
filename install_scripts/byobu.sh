@@ -38,6 +38,6 @@ fi
 
 cd byobu && git pull && \
 ./autogen.sh && ./configure -q --prefix="$HOME/.local" && \
-make -j$(nproc) && make install
+make -s -j$(nproc) && make -s install
 
 cd $ROOT

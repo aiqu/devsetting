@@ -43,9 +43,9 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $REPO_URL | tar xj && cd $FOLDER
   ./configure -q --prefix=$HOME/.local
   if [ ! -f $HOME/.local/bin/make ];then
-    sh build.sh && ./make install
+    sh build.sh && ./make -s install
   else
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
   fi
 
   cd $ROOT && rm -rf $TMP_DIR

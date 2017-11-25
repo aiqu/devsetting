@@ -44,7 +44,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];th
   cd $FOLDER
   ./bootstrap --prefix=$HOME/.local --parallel=$(nproc) --no-system-libs
 
-  make -j$(nproc) && make install
+  make -s -j$(nproc) && make -s install
 
   cd $PWD
   rm -rf $TMP_DIR

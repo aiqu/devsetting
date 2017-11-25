@@ -33,7 +33,7 @@ else
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xj && cd postgresql*
   ./configure -q --prefix=$HOME/.local && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 fi

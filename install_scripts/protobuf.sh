@@ -46,7 +46,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ];
   mv protobuf-$VER protobuf
   cd protobuf && 
     ./autogen.sh && ./configure -q --prefix=$HOME/.local
-    make -j$(nproc) && make check -j$(nproc) && make install
+    make -s -j$(nproc) && make -s check -j$(nproc) && make -s install
 else
   echo "Protobuf $VER is already installed"
 fi

@@ -35,5 +35,5 @@ if [ ! -d SuiteSparse ]; then
   curl -L http://faculty.cse.tamu.edu/davis/SuiteSparse/$SRCFILE | tar xzf -
 fi
 cd SuiteSparse
-make metis  # At this step, "No rule to make target 'w'" would happen. It is safe to ignore it.
-make BLAS=-lblas library -j && make install INSTALL=$HOME/.local BLAS=-lblas
+make -s metis  # At this step, "No rule to make target 'w'" would happen. It is safe to ignore it.
+make -s BLAS=-lblas library -j && make -s install INSTALL=$HOME/.local BLAS=-lblas

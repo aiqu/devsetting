@@ -46,4 +46,4 @@ if [ ! -d $SRCDIR ]; then
 fi
 cd $SRCDIR && mkdir -p build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
-make -j$(nproc) && make install
+make -s -j$(nproc) && make -s install

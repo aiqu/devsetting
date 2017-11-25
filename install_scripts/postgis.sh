@@ -49,7 +49,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   ./autogen.sh
   ./configure -q --prefix=$HOME/.local && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else

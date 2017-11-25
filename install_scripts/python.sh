@@ -46,7 +46,7 @@ function install_python {
     --with-threads \
     --with-system-ffi \
     --without-ensurepip
-  make -j$(nproc) && make install 1>/dev/null
+  make -s -j$(nproc) && make -s install 1>/dev/null
   rm -rf $WORKDIR
 
   cd $HOME

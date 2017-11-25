@@ -45,14 +45,14 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   # Wierd, but install twice for pkg-config and cmake
   ./autogen.sh && \
     ./configure -q --prefix=$HOME/.local --disable-debug-mode --disable-samples && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
   mkdir -p build && cd build && \
     cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local \
     -DEVENT__DISABLE_DEBUG_MODE=ON \
     -DEVENT__DISABLE_TESTS=ON \
     -DEVENT__DISABLE_SAMPLES=ON \
     ..
-  make -j$(nproc) && make install
+  make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else

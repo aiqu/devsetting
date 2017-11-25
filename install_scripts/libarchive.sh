@@ -48,7 +48,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
                 --disable-maintainer-mode \
                 --disable-dependency-tracking \
                 --with-sysroot=$HOME/.local && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else

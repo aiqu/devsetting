@@ -36,11 +36,11 @@ if [ ! -z $REINSATLL ] || [ ! -f $HOME/.local/bin/unzip ]; then
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz && cd $FOLDER
   if [ $OS == 'mac' ]; then
-    make -f macos/Makefile -j$(nproc) generic
+    make -s -f macos/Makefile -j$(nproc) generic
   else
-    make -f unix/Makefile -j$(nproc) generic
+    make -s -f unix/Makefile -j$(nproc) generic
   fi
-    make prefix=$HOME/.local MANDIR=$HOME/.local/share/man/man1 -f unix/Makefile install
+    make -s prefix=$HOME/.local MANDIR=$HOME/.local/share/man/man1 -f unix/Makefile install
 
   cd $ROOT && rm -rf $TMP_DIR
 else

@@ -58,8 +58,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
     --enable-gpl \
     --enable-libfreetype \
     --enable-nonfree
-  make -j$(nproc)
-  make install
+  make -s -j$(nproc)
+  make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else

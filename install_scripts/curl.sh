@@ -71,7 +71,7 @@ if [ ! -z $REINSTALL ] || [ ! -f $HOME/.local/bin/curl ]; then
     --enable-unix-sockets \
     --enable-shared \
     --enable-cookies && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else

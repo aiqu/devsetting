@@ -31,7 +31,7 @@ if [ ! -f $VERFILE ];then
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L ftp://space.mit.edu/pub/davis/slang/v2.1/slang-2.1.4.tar.gz | tar xz
   cd slang-2.1.4 && ./configure -q --prefix=$HOME/.local && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else
@@ -44,7 +44,7 @@ if [ ! -f $VERFILE ];then
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L http://rpm5.org/files/popt/popt-1.16.tar.gz | tar xz
   cd popt-1.16 && ./configure -q --prefix=$HOME/.local && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else
@@ -62,7 +62,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $VER != $INSTALLED_VER ];th
   DOWN_URL=https://releases.pagure.org/newt/newt-$VER.tar.gz
   curl -L $DOWN_URL | tar xz && cd $FOLDER
   ./configure -q --prefix=$HOME/.local && \
-    make -j$(nproc) && make install
+    make -s -j$(nproc) && make -s install
 
   cd $ROOT && rm -rf $TMP_DIR
 else
