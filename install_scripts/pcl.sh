@@ -38,4 +38,4 @@ if [ ! -d pcl-${TAG} ];then
 fi
 cd pcl-${TAG} && mkdir -p build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
-make -s -j$(nproc) && make -s install
+make -s -j$(nproc) && make -s install 1>/dev/null

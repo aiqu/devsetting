@@ -86,7 +86,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
       -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR \
       ..
   fi
-  make -s -j$(nproc) && make -s install
+  make -s -j$(nproc) && make -s install 1>/dev/null
 else
   echo "OpenCV $TAG is already installed"
 fi

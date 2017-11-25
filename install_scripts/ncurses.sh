@@ -35,7 +35,7 @@ else
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz && cd ncurses*
   ./configure -q --prefix=$HOME/.local --enable-widec --without-develop --without-cxx-binding --with-shared CPPFLAGS='-P' && \
-    make -s -j$(nproc) && make -s install
+    make -s -j$(nproc) && make -s install 1>/dev/null
   ln -sf $HOME/.local/include/ncursesw/*.h $HOME/.local/include/
   ln -sf libncursesw.so $HOME/.local/lib/libcurses.so
 

@@ -40,7 +40,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   ./config --prefix=$HOME/.local --openssldir=$HOME/.local/ssl threads && \
-    make -s -j$(nproc) && make -s install_sw && make -s install_man_docs
+    make -s -j$(nproc) && make -s install_sw 1>/dev/null && make -s install_man_docs 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

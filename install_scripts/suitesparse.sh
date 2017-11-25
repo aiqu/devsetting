@@ -36,4 +36,4 @@ if [ ! -d SuiteSparse ]; then
 fi
 cd SuiteSparse
 make -s metis  # At this step, "No rule to make target 'w'" would happen. It is safe to ignore it.
-make -s BLAS=-lblas library -j && make -s install INSTALL=$HOME/.local BLAS=-lblas
+make -s BLAS=-lblas library -j && make -s install INSTALL=$HOME/.local BLAS=-lblas 1>/dev/null

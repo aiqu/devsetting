@@ -44,7 +44,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   mkdir -p build && cd build && \
     cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$INSTALLDIR .. && \
-    make -s -j$(nproc) && make -s install
+    make -s -j$(nproc) && make -s install 1>/dev/null
 else
   echo "$PKG_NAME $VER is already installed"
 fi

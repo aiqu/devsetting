@@ -53,7 +53,7 @@ ARCFOLDER=arc-theme-master
 curl -L https://github.com/horst3180/arc-theme/archive/master.zip -o $ARCFILE && unzip -q $ARCFILE
 cd $ARCFOLDER
 ./autogen.sh --prefix=$HOME/.local
-make -s install
+make -s install 1>/dev/null
 
 cd $WORKDIR
 ARCICONFILE=arc-icon.zip
@@ -61,7 +61,7 @@ ARCICONFOLDER=arc-icon-theme
 git clone https://github.com/horst3180/arc-icon-theme/archive/master.zip -o $ARCICONFILE && unzip -q $ARCICONFILE
 cd $ARCICONFOLDER
 ./autogen.sh --prefix=$HOME/.local
-make -s install
+make -s install 1>/dev/null
 
 cd $PWD
 rm -rf $WORKDIR

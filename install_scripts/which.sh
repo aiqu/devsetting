@@ -37,7 +37,7 @@ if [ ! -z $REINSTALL] || [ ! -f $HOME/.local/bin/which ]; then
   curl -L $REPO_URL | tar xz && cd $FOLDER
   autoconf
   ./configure -q --prefix=$HOME/.local && \
-    make -s -j$(nproc) && make -s install
+    make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

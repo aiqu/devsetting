@@ -59,7 +59,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
     --enable-libfreetype \
     --enable-nonfree
   make -s -j$(nproc)
-  make -s install
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

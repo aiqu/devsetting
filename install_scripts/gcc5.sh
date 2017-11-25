@@ -71,4 +71,4 @@ export CLFAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
   cd $GCC_BUILD_DIR && \
   $GCC_SOURCE_DIR/configure --prefix=$HOME/.local --disable-multilib --with-arch=core2 --with-language=c,c++,fortran,go && \
   make -s -j$(nproc) && \
-  make -s install
+  make -s install 1>/dev/null

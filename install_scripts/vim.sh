@@ -65,7 +65,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
     sed -i 's/#prefix = \$(HOME)/prefix = \$(HOME)\/.local/' src/Makefile
   fi
 
-  make -s -j$(nproc) && make -s install
+  make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $PWD
   rm -rf $TMP_DIR

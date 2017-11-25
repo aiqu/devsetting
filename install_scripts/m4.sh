@@ -40,7 +40,7 @@ set -e
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
   ./configure -q --prefix=$HOME/.local && \
-  make -s -j$(nproc) && make -s install
+  make -s -j$(nproc) && make -s install 1>/dev/null
   
 else
   echo "$PKG_NAME $VER is already installed"
