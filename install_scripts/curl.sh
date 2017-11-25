@@ -50,6 +50,7 @@ if [ ! -z $REINSTALL ] || [ ! -f $HOME/.local/bin/curl ]; then
     --enable-crypto-auto \
     --enable-tls-srp \
     --enable-unix-sockets \
+    --enable-shared \
     --enable-cookies && \
     make -j$(nproc) && make install
 
