@@ -22,18 +22,33 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-source $ROOT/envset.sh
-
 PWD=$(pwd)
+. $ROOT/envset.sh
 
-WORKDIR=$HOME/.lib
-INSTALLDIR=$HOME/.local
-
-cd $WORKDIR
-if [ ! -d lapack-release ];then
-  git clone https://github.com/Reference-LAPACK/lapack-release.git
+PKG_NAME="lapack"
+FOLDER="$PKG_NAME*"
+TMP_DIR=$ROOT/tmp
+REPO_URL="https://github.com/Reference-LAPACK/lapack-release"
+mkdir -p $TMP_DIR && cd $TMP_DIR
+git clone --depth=1 $REPO_URL
+cd $FOLDER
+TAG=$(grep VERSION README.md | cut -d' ' -f3 | sort -V | tail -n1)
+VER=$TAG
+VERFILE=""
+if $(pkg-config --exists $PKG_NAME);then
+  INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
 fi
-cd lapack-release && git pull && mkdir -p build && cd build && \
-cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$INSTALLDIR .. && \
-make -j$(nproc) && make install
+
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+
+  mkdir -p build && cd build && \
+    cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$INSTALLDIR .. && \
+    make -j$(nproc) && make install
+else
+  echo "$PKG_NAME $VER is already installed"
+fi
+
+cd $ROOT && rm -rf $TMP_DIR
+
+cd $ROOT
