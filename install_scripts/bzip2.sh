@@ -39,6 +39,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz && cd $FOLDER
   make -j$(nproc) && make install PREFIX=$HOME/.local
+  make -f Makefile-libbz2_so -j$(nproc) && cp libbz2.so* $HOME/.local/lib
 
   cd $ROOT && rm -rf $TMP_DIR
 else
