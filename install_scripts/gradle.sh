@@ -21,11 +21,16 @@
 
 set -e
 
+PKG_NAME='gradle'
 VER='4.3'
-WORKDIR=$HOME/.local
+INSTALLED_VERSION=$(gradle --version | grep Gradle | cut -d' ' -f2)
 
-mkdir -p $WORKDIR && cd $WORKDIR
-
-curl -LO https://services.gradle.org/distributions/gradle-$VER-bin.zip
-unzip -oq gradle-$VER-bin.zip && rm gradle-$VER-bin.zip
-ln -s $(pwd)/gradle-$VER/bin/gradle $HOME/.local/bin/gradle
+if [ ! -z $REINSTALL ] || [ $VER != $INSTALLED_VERSION ];then
+  WORKDIR=$HOME/.local
+  mkdir -p $WORKDIR && cd $WORKDIR
+  curl -LO https://services.gradle.org/distributions/gradle-$VER-bin.zip
+  unzip -oq gradle-$VER-bin.zip && rm gradle-$VER-bin.zip
+  ln -s $(pwd)/gradle-$VER/bin/gradle $HOME/.local/bin/gradle
+else
+  echo "$PKG_NAME $VER is already installed"
+fi
