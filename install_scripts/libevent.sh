@@ -44,7 +44,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   cd $FOLDER
   # Wierd, but install twice for pkg-config and cmake
   ./autogen.sh && \
-    ./configure -q --prefix=$HOME/.local --disable-debug-mode --disable-samples && \
+    ./configure --prefix=$HOME/.local --disable-debug-mode --disable-samples && \
     make -s -j$(nproc) && make -s install 1>/dev/null
   mkdir -p build && cd build && \
     cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local \

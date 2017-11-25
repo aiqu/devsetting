@@ -45,7 +45,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ];
   unzip -q ${TAG}.zip && rm -rf ${TAG}.zip protobuf
   mv protobuf-$VER protobuf
   cd protobuf && 
-    ./autogen.sh && ./configure -q --prefix=$HOME/.local
+    ./autogen.sh && ./configure --prefix=$HOME/.local
     make -s -j$(nproc) && make -s check -j$(nproc) && make -s install 1>/dev/null
 else
   echo "Protobuf $VER is already installed"

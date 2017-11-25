@@ -48,7 +48,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   curl -L $DOWN_URL | tar xJ && cd $FOLDER
 
-  ./configure -q \
+  ./configure \
     --prefix=$HOME/.local \
     --disable-htmlpages \
     --disable-podpages \

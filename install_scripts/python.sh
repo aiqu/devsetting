@@ -39,7 +39,7 @@ function install_python {
   mkdir -p $WORKDIR && cd $WORKDIR
   curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
   cd Python-$VER
-  ./configure -q \
+  ./configure \
     --prefix=$HOME/.local \
     --enable-shared \
     --enable-unicode=ucs4 \

@@ -45,7 +45,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL | tar xz && cd $FOLDER
   ./autogen.sh && \
-    ./configure -q --prefix=$HOME/.local --with-sysroot=$HOME/.local/local && \
+    ./configure --prefix=$HOME/.local --with-sysroot=$HOME/.local/local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

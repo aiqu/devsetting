@@ -37,7 +37,7 @@ if [ ! -d byobu ];then
 fi
 
 cd byobu && git pull && \
-./autogen.sh && ./configure -q --prefix="$HOME/.local" && \
+./autogen.sh && ./configure --prefix="$HOME/.local" && \
 make -s -j$(nproc) && make -s install 1>/dev/null
 
 cd $ROOT

@@ -30,7 +30,7 @@ VERFILE="$HOME/.local/include/slang.h"
 if [ ! -f $VERFILE ];then
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L ftp://space.mit.edu/pub/davis/slang/v2.1/slang-2.1.4.tar.gz | tar xz
-  cd slang-2.1.4 && ./configure -q --prefix=$HOME/.local && \
+  cd slang-2.1.4 && ./configure --prefix=$HOME/.local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
@@ -43,7 +43,7 @@ VERFILE="$HOME/.local/include/popt.h"
 if [ ! -f $VERFILE ];then
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L http://rpm5.org/files/popt/popt-1.16.tar.gz | tar xz
-  cd popt-1.16 && ./configure -q --prefix=$HOME/.local && \
+  cd popt-1.16 && ./configure --prefix=$HOME/.local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
@@ -61,7 +61,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $VER != $INSTALLED_VER ];th
   mkdir -p $TMP_DIR && cd $TMP_DIR
   DOWN_URL=https://releases.pagure.org/newt/newt-$VER.tar.gz
   curl -L $DOWN_URL | tar xz && cd $FOLDER
-  ./configure -q --prefix=$HOME/.local && \
+  ./configure --prefix=$HOME/.local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

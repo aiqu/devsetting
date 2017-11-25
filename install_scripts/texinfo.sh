@@ -38,7 +38,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xJ && cd $FOLDER
-  ./configure -q --prefix=$HOME/.local && \
+  ./configure --prefix=$HOME/.local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

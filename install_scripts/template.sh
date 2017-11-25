@@ -46,7 +46,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $REPO_URL | tar xz && cd $FOLDER
   mkdir -p build && cd build && \
     cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
-  ./configure -q --prefix=$HOME/.local && \
+  ./configure --prefix=$HOME/.local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

@@ -42,7 +42,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL/$TAG.tar.gz | tar xz && cd $FOLDER
-  ./configure -q --prefix=$HOME/.local \
+  ./configure --prefix=$HOME/.local \
     --enable-multibyte \
     --enable-shared \
     --enable-static \
