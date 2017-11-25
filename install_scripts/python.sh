@@ -19,8 +19,6 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-PYTHONE_DONE=
-
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
@@ -41,9 +39,14 @@ function install_python {
   mkdir -p $WORKDIR && cd $WORKDIR
   curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
   cd Python-$VER
-  ./configure --prefix=$HOME/.local --enable-shared --enable-unicode=ucs4 --with-threads --with-system-ffi
-  make -j$(nproc)
-  make install
+  ./configure \
+    --prefix=$HOME/.local \
+    --enable-shared \
+    --enable-unicode=ucs4 \
+    --with-threads \
+    --with-system-ffi \
+    --without-ensurepip
+  make -j$(nproc) && make install 1>/dev/null
   rm -rf $WORKDIR
 
   cd $HOME
@@ -76,8 +79,3 @@ pip3 install -U pip
 pip2 install jupyter jupyterthemes
 pip3 install jupyter jupyterthemes
 jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
-
-echo "---"
-echo "Type \"source $ENVFILE\""
-
-PYTHONE_DONE=1
