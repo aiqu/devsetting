@@ -37,7 +37,7 @@ else
     cd $FOLDER
     export CC=gcc
     export LDFLAGS=-L$HOME/.local/lib
-    make configure && ./configure --prefix=$HOME/.local
+    make configure && ./configure --prefix=$HOME/.local --with-openssl --with-curl
     make -j$(nproc) all && make install
     cd $ROOT && rm -rf $TMP_DIR
 fi
