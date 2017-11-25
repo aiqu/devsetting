@@ -15,7 +15,7 @@ FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
 
-if [ ! -f /usr/bin/curl ]; then
+if [ ! -z $REINSTALL ] || [ ! -f $HOME/.local/bin/curl ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
