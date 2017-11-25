@@ -26,8 +26,6 @@ CMAKE_DONE=
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-echo "cmake installation.. pwd: $PWD, root: $ROOT"
-
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/Kitware/CMake
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -V | tail -n1)
@@ -36,6 +34,8 @@ FOLDER="CMake-$VER"
 INSTALLED_VER=$(cmake --version 2>/dev/null | grep version | awk '{print $3}')
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
+  echo "cmake installation.. pwd: $PWD, root: $ROOT"
+
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
   echo "Downloading CMake $VER"
