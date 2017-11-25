@@ -1,7 +1,7 @@
 if [ $(echo $OSTYPE | grep 'linux') ];then
   # enable color support of ls and also add handy aliases
   alias ls='ls --color=auto'
-  alias grep='grep --color=auto'
+  alias grep='grep --color=always'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 
