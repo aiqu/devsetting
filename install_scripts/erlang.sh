@@ -24,6 +24,8 @@ set -e
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 
+. $ROOT/install_scripts/openssl.sh
+
 PKG_NAME="Erlang"
 TMP_DIR=$ROOT/tmp
 REPO_URL="https://github.com/erlang/otp"
@@ -39,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   export ERL_TOP=$(pwd)
-  ./otp_build autoconf && ./configure --prefix=$HOME/.local && \
+  ./otp_build autoconf && ./configure --prefix=$HOME/.local --with-ssl=$HOME/.local/include/openssl --with-ssl-rpath=$HOME/.local/lib && \
     make -j$(nproc) && make install
 
   cd $ROOT && rm -rf $TMP_DIR
@@ -48,6 +50,6 @@ else
   echo "$PKG_NAME $INSTALLED_VERSION is already installed"
 fi
 
-bash $ROOT/install_scripts/rebar3.sh
+. $ROOT/install_scripts/rebar3.sh
 
 cd $ROOT
