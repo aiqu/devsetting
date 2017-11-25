@@ -4,30 +4,8 @@ pipeline {
     stage('pre-build') {
         steps {
         slackSend(message: "${env.JOB_NAME} - ${env.BUILD_DISPLAY_NAME} started (<${env.BUILD_URL}|Open>)", failOnError: true, color: 'good')
-        }
-    }
-    stage('centos_7_dev') {
-      steps {
-        sh '''
-            if [ ! -z "$(git diff --name-only @~1 | grep centos_7_dev)" ];
-            then
-                docker build -t gwangmin/centos_7_dev:latest -f dockerfiles/centos_7_dev ${DOCKER_BUILD_OPTION} .
-                docker push gwangmin/centos_7_dev:latest
-            fi
-        '''
-      }
-    }
-    stage('centos_7_gcc_7') {
-      steps {
-        sh '''
-            if [ ! -z "$(git diff --name-only @~1 | grep centos_7)" ];
-            then
-                docker build -t gwangmin/centos_7_gcc_7:latest -f dockerfiles/centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
-                docker push gwangmin/centos_7_gcc_7:latest
-            fi
-        '''
         stash name: 'source'
-      }
+        }
     }
     stage('base & jenkins') {
       steps {
@@ -50,24 +28,6 @@ pipeline {
                     '''
                     }
                 },
-              "jenkins_did" : {
-                  node('slave') {
-                    unstash 'source'
-                    sh '''
-                          docker build -t gwangmin/jenkins_did:latest -f dockerfiles/jenkins_did ${DOCKER_BUILD_OPTION} .
-                          docker push gwangmin/jenkins_did:latest
-                    '''
-                    }
-                },
-              "jenkins_slave_did" : {
-                  node('slave') {
-                    unstash 'source'
-                    sh '''
-                          docker build -t gwangmin/jenkins_slave_did:latest -f dockerfiles/jenkins_slave_did ${DOCKER_BUILD_OPTION} .
-                          docker push gwangmin/jenkins_slave_did:latest
-                    '''
-                    }
-                }
           )
       }
     }
@@ -83,15 +43,6 @@ pipeline {
     }
     failure {
       slackSend(message: "${MSG_PREFIX} failed ${MSG_LINK}", failOnError: true, color: 'danger')
-    }
-    changed {
-      slackSend(message: "${MSG_PREFIX} changed ${MSG_LINK}", failOnError: true, color: 'warning')
-    }
-    unstable {
-      slackSend(message: "${MSG_PREFIX} unstable ${MSG_LINK}", failOnError: true, color: 'warning')
-    }
-    aborted {
-      slackSend(message: "${MSG_PREFIX} aborted ${MSG_LINK}", failOnError: true, color: 'danger')
     }
   }
 }
