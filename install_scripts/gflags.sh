@@ -22,19 +22,33 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-source $ROOT/envset.sh
-
 PWD=$(pwd)
-WORKDIR=$HOME/.lib
+. $ROOT/envset.sh
 
-cd $WORKDIR
-if [ ! -d gflags ]; then
-  git clone https://github.com/gflags/gflags
+PKG_NAME="gflags"
+TMP_DIR=$ROOT/tmp
+REPO_URL="https://github.com/gflags/gflags"
+TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
+VER=$(echo $TAG | sed 's/v//')
+FOLDER="$PKG_NAME*"
+VERFILE=""
+if $(pkg-config --exists $PKG_NAME);then
+  INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
 fi
-cd gflags
-TAG=$(git tag | sort -V | tail -n1)
-#TAG='v2.1.2'
-git checkout $TAG && mkdir -p build && cd build && \
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
-make -j$(nproc) && make install
+
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl -LO $REPO_URL/archive/$TAG.zip
+  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  mkdir -p build && cd build && \
+    cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
+    make -j$(nproc) && make install
+
+  cd $ROOT && rm -rf $TMP_DIR
+else
+  echo "$PKG_NAME $VER is already installed"
+fi
+
+cd $ROOT
