@@ -48,7 +48,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
 
   mkdir -p $NEW_INSTALL_DIR && cd $NEW_INSTALL_DIR
   curl -L $REPO_URL/+archive/$TAG.tar.gz | tar xz && cd src
-  GOROOT_BOOTSTRAP=$BOOTSTRAP_DIR GOROOT_FINAL=$INSTALL_DIR ./all.bash
+  GOROOT_BOOTSTRAP=$BOOTSTRAP_DIR GOROOT_FINAL=$INSTALL_DIR ./make.bash
   rm -rf $INSTALL_DIR && mv $NEW_INSTALL_DIR $INSTALL_DIR
   ln -s $INSTALL_DIR/bin/go $HOME/.local/bin/go
 else
