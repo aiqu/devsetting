@@ -28,10 +28,9 @@ REPO_URL=https://github.com/libevent/libevent
 TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 FOLDER="libevent-$TAG"
 VER=$(echo $TAG | awk -F'-' '{print $2}')
-VERFILE=""
-unset INSTALLED_VERSION
-if $(pkg-config --exists libevent);then
-  INSTALLED_VERSION=$(pkg-config --modversion libevent)
+VERFILE="$HOME/.local/include/event2/event-config.h"
+if [ -r $VERFILE ];then
+  INSTALLED_VERSION=$(grep PACKAGE_VERSION $VERFILE | cut -d'"' -f2)
 fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
