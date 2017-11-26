@@ -5,7 +5,7 @@ export BYOBU_PREFIX=$HOME/.local
 export LANG='C'
 export EDITOR=vim
 export TMUX_TMPDIR=$HOME/.tmux
-mkdir -p $TMUX_TMPDIR
+mkdir -p $TMUX_TMPDIR $HOME/.local
 
 MY_INCLUDE_DIR=$HOME/.local/include
 MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
