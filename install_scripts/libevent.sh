@@ -28,10 +28,10 @@ REPO_URL=https://github.com/libevent/libevent
 TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 FOLDER="libevent-$TAG"
 VER=$(echo $TAG | awk -F'-' '{print $2}')
-VERFILE="$HOME/.local/lib/cmake/libevent/LibeventConfigVersion.cmake"
+VERFILE=""
 unset INSTALLED_VERSION
-if [ -r $VERFILE ];then
-  INSTALLED_VERSION=$(cat $VERFILE | head -n1 | cut -d'"' -f2)
+if $(pkg-config --exists libevent);then
+  INSTALLED_VERSION=$(pkg-config --modversion libevent)
 fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
