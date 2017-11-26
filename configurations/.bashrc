@@ -1,11 +1,13 @@
 export PATH=$HOME/.local/bin:$HOME/bin:$PATH
+export GOROOT=$HOME/.local/go
+export GOPATH=$HOME/workspace/golang
 export TERM="xterm-256color"
 export BYOBU_CONFIG_DIR=$HOME/.byobu
 export BYOBU_PREFIX=$HOME/.local
 export LANG='C'
 export EDITOR=vim
 export TMUX_TMPDIR=$HOME/.tmux
-mkdir -p $TMUX_TMPDIR $HOME/.local
+mkdir -p $TMUX_TMPDIR $HOME/.local $GOPATH
 
 MY_INCLUDE_DIR=$HOME/.local/include
 MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
