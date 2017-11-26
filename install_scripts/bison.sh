@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#    libconfuse installer
+#    bison installer
 #
 #    Copyright (C) 2017 Gwangmin Lee
 #    
@@ -25,25 +25,20 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/flex.sh
-
-PKG_NAME="libconfuse"
+PKG_NAME="bison"
 TMP_DIR=$ROOT/tmp
-REPO_URL="https://github.com/martinh/libconfuse"
-TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|version' | cut -d/ -f3 | sort -V | tail -n1)
+REPO_URL="https://git.savannah.gnu.org/git/bison"
+TAG=$(git ls-remote -t $REPO_URL | grep -v {} | grep 'tags/v' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')
+DOWN_URL="http://ftp.gnu.org/gnu/bison/bison-$VER.tar.xz"
 FOLDER="$PKG_NAME*"
-if pkg-config libconfuse --exists; then
-  INSTALLED_VERSION=$(pkg-config libconfuse --modversion)
-fi
+INSTALLED_VERSION=$(bison --version | head -n1 | cut -d' ' -f4)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO $REPO_URL/archive/$TAG.zip
-  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
-  ./autogen.sh
+  curl -L $DOWN_URL | tar xJ && cd $FOLDER
   ./configure --prefix=$HOME/.local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
 

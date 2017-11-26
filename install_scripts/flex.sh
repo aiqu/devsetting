@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#    libconfuse installer
+#    Flex installer
 #
 #    Copyright (C) 2017 Gwangmin Lee
 #    
@@ -25,16 +25,18 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/flex.sh
+. $ROOT/install_scripts/bison.sh
+. $ROOT/install_scripts/help2man.sh
 
-PKG_NAME="libconfuse"
+PKG_NAME="flex"
 TMP_DIR=$ROOT/tmp
-REPO_URL="https://github.com/martinh/libconfuse"
-TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|version' | cut -d/ -f3 | sort -V | tail -n1)
+REPO_URL="https://github.com/westes/flex"
+TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|flex' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
-if pkg-config libconfuse --exists; then
-  INSTALLED_VERSION=$(pkg-config libconfuse --modversion)
+INSTALLED_VERSION=$(flex --version | head -n1 | cut -d' ' -f2)
+if $(pkg-config --exists $PKG_NAME);then
+  INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
 fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
