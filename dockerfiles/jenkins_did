@@ -20,7 +20,7 @@
 FROM jenkins/jenkins:latest
 
 USER root
-COPY jenkins_plugins.txt /usr/share/jenkins/ref/plugins.txt
+COPY resources/jenkins_plugins.txt /usr/share/jenkins/ref/plugins.txt
 RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt && \
         mkdir -p /tmp && git clone https://github.com/aiqu/devsetting && \
         cd devsetting && bash install_scripts/docker.sh && \

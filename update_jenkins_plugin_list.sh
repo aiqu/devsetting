@@ -36,5 +36,5 @@ curl "$JENKINS_HOST/jnlpJars/$JENKINS_CLI" > $JENKINS_CLI
 GROOVY_SCRIPT='def plugins = jenkins.model.Jenkins.instance.getPluginManager().getPlugins()\nplugins.each {println "${it.getShortName()}:${it.getVersion()}"}'
 TMPFILE='__tmp_groovy__'
 echo -e $GROOVY_SCRIPT > $TMPFILE
-java -jar $JENKINS_CLI -s $JENKINS_HOST groovy --username $USERNAME --password $PASSWORD = < $TMPFILE > $JENKINS_PLUGINS
+java -jar $JENKINS_CLI -s $JENKINS_HOST groovy --username $USERNAME --password $PASSWORD = < $TMPFILE | grep -v ndeploy > resources/$JENKINS_PLUGINS
 rm $TMPFILE $JENKINS_CLI
