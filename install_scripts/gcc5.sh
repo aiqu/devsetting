@@ -23,9 +23,9 @@ set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
-if [ ! $CONFIGURATIONS_DONE ];then
-    source $ROOT/install_scripts/configurations.sh
-fi
+. $ROOT/envset.sh
+
+. $ROOT/install_scripts/texinfo.sh
 
 echo "gcc installation.. pwd: $PWD, root: $ROOT"
 CFLAGS="-O2 -pipe"
