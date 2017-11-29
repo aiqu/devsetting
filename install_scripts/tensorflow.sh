@@ -23,10 +23,9 @@ set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
-source $ROOT/envset.sh
+. $ROOT/envset.sh
 
-SRC_DIR=$HOME
-BAZEL_DIR=${SRC_DIR}/bazel
+SRC_DIR=$HOME/.lib
 TF_SRC_DIR=${SRC_DIR}/tensorflow
 TF_PKG_DIR=${TF_SRC_DIR}/tensorflow_pkg
 
@@ -37,13 +36,15 @@ pip3 install numpy scipy
 . $ROOT/install_scripts/bazel.sh
 
 #install tensorflow
+REPO_URL='https://github.com/tensorflow/tensorflow'
+LATEST_TAG=$(git ls-remote -t $REPO_URL | grep -v -e'rc\|alpha' | cut -d'/' -f3 | sort -V | tail -n1)
 cd $SRC_DIR
 if [ -d $TF_SRC_DIR ];then
     cd $TF_SRC_DIR
     git fetch
-    git checkout v1.3.0-rc1
+    git checkout $LATEST_TAG
 else
-    git clone https://github.com/tensorflow/tensorflow -b v1.3.0-rc1
+    git clone https://github.com/tensorflow/tensorflow -b $LATEST_TAG
 fi
 cd $TF_SRC_DIR
 #if you are using pyenv, make sure disable pyenv environment configuration
