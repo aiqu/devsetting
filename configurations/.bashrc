@@ -4,7 +4,8 @@ export GOPATH=$HOME/workspace/golang
 export TERM="xterm-256color"
 export BYOBU_CONFIG_DIR=$HOME/.byobu
 export BYOBU_PREFIX=$HOME/.local
-export LANG='C'
+export LANG='en_US.UTF-8'
+export LANGUAGE='en.UTF-8'
 export EDITOR=vim
 export TMUX_TMPDIR=$HOME/.tmux
 mkdir -p $TMUX_TMPDIR $HOME/.local $GOPATH
