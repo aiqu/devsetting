@@ -24,8 +24,8 @@ set -e
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
-. $ROOT/python.sh
-. $ROOT/protobuf.sh
+. $ROOT/install_scripts/python.sh
+. $ROOT/install_scripts/protobuf.sh
 
 PKG_NAME="opencv"
 TMP_DIR=$ROOT/tmp
