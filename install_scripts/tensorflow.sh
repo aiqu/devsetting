@@ -33,20 +33,8 @@ TF_PKG_DIR=${TF_SRC_DIR}/tensorflow_pkg
 #install prerequisites
 pip2 install numpy scipy
 pip3 install numpy scipy
-
-#install jdk8
 . $ROOT/install_scripts/jdk8.sh
-
-#insatll bazel
-# tensorflow v1.3.0-rc1 branch cannot build with bazel-0.5.3
-# use 0.5.2
-if ! bazel version | grep -q '0.5.2' ;then
-    cd $SRC_DIR
-    curl -LO https://github.com/bazelbuild/bazel/releases/download/0.5.2/bazel-0.5.2-dist.zip
-    unzip -q bazel-0.5.2-dist.zip -d bazel && cd bazel
-    ./compile.sh
-    $SUDO cp output/bazel /usr/local/bin/bazel
-fi
+. $ROOT/install_scripts/bazel.sh
 
 #install tensorflow
 cd $SRC_DIR
