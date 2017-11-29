@@ -1,6 +1,6 @@
-export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 export GOROOT=$HOME/.local/go
 export GOPATH=$HOME/workspace/golang
+export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$PATH
 export TERM="xterm-256color"
 export BYOBU_CONFIG_DIR=$HOME/.byobu
 export BYOBU_PREFIX=$HOME/.local
