@@ -23,9 +23,17 @@ set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
-source $ROOT/envset.sh
+. $ROOT/envset.sh
+. $ROOT/python.sh
+. $ROOT/protobuf.sh
 
-PWD=$(pwd)
+PKG_NAME="opencv"
+TMP_DIR=$ROOT/tmp
+REPO_URL=https://github.com/opencv/opencv
+CONTRIB_REPO_URL=https://github.com/opencv/opencv_contrib
+TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' | sort -V | tail -n1)
+VER=$TAG
+CUDA_BIN_PATH="/usr/local/cuda-8.0"
 WORKDIR=$HOME/.lib
 INSTALL_DIR=$HOME/.local
 
@@ -34,19 +42,17 @@ pip2 install numpy && pip3 install numpy
 #TODO
 # remove package manager dependency
 if [ $OS == 'centos' ];then
-	$SUDO yum install -y libjpeg-turbo-devel jasper-devel openexr-devel libtiff-devel libwebp-devel libdc1394-devel libv4l-devel gstreamer-plugins-base-devel tbb-devel
+  $SUDO yum install -y libjpeg-turbo-devel jasper-devel openexr-devel libtiff-devel libwebp-devel libdc1394-devel libv4l-devel gstreamer-plugins-base-devel tbb-devel
 elif [ $OS == 'ubuntu' ];then
-	$SUDO apt install -y libjpeg8-dev libtiff5-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk2.0-dev gfortran tesseract-ocr libtesseract-dev libleptonica-dev libatlas-dev libdc1394-22-dev
+  $SUDO apt install -y libjpeg8-dev libtiff5-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk2.0-dev gfortran tesseract-ocr libtesseract-dev libleptonica-dev libatlas-dev libdc1394-22-dev
 fi
 
-cd $WORKDIR
-REPO_URL=https://github.com/opencv/opencv
-CONTRIB_REPO_URL=https://github.com/opencv/opencv_contrib
-TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' | sort -V | tail -n1)
-INSTALLED_VERSION=$(opencv_version 2>/dev/null)
-CUDA_BIN_PATH="/usr/local/cuda-8.0"
-
+if $(which opencv_version); then
+  INSTALLED_VERSION=$(opencv_version)
+fi
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
+  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  cd $WORKDIR
   if [ ! -d opencv-${TAG} ];then
     curl -LO ${REPO_URL}/archive/${TAG}.zip
     unzip -q ${TAG}.zip && rm ${TAG}.zip
@@ -59,6 +65,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   CONTRIB_MODULE_DIR="$WORKDIR/opencv_contrib-${TAG}/modules"
   PYTHON2_INCLUDE_DIR=$HOME/.local/include/python2.7
   PYTHON3_INCLUDE_DIR=$HOME/.local/include/python3.6m
+  PYTHON2_LIBRARY=$HOME/.local/lib/libpython2.7.so
+  PYTHON3_LIBRARY=$HOME/.local/lib/libpython3.6m.so
   if [ -f /usr/local/cuda/version.txt ]; then
     cmake -DCMAKE_BUILD_TYPE=RELEASE \
       -DCMAKE_CXX_FLAGS="-std=c++11" \
@@ -74,6 +82,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
       -DWITH_TBB=ON \
       -DPYTHON2_INCLUDE_DIR=$PYTHON2_INCLUDE_DIR \
       -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR \
+      -DPYTHON2_LIBRARY=$PYTHON2_LIBRARY \
+      -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY \
       ..
   else
     cmake -DCMAKE_BUILD_TYPE=RELEASE \
@@ -86,6 +96,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
       -DWITH_TBB=ON \
       -DPYTHON2_INCLUDE_DIR=$PYTHON2_INCLUDE_DIR \
       -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR \
+      -DPYTHON2_LIBRARY=$PYTHON2_LIBRARY \
+      -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY \
       ..
   fi
   make -s -j$(nproc) && make -s install 1>/dev/null
