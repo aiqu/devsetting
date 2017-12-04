@@ -24,6 +24,7 @@ set -e
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 source $ROOT/envset.sh
+. $ROOT/install_scripts/flann.sh
 
 PWD=$(pwd)
 WORKDIR=$HOME/.lib
