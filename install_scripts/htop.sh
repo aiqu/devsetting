@@ -30,7 +30,7 @@ TMP_DIR=$ROOT/tmp
 REPO_URL="https://github.com/hishamhm/htop"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
 VER=$TAG
-DOWN_URL="https://hisham.hm/htop/releases/$VER/htop-$VER.tar.gz"
+DOWN_URL="https://github.com/hishamhm/htop/archive/$VER.tar.gz"
 FOLDER="$PKG_NAME*"
 VERFILE=""
 if [ -f $HOME/.local/bin/htop ];then
@@ -42,6 +42,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL | tar xz && cd $FOLDER
+  ./autogen.sh
   ./configure --prefix=$HOME/.local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
 
