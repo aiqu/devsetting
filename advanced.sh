@@ -35,6 +35,5 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 . $ROOT/install_scripts/protobuf.sh
 . $ROOT/install_scripts/flann.sh
 . $ROOT/install_scripts/pcl.sh
-. $ROOT/install_scripts/vtk.sh
 . $ROOT/install_scripts/postgresql.sh
 . $ROOT/install_scripts/tensorflow.sh
