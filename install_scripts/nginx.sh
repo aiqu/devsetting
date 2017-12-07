@@ -49,7 +49,7 @@ if [ ! -z $REINSTALL ] || [ -z "$INSTALLED_VERSION" ] || [ $VER != "$INSTALLED_V
     --sbin-path=$HOME/.local/bin/nginx \
     --with-http_ssl_module \
     --with-pcre \
-    --with-openssl=$HOME/.local
+    --with-openssl=$HOME/.lib/openssl
   make -s -j$(nproc) && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
