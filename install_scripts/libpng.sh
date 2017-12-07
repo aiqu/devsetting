@@ -42,9 +42,11 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
-  LDFLAGS="-L$HOME/.local/lib" ./autogen.sh && \
+  export LDFLAGS="-L$HOME/.local/lib"
+  ./autogen.sh && \
     ./configure --prefix=$HOME/.local && \
     make -s -j$(nproc) && make -s install 1>/dev/null
+  unset LDFLAGS
 
   cd $ROOT && rm -rf $TMP_DIR
 else
