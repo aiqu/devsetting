@@ -79,3 +79,5 @@ pip3 install -U pip
 pip2 install jupyter jupyterthemes
 pip3 install jupyter jupyterthemes
 jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
+cp $ROOT/resources/jupyter/jupyter_notebook_config.py $HOME/.jupyter/
+cp -r $ROOT/resources/jupyter/kernels $HOME/.local/share/jupyter/
