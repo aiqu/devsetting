@@ -38,7 +38,7 @@ FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=$(nginx -v 2>&1 | cut -d/ -f2)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z "$INSTALLED_VERSION" ] || [ $VER != "$INSTALLED_VERSION" ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
