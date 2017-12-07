@@ -82,37 +82,7 @@ elif [ $OS == "centos" ];then
 
     printf "[cuda]\nname=cuda\nbaseurl=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64\nenabled=1\ngpgcheck=1\ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" > /etc/yum.repos.d/cuda.repo
 
-    export CUDA_VERSION=8.0.61
-    export CUDA_PKG_VERSION=8-0-$CUDA_VERSION-1
-    export CUDNN_VERSION=6.0.21
-
-    yum install -y \
-            cuda-nvrtc-$CUDA_PKG_VERSION \
-            cuda-nvgraph-$CUDA_PKG_VERSION \
-            cuda-cusolver-$CUDA_PKG_VERSION \
-            cuda-cublas-8-0-8.0.61.2-1 \
-            cuda-cufft-$CUDA_PKG_VERSION \
-            cuda-curand-$CUDA_PKG_VERSION \
-            cuda-cusparse-$CUDA_PKG_VERSION \
-            cuda-npp-$CUDA_PKG_VERSION \
-            cuda-cudart-$CUDA_PKG_VERSION \
-            cuda-core-$CUDA_PKG_VERSION \
-            cuda-misc-headers-$CUDA_PKG_VERSION \
-            cuda-command-line-tools-$CUDA_PKG_VERSION \
-            cuda-license-$CUDA_PKG_VERSION \
-            cuda-nvrtc-dev-$CUDA_PKG_VERSION \
-            cuda-nvml-dev-$CUDA_PKG_VERSION \
-            cuda-nvgraph-dev-$CUDA_PKG_VERSION \
-            cuda-cusolver-dev-$CUDA_PKG_VERSION \
-            cuda-cublas-dev-8-0-8.0.61.2-1 \
-            cuda-cufft-dev-$CUDA_PKG_VERSION \
-            cuda-curand-dev-$CUDA_PKG_VERSION \
-            cuda-cusparse-dev-$CUDA_PKG_VERSION \
-            cuda-npp-dev-$CUDA_PKG_VERSION \
-            cuda-cudart-dev-$CUDA_PKG_VERSION \
-            cuda-driver-dev-$CUDA_PKG_VERSION && \
-            ln -s /usr/local/cuda-8.0 /usr/local/cuda && \
-            echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/cuda.conf && ldconfig
+    yum install -y cuda-8-0
         
     CUDNN_DOWNLOAD_SUM=9b09110af48c9a4d7b6344eb4b3e344daa84987ed6177d5c44319732f3bb7f9c && \
         curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-8.0-linux-x64-v6.0.tgz -O && \
