@@ -27,6 +27,7 @@ PWD=$(pwd)
 
 PKG_NAME="openssl"
 TMP_DIR=$ROOT/tmp
+SRC_DIR=$HOME/.lib/openssl
 REPO_URL="https://github.com/openssl/openssl"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|pre\|FIPS' | grep OpenSSL | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/OpenSSL.//' | sed 's/_/./g')
@@ -41,11 +42,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   ./config --prefix=$HOME/.local threads && \
     make -s -j$(nproc) && make -s install_sw 1>/dev/null && make -s install_man_docs 1>/dev/null
-  if [ ! -L $HOME/.local/.openssl ];then
-    ln -s $HOME/.local $HOME/.local/.openssl
-  fi
 
-  cd $ROOT && rm -rf $TMP_DIR
+  cd $ROOT && rm -rf $SRC_DIR && mv $TMP_DIR/$FOLDER $SRC_DIR && rm -rf $TMP_DIR
 else
   echo "$PKG_NAME $VER is already installed"
 fi
