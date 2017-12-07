@@ -31,7 +31,7 @@ WORKDIR=$HOME/.lib
 . $ROOT/install_scripts/xz.sh
 . $ROOT/install_scripts/cmake.sh
 
-cd $WORKDIR
+mkdir -p $WORKDIR && cd $WORKDIR
 VER='1.65.1'
 VERSTR='1_65_1'
 SRCFILE="boost_$VERSTR.tar.bz2"

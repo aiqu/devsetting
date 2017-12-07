@@ -8,7 +8,7 @@ export LANG='en_US.UTF-8'
 export LANGUAGE='en.UTF-8'
 export EDITOR=vim
 export TMUX_TMPDIR=$HOME/.tmux
-mkdir -p $TMUX_TMPDIR $HOME/.local $GOPATH
+mkdir -p $TMUX_TMPDIR $HOME/.local $GOPATH $HOME/.lib
 
 MY_INCLUDE_DIR=$HOME/.local/include
 MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64

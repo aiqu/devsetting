@@ -28,7 +28,7 @@ source $ROOT/envset.sh
 PWD=$(pwd)
 WORKDIR=$HOME/.lib
 
-cd $WORKDIR
+mkdir -p $WORKDIR && cd $WORKDIR
 if [ ! -d Sophus ]; then
   git clone https://github.com/strasdat/Sophus.git
 fi

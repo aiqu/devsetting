@@ -28,7 +28,7 @@ source $ROOT/envset.sh
 PWD=$(pwd)
 WORKDIR=$HOME/.lib
 
-cd $WORKDIR
+mkdir -p $WORKDIR && cd $WORKDIR
 VER='4.5.6'
 SRCFILE="SuiteSparse-$VER.tar.gz"
 if [ ! -d SuiteSparse ]; then
