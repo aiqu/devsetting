@@ -3,7 +3,6 @@
 	email = gwangmin.lee@naverlabs.com
 [core]
     editor = vim
-	excludesfile = /home/gmlee/.gitignore_global
 	autocrlf = input
 	whitespace = trailing-space,space-before-tab,cr-at-eol
 [diff]
