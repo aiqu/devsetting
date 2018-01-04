@@ -15,9 +15,6 @@ env:
 before_install:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
-jobs:
-  include:
-    - stage: build docker image
-      script: 
-        - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
-        - docker push gwangmin/base:$TAG
+script:
+  - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
+  - docker push gwangmin/base:$TAG
