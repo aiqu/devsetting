@@ -8,13 +8,50 @@ services:
 env:
   global:
     - DOCKER_BUILD_OPTION="--force-rm --no-cache --pull"
-  matrix:
-    - BASEIMG=centos_7_dev TAG=latest
-    - BASEIMG=centos_7_gcc_7 TAG=gcc7
   
 before_install:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
-script:
-  - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
-  - docker push gwangmin/base:$TAG
+jobs:
+  include:
+    - stage: build docker image
+      if: type != cron
+      env: BASEIMG=centos_7_dev TAG=latest
+      script:
+        - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/base:$TAG
+
+    - stage: build docker image
+      if: type != cron
+      env: BASEIMG=centos_7_gcc_7 TAG=gcc7
+      script:
+        - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/base:$TAG
+
+    - stage: build basic docker image
+      if: type = cron
+      env: DOCKERFILE_NAME=centos_7_dev
+      script:
+        - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/${DOCKERFILE_NAME}:latest
+
+    - stage: build basic docker image
+      if: type = cron
+      env: DOCKERFILE_NAME=centos_7_dev
+      script:
+        - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/${DOCKERFILE_NAME}:latest
+
+    - stage: build basic docker image
+      if: type = cron
+      env: DOCKERFILE_NAME=jenkins_did
+      script:
+        - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/${DOCKERFILE_NAME}:latest
+
+    - stage: build basic docker image
+      if: type = cron
+      env: DOCKERFILE_NAME=jenkins_slave_did
+      script:
+        - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/${DOCKERFILE_NAME}:latest
