@@ -55,3 +55,7 @@ jobs:
       script:
         - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
         - docker push gwangmin/${DOCKERFILE_NAME}:latest
+
+notifications:
+  slack:
+    secure: SU91a1fKEwOf65eJjk2+hhh3XtGb/sf5Ka+4AAa9OTBDsYyNMKQnUmpHM/A4a0kKxz64UbzH8Vbj4HflekTCdCBkyuIaC093Krhc1QdrvkTJS2jz1WsBuwB8ZkwOhT3r7mN8F97pqJrB4kAF4V5hThU2hAFLtemDoGFd4VwLkdksYeLuxlerVK2UhIkHQ2i8cnxUDWiIel4r5qsjvKIUXSn2HT9MnkxooUHTp52QU2uF/y6buMOhS7YQmiOoHpvhVJsuZJjY54gXfhe3tXYFfZE2+8/FYO5qjKJIr/UXJe+tuOEB6VH7rQNpA3TeribvGF72dvlp2qqVY/4O+Lz9+2DqvDO/RH2PzKyDsRvlQKRd6tnLW6hPPa+PxQs4Qwi9Vz7wCqfsISZDVKLzQjXIFGpEPVzpevr2By1UO3wuMdqTPatJ0mTFtHODDsfmGYRs0qzJ+lGIhJ+k/WsFasigjHdLmFTEhZ5FyQWXOP8kpDtJLdl0z/X1S0XFPvXXmUWRrnXp4aP1xwZhKhJfVxDtjfcsaS2RR+qBkLc3eccJKn4XDd9pJezteGQXer5rR7m87HMXw+m/Qnl3LZ6NWhhaHnMJ7tal0allXpt0qofRx/BGbRJjve/3FxL2+sPbeFSqNZ2MTlnYyX8hTEPO/3T0gfhJ4NryIrrx+hF89onEGsI=
