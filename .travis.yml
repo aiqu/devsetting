@@ -8,8 +8,9 @@ services:
 env:
   global:
     - DOCKER_BUILD_OPTION="--force-rm --no-cache --pull"
-  - BASEIMG=centos_7_dev TAG=latest
-  - BASEIMG=centos_7_gcc_7 TAG=gcc7
+  matrix:
+    - BASEIMG=centos_7_dev TAG=latest
+    - BASEIMG=centos_7_gcc_7 TAG=gcc7
   
 before_install:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
