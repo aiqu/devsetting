@@ -9,15 +9,14 @@ env:
 before_install:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
+install: true
+
 jobs:
   include:
-    - stage: build latest docker image
+    - stage: build docker image
       script: 
-        - docker pull gwangmin/base:centos_7_dev
         - docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos_7_dev $DOCKER_BUILD_OPTION .
         - docker push gwangmin/base:latest
-    - stage: build gcc7 docker image
       script: 
-        - docker pull gwangmin/base:centos_7_dev_gcc_7
         - docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos_7_dev_gcc_7 $DOCKER_BUILD_OPTION .
         - docker push gwangmin/base:gcc7
