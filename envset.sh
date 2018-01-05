@@ -54,6 +54,27 @@ else
     exit 1
 fi
 
+COLOR_RED="\e[38;5;9m"
+COLOR_NONE="\e[38;m"
+
+function eecho {
+  echo -e "${COLOR_RED}$1${COLOR_NONE}"
+}
+
+# Given two arguments, true if first argument is smaller version than second argument
+function compare_version {
+  if [ $# != 2 ];then
+    echo -e "${COLOR_RED}error: compare_version requires exactly two arguments!!!${COLOR_NONE}"
+    return 1
+  fi
+
+  if [ "$(echo -e "$1\n$2" | sort -V | head -n1)" = "$1" ];then
+    return 0
+  else
+    return 1
+  fi
+}
+
 if [ -f $ENVFILE ];then
   . $ENVFILE
 fi
