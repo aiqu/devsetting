@@ -29,7 +29,8 @@ PKG_NAME="go"
 INSTALL_DIR=$HOME/.local/go
 NEW_INSTALL_DIR=$HOME/.local/go-new
 BOOTSTRAP_TOOLCHAIN='https://storage.googleapis.com/golang/go1.4-bootstrap-20170531.tar.gz'
-BOOTSTRAP_DIR="$INSTALL_DIR/go"
+BOOTSTRAP_DIR="$HOME/.local/go-bootstrap"
+TMP_DIR="/tmp/go"
 REPO_URL="https://go.googlesource.com/go"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc\|beta' | grep go | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/go//')
@@ -40,10 +41,12 @@ INSTALLED_VERSION=$(go version | cut -d' ' -f3)
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
-  if [ ! -d $INSTALL_DIR ];then
-    mkdir -p $INSTALL_DIR && cd $INSTALL_DIR
+  if [ ! -x $BOOTSTRAP_DIR/bin/go ];then
+    echo "Cannot find go 1.4 for bootstrap. Install it first"
+    mkdir -p $TMP_DIR && cd $TMP_DIR
     curl -L $BOOTSTRAP_TOOLCHAIN | tar xz && cd go/src
-    ./make.bash
+    GOROOT_FINAL=$BOOTSTRAP_DIR ./make.bash
+    rm -rf $BOOTSTRAP_DIR && mv $TMP_DIR/go $BOOTSTRAP_DIR
   fi
 
   mkdir -p $NEW_INSTALL_DIR && cd $NEW_INSTALL_DIR
