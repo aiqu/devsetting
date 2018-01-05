@@ -34,8 +34,33 @@ FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=""
 
+REQUIRED_GCC_VERSION="4.9.4"
+REQUIRED_MAKE_VERSION="3.81"
+REQUIRED_PYTHON_VERSION="2.6"
+
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+
+  GCC_VERSION=$(gcc --version | head -n1 | cut -d' ' -f3)
+  GPP_VERSION=$(g++ --version | head -n1 | cut -d' ' -f3)
+  MAKE_VERSION=$(make -v | head -n1 | cut -d' ' -f3)
+  PYTHON_VERSION=$(python --version 2>&1 | cut -d' ' -f2)
+  if compare_version $GCC_VERSION $REQUIRED_GCC_VERSION; then
+    eecho "Require GCC $REQUIRED_GCC_VERSION, found $GCC_VERSION"
+    exit 1
+  fi
+  if compare_version $GPP_VERSION $REQUIRED_GPP_VERSION; then
+    eecho "Require G++ $REQUIRED_GPP_VERSION, found $GPP_VERSION"
+    exit 1
+  fi
+  if compare_version $MAKE_VERSION $REQUIRED_MAKE_VERSION; then
+    eecho "Require MAKE $REQUIRED_MAKE_VERSION, found $MAKE_VERSION"
+    exit 1
+  fi
+  if compare_version $PYTHON_VERSION $REQUIRED_PYTHON_VERSION; then
+    eecho "Require PYTHON $REQUIRED_PYTHON_VERSION, found $PYTHON_VERSION"
+    exit 1
+  fi
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
