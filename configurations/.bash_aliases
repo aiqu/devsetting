@@ -1,3 +1,7 @@
+if [ -v $MY_ALIASES_CONFIGURED ];then
+  return 0;
+fi
+
 if [ $(echo $OSTYPE | grep 'linux') ];then
   # enable color support of ls and also add handy aliases
   alias ls='ls --color=auto'
@@ -19,3 +23,5 @@ elif [ $(echo $OSTYPE | grep 'darwin') ];then
   alias ll="ls -alF -G"
   alias l="ls -lG"
 fi
+
+set MY_ALIASES_CONFIGURED
