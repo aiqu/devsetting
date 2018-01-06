@@ -54,11 +54,23 @@ else
     exit 1
 fi
 
+SET_BOLD="\e[1m"
+UNSET_BOLD="\e[0m"
 COLOR_RED="\e[38;5;9m"
+COLOR_YELLOW="\e[38;5;11m"
+COLOR_GREEN="\e[38;5;2m"
 COLOR_NONE="\e[38;m"
 
 function eecho {
-  echo -e "${COLOR_RED}$1${COLOR_NONE}"
+  echo -e "${SET_BOLD}${COLOR_RED}$1${COLOR_NONE}${UNSET_BOLD}"
+}
+
+function wecho {
+  echo -e "${SET_BOLD}${COLOR_YELLOW}$1${COLOR_NONE}${UNSET_BOLD}"
+}
+
+function gecho {
+  echo -e "${SET_BOLD}${COLOR_GREEN}$1${COLOR_NONE}${UNSET_BOLD}"
 }
 
 # Given two arguments, true if first argument is smaller version than second argument
