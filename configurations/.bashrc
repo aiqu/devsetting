@@ -61,6 +61,8 @@ if [ ! $(echo $- | grep i) ];then
   return;
 fi
 
+export PROMPT_DIRTRIM="3"
+
 # Enable bash completion
 if [[ $PS1 && -f $HOME/.local/share/bash-completion/bash_completion ]]; then
   . $HOME/.local/share/bash-completion/bash_completion
