@@ -57,6 +57,11 @@ if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 
+# Enable bash completion
+if [ $PS1 && -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+fi
+
 if [ ! $(echo $- | grep i) ];then
   return;
 fi
