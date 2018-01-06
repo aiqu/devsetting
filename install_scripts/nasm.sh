@@ -35,7 +35,7 @@ VERFILE=""
 INSTALLED_VERSION=$(nasm --version | cut -d' ' -f3)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xj && cd $FOLDER
@@ -45,7 +45,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  echo "$PKG_NAME $VER is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT

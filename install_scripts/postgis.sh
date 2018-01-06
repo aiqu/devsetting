@@ -42,7 +42,7 @@ VERFILE=""
 INSTALLED_VERSION=$(basename -a -s .so $(find $HOME/.local/lib/postgresql -name 'postgis-*' -type f) | cut -d'-' -f2 | sort -V | tail -n1)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
@@ -53,7 +53,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  echo "$PKG_NAME $INSTALLED_VERSION is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT

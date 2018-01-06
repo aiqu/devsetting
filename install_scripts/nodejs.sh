@@ -39,7 +39,7 @@ REQUIRED_MAKE_VERSION="3.81"
 REQUIRED_PYTHON_VERSION="2.6"
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   GCC_VERSION=$(gcc --version | head -n1 | cut -d' ' -f3)
   GPP_VERSION=$(g++ --version | head -n1 | cut -d' ' -f3)
@@ -70,7 +70,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  echo "$PKG_NAME $VER is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT

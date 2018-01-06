@@ -34,7 +34,7 @@ FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=$($HOME/.local/bin/autoconf --version | head -n1 | cut -d' ' -f4)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz && cd $FOLDER
@@ -43,7 +43,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  echo "$PKG_NAME $VER is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT

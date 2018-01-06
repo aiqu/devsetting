@@ -32,5 +32,5 @@ if [ ! -z $REINSTALL ] || [ $VER != $INSTALLED_VERSION ];then
   unzip -oq gradle-$VER-bin.zip && rm gradle-$VER-bin.zip
   ln -s $(pwd)/gradle-$VER/bin/gradle $HOME/.local/bin/gradle
 else
-  echo "$PKG_NAME $VER is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi

@@ -35,7 +35,7 @@ VERFILE=""
 INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
 
 if [ ! -z $REINSTALL ] || [ ! -f $HOME/.local/bin/curl ]; then
-  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
@@ -75,7 +75,7 @@ if [ ! -z $REINSTALL ] || [ ! -f $HOME/.local/bin/curl ]; then
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  echo "$PKG_NAME $INSTALLED_VERSION is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT
