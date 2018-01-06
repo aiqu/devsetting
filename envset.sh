@@ -59,6 +59,7 @@ UNSET_BOLD="\e[0m"
 COLOR_RED="\e[38;5;9m"
 COLOR_YELLOW="\e[38;5;11m"
 COLOR_GREEN="\e[38;5;2m"
+COLOR_INFO="\e[38;5;14m"
 COLOR_NONE="\e[38;m"
 
 function eecho {
@@ -71,6 +72,10 @@ function wecho {
 
 function gecho {
   echo -e "${SET_BOLD}${COLOR_GREEN}$1${COLOR_NONE}${UNSET_BOLD}"
+}
+
+function iecho {
+  echo -e "${SET_BOLD}${COLOR_INFO}$1${COLOR_NONE}${UNSET_BOLD}"
 }
 
 # Given two arguments, true if first argument is smaller version than second argument
