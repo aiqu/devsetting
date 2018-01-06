@@ -21,9 +21,12 @@
 
 set -e
 
+PKG_NAME="jdk"
+VER="8u152"
 WORKDIR=$HOME/.local
 
 if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8' || ! which jar 2>/dev/null ;then
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
   mkdir -p $WORKDIR && cd $WORKDIR
 
   FILENAME='jdk-8u152-linux-x64.tar.gz'
@@ -33,5 +36,5 @@ if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8'
   tar xf $FILENAME && rm $FILENAME
   ln -s $HOME/.local/$FOLDERNAME/bin/* $HOME/.local/bin/
 else
-  echo "JDK8 is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
