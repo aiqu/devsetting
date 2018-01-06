@@ -26,19 +26,20 @@ CMAKE_DONE=
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
+PKG_NAME="cmake"
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/Kitware/CMake
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="CMake-$VER"
-INSTALLED_VER=$(cmake --version 2>/dev/null | grep version | awk '{print $3}')
+INSTALLED_VER=$($PKG_NAME --version 2>/dev/null | grep version | awk '{print $3}')
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
-  echo "cmake installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
-  echo "Downloading CMake $VER"
+  iecho "Downloading CMake $VER"
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER
@@ -46,10 +47,9 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];th
 
   make -s -j$(nproc) && make -s install 1>/dev/null
 
-  cd $PWD
-  rm -rf $TMP_DIR
+  cd $PWD && rm -rf $TMP_DIR
 else
-  echo "CMake $VER is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT
