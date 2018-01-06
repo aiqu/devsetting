@@ -31,6 +31,7 @@ WORKDIR=$HOME/.lib
 . $ROOT/install_scripts/xz.sh
 . $ROOT/install_scripts/cmake.sh
 
+PKG_NAME="boost"
 mkdir -p $WORKDIR && cd $WORKDIR
 VER='1.65.1'
 VERSTR='1_65_1'
@@ -41,17 +42,19 @@ if [ -r $VERFILE ];then
 fi
 
 if [ ! -z $REINSTALL ] || [ $VERSTR != $INSTALLED_VERSION ];then
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
   if [ ! -d boost_$VERSTR ];then
     if [ ! -f $SRCFILE ]; then
-      echo "Downloading Boost $VER"
+      iecho "Downloading Boost $VER"
       curl -L https://dl.bintray.com/boostorg/release/$VER/source/$SRCFILE | tar xjf -
     fi
   fi
   cd boost_$VERSTR
   ./bootstrap.sh --prefix=$HOME/.local
-  ./b2 -j$(nproc) && ./b2 install
+  ./b2 -j$(nproc)
+  ./b2 install
 else
-  echo "Boost $VER is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT
