@@ -43,14 +43,14 @@ if [ $(echo $OSTYPE | grep 'linux') ];then
     elif [ $(which yum 2>/dev/null) ]; then
         OS='centos'
     else
-        echo "Unknown linux distro"
+        eecho "Unknown linux distro"
         exit 1
     fi
 elif [ $(echo $OSTYPE | grep 'darwin') ];then
     ENVFILE="$HOME/.bash_profile"
     OS="mac"
 else
-    echo "Unkown distro"
+    eecho "Unkown distro"
     exit 1
 fi
 
@@ -76,7 +76,7 @@ function gecho {
 # Given two arguments, true if first argument is smaller version than second argument
 function compare_version {
   if [ $# != 2 ];then
-    echo -e "${COLOR_RED}error: compare_version requires exactly two arguments!!!${COLOR_NONE}"
+    eecho "compare_version requires exactly two arguments!!!"
     return 1
   fi
 
