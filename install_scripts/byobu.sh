@@ -24,20 +24,26 @@ set -e
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-bash $ROOT/install_scripts/tmux.sh
+. $ROOT/install_scripts/tmux.sh
 
+PKG_NAME="byobu"
 REPO_URL=https://github.com/aiqu/byobu
 
-echo "Byobu installation.. pwd: $PWD, root: $ROOT"
+if [ ! -z $REINSTALL ] || [ ! -x $HOME/.local/bin/byobu ];then
+  iecho "$PKG_NAME installation.. pwd: $PWD, root: $ROOT"
 
-mkdir -p $HOME/.lib && cd $HOME/.lib
+  mkdir -p $HOME/.lib && cd $HOME/.lib
+  if [ ! -d byobu ];then
+    git clone --depth=1 $REPO_URL
+  fi
 
-if [ ! -d byobu ];then
-  git clone --depth=1 $REPO_URL
+  cd byobu && git pull
+  ./autogen.sh
+  ./configure --prefix="$HOME/.local"
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
+else
+  gecho "$PKG_NAME is already installed"
 fi
-
-cd byobu && git pull && \
-./autogen.sh && ./configure --prefix="$HOME/.local" && \
-make -s -j$(nproc) && make -s install 1>/dev/null
 
 cd $ROOT
