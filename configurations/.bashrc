@@ -31,6 +31,8 @@ export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+# colored grep
+export GREP_COLORS="ms=01;38;5;202:mc=01;31:sl=:cx=:fn=01;38;5;132:ln=32:bn=32:se=00;38;5;242"
 
 if [ -f $HOME/.local/bin/gcc ];then
   export CC=$HOME/.local/bin/gcc
