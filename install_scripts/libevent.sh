@@ -23,6 +23,7 @@ set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
+PKG_NAME="libevent"
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/libevent/libevent
 TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
@@ -34,7 +35,7 @@ if [ -r $VERFILE ];then
 fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  echo "libevent $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
@@ -55,7 +56,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  echo "libevent $INSTALLED_VERSION is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT
