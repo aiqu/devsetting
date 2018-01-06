@@ -56,7 +56,7 @@ function install_python {
   fi
 }
 
-PYTHON2_VER='2.7.13'
+PYTHON2_VER='2.7.14'
 PYTHON3_VER='3.6.3'
 INSTALLED_PYTHON2_VER=$($HOME/.local/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
 INSTALLED_PYTHON3_VER=$($HOME/.local/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
