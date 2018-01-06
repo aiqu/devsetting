@@ -35,7 +35,7 @@ VERFILE="$HOME/.local/include/proj_api.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define PJ_VERSION ' | cut -d' ' -f3)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  echo "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
+  echo "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz && cd $FOLDER
@@ -44,7 +44,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  echo "$PKG_NAME $TAG is already installed"
+  echo "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT
