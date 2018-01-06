@@ -57,13 +57,13 @@ if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 
-# Enable bash completion
-if [ $PS1 && -f /usr/share/bash-completion/bash_completion ]; then
-  . /usr/share/bash-completion/bash_completion
-fi
-
 if [ ! $(echo $- | grep i) ];then
   return;
+fi
+
+# Enable bash completion
+if [[ $PS1 && -f $HOME/.local/share/bash-completion/bash_completion ]]; then
+  . $HOME/.local/share/bash-completion/bash_completion
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
