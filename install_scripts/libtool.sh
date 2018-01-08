@@ -43,7 +43,7 @@ FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=$(libtool --version 2>/dev/null | head -n1 | cut -d' ' -f4)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL$VER.tar.gz | tar xz

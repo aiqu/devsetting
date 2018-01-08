@@ -41,7 +41,7 @@ if [ -z $REINSTALL ] && [ -r $VERFILE ];then
   INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define NCURSES_VERSION ' | cut -d'"' -f2)
   gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
 else
-  iecho "$PKG_NAME installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz

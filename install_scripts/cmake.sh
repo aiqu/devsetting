@@ -41,7 +41,7 @@ FOLDER="CMake-$VER"
 INSTALLED_VER=$($PKG_NAME --version 2>/dev/null | grep version | awk '{print $3}')
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
-  iecho "$PKG_NAME installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 

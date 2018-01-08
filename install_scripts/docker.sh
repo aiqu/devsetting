@@ -34,7 +34,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
 
-iecho "Docker Installation.. pwd: $PWD, root: $ROOT"
+iecho "Docker Installation.. install location: $LOCAL_DIR"
 if [ $OS == "ubuntu" ];then
     ${SUDO} apt-get update -y
     ${SUDO} apt-get remove -y docker docker-engine docker.io

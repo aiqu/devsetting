@@ -42,7 +42,7 @@ function install_gcc() {
     return 0
   fi
 
-  iecho "GCC $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "GCC $VER installation.. install location: $LOCAL_DIR"
   CFLAGS="-O2 -pipe"
 
   WORKDIR=$HOME/.lib/gcc-$VER

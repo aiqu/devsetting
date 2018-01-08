@@ -39,7 +39,7 @@ fi
 
 source "$HOME/.bashrc"
 
-iecho "Python installation.. pwd: $PWD, root: $ROOT"
+iecho "Python installation.. install location: $LOCAL_DIR"
 
 function install_python {
   VER=$1

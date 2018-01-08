@@ -47,7 +47,7 @@ VERFILE=""
 INSTALLED_VERSION=$(go version | cut -d' ' -f3)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   if [ ! -x $BOOTSTRAP_DIR/bin/go ];then
     iecho "Cannot find go 1.4 for bootstrap. Install it first"

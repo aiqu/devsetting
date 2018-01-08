@@ -43,7 +43,7 @@ INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
 if [ -z $REINSTALL ] && [ $VER == $INSTALLED_VERSION ];then
     echo "$PKG $VER is already installed"
 else
-    echo "$PKG $VER installation.. pwd: $PWD, root: $ROOT"
+    echo "$PKG $VER installation.. install location: $LOCAL_DIR"
 
     if [ $OS == "mac" ]; then
         export XML_CATALOG_FILES=/usr/local/etc/xml/catalog

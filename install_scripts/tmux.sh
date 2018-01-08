@@ -45,7 +45,7 @@ FOLDER="tmux-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=$(tmux -V | cut -d' ' -f2)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $TAG installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO ${REPO_URL}/archive/${TAG}.zip

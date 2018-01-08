@@ -59,7 +59,7 @@ if $(which opencv_version); then
   INSTALLED_VERSION=$(opencv_version)
 fi
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   cd $WORKDIR
   if [ ! -d opencv-${TAG} ];then
     curl -LO ${REPO_URL}/archive/${TAG}.zip

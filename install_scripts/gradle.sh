@@ -34,7 +34,7 @@ VER='4.3'
 INSTALLED_VERSION=$(gradle --version | grep Gradle | cut -d' ' -f2)
 
 if [ ! -z $REINSTALL ] || [ $VER != $INSTALLED_VERSION ];then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   WORKDIR=${LOCAL_DIR}
   mkdir -p $WORKDIR && cd $WORKDIR

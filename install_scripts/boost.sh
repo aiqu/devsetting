@@ -50,7 +50,7 @@ if [ -r $VERFILE ];then
 fi
 
 if [ ! -z $REINSTALL ] || [ $VERSTR != $INSTALLED_VERSION ];then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   if [ ! -d boost_$VERSTR ];then
     if [ ! -f $SRCFILE ]; then
       iecho "Downloading Boost $VER"

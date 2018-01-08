@@ -48,7 +48,7 @@ VERFILE=""
 INSTALLED_VERSION=$(ffmpeg --version 2>&1 | head -n1 | cut -d' ' -f3)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   BUILDDIR=$WORKDIR/build

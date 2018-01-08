@@ -35,7 +35,7 @@ PWD=$(pwd)
 
 PKG_NAME="Sophus"
 WORKDIR=$HOME/.lib
-iecho "$PKG_NAME installation.. pwd: $PWD, root: $ROOT"
+iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
 mkdir -p $WORKDIR && cd $WORKDIR
 if [ ! -d Sophus ]; then
   git clone https://github.com/strasdat/Sophus.git

@@ -47,7 +47,7 @@ REQUIRED_MAKE_VERSION="3.81"
 REQUIRED_PYTHON_VERSION="2.6"
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   GCC_VERSION=$(gcc --version | head -n1 | cut -d' ' -f3)
   GPP_VERSION=$(g++ --version | head -n1 | cut -d' ' -f3)

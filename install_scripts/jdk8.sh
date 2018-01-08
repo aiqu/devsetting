@@ -34,7 +34,7 @@ VER="8u152"
 WORKDIR=${LOCAL_DIR}
 
 if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8' || ! which jar 2>/dev/null ;then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   mkdir -p $WORKDIR && cd $WORKDIR
 
   FILENAME='jdk-8u152-linux-x64.tar.gz'

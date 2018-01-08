@@ -43,7 +43,7 @@ VERFILE="${LOCAL_DIR}/include/json-c/json_c_version.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define JSON_C_VERSION "' | cut -d'"' -f2)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
