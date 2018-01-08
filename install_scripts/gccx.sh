@@ -86,4 +86,5 @@ function install_gcc() {
   make -s install 1>/dev/null
   unset CFLAGS CXXFLAGS
   cd $ROOT && rm -rf $WORKDIR
+  ls ${LOCAL_DIR}/bin/*$MAJOR_VER | sed 's/\(.\+\)'$MAJOR_VER'/\0 \1/' | xargs -n2 ln -fs
 }

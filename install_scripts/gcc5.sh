@@ -34,5 +34,3 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/install_scripts/gccx.sh
 
 install_gcc "5_4_0"
-
-ls ${LOCAL_DIR}/bin/*5 | sed 's/\(.\+\)5/\0 \1/' | xargs -n2 ln -fs
