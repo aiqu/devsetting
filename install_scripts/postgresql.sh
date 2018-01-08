@@ -22,20 +22,26 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+PWD=$(pwd)
+. $ROOT/envset.sh
 
+PKG_NAME="postgresql"
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://ftp.postgresql.org/pub/source/v10.0/postgresql-10.0.tar.bz2
 BIN=$HOME/.local/bin/postgres
-if [ -z $REINSTALL ] && [ -f $BIN ];then
-  INSTALLED_VERSION=$($BIN -V | cut -d' ' -f3)
-  echo "Postgresql $INSTALLED_VERSION is already installed"
-else
+if [ -z $REINSTALL ] && [ ! -f $BIN ];then
+  iecho "$PKG_NAME installation.."
+
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xj && cd postgresql*
-  ./configure --prefix=$HOME/.local && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+  ./configure --prefix=$HOME/.local
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
+else
+  INSTALLED_VERSION=$($BIN -V | cut -d' ' -f3)
+  gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
 fi
 
 cd $ROOT
