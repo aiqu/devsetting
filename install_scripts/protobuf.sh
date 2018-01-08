@@ -22,11 +22,8 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-source $ROOT/envset.sh
-
 PWD=$(pwd)
-WORKDIR=$HOME/.lib
+source $ROOT/envset.sh
 
 . $ROOT/install_scripts/autoconf.sh
 . $ROOT/install_scripts/automake.sh
@@ -34,19 +31,25 @@ WORKDIR=$HOME/.lib
 . $ROOT/install_scripts/unzip.sh
 . $ROOT/install_scripts/libtool.sh
 
-cd $WORKDIR
+WORKDIR=$HOME/.lib
+PKG_NAME="protobuf"
 REPO_URL=https://github.com/google/protobuf
 #TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 TAG='v3.4.0'
 VER=$(echo $TAG | sed 's/v//' -)
 INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ]; then
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+
+  cd $WORKDIR
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip && rm -rf ${TAG}.zip protobuf
-  mv protobuf-$VER protobuf
-  cd protobuf && 
-    ./autogen.sh && ./configure --prefix=$HOME/.local
-    make -s -j$(nproc) && make -s check -j$(nproc) && make -s install 1>/dev/null
+  mv protobuf-$VER protobuf && cd protobuf
+  ./autogen.sh
+  ./configure --prefix=$HOME/.local
+  make -s -j$(nproc)
+  make -s check -j$(nproc)
+  make -s install 1>/dev/null
 else
-  echo "Protobuf $VER is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
