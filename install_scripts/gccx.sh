@@ -36,8 +36,9 @@ function install_gcc() {
   VER=$1
   VER_STR=$(echo $VER | sed 's/_/./g')
   MAJOR_VER=$(echo $VER | cut -d'_' -f1)
+  SUFFIX="-$MAJOR_VER"
 
-  if [ -f ${LOCAL_DIR}/bin/gcc$MAJOR_VER ] && [ $(${LOCAL_DIR}/bin/gcc$MAJOR_VER --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
+  if [ -f ${LOCAL_DIR}/bin/gcc$SUFFIX ] && [ $(${LOCAL_DIR}/bin/gcc$SUFFIX --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
     gecho "gcc $VER is already installed"
     return 0
   fi
@@ -81,10 +82,10 @@ function install_gcc() {
     --disable-multilib \
     --with-arch=core2 \
     --with-language=c,c++,fortran,go \
-    --program-suffix=$MAJOR_VER
+    --program-suffix=$SUFFIX
   make -s -j$(nproc)
   make -s install 1>/dev/null
   unset CFLAGS CXXFLAGS
   cd $ROOT && rm -rf $WORKDIR
-  ls ${LOCAL_DIR}/bin/*$MAJOR_VER | sed 's/\(.\+\)'$MAJOR_VER'/\0 \1/' | xargs -n2 ln -fs
+  ls ${LOCAL_DIR}/bin/*$SUFFIX | sed 's/\(.\+\)'$SUFFIX'/\0 \1/' | xargs -n2 ln -fs
 }
