@@ -22,31 +22,35 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
 
-bash $ROOT/install_scripts/libevent.sh
-bash $ROOT/install_scripts/ncurses.sh
-bash $ROOT/install_scripts/newt.sh
+. $ROOT/install_scripts/libevent.sh
+. $ROOT/install_scripts/ncurses.sh
+. $ROOT/install_scripts/newt.sh
 
+PKG_NMAE="tmux"
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/tmux/tmux
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
+VER=$TAG
 FOLDER="tmux-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=$(tmux -V | cut -d' ' -f2)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
-  echo "tmux $TAG installation.. pwd: $PWD, root: $ROOT"
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  iecho "$PKG_NAME $TAG installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER
-  ./autogen.sh && ./configure --prefix=$HOME/.local
-  make -s -j$(nproc) && make -s install 1>/dev/null
+  ./autogen.sh
+  ./configure --prefix=$HOME/.local
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  echo "tmux $INSTALLED_VERSION is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT
