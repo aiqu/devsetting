@@ -21,7 +21,7 @@
 
 set -e
 
-FILENAME=`basename $0`
+FILENAME=`basename ${BASH_SOURCE[0]}`
 FILENAME=${FILENAME%%.*}
 DONENAME="DONE$FILENAME"
 if [ ! -z ${!DONENAME+x} ];then
@@ -44,7 +44,7 @@ set +e
 INSTALLED_VERSION=$(make -v 2>/dev/null | head -n1 | cut -d' ' -f3)
 set -e
 
-FILENAME=`basename $0`
+FILENAME=`basename ${BASH_SOURCE[0]}`
 FILENAME=${FILENAME%%.*}
 DONENAME="DONE$FILENAME"
 if [ ! -z ${!DONENAME+x} ];then

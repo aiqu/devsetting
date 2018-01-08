@@ -21,7 +21,7 @@
 
 set -e
 
-FILENAME=`basename $0`
+FILENAME=`basename ${BASH_SOURCE[0]}`
 FILENAME=${FILENAME%%.*}
 DONENAME="DONE$FILENAME"
 if [ ! -z ${!DONENAME+x} ];then
