@@ -28,6 +28,7 @@ fi
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
+. $ROOT/envset.sh
 
 PKG_NAME="Rebar3"
 TMP_DIR=$ROOT/tmp
