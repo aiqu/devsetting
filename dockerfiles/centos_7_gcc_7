@@ -24,5 +24,5 @@ ARG CFLAGS="-O2 -pipe"
 RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
         cd $HOME && \
         git clone --depth 1 https://github.com/aiqu/devsetting.git && \
-        cd devsetting && bash gcc7.sh && \
+        cd devsetting && bash install_scripts/gcc7.sh && \
         cd $HOME && rm -rf devsetting
