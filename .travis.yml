@@ -37,6 +37,13 @@ jobs:
 
     - stage: build basic docker image
       if: type = cron
+      env: DOCKERFILE_NAME=centos_7_gcc_5
+      script:
+        - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/${DOCKERFILE_NAME}:latest
+
+    - stage: build basic docker image
+      if: type = cron
       env: DOCKERFILE_NAME=centos_7_gcc_7
       script:
         - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
