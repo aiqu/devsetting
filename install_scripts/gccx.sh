@@ -84,7 +84,7 @@ function install_gcc() {
     --with-language=c,c++,fortran,go \
     --program-suffix=$SUFFIX
   make -s -j$(nproc)
-  make -s install 1>/dev/null
+  make -s install-strip 1>/dev/null
   unset CFLAGS CXXFLAGS
   cd $ROOT && rm -rf $WORKDIR
   ls ${LOCAL_DIR}/bin/*$SUFFIX | sed 's/\(.\+\)'$SUFFIX'/\0 \1/' | xargs -n2 ln -fs
