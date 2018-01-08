@@ -21,7 +21,13 @@
 
 set -e
 
-CONFIGURATIONS_DONE=
+FILENAME=`basename $0`
+FILENAME=${FILENAME%%.*}
+DONENAME="DONE$FILENAME"
+if [ ! -z ${!DONENAME+x} ];then
+  return 0
+fi
+let DONE$FILENAME=1
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
@@ -50,5 +56,3 @@ mkdir -p $HOME/bin
 for f in `ls $BIN_FOLDER/*`;do
 	ln -sf $f $HOME/bin/
 done
-
-CONFIGURATIONS_DONE=1

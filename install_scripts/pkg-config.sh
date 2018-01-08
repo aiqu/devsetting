@@ -21,6 +21,14 @@
 
 set -e
 
+FILENAME=`basename $0`
+FILENAME=${FILENAME%%.*}
+DONENAME="DONE$FILENAME"
+if [ ! -z ${!DONENAME+x} ];then
+  return 0
+fi
+let DONE$FILENAME=1
+
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
@@ -35,6 +43,14 @@ VERFILE=""
 set +e
 INSTALLED_VERSION=$(pkg-config --version 2>/dev/null)
 set -e
+
+FILENAME=`basename $0`
+FILENAME=${FILENAME%%.*}
+DONENAME="DONE$FILENAME"
+if [ ! -z ${!DONENAME+x} ];then
+  return 0
+fi
+let DONE$FILENAME=1
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"

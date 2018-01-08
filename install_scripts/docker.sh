@@ -22,7 +22,13 @@
 
 set -e
 
-DOCKER_DONE=
+FILENAME=`basename $0`
+FILENAME=${FILENAME%%.*}
+DONENAME="DONE$FILENAME"
+if [ ! -z ${!DONENAME+x} ];then
+  return 0
+fi
+let DONE$FILENAME=1
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
@@ -73,5 +79,3 @@ elif [ $OS == "mac" ];then
     curl -L https://download.docker.com/mac/stable/Docker.dmg -o $HOME/Docker.dmg
     iecho "Run $HOME/Docker.dmg manually"
 fi
-
-DOCKER_DONE=1

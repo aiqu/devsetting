@@ -21,7 +21,13 @@
 
 set -e
 
-GIT_DONE=
+FILENAME=`basename $0`
+FILENAME=${FILENAME%%.*}
+DONENAME="DONE$FILENAME"
+if [ ! -z ${!DONENAME+x} ];then
+  return 0
+fi
+let DONE$FILENAME=1
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
@@ -66,5 +72,3 @@ else
 fi
 
 cd $ROOT
-
-GIT_DONE=1

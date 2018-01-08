@@ -21,6 +21,14 @@
 
 set -e
 
+FILENAME=`basename $0`
+FILENAME=${FILENAME%%.*}
+DONENAME="DONE$FILENAME"
+if [ ! -z ${!DONENAME+x} ];then
+  return 0
+fi
+let DONE$FILENAME=1
+
 if [ ! $(which erl 2>/dev/null) ];then
   echo "Rebar3 requires erlang"
   exit 1

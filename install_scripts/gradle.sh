@@ -21,6 +21,14 @@
 
 set -e
 
+FILENAME=`basename $0`
+FILENAME=${FILENAME%%.*}
+DONENAME="DONE$FILENAME"
+if [ ! -z ${!DONENAME+x} ];then
+  return 0
+fi
+let DONE$FILENAME=1
+
 PKG_NAME='gradle'
 VER='4.3'
 INSTALLED_VERSION=$(gradle --version | grep Gradle | cut -d' ' -f2)
