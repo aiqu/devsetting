@@ -22,7 +22,6 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
 . $ROOT/envset.sh
 
 SRC_DIR=$HOME/.lib
@@ -30,6 +29,7 @@ TF_SRC_DIR=${SRC_DIR}/tensorflow
 TF_PKG_DIR=${TF_SRC_DIR}/tensorflow_pkg
 
 #install prerequisites
+. $ROOT/install_scripts/python.sh
 pip2 install numpy scipy
 pip3 install numpy scipy
 . $ROOT/install_scripts/jdk8.sh
@@ -47,11 +47,8 @@ else
     git clone https://github.com/tensorflow/tensorflow -b $LATEST_TAG
 fi
 cd $TF_SRC_DIR
-#if you are using pyenv, make sure disable pyenv environment configuration
-#otherwise, it will cause error because of the shim wrapper
 ./configure
 bazel build -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-msse4.2 --copt=-mfpmath=both --config=cuda -k //tensorflow/tools/pip_package:build_pip_package
 bazel-bin/tensorflow/tools/pip_package/build_pip_package $TF_PKG_DIR
-echo "---------------------------------"
-echo "output file created at $TF_PKG_DIR"
-#test with python;import tensorflow as tf
+iecho "---------------------------------"
+iecho "output file created at $TF_PKG_DIR"
