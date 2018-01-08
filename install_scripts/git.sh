@@ -40,34 +40,34 @@ FOLDER="$PKG*"
 INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
 
 if [ -z $REINSTALL ] && [ $VER == $INSTALLED_VERSION ];then
-    echo "$PKG $VER is already installed"
+  gecho "$PKG $VER is already installed"
 else
-    echo "$PKG $VER installation.. install location: $LOCAL_DIR"
+  iecho "$PKG $VER installation.. install location: $LOCAL_DIR"
 
-    if [ $OS == "mac" ]; then
-        export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
-        ALIAS_FILE='/usr/local/bin/docbook2texi'
-        ln -fs $ALIAS_FILE /usr/local/bin/docbook2x-texi
+  if [ $OS == "mac" ]; then
+    export XML_CATALOG_FILES=/usr/local/etc/xml/catalog
+    ALIAS_FILE='/usr/local/bin/docbook2texi'
+    ln -fs $ALIAS_FILE /usr/local/bin/docbook2x-texi
 
-        if brew ls --versions docbook-xsl; then
-            brew install docbook-xsl
-        else
-            brew upgrade docbook-xsl
-        fi
+    if brew ls --versions docbook-xsl; then
+      brew install docbook-xsl
+    else
+      brew upgrade docbook-xsl
     fi
+  fi
 
-    mkdir -p $TMP_DIR && cd $TMP_DIR
-    curl -LO $REPO_URL/archive/$TAG.zip
-    unzip -q $TAG.zip && rm $TAG.zip
-    cd $FOLDER
-    export CC=gcc
-    export LDFLAGS=-L${LOCAL_DIR}/lib
-    make -s configure
-    ./configure --prefix=${LOCAL_DIR} --with-openssl --with-curl
-    make -s -j$(nproc) all
-    make -s install 1>/dev/null
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl -LO $REPO_URL/archive/$TAG.zip
+  unzip -q $TAG.zip && rm $TAG.zip
+  cd $FOLDER
+  export CC=gcc
+  export LDFLAGS=-L${LOCAL_DIR}/lib
+  make -s configure
+  ./configure --prefix=${LOCAL_DIR} --with-openssl --with-curl
+  make -s -j$(nproc) all
+  make -s install 1>/dev/null
 
-    cd $ROOT && rm -rf $TMP_DIR
+  cd $ROOT && rm -rf $TMP_DIR
 fi
 
 cd $ROOT
