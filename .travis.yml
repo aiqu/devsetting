@@ -23,6 +23,13 @@ jobs:
 
     - stage: build docker image
       if: type != cron
+      env: BASEIMG=centos_7_gcc_5 TAG=gcc5
+      script:
+        - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/base:$TAG
+
+    - stage: build docker image
+      if: type != cron
       env: BASEIMG=centos_7_gcc_7 TAG=gcc7
       script:
         - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
