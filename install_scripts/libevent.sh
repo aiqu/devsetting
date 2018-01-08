@@ -22,6 +22,7 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
 
 PKG_NAME="libevent"
 TMP_DIR=$ROOT/tmp
