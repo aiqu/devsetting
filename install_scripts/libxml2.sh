@@ -31,7 +31,7 @@ REPO_URL="http://github.com/GNOME/libxml2"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//g')
 FOLDER="$PKG_NAME*"
-VERFILE="$HOME/.local/include/libxml2/libxml/xmlversion.h"
+VERFILE="${LOCAL_DIR}/include/libxml2/libxml/xmlversion.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define LIBXML_DOTTED_VERSION "' | cut -d'"' -f2)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
@@ -41,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm $TAG.zip && cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

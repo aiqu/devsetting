@@ -28,7 +28,7 @@ PKG_NAME="ncurses"
 TMP_DIR=$ROOT/tmp
 REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz
 FOLDER='ncurses*'
-VERFILE="$HOME/.local/include/ncursesw/curses.h"
+VERFILE="${LOCAL_DIR}/include/ncursesw/curses.h"
 if [ -z $REINSTALL ] && [ -r $VERFILE ];then
   INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define NCURSES_VERSION ' | cut -d'"' -f2)
   gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
@@ -38,11 +38,11 @@ else
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz
   cd $FOLDER
-  ./configure --prefix=$HOME/.local --enable-widec --without-develop --without-cxx-binding --with-shared CPPFLAGS='-P'
+  ./configure --prefix=${LOCAL_DIR} --enable-widec --without-develop --without-cxx-binding --with-shared CPPFLAGS='-P'
   make -s -j$(nproc)
   make -s install 1>/dev/null
-  ln -sf $HOME/.local/include/ncursesw/*.h $HOME/.local/include/
-  ln -sf libncursesw.so $HOME/.local/lib/libcurses.so
+  ln -sf ${LOCAL_DIR}/include/ncursesw/*.h ${LOCAL_DIR}/include/
+  ln -sf libncursesw.so ${LOCAL_DIR}/lib/libcurses.so
 
   cd $ROOT && rm -rf $TMP_DIR
 fi

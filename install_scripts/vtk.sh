@@ -48,7 +48,7 @@ if [ ! -d $SRCDIR ]; then
   curl -L https://gitlab.kitware.com/vtk/vtk/repository/$TAG/archive.tar.bz2 | tar xjf -
 fi
 cd $SRCDIR && mkdir -p build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
 make -s -j$(nproc)
 make -s install 1>/dev/null
 cd $ROOT

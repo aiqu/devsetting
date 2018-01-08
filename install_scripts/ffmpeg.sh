@@ -44,13 +44,13 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   BUILDDIR=$WORKDIR/build
-  BINDIR=$HOME/.local/bin
+  BINDIR=${LOCAL_DIR}/bin
 
   curl -L $DOWN_URL | tar xJ
   cd $FOLDER
 
   ./configure \
-    --prefix=$HOME/.local \
+    --prefix=${LOCAL_DIR} \
     --disable-htmlpages \
     --disable-podpages \
     --disable-txtpages \

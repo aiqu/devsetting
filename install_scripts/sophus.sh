@@ -33,7 +33,7 @@ if [ ! -d Sophus ]; then
   git clone https://github.com/strasdat/Sophus.git
 fi
 cd Sophus && git pull && mkdir -p build && cd build && \
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
 make -s -j$(nproc)
 make -s install 1>/dev/null
 cd $ROOT

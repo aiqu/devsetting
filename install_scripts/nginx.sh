@@ -44,9 +44,9 @@ if [ ! -z $REINSTALL ] || [ -z "$INSTALLED_VERSION" ] || [ $VER != "$INSTALLED_V
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
-  auto/configure --prefix=$HOME/.local/nginx \
+  auto/configure --prefix=${LOCAL_DIR}/nginx \
     --with-threads \
-    --sbin-path=$HOME/.local/bin/nginx \
+    --sbin-path=${LOCAL_DIR}/bin/nginx \
     --with-http_ssl_module \
     --with-pcre \
     --with-openssl=$HOME/.lib/openssl

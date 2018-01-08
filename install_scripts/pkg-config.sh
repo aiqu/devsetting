@@ -42,7 +42,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   git clone $REPO_URL --branch $TAG --depth=1
   cd $FOLDER
-  ./autogen.sh --prefix=$HOME/.local --with-internal-glib
+  ./autogen.sh --prefix=${LOCAL_DIR} --with-internal-glib
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

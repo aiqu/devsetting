@@ -26,10 +26,10 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="go"
-INSTALL_DIR=$HOME/.local/go
-NEW_INSTALL_DIR=$HOME/.local/go-new
+INSTALL_DIR=${LOCAL_DIR}/go
+NEW_INSTALL_DIR=${LOCAL_DIR}/go-new
 BOOTSTRAP_TOOLCHAIN='https://storage.googleapis.com/golang/go1.4-bootstrap-20170531.tar.gz'
-BOOTSTRAP_DIR="$HOME/.local/go-bootstrap"
+BOOTSTRAP_DIR="${LOCAL_DIR}/go-bootstrap"
 TMP_DIR="/tmp/go"
 REPO_URL="https://go.googlesource.com/go"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc\|beta' | grep go | cut -d/ -f3 | sort -V | tail -n1)
@@ -54,7 +54,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   cd src
   GOROOT_BOOTSTRAP=$BOOTSTRAP_DIR GOROOT_FINAL=$INSTALL_DIR ./make.bash
   rm -rf $INSTALL_DIR && mv $NEW_INSTALL_DIR $INSTALL_DIR
-  ln -s $INSTALL_DIR/bin/* $HOME/.local/bin/
+  ln -s $INSTALL_DIR/bin/* ${LOCAL_DIR}/bin/
 else
   gecho "$PKG_NAME $VER is already installed"
 fi

@@ -43,7 +43,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $REPO_URL | tar xz
   cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=$HOME/.local --with-libjson-c=$HOME/.local/include/json-c
+  ./configure --prefix=${LOCAL_DIR} --with-libjson-c=${LOCAL_DIR}/include/json-c
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

@@ -33,7 +33,7 @@ VER=$TAG
 DOWN_URL="https://github.com/hishamhm/htop/archive/$VER.tar.gz"
 FOLDER="$PKG_NAME*"
 VERFILE=""
-if [ -f $HOME/.local/bin/htop ];then
+if [ -f ${LOCAL_DIR}/bin/htop ];then
   INSTALLED_VERSION=$(htop --version | head -n1 | cut -d' ' -f2)
 fi
 
@@ -44,7 +44,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $DOWN_URL | tar xz
   cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

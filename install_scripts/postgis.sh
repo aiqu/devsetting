@@ -39,7 +39,7 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta\|rc\|start\|gis\|
 VER=$(echo $TAG | awk -F'.' '{print $1 "." $2}')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(basename -a -s .so $(find $HOME/.local/lib/postgresql -name 'postgis-*' -type f) | cut -d'-' -f2 | sort -V | tail -n1)
+INSTALLED_VERSION=$(basename -a -s .so $(find ${LOCAL_DIR}/lib/postgresql -name 'postgis-*' -type f) | cut -d'-' -f2 | sort -V | tail -n1)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
@@ -48,7 +48,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

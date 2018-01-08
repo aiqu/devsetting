@@ -44,10 +44,10 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   build/autogen.sh
-  ./configure --prefix=$HOME/.local \
+  ./configure --prefix=${LOCAL_DIR} \
               --disable-maintainer-mode \
               --disable-dependency-tracking \
-              --with-sysroot=$HOME/.local
+              --with-sysroot=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

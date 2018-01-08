@@ -43,6 +43,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   unzip -q ${TAG}.zip
   cd $FOLDER
 
+  LOCAL_DIR_STR=$(echo "$LOCAL_DIR" | sed 's|/|\\/|g')
   if [ $OS == 'mac' ];then
     sed -i '' 's/#CONF_ARGS = --with-modified-by="John Doe"/CONF_ARGS = --with-modified-by="Gwangmin Lee"/' src/Makefile
     sed -i '' 's/#CONF_OPT_GUI = --disable-gui/CONF_OPT_GUI = --disable-gui/' src/Makefile
@@ -53,7 +54,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
     sed -i '' 's/#CONF_OPT_MULTIBYTE = --enable-multibyte/CONF_OPT_MULTIBYTE = --enable-multibyte/' src/Makefile
     sed -i '' 's/#CONF_OPT_GPM = --disable-gpm/CONF_OPT_GPM = --disable-gpm/' src/Makefile
     sed -i '' 's/#CONF_OPT_SYSMOUSE = --disable-sysmouse/CONF_OPT_SYSMOUSE = --disable-sysmouse/' src/Makefile
-    sed -i '' 's/#prefix = \$(HOME)/prefix = \$(HOME)\/.local/' src/Makefile
+    sed -i '' 's/#prefix = \$(HOME)/prefix = '$LOCAL_DIR_STR'/' src/Makefile
   else
     sed -i 's/#CONF_ARGS = --with-modified-by="John Doe"/CONF_ARGS = --with-modified-by="Gwangmin Lee"/' src/Makefile
     sed -i 's/#CONF_OPT_GUI = --disable-gui/CONF_OPT_GUI = --disable-gui/' src/Makefile
@@ -64,7 +65,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
     sed -i 's/#CONF_OPT_MULTIBYTE = --enable-multibyte/CONF_OPT_MULTIBYTE = --enable-multibyte/' src/Makefile
     sed -i 's/#CONF_OPT_GPM = --disable-gpm/CONF_OPT_GPM = --disable-gpm/' src/Makefile
     sed -i 's/#CONF_OPT_SYSMOUSE = --disable-sysmouse/CONF_OPT_SYSMOUSE = --disable-sysmouse/' src/Makefile
-    sed -i 's/#prefix = \$(HOME)/prefix = \$(HOME)\/.local/' src/Makefile
+    sed -i 's/#prefix = \$(HOME)/prefix = '$LOCAL_DIR_STR'/' src/Makefile
   fi
 
   make -s -j$(nproc)
@@ -81,9 +82,9 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   fi
 
-  $HOME/.local/bin/vim +PluginInstall +PluginUpdate +qall
+  ${LOCAL_DIR}/bin/vim +PluginInstall +PluginUpdate +qall
   unzip -qu $ROOT/resources/taglist_46.zip -d ~/.vim/
-  cp $ROOT/resources/ejs.vim $HOME/.local/share/vim/vim80/syntax/ejs.vim
+  cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim80/syntax/ejs.vim
 else
   gecho "$PKG_NAME $VER is already installed"
 fi

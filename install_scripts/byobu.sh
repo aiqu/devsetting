@@ -29,7 +29,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PKG_NAME="byobu"
 REPO_URL=https://github.com/aiqu/byobu
 
-if [ ! -z $REINSTALL ] || [ ! -x $HOME/.local/bin/byobu ];then
+if [ ! -z $REINSTALL ] || [ ! -x ${LOCAL_DIR}/bin/byobu ];then
   iecho "$PKG_NAME installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $HOME/.lib && cd $HOME/.lib
@@ -39,7 +39,7 @@ if [ ! -z $REINSTALL ] || [ ! -x $HOME/.local/bin/byobu ];then
 
   cd byobu && git pull
   ./autogen.sh
-  ./configure --prefix="$HOME/.local"
+  ./configure --prefix="${LOCAL_DIR}"
   make -s -j$(nproc)
   make -s install 1>/dev/null
 else

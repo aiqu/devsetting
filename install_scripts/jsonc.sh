@@ -31,7 +31,7 @@ REPO_URL="https://github.com/json-c/json-c"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | cut -d'-' -f3)
 FOLDER="$PKG_NAME*"
-VERFILE="$HOME/.local/include/json-c/json_c_version.h"
+VERFILE="${LOCAL_DIR}/include/json-c/json_c_version.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define JSON_C_VERSION "' | cut -d'"' -f2)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
@@ -40,7 +40,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

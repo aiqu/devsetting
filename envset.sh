@@ -36,6 +36,8 @@ else
     SUDO=""
 fi
 
+LOCAL_DIR=$HOME/.local
+
 if [ $(echo $OSTYPE | grep 'linux') ];then
     ENVFILE="$HOME/.bashrc"
     if [[ -f /etc/os-release ]]; then

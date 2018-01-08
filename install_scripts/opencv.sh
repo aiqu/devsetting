@@ -35,7 +35,7 @@ TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e
 VER=$TAG
 CUDA_BIN_PATH="/usr/local/cuda-8.0"
 WORKDIR=$HOME/.lib
-INSTALL_DIR=$HOME/.local
+INSTALL_DIR=${LOCAL_DIR}
 
 pip2 install numpy && pip3 install numpy
 
@@ -63,10 +63,10 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   fi
   cd opencv-${TAG} && mkdir -p build && cd build 
   CONTRIB_MODULE_DIR="$WORKDIR/opencv_contrib-${TAG}/modules"
-  PYTHON2_INCLUDE_DIR=$HOME/.local/include/python2.7
-  PYTHON3_INCLUDE_DIR=$HOME/.local/include/python3.6m
-  PYTHON2_LIBRARY=$HOME/.local/lib/libpython2.7.so
-  PYTHON3_LIBRARY=$HOME/.local/lib/libpython3.6m.so
+  PYTHON2_INCLUDE_DIR=${LOCAL_DIR}/include/python2.7
+  PYTHON3_INCLUDE_DIR=${LOCAL_DIR}/include/python3.6m
+  PYTHON2_LIBRARY=${LOCAL_DIR}/lib/libpython2.7.so
+  PYTHON3_LIBRARY=${LOCAL_DIR}/lib/libpython3.6m.so
   if [ -f /usr/local/cuda/version.txt ]; then
     cmake -DCMAKE_BUILD_TYPE=RELEASE \
       -DCMAKE_CXX_FLAGS="-std=c++11" \

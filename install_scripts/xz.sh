@@ -41,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL | tar xz
   cd $FOLDER
-  ./configure --prefix=$HOME/.local --disable-debug
+  ./configure --prefix=${LOCAL_DIR} --disable-debug
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

@@ -31,7 +31,7 @@ TAG='4.9.3'
 VER=$(echo $TAG | sed 's/\.//g')
 REPO_URL="http://download.osgeo.org/proj/proj-$TAG.tar.gz"
 FOLDER="proj*"
-VERFILE="$HOME/.local/include/proj_api.h"
+VERFILE="${LOCAL_DIR}/include/proj_api.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define PJ_VERSION ' | cut -d' ' -f3)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
@@ -40,7 +40,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz
   cd $FOLDER
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

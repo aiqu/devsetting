@@ -37,7 +37,7 @@ function install_gcc() {
   VER_STR=$(echo $VER | sed 's/_/./g')
   MAJOR_VER=$(echo $VER | cut -d'_' -f1)
 
-  if [ -f $HOME/.local/bin/gcc$MAJOR_VER ] && [ $($HOME/.local/bin/gcc$MAJOR_VER --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
+  if [ -f ${LOCAL_DIR}/bin/gcc$MAJOR_VER ] && [ $(${LOCAL_DIR}/bin/gcc$MAJOR_VER --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
     gecho "gcc $VER is already installed"
     return 0
   fi
@@ -77,7 +77,7 @@ function install_gcc() {
   export CLFAGS=$CFLAGS CXXFLAGS=$CFLAGS
   mkdir -p $GCC_BUILD_DIR && cd $GCC_BUILD_DIR
   $GCC_SOURCE_DIR/configure \
-    --prefix=$HOME/.local \
+    --prefix=${LOCAL_DIR} \
     --disable-multilib \
     --with-arch=core2 \
     --with-language=c,c++,fortran,go \

@@ -29,14 +29,14 @@ TMP_DIR=$ROOT/tmp
 #slang library installation
 PKG_NAME="slang"
 VER="2.1.4"
-VERFILE="$HOME/.local/include/slang.h"
+VERFILE="${LOCAL_DIR}/include/slang.h"
 INSTALLED_VER=$(cat $VERFILE | grep -e 'define SLANG_VERSION_STRING "' | cut -d'"' -f2)
 if [ ! -r $VERFILE ] || [ $INSTALLED_VER != $VER ];then
   iecho "$PKG_NAME $VER installation.."
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L ftp://space.mit.edu/pub/davis/slang/v2.1/slang-2.1.4.tar.gz | tar xz
   cd slang-2.1.4
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 
@@ -47,13 +47,13 @@ fi
 
 PKG_NAME="popt"
 VER="1.16"
-VERFILE="$HOME/.local/include/popt.h"
+VERFILE="${LOCAL_DIR}/include/popt.h"
 if [ ! -f $VERFILE ];then
   iecho "$PKG_NAME $VER installation.."
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L http://rpm5.org/files/popt/popt-1.16.tar.gz | tar xz
   cd popt-1.16
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 
@@ -67,7 +67,7 @@ REPO_URL=https://pagure.io/newt.git
 TAG=$(git ls-remote -t $REPO_URL | cut -d'/' -f3 | grep -v v | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/[r|.zip]//g' | sed 's/-/./g')
 FOLDER="newt-$VER"
-INSTALLED_VER=$(find $HOME/.local/lib -mindepth 1 -maxdepth 1 -type f | grep newt.so | sed 's/.*libnewt.so.//')
+INSTALLED_VER=$(find ${LOCAL_DIR}/lib -mindepth 1 -maxdepth 1 -type f | grep newt.so | sed 's/.*libnewt.so.//')
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $VER != $INSTALLED_VER ];then
   iecho "$PKG_NAME $VER installation.."
 
@@ -75,7 +75,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $VER != $INSTALLED_VER ];th
   DOWN_URL=https://releases.pagure.org/newt/newt-$VER.tar.gz
   curl -L $DOWN_URL | tar xz
   cd $FOLDER
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

@@ -34,14 +34,14 @@ FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
 
-if [ ! -z $REINSTALL ] || [ ! -f $HOME/.local/bin/curl ]; then
+if [ ! -z $REINSTALL ] || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
-  $HOME/.local/bin/unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  ${LOCAL_DIR}/bin/unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   ./buildconf
-  ./configure --prefix=$HOME/.local \
+  ./configure --prefix=${LOCAL_DIR} \
     --disable-debug \
     --enable-optimize \
     --disable-curldebug \

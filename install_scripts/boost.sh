@@ -36,7 +36,7 @@ mkdir -p $WORKDIR && cd $WORKDIR
 VER='1.65.1'
 VERSTR='1_65_1'
 SRCFILE="boost_$VERSTR.tar.bz2"
-VERFILE=$HOME/.local/include/boost/version.hpp
+VERFILE=${LOCAL_DIR}/include/boost/version.hpp
 if [ -r $VERFILE ];then
   INSTALLED_VERSION=$(grep 'BOOST_LIB_VERSION "' $VERFILE | cut -d'"' -f2)
 fi
@@ -50,7 +50,7 @@ if [ ! -z $REINSTALL ] || [ $VERSTR != $INSTALLED_VERSION ];then
     fi
   fi
   cd boost_$VERSTR
-  ./bootstrap.sh --prefix=$HOME/.local
+  ./bootstrap.sh --prefix=${LOCAL_DIR}
   ./b2 -j$(nproc)
   ./b2 install
 else

@@ -32,7 +32,7 @@ REPO_URL="https://github.com/erlang/otp"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|R\|_' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | cut -d'-' -f2)
 FOLDER="otp-$TAG"
-INSTALLED_VERSION=$(find $HOME/.local/lib/erlang/releases -name OTP_VERSION | xargs cat | sort -V | tail -n1)
+INSTALLED_VERSION=$(find ${LOCAL_DIR}/lib/erlang/releases -name OTP_VERSION | xargs cat | sort -V | tail -n1)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
@@ -42,7 +42,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   export ERL_TOP=$(pwd)
   ./otp_build autoconf
-  ./configure --prefix=$HOME/.local --with-ssl=$HOME/.local/include/openssl --with-ssl-rpath=$HOME/.local/lib
+  ./configure --prefix=${LOCAL_DIR} --with-ssl=${LOCAL_DIR}/include/openssl --with-ssl-rpath=${LOCAL_DIR}/lib
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

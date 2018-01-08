@@ -39,8 +39,8 @@ function install_python {
   mkdir -p $WORKDIR && cd $WORKDIR
   curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
   cd Python-$VER
-  LDFLAGS="-L$HOME/.local/lib -L$HOME/.local/lib64" ./configure \
-    --prefix=$HOME/.local \
+  LDFLAGS="-L${LOCAL_DIR}/lib -L${LOCAL_DIR}/lib64" ./configure \
+    --prefix=${LOCAL_DIR} \
     --enable-shared \
     --enable-unicode=ucs4 \
     --with-threads \
@@ -52,15 +52,15 @@ function install_python {
 
   cd $HOME
   MAJOR_VER=$(echo $VER | awk -F'.' '{print $1}')
-  if [ ! -f $HOME/.local/bin/pip$MAJOR_VER ]; then
-    curl -L https://bootstrap.pypa.io/get-pip.py | $HOME/.local/bin/python$MAJOR_VER
+  if [ ! -f ${LOCAL_DIR}/bin/pip$MAJOR_VER ]; then
+    curl -L https://bootstrap.pypa.io/get-pip.py | ${LOCAL_DIR}/bin/python$MAJOR_VER
   fi
 }
 
 PYTHON2_VER='2.7.14'
 PYTHON3_VER='3.6.3'
-INSTALLED_PYTHON2_VER=$($HOME/.local/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
-INSTALLED_PYTHON3_VER=$($HOME/.local/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
+INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
+INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
   install_python $PYTHON2_VER
@@ -81,4 +81,4 @@ pip2 install jupyter jupyterthemes
 pip3 install jupyter jupyterthemes
 jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
 cp $ROOT/resources/jupyter/jupyter_notebook_config.py $HOME/.jupyter/
-cp -r $ROOT/resources/jupyter/kernels $HOME/.local/share/jupyter/
+cp -r $ROOT/resources/jupyter/kernels ${LOCAL_DIR}/share/jupyter/

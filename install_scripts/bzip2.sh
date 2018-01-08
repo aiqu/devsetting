@@ -31,7 +31,7 @@ TAG='1.0.6'
 VER=$TAG
 REPO_URL="http://www.bzip.org/$TAG/bzip2-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=$($HOME/.local/bin/bzip2 -h 2>&1 | head -n1 | cut -d' ' -f8 | sed 's/,//')
+INSTALLED_VERSION=$(${LOCAL_DIR}/bin/bzip2 -h 2>&1 | head -n1 | cut -d' ' -f8 | sed 's/,//')
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
@@ -40,12 +40,12 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $REPO_URL | tar xz
   cd $FOLDER
   make -s -j$(nproc)
-  make -s install PREFIX=$HOME/.local 1>/dev/null
+  make -s install PREFIX=${LOCAL_DIR} 1>/dev/null
   make -s -f Makefile-libbz2_so clean
   make -s -f Makefile-libbz2_so -j$(nproc)
-  cp -a libbz2.so* $HOME/.local/lib
+  cp -a libbz2.so* ${LOCAL_DIR}/lib
   SHAREDLIB=$(find . -name 'libbz2.so*' -type f)
-  ln -s $SHAREDLIB $HOME/.local/lib/libbz2.so
+  ln -s $SHAREDLIB ${LOCAL_DIR}/lib/libbz2.so
 
   cd $ROOT && rm -rf $TMP_DIR
 else

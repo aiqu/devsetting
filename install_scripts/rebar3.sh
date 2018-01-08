@@ -45,7 +45,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   ./bootstrap
-  mv rebar3 $HOME/.local/bin
+  mv rebar3 ${LOCAL_DIR}/bin
 
   cd $ROOT && rm -rf $TMP_DIR
 else

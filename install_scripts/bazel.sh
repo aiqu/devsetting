@@ -41,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/releases/download/$VER/bazel-$VER-dist.zip
   unzip -q bazel-$VER-dist.zip && rm -rf bazel-$VER-dist.zip
   ./compile.sh
-  cp output/bazel $HOME/.local/bin/bazel
+  cp output/bazel ${LOCAL_DIR}/bin/bazel
 
   cd $ROOT && rm -rf $TMP_DIR
 else

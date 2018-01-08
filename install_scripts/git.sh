@@ -56,9 +56,9 @@ else
     unzip -q $TAG.zip && rm $TAG.zip
     cd $FOLDER
     export CC=gcc
-    export LDFLAGS=-L$HOME/.local/lib
+    export LDFLAGS=-L${LOCAL_DIR}/lib
     make -s configure
-    ./configure --prefix=$HOME/.local --with-openssl --with-curl
+    ./configure --prefix=${LOCAL_DIR} --with-openssl --with-curl
     make -s -j$(nproc) all
     make -s install 1>/dev/null
 

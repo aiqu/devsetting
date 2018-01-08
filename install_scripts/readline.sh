@@ -34,7 +34,7 @@ DOWN_URL="http://git.savannah.gnu.org/cgit/readline.git/snapshot"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta\|rc' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/readline-//')
 FOLDER="$PKG_NAME*"
-VERFILE="$HOME/.local/include/readline/readline.h"
+VERFILE="${LOCAL_DIR}/include/readline/readline.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep 'define RL_READLINE_VERSION' | cut -d' ' -f4)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
@@ -43,7 +43,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL/$TAG.tar.gz | tar xz
   cd $FOLDER
-  ./configure --prefix=$HOME/.local \
+  ./configure --prefix=${LOCAL_DIR} \
     --enable-multibyte \
     --enable-shared \
     --enable-static \

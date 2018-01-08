@@ -43,7 +43,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p build && cd build
-  cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
+  cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

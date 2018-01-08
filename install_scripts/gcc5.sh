@@ -27,4 +27,4 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 install_gcc "5_4_0"
 
-ls $HOME/.local/bin/*5 | sed 's/\(.\+\)5/\0 \1/' | xargs -n2 ln -fs
+ls ${LOCAL_DIR}/bin/*5 | sed 's/\(.\+\)5/\0 \1/' | xargs -n2 ln -fs

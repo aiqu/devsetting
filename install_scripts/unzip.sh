@@ -30,7 +30,7 @@ TMP_DIR=$ROOT/tmp
 REPO_URL="https://downloads.sourceforge.net/infozip/unzip60.tar.gz"
 FOLDER="$PKG_NAME*"
 
-if [ ! -z $REINSATLL ] || [ ! -f $HOME/.local/bin/unzip ]; then
+if [ ! -z $REINSATLL ] || [ ! -f ${LOCAL_DIR}/bin/unzip ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
@@ -41,7 +41,7 @@ if [ ! -z $REINSATLL ] || [ ! -f $HOME/.local/bin/unzip ]; then
   else
     make -s -f unix/Makefile -j$(nproc) generic
   fi
-  make -s prefix=$HOME/.local MANDIR=$HOME/.local/share/man/man1 -f unix/Makefile install
+  make -s prefix=${LOCAL_DIR} MANDIR=${LOCAL_DIR}/share/man/man1 -f unix/Makefile install
 
   cd $ROOT && rm -rf $TMP_DIR
 else

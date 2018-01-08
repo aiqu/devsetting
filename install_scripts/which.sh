@@ -30,14 +30,14 @@ TMP_DIR=$ROOT/tmp
 REPO_URL="http://ftp.gnu.org/gnu/which/which-2.21.tar.gz"
 FOLDER="$PKG_NAME*"
 
-if [ ! -z $REINSTALL] || [ ! -f $HOME/.local/bin/which ]; then
+if [ ! -z $REINSTALL] || [ ! -f ${LOCAL_DIR}/bin/which ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz
   cd $FOLDER
   autoconf
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

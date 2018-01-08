@@ -31,7 +31,7 @@ REPO_URL="http://git.osgeo.org/gogs/geos/geos"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc\|rel\|start\|beta' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$TAG
 FOLDER="$PKG_NAME*"
-VERFILE="$HOME/.local/include/geos_c.h"
+VERFILE="${LOCAL_DIR}/include/geos_c.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define GEOS_VERSION "' | cut -d'"' -f2)
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
@@ -41,7 +41,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz
   cd $FOLDER
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release -DGEOS_ENABLE_TESTS=OFF ..
+  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DCMAKE_BUILD_TYPE=Release -DGEOS_ENABLE_TESTS=OFF ..
   make -s -j$(nproc)
   make -s install 1>/dev/null
 

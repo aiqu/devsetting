@@ -30,7 +30,7 @@ REPO_URL=https://github.com/libevent/libevent
 TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 FOLDER="libevent-$TAG"
 VER=$(echo $TAG | awk -F'-' '{print $2}')
-VERFILE="$HOME/.local/include/event2/event-config.h"
+VERFILE="${LOCAL_DIR}/include/event2/event-config.h"
 if [ -r $VERFILE ];then
   INSTALLED_VERSION=$(grep PACKAGE_VERSION $VERFILE | cut -d'"' -f2)
 fi
@@ -45,10 +45,10 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   cd $FOLDER
   # Wierd, but install twice for pkg-config and cmake
   ./autogen.sh
-  ./configure --prefix=$HOME/.local --disable-debug-mode --disable-samples
+  ./configure --prefix=${LOCAL_DIR} --disable-debug-mode --disable-samples
   make -s -j$(nproc) && make -s install 1>/dev/null
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local \
+  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
     -DEVENT__DISABLE_DEBUG_MODE=ON \
     -DEVENT__DISABLE_TESTS=ON \
     -DEVENT__DISABLE_SAMPLES=ON \

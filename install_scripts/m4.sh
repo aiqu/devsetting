@@ -40,7 +40,7 @@ INSTALLED_VERSION=$(m4 --version 2>/dev/null | head -n1 | cut -d' ' -f4)
 set -e
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
-  ./configure --prefix=$HOME/.local
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j$(nproc)
   make -s install 1>/dev/null
   
