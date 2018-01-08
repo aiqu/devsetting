@@ -24,6 +24,7 @@ set -e
 CONFIGURATIONS_DONE=
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
     READLINK='readlink'
