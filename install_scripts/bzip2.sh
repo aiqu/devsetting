@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="bzip2"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 TAG='1.0.6'
 VER=$TAG
 REPO_URL="http://www.bzip.org/$TAG/bzip2-$TAG.tar.gz"

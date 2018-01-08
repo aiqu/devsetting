@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="flann"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/mariusmuja/flann"
 TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|-' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$TAG

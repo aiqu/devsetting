@@ -36,7 +36,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/install_scripts/protobuf.sh
 
 PKG_NAME="opencv"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL=https://github.com/opencv/opencv
 CONTRIB_REPO_URL=https://github.com/opencv/opencv_contrib
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' | sort -V | tail -n1)

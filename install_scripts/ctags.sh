@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="ctags"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 TAG='5.8'
 VER=$TAG
 REPO_URL="http://prdownloads.sourceforge.net/ctags/ctags-$TAG.tar.gz"

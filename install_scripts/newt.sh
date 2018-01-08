@@ -32,7 +32,7 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 
 #slang library installation
 PKG_NAME="slang"

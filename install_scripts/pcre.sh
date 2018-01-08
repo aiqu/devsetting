@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="pcre"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 TAG='8.41'
 VER=$TAG
 REPO_URL="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$TAG.tar.gz"

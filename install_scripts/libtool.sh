@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="libtool"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="https://git.savannah.gnu.org/git/libtool.git"
 DOWN_URL="http://ftpmirror.gnu.org/libtool/libtool-"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)

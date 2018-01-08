@@ -38,7 +38,7 @@ PWD=$(pwd)
 . $ROOT/install_scripts/freetype2.sh
 
 PKG_NAME="ffmpeg"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="https://git.ffmpeg.org/ffmpeg.git"
 TAG=$(git ls-remote https://git.ffmpeg.org/ffmpeg.git | awk -F/ '{print $3}' | grep -v -e '{}\|-\|v\|release\|oldabi' | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/n//')

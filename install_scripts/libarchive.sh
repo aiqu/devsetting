@@ -36,7 +36,7 @@ PWD=$(pwd)
 . $ROOT/install_scripts/xz.sh
 
 PKG_NAME="libarchive"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/libarchive/libarchive"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')

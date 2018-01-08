@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="yasm"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 TAG='1.3.0'
 VER=$TAG
 REPO_URL="http://www.tortall.net/projects/yasm/releases/yasm-$TAG.tar.gz"

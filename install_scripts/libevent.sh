@@ -33,7 +33,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="libevent"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL=https://github.com/libevent/libevent
 TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 FOLDER="libevent-$TAG"

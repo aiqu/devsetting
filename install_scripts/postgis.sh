@@ -41,7 +41,7 @@ PWD=$(pwd)
 . $ROOT/install_scripts/postgresql.sh
 
 PKG_NAME="postgis"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/postgis/postgis"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta\|rc\|start\|gis\|pre' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | awk -F'.' '{print $1 "." $2}')

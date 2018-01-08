@@ -36,7 +36,7 @@ PWD=$(pwd)
 . $ROOT/install_scripts/ncurses.sh
 
 PKG_NAME="readline"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="https://git.savannah.gnu.org/git/readline.git"
 DOWN_URL="http://git.savannah.gnu.org/cgit/readline.git/snapshot"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta\|rc' | cut -d/ -f3 | sort -V | tail -n1)

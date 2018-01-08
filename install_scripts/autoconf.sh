@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="autoconf"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 TAG='2.69'
 REPO_URL="http://ftp.gnu.org/gnu/autoconf/autoconf-$TAG.tar.gz"
 VER=$TAG

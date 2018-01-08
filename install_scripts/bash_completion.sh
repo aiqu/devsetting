@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="bash-completion"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/scop/bash-completion"
 TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|alt' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$TAG

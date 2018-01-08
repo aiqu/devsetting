@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="eigen"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/RLovelett/eigen"
 TAG=$(git ls-remote -t $REPO_URL | cut -d/ -f3 | grep -v -e '{}\|[^0-9\.]' | sort -V | tail -n1)
 VER=$TAG

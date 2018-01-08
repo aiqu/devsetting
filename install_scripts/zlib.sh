@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="zlib"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 TAG='1.2.11'
 VER=$TAG
 REPO_URL="https://zlib.net/zlib-$TAG.tar.xz"

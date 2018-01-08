@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="m4"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 REPO_URL="http://ftp.gnu.org/gnu/m4/m4-latest.tar.xz"
 FOLDER="$PKG_NAME*"
 

@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="sqlite"
-TMP_DIR=$ROOT/tmp
+TMP_DIR=/tmp/devsetting
 TAG='3210000'
 VER='3.21.0'
 REPO_URL="http://www.sqlite.org/2017/sqlite-autoconf-$TAG.tar.gz"
