@@ -22,12 +22,12 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-source $ROOT/envset.sh
-
 PWD=$(pwd)
-WORKDIR=$HOME/.lib
+. $ROOT/envset.sh
 
+PKG_NAME="Sophus"
+WORKDIR=$HOME/.lib
+iecho "$PKG_NAME installation.. pwd: $PWD, root: $ROOT"
 mkdir -p $WORKDIR && cd $WORKDIR
 if [ ! -d Sophus ]; then
   git clone https://github.com/strasdat/Sophus.git
@@ -35,3 +35,4 @@ fi
 cd Sophus && git pull && mkdir -p build && cd build && \
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
 make -s -j$(nproc) && make -s install 1>/dev/null
+cd $ROOT
