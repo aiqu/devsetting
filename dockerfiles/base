@@ -22,10 +22,9 @@ FROM gwangmin/$BASEIMG
 
 ARG CFLAGS="-march=core2 -O2 -pipe"
 
-#initial password is '123'
 RUN yum update -y && \
       yum install -y epel-release sudo && \
-      useradd -m -G wheel -s /bin/bash gmlee -p '.EAj5F3pcpV2s' && \
+      useradd -m -G wheel -s /bin/bash gmlee && passwd -d gmlee && \
       chmod +w /etc/sudoers && \
       echo -e "gmlee\tALL=(ALL:ALL)\tNOPASSWD:ALL" >> /etc/sudoers && \
       chmod -w /etc/sudoers
