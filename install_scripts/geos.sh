@@ -38,10 +38,12 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
+  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz
+  cd $FOLDER
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release -DGEOS_ENABLE_TESTS=OFF .. && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+  cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local -DCMAKE_BUILD_TYPE=Release -DGEOS_ENABLE_TESTS=OFF ..
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

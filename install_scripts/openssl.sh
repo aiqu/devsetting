@@ -39,9 +39,12 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
-  ./config --prefix=$HOME/.local threads && \
-    make -s -j$(nproc) && make -s install_sw 1>/dev/null && make -s install_man_docs 1>/dev/null
+  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz
+  cd $FOLDER
+  ./config --prefix=$HOME/.local threads
+  make -s -j$(nproc)
+  make -s install_sw 1>/dev/null
+  make -s install_man_docs 1>/dev/null
 
   cd $ROOT && rm -rf $SRC_DIR && mv $TMP_DIR/$FOLDER $SRC_DIR && rm -rf $TMP_DIR
 else

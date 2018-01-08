@@ -43,9 +43,10 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   export LDFLAGS="-L$HOME/.local/lib"
-  ./autogen.sh && \
-    ./configure --prefix=$HOME/.local && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+  ./autogen.sh
+  ./configure --prefix=$HOME/.local
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
   unset LDFLAGS
 
   cd $ROOT && rm -rf $TMP_DIR

@@ -41,10 +41,12 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $DOWN_URL | tar xz && cd $FOLDER
+  curl -L $DOWN_URL | tar xz
+  cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=$HOME/.local && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+  ./configure --prefix=$HOME/.local
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

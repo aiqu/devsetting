@@ -29,11 +29,13 @@ PKG_NAME="postgresql"
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://ftp.postgresql.org/pub/source/v10.0/postgresql-10.0.tar.bz2
 BIN=$HOME/.local/bin/postgres
+FOLDER="$PKG_NAME*"
 if [ -z $REINSTALL ] && [ ! -f $BIN ];then
   iecho "$PKG_NAME installation.."
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL | tar xj && cd postgresql*
+  curl -L $REPO_URL | tar xj
+  cd $FOLDER
   ./configure --prefix=$HOME/.local
   make -s -j$(nproc)
   make -s install 1>/dev/null

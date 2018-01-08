@@ -46,7 +46,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   BUILDDIR=$WORKDIR/build
   BINDIR=$HOME/.local/bin
 
-  curl -L $DOWN_URL | tar xJ && cd $FOLDER
+  curl -L $DOWN_URL | tar xJ
+  cd $FOLDER
 
   ./configure \
     --prefix=$HOME/.local \

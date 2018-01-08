@@ -34,10 +34,12 @@ if [ ! -z $REINSTALL] || [ ! -f $HOME/.local/bin/which ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL | tar xz && cd $FOLDER
+  curl -L $REPO_URL | tar xz
+  cd $FOLDER
   autoconf
-  ./configure --prefix=$HOME/.local && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+  ./configure --prefix=$HOME/.local
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

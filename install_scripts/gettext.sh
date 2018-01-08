@@ -38,9 +38,11 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $DOWN_URL$VER.tar.xz | tar xJ && cd $FOLDER
-  ./configure --prefix=$HOME/.local && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+  curl -L $DOWN_URL$VER.tar.xz | tar xJ
+  cd $FOLDER
+  ./configure --prefix=$HOME/.local
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

@@ -43,12 +43,13 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO $REPO_URL/archive/$TAG.zip
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
-  build/autogen.sh && \
-    ./configure --prefix=$HOME/.local \
-                --disable-maintainer-mode \
-                --disable-dependency-tracking \
-                --with-sysroot=$HOME/.local && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+  build/autogen.sh
+  ./configure --prefix=$HOME/.local \
+              --disable-maintainer-mode \
+              --disable-dependency-tracking \
+              --with-sysroot=$HOME/.local
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

@@ -37,9 +37,13 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL | tar xz && cd $FOLDER
-  make -s -j$(nproc) && make -s install PREFIX=$HOME/.local 1>/dev/null
-  make -s -f Makefile-libbz2_so clean && make -s -f Makefile-libbz2_so -j$(nproc) && cp -a libbz2.so* $HOME/.local/lib
+  curl -L $REPO_URL | tar xz
+  cd $FOLDER
+  make -s -j$(nproc)
+  make -s install PREFIX=$HOME/.local 1>/dev/null
+  make -s -f Makefile-libbz2_so clean
+  make -s -f Makefile-libbz2_so -j$(nproc)
+  cp -a libbz2.so* $HOME/.local/lib
   SHAREDLIB=$(find . -name 'libbz2.so*' -type f)
   ln -s $SHAREDLIB $HOME/.local/lib/libbz2.so
 

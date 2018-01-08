@@ -41,13 +41,15 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $DOWN_URL/$TAG.tar.gz | tar xz && cd $FOLDER
+  curl -L $DOWN_URL/$TAG.tar.gz | tar xz
+  cd $FOLDER
   ./configure --prefix=$HOME/.local \
     --enable-multibyte \
     --enable-shared \
     --enable-static \
-    --with-curses && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+    --with-curses
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

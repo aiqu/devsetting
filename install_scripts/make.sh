@@ -40,12 +40,15 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL | tar xj && cd $FOLDER
+  curl -L $REPO_URL | tar xj
+  cd $FOLDER
   ./configure --prefix=$HOME/.local
   if [ ! -f $HOME/.local/bin/make ];then
-    sh build.sh && ./make -s install 1>/dev/null
+    sh build.sh
+    ./make -s install 1>/dev/null
   else
-    make -s -j$(nproc) && make -s install 1>/dev/null
+    make -s -j$(nproc)
+    make -s install 1>/dev/null
   fi
 
   cd $ROOT && rm -rf $TMP_DIR

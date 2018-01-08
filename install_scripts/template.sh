@@ -40,14 +40,16 @@ fi
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
-  mkdir -p $TMP_DIR && cd $TMP_DIR && \
-    curl -LO $REPO_URL/archive/$TAG.zip && \
-    unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER && \
-    curl -L $REPO_URL | tar xz && cd $FOLDER && \
-    mkdir -p build && cd build && \
-    cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local .. && \
-    ./configure --prefix=$HOME/.local && \
-    make -s -j$(nproc) && make -s install 1>/dev/null
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl -LO $REPO_URL/archive/$TAG.zip
+  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  curl -L $REPO_URL | tar xz
+  cd $FOLDER
+  mkdir -p build && cd build
+  cmake -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
+  ./configure --prefix=$HOME/.local
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else
