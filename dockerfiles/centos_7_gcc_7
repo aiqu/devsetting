@@ -22,7 +22,6 @@ FROM gwangmin/centos_7_dev:latest
 ARG CFLAGS="-O2 -pipe"
 
 RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
-        cd $HOME && \
-        git clone --depth 1 https://github.com/aiqu/devsetting.git && \
-        cd devsetting && bash install_scripts/gcc7.sh && \
-        cd $HOME && rm -rf devsetting
+        git clone --depth 1 https://github.com/aiqu/devsetting.git $HOME/devsetting && \
+        sudo LOCAL_DIR=/usr bash $HOME/devsetting/install_scripts/gcc7.sh && \
+        rm -rf $HOME/devsetting
