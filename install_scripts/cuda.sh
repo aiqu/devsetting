@@ -27,7 +27,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
 if [ ! $(whoami) == 'root' ];then
-    echo "run it with sudo"
+    eecho "run it with sudo"
     exit 1
 fi
 

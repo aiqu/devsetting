@@ -31,7 +31,7 @@ fi
 
 source "$HOME/.bashrc"
 
-echo "Python installation.. pwd: $PWD, root: $ROOT"
+iecho "Python installation.. pwd: $PWD, root: $ROOT"
 
 function install_python {
   VER=$1
@@ -64,13 +64,13 @@ INSTALLED_PYTHON3_VER=$($HOME/.local/bin/python3 --version 2>&1 | grep Python | 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
   install_python $PYTHON2_VER
 else
-  echo "Python $PYTHON2_VER is already installed"
+  gecho "Python $PYTHON2_VER is already installed"
 fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON3_VER ] || [ $PYTHON3_VER != $INSTALLED_PYTHON3_VER ]; then
   install_python $PYTHON3_VER
 else
-  echo "Python $PYTHON3_VER is already installed"
+  gecho "Python $PYTHON3_VER is already installed"
 fi
 
 pip2 install -U pip

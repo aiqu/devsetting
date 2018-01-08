@@ -26,6 +26,8 @@ VER='4.3'
 INSTALLED_VERSION=$(gradle --version | grep Gradle | cut -d' ' -f2)
 
 if [ ! -z $REINSTALL ] || [ $VER != $INSTALLED_VERSION ];then
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
+
   WORKDIR=$HOME/.local
   mkdir -p $WORKDIR && cd $WORKDIR
   curl -LO https://services.gradle.org/distributions/gradle-$VER-bin.zip

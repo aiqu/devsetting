@@ -25,7 +25,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
 
-echo "Dependencies installation.. pwd: $PWD, root: $ROOT"
+iecho "Dependencies installation.. pwd: $PWD, root: $ROOT"
 
 if [ $OS == "mac" ]; then
     set +e

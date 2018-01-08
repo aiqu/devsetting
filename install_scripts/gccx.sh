@@ -37,12 +37,12 @@ function install_gcc() {
   VER_STR=$(echo $VER | sed 's/_/./g')
   MAJOR_VER=$(echo $VER | cut -d'_' -f1)
 
-  if [ -f $HOME/.local/bin/gcc-$MAJOR_VER ] && [ $($HOME/.local/bin/gcc-$MAJOR_VER --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
-    echo "gcc $VER_STR is already installed"
+  if [ -f $HOME/.local/bin/gcc$MAJOR_VER ] && [ $($HOME/.local/bin/gcc$MAJOR_VER --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
+    gecho "gcc $VER is already installed"
     return 0
   fi
 
-  echo "GCC $VER_STR installation.. pwd: $PWD, root: $ROOT"
+  iecho "GCC $VER installation.. pwd: $PWD, root: $ROOT"
   CFLAGS="-O2 -pipe"
 
   WORKDIR=$HOME/.lib/gcc-$VER

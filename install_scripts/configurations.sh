@@ -31,7 +31,7 @@ elif [ $OS == "mac" ];then
     READLINK='greadlink'
 fi
 
-echo "Configurations. pwd: $PWD, root: $ROOT"
+iecho "Configurations. pwd: $PWD, root: $ROOT"
 
 CONF_FOLDER=`$READLINK -f $ROOT/configurations`
 

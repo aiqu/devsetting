@@ -42,7 +42,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   if [ ! -x $BOOTSTRAP_DIR/bin/go ];then
-    echo "Cannot find go 1.4 for bootstrap. Install it first"
+    iecho "Cannot find go 1.4 for bootstrap. Install it first"
     mkdir -p $TMP_DIR && cd $TMP_DIR
     curl -L $BOOTSTRAP_TOOLCHAIN | tar xz && cd go/src
     GOROOT_FINAL=$BOOTSTRAP_DIR ./make.bash

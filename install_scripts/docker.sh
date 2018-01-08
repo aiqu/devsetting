@@ -28,7 +28,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
 
-echo "Docker Installation.. pwd: $PWD, root: $ROOT"
+iecho "Docker Installation.. pwd: $PWD, root: $ROOT"
 if [ $OS == "ubuntu" ];then
     ${SUDO} apt-get update -y
     ${SUDO} apt-get remove -y docker docker-engine docker.io
@@ -71,7 +71,7 @@ elif [ $OS == "centos" ];then
     ${SUDO} docker run --rm hello-world
 elif [ $OS == "mac" ];then
     curl -L https://download.docker.com/mac/stable/Docker.dmg -o $HOME/Docker.dmg
-    echo "Run $HOME/Docker.dmg manually"
+    iecho "Run $HOME/Docker.dmg manually"
 fi
 
 DOCKER_DONE=1
