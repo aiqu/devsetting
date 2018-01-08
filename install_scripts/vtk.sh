@@ -22,31 +22,33 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
-
-source $ROOT/envset.sh
-
 PWD=$(pwd)
+. $ROOT/envset.sh
 
 #TODO 
 # remove package manager dependency
-# Change code style
+# check existing installation
 if [ $OS == 'centos' ];then
   $SUDO yum install -y libXt-devel freeglut-devel
 elif [ $OS == 'ubuntu' ];then
   $SUDO apt install -y libxt-dev freeglut3-dev
 fi
 
+PKG_NAME="vtk"
 WORKDIR=$HOME/.lib
-
-cd $WORKDIR
 REPO_URL=https://gitlab.kitware.com/vtk/vtk
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -V | tail -n1)
 COMMIT_HASH=$(git ls-remote --tags $REPO_URL | grep "$TAG^{}" | awk '{print $1}')
 SRCDIR="vtk-$TAG-$COMMIT_HASH"
+
+iecho "$PKG_NAME installation.."
+cd $WORKDIR
 if [ ! -d $SRCDIR ]; then
-  echo "Downloading vtk $TAG"
+  iecho "Downloading vtk $TAG"
   curl -L https://gitlab.kitware.com/vtk/vtk/repository/$TAG/archive.tar.bz2 | tar xjf -
 fi
 cd $SRCDIR && mkdir -p build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
-make -s -j$(nproc) && make -s install 1>/dev/null
+make -s -j$(nproc)
+make -s install 1>/dev/null
+cd $ROOT
