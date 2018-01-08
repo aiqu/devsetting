@@ -1,18 +1,19 @@
-export GOROOT=$HOME/.local/go
+LOCAL_DIR=$HOME/.local
+export GOROOT=${LOCAL_DIR}/go
 export GOPATH=$HOME/workspace/golang
-export PATH=$GOPATH/bin:$HOME/.local/bin:$HOME/bin:$PATH
+export PATH=$GOPATH/bin:${LOCAL_DIR}/bin:$HOME/bin:$PATH
 export TERM="xterm-256color"
 export BYOBU_CONFIG_DIR=$HOME/.byobu
-export BYOBU_PREFIX=$HOME/.local
+export BYOBU_PREFIX=${LOCAL_DIR}
 export LC_ALL='en_US.utf8'
 export LANG='en_US.utf8'
 export EDITOR=vim
 export TMUX_TMPDIR=$HOME/.tmux
-mkdir -p $TMUX_TMPDIR $HOME/.local $GOROOT $GOPATH $HOME/.lib
+mkdir -p $TMUX_TMPDIR ${LOCAL_DIR} $GOROOT $GOPATH $HOME/.lib
 
-MY_INCLUDE_DIR=$HOME/.local/include
-MY_LIBRARY_DIR=$HOME/.local/lib:$HOME/.local/lib64
-MY_PKG_CONFIG_DIR=$HOME/.local/share/pkgconfig:$HOME/.local/lib/pkgconfig:$HOME/.local/lib64/pkgconfig
+MY_INCLUDE_DIR=${LOCAL_DIR}/include
+MY_LIBRARY_DIR=${LOCAL_DIR}/lib:${LOCAL_DIR}/lib64
+MY_PKG_CONFIG_DIR=${LOCAL_DIR}/share/pkgconfig:${LOCAL_DIR}/lib/pkgconfig:${LOCAL_DIR}/lib64/pkgconfig
 
 export CPATH=$MY_INCLUDE_DIR:$CPATH
 if [ -z $LD_LIBRARY_PATH ];then
@@ -34,20 +35,20 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # colored grep
 export GREP_COLORS="ms=01;38;5;202:mc=01;31:sl=:cx=:fn=01;38;5;132:ln=32:bn=32:se=00;38;5;242"
 
-if [ -f $HOME/.local/bin/gcc ];then
-  export CC=$HOME/.local/bin/gcc
-  export CXX=$HOME/.local/bin/g++
+if [ -f ${LOCAL_DIR}/bin/gcc ];then
+  export CC=${LOCAL_DIR}/bin/gcc
+  export CXX=${LOCAL_DIR}/bin/g++
 fi
 
-if [ -d $HOME/.local/gradle-4.3 ];then
-  export GRADLE_HOME=$HOME/.local/gradle-4.3
+if [ -d ${LOCAL_DIR}/gradle-4.3 ];then
+  export GRADLE_HOME=${LOCAL_DIR}/gradle-4.3
 fi
-if [ -d $HOME/.local/jdk1.8.0_152 ];then
-  export JAVA_HOME=$HOME/.local/jdk1.8.0_152
+if [ -d ${LOCAL_DIR}/jdk1.8.0_152 ];then
+  export JAVA_HOME=${LOCAL_DIR}/jdk1.8.0_152
 fi
 
-if [ -d $HOME/.local/lib/perl5 ];then
-  export PERL5LIB=$HOME/.local/lib/perl5
+if [ -d ${LOCAL_DIR}/lib/perl5 ];then
+  export PERL5LIB=${LOCAL_DIR}/lib/perl5
 fi
 
 if [ -d $HOME/c3 ];then
@@ -66,8 +67,8 @@ fi
 export PROMPT_DIRTRIM="3"
 
 # Enable bash completion
-if [[ $PS1 && -f $HOME/.local/share/bash-completion/bash_completion ]]; then
-  . $HOME/.local/share/bash-completion/bash_completion
+if [[ $PS1 && -f ${LOCAL_DIR}/share/bash-completion/bash_completion ]]; then
+  . ${LOCAL_DIR}/share/bash-completion/bash_completion
 fi
 
 # don't put duplicate lines or lines starting with space in the history.
