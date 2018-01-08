@@ -21,22 +21,13 @@
 
 set -e 
 
-if [ ! $ROOT ];then
-    if [ ! -d 'configurations' ];then
-        ROOT=$(pwd)/..
-    else
-        ROOT=$(pwd)
-    fi
-fi
-
-PWD=$(pwd)
 if [ $(whoami) != root ];then
     SUDO="sudo"
 else
     SUDO=""
 fi
 
-LOCAL_DIR=$HOME/.local
+LOCAL_DIR=${LOCAL_DIR:-$HOME/.local}
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
     ENVFILE="$HOME/.bashrc"
@@ -94,6 +85,6 @@ function compare_version {
   fi
 }
 
-if [ -f $ENVFILE ];then
+if [ -r $ENVFILE ];then
   . $ENVFILE
 fi
