@@ -26,14 +26,16 @@ VIM_DONE=
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
+PKG_NAME="vim"
 TMP_DIR=$ROOT/tmp
 REPO_URL=https://github.com/vim/vim
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
+VER=$TAG
 FOLDER="vim-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=v$(vim --version | head -1 | awk '{print $5}').$(vim --version | grep 'patches:'| awk -F'-' '{print $2}' | cut -d',' -f1)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
-  echo "vim $TAG installation.. pwd: $PWD, root: $ROOT"
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  iecho "$PKG_NAME $VER installation.. pwd: $PWD, root: $ROOT"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
@@ -65,7 +67,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
     sed -i 's/#prefix = \$(HOME)/prefix = \$(HOME)\/.local/' src/Makefile
   fi
 
-  make -s -j$(nproc) && make -s install 1>/dev/null
+  make -s -j$(nproc)
+  make -s install 1>/dev/null
 
   cd $PWD
   rm -rf $TMP_DIR
@@ -82,7 +85,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   unzip -qu $ROOT/resources/taglist_46.zip -d ~/.vim/
   cp $ROOT/resources/ejs.vim $HOME/.local/share/vim/vim80/syntax/ejs.vim
 else
-  echo "Vim $INSTALLED_VERSION is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 cd $ROOT
