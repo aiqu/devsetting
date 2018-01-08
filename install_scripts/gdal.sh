@@ -35,7 +35,6 @@ PWD=$(pwd)
 . $ROOT/install_scripts/jsonc.sh
 
 PKG_NAME="gdal"
-TMP_DIR=/tmp/devsetting
 REPO_URL="http://download.osgeo.org/gdal/2.2.2/gdal-2.2.2.tar.gz"
 TAG=$(echo $REPO_URL | cut -d'/' -f5)
 VER=$TAG

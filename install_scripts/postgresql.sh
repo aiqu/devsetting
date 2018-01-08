@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="postgresql"
-TMP_DIR=/tmp/devsetting
 REPO_URL=https://ftp.postgresql.org/pub/source/v10.0/postgresql-10.0.tar.bz2
 BIN=${LOCAL_DIR}/bin/postgres
 FOLDER="$PKG_NAME*"

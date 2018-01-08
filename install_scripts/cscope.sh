@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="cscope"
-TMP_DIR=/tmp/devsetting
 TAG='15.8b'
 VER=$TAG
 REPO_URL="https://downloads.sourceforge.net/project/cscope/cscope/15.8b/cscope-$TAG.tar.gz"

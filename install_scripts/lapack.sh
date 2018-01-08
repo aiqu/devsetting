@@ -35,7 +35,6 @@ PWD=$(pwd)
 
 PKG_NAME="lapack"
 FOLDER="$PKG_NAME*"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/Reference-LAPACK/lapack-release"
 mkdir -p $TMP_DIR && cd $TMP_DIR
 git clone --depth=1 $REPO_URL

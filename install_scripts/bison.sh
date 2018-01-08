@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="bison"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://git.savannah.gnu.org/git/bison"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | grep 'tags/v' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')

@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="geos"
-TMP_DIR=/tmp/devsetting
 REPO_URL="http://git.osgeo.org/gogs/geos/geos"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc\|rel\|start\|beta' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$TAG

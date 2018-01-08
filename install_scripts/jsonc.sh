@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="json-c"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/json-c/json-c"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | cut -d'-' -f3)

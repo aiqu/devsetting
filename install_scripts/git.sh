@@ -32,7 +32,6 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-TMP_DIR=/tmp/devsetting
 PKG='git'
 REPO_URL='https://github.com/git/git'
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc' | cut -d/ -f3 | sort -V | tail -n1)

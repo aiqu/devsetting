@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="xz"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://git.tukaani.org/xz.git"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')

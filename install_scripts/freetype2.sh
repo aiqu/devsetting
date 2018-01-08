@@ -36,7 +36,6 @@ PWD=$(pwd)
 . $ROOT/install_scripts/libpng.sh
 
 PKG_NAME="freetype2"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://git.savannah.gnu.org/git/freetype/freetype2.git"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|freetype\|start\|import\|BETA\|REAL\|beta' | cut -d/ -f3 | sort -V | tail -n1)
 VER='21.0.15'

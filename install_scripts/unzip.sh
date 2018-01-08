@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="unzip"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://downloads.sourceforge.net/infozip/unzip60.tar.gz"
 FOLDER="$PKG_NAME*"
 

@@ -39,7 +39,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="Rebar3"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/erlang/rebar3"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$TAG

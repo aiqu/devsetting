@@ -36,7 +36,6 @@ PWD=$(pwd)
 . $ROOT/install_scripts/libxml2.sh
 
 PKG_NAME="php"
-TMP_DIR=/tmp/devsetting
 REPO_URL=""
 VER='7.2.0'
 DOWN_URL="http://jp2.php.net/get/php-$VER.tar.xz/from/this/mirror"

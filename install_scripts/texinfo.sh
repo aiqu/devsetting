@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="texinfo"
-TMP_DIR=/tmp/devsetting
 TAG='6.5'
 VER=$TAG
 REPO_URL="https://ftp.gnu.org/gnu/texinfo/texinfo-$TAG.tar.xz"

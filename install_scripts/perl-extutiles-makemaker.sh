@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="ExtUtils-MakeMaker"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/Perl-Toolchain-Gang/ExtUtils-MakeMaker"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')

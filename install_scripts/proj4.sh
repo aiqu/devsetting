@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="proj4"
-TMP_DIR=/tmp/devsetting
 TAG='4.9.3'
 VER=$(echo $TAG | sed 's/\.//g')
 REPO_URL="http://download.osgeo.org/proj/proj-$TAG.tar.gz"

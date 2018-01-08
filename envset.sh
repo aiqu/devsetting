@@ -28,6 +28,7 @@ else
 fi
 
 LOCAL_DIR=${LOCAL_DIR:-$HOME/.local}
+TMP_DIR=${TMP_DIR:-/tmp/devsetting}
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
     ENVFILE="$HOME/.bashrc"

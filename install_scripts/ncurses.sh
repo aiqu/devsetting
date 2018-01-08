@@ -33,7 +33,6 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="ncurses"
-TMP_DIR=/tmp/devsetting
 REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz
 FOLDER='ncurses*'
 VERFILE="${LOCAL_DIR}/include/ncursesw/curses.h"

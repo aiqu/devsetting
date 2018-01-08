@@ -35,7 +35,6 @@ PWD=$(pwd)
 . $ROOT/install_scripts/openssl.sh
 
 PKG_NAME="Erlang"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://github.com/erlang/otp"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|R\|_' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | cut -d'-' -f2)

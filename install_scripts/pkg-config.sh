@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="pkg-config"
-TMP_DIR=/tmp/devsetting
 REPO_URL="https://anongit.freedesktop.org/git/pkg-config.git"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/pkg-config-//')

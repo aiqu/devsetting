@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="openssl"
-TMP_DIR=/tmp/devsetting
 SRC_DIR=$HOME/.lib/openssl
 REPO_URL="https://github.com/openssl/openssl"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|pre\|FIPS' | grep OpenSSL | cut -d/ -f3 | sort -V | tail -n1)

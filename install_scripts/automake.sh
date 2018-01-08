@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="automake"
-TMP_DIR=/tmp/devsetting
 REPO_URL=" https://git.savannah.gnu.org/git/automake"
 DOWN_URL="http://ftp.gnu.org/gnu/automake/automake-"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|branch' | cut -d/ -f3 | sort -V | tail -n1)

@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="make"
-TMP_DIR=/tmp/devsetting
 REPO_URL="http://ftp.gnu.org/gnu/make/make-3.82.tar.bz2"
 TAG=$(echo $REPO_URL | cut -d'-' -f2 | sed 's/.tar.bz2//');
 VER=$TAG

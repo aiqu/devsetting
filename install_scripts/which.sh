@@ -34,7 +34,6 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="which"
-TMP_DIR=/tmp/devsetting
 REPO_URL="http://ftp.gnu.org/gnu/which/which-2.21.tar.gz"
 FOLDER="$PKG_NAME*"
 
