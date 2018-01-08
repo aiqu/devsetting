@@ -22,21 +22,25 @@
 set -e
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
 
-source $ROOT/envset.sh
 . $ROOT/install_scripts/flann.sh
 
 PWD=$(pwd)
+PKG_NAME="pcl"
 WORKDIR=$HOME/.lib
 
+iecho "$PKG_NAME installation.."
 cd $WORKDIR
 REPO_URL=https://github.com/PointCloudLibrary/pcl
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' -e 'ros' | sort -V | tail -n1)
 if [ ! -d pcl-${TAG} ];then
-  echo "Downloading pcl $TAG"
+  iecho "Downloading pcl $TAG"
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip && rm ${TAG}.zip
 fi
 cd pcl-${TAG} && mkdir -p build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/.local ..
-make -s -j$(nproc) && make -s install 1>/dev/null
+make -s -j$(nproc)
+make -s install 1>/dev/null
+cd $ROOT
