@@ -21,27 +21,8 @@ FROM gwangmin/centos_7_dev:latest
 
 ARG CFLAGS="-O2 -pipe"
 
-RUN export CLFAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
-        export VER="7_2_0" TEMP_DIR="/tmpgcc" && \
-        export GCC_SOURCE_DIR="$TEMP_DIR/gcc-gcc-$VER-release" && \
-        export GCC_BUILD_DIR="$TEMP_DIR/gcc-build" && \
-        export GMP="gmp-6.1.2" MPFR="mpfr-3.1.6" MPC="mpc-1.0.3" ISL="isl-0.16.1" && \
-        mkdir -p $TEMP_DIR && cd $TEMP_DIR && \
-        curl -LO https://github.com/gcc-mirror/gcc/archive/gcc-$VER-release.zip && unzip gcc-$VER-release.zip && \
-        cd $GCC_SOURCE_DIR && \
-        curl -L https://gmplib.org/download/gmp/$GMP.tar.xz | tar xJf - && \
-        curl -L http://www.mpfr.org/mpfr-current/$MPFR.tar.xz | tar xJf - && \
-        curl -L ftp://ftp.gnu.org/gnu/mpc/$MPC.tar.gz | tar xzf - && \
-        curl -L ftp://gcc.gnu.org/pub/gcc/infrastructure/$ISL.tar.bz2 | tar xjf - && \
-        mv $GMP gmp && \
-        mv $MPFR mpfr && \
-        mv $MPC mpc && \
-        mv $ISL isl && \
-        mkdir $GCC_BUILD_DIR && \
-        cd $GCC_BUILD_DIR && \
-        $GCC_SOURCE_DIR/configure --prefix=/usr --disable-multilib --with-arch=core2 --with-language=c,c++,fortran,go && \
-        make -j$(nproc) && \
-        make install-strip && \
-        rm -rf $TEMP_DIR
-
-ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
+RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
+        cd $HOME && \
+        git clone --depth 1 https://github.com/aiqu/devsetting.git && \
+        cd devsetting && bash gcc7.sh && \
+        cd $HOME && rm -rf devsetting
