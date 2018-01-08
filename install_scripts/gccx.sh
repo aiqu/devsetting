@@ -81,8 +81,9 @@ function install_gcc() {
     --disable-multilib \
     --with-arch=core2 \
     --with-language=c,c++,fortran,go \
-    --program-suffix=-$MAJOR_VER
+    --program-suffix=$MAJOR_VER
   make -s -j$(nproc)
   make -s install 1>/dev/null
   unset CFLAGS CXXFLAGS
+  cd $ROOT && rm -rf $WORKDIR
 }
