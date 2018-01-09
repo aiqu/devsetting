@@ -32,7 +32,6 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
-. $ROOT/install_scripts/jsonc.sh
 
 PKG_NAME="gdal"
 REPO_URL="http://download.osgeo.org/gdal/2.2.2/gdal-2.2.2.tar.gz"
@@ -50,7 +49,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $REPO_URL | tar xz
   cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=${LOCAL_DIR} --with-libjson-c=${LOCAL_DIR}/include/json-c
+  ./configure --prefix=${LOCAL_DIR} --with-libjson-c=internal
   make -s -j$(nproc)
   make -s install 1>/dev/null
 
