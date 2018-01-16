@@ -74,9 +74,11 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   PYTHON3_INCLUDE_DIR=${LOCAL_DIR}/include/python3.6m
   PYTHON2_LIBRARY=${LOCAL_DIR}/lib/libpython2.7.so
   PYTHON3_LIBRARY=${LOCAL_DIR}/lib/libpython3.6m.so
+  # uncomment if install it locally
+  #MY_CXX_FLAGS="-O2 -march=native -pipe"
   if [ -f /usr/local/cuda/version.txt ]; then
     cmake -DCMAKE_BUILD_TYPE=RELEASE \
-      -DCMAKE_CXX_FLAGS="-std=c++11" \
+      -DCMAKE_CXX_FLAGS="-std=c++11 $MY_CXX_FLAGS" \
       -DCUDA_NVCC_FLAGS="-std=c++11 --expt-relaxed-constexpr" \
       -DCUDA_PROPAGATE_HOST_FLAGS=OFF \
       -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
@@ -94,7 +96,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
       ..
   else
     cmake -DCMAKE_BUILD_TYPE=RELEASE \
-      -DCMAKE_CXX_FLAGS="-std=c++11" \
+      -DCMAKE_CXX_FLAGS="-std=c++11 $MY_CXX_FLAGS" \
       -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
       -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR \
       -DBUILD_opencv_python3=ON \
