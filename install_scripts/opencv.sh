@@ -76,6 +76,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   PYTHON3_LIBRARY=${LOCAL_DIR}/lib/libpython3.6m.so
   # uncomment if install it locally
   #MY_CXX_FLAGS="-O2 -march=native -pipe"
+  # use own CUDA GENERATION name
+  #MY_CUDA_GEN="Pascal"
   if [ -f /usr/local/cuda/version.txt ]; then
     cmake -DCMAKE_BUILD_TYPE=RELEASE \
       -DCMAKE_CXX_FLAGS="-std=c++11 $MY_CXX_FLAGS" \
@@ -93,6 +95,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
       -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR \
       -DPYTHON2_LIBRARY=$PYTHON2_LIBRARY \
       -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY \
+      -DCUDA_GENERATION=${MY_CUDA_GEN:="Auto"} \
       ..
   else
     cmake -DCMAKE_BUILD_TYPE=RELEASE \
