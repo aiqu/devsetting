@@ -71,6 +71,8 @@ if [[ $PS1 && -f ${LOCAL_DIR}/share/bash-completion/bash_completion ]]; then
   . ${LOCAL_DIR}/share/bash-completion/bash_completion
 fi
 
+[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth
 
