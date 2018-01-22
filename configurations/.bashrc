@@ -29,6 +29,7 @@ fi
 export CMAKE_LIBRARY_PATH=$LD_LIBRARY_PATH:$CMAKE_LIBRARY_PATH
 export CMAKE_INCLUDE_PATH=$CPATH:$CMAKE_INCLUDE_PATH
 export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
+export MANPATH=$HOME/.local/share/man${MANPATH:+":$MANPATH"}
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
