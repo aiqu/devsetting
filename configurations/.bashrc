@@ -13,19 +13,12 @@ mkdir -p $TMUX_TMPDIR ${LOCAL_DIR} $GOROOT $GOPATH $HOME/.lib
 
 MY_INCLUDE_DIR=${LOCAL_DIR}/include
 MY_LIBRARY_DIR=${LOCAL_DIR}/lib:${LOCAL_DIR}/lib64
+SYSTEM_LIBRARY_DIR="/usr/local/lib:/usr/local/lib64:/usr/lib:/usr/lib64"
 MY_PKG_CONFIG_DIR=${LOCAL_DIR}/share/pkgconfig:${LOCAL_DIR}/lib/pkgconfig:${LOCAL_DIR}/lib64/pkgconfig
 
 export CPATH=$MY_INCLUDE_DIR:$CPATH
-if [ -z $LD_LIBRARY_PATH ];then
-  export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
-else
-  export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64:$LD_LIBRARY_PATH
-fi
-if [ -z $LIBRARY_PATH ];then
-  export LIBRARY_PATH=$MY_LIBRARY_DIR
-else
-  export LIBRARY_PATH=$MY_LIBRARY_DIR:$LIBRARY_PATH
-fi
+export LD_LIBRARY_PATH=$MY_LIBRARY_DIR:${SYSTEM_LIBRARY_DIR}${LD_LIBRARY_PATH:+":$LD_LIBRARY_PATH"}
+export LIBRARY_PATH=$MY_LIBRARY_DIR:${LIBRARY_PATH:+":$LIBRARY_PATH"}
 export CMAKE_LIBRARY_PATH=$LD_LIBRARY_PATH:$CMAKE_LIBRARY_PATH
 export CMAKE_INCLUDE_PATH=$CPATH:$CMAKE_INCLUDE_PATH
 export PKG_CONFIG_PATH=$MY_PKG_CONFIG_DIR:$PKG_CONFIG_PATH
