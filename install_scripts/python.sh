@@ -70,11 +70,11 @@ PYTHON3_VER='3.6.3'
 INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
 INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
-  install_python $PYTHON2_VER
-else
-  gecho "Python $PYTHON2_VER is already installed"
-fi
+#if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
+  #install_python $PYTHON2_VER
+#else
+  #gecho "Python $PYTHON2_VER is already installed"
+#fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON3_VER ] || [ $PYTHON3_VER != $INSTALLED_PYTHON3_VER ]; then
   install_python $PYTHON3_VER
@@ -82,10 +82,10 @@ else
   gecho "Python $PYTHON3_VER is already installed"
 fi
 
-pip2 install -Uq pip
+#pip2 install -Uq pip
 pip3 install -Uq pip
 
-pip2 install -q jupyter jupyterthemes flake8
+#pip2 install -q jupyter jupyterthemes flake8
 pip3 install -q jupyter jupyterthemes flake8
 jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
 cp $ROOT/resources/jupyter/jupyter_notebook_config.py $HOME/.jupyter/
