@@ -2,7 +2,7 @@
 #
 #    <packagename> installer
 #
-#    Copyright (C) 2017 Gwangmin Lee
+#    Copyright (C) 2018 Gwangmin Lee
 #    
 #    Author: Gwangmin Lee <gwangmin0123@gmail.com>
 #
