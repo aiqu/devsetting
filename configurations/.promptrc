@@ -36,5 +36,5 @@ prompt_symbol() {
 
 # Ensure that we're in bash
 if [ -n "$BASH" ]; then
-  PS1="${debian_chroot:+($debian_chroot)}\[\e[38;5;245m\]\u\[\e[00m\]@\[\e[38;5;172m\]\h\e[38;5;255m:\[\e[0m\]\w\[\e[38;5;202m\]\$(git_branch)\[\e[0m\]\$(prompt_symbol) "
+  PS1="${debian_chroot:+($debian_chroot)}\[\e[32m\]\u@\h\e[37m:\[\e[0m\]\w\[\e[31m\]\$(git_branch)\[\e[0m\]\$(prompt_symbol) "
 fi
