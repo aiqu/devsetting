@@ -47,6 +47,20 @@ if $(pkg-config --exists $PKG_NAME);then
 fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  # install bootstraping flex if no installation exists
+  if [ -z $INSTALLED_VERSION ]; then
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+    BOOTSTRAP_TAG='v2.6.2'
+    BOOTSTRAP_VER='2.6.2'
+    iecho "$PKG_NAME $BOOTSTRAP_VER installation for bootstraping.."
+    curl -L https://github.com/westes/flex/releases/download/$BOOTSTRAP_TAG/flex-${BOOTSTRAP_VER}.tar.gz | tar xz
+    cd $FOLDER
+    ./autogen.sh
+    ./configure --prefix=${LOCAL_DIR}
+    make -s -j$(nproc) && make -s install 1>/dev/null
+    cd $ROOT && rm -rf $TMP_DIR
+  fi
+
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
