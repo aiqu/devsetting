@@ -44,7 +44,7 @@ fi
 . $ROOT/install_scripts/autoconf.sh
 . $ROOT/install_scripts/automake.sh
 . $ROOT/install_scripts/which.sh
-. $ROOT/install_scripts/pkg-config.sh
+. $ROOT/install_scripts/pkg_config.sh
 . $ROOT/install_scripts/ncurses.sh
 . $ROOT/install_scripts/gettext.sh
 . $ROOT/install_scripts/readline.sh
@@ -61,6 +61,6 @@ fi
 . $ROOT/install_scripts/ctags.sh
 . $ROOT/install_scripts/libconfuse.sh
 . $ROOT/install_scripts/sqlite.sh
-. $ROOT/install_scripts/perl-extutiles-makemaker.sh
+. $ROOT/install_scripts/perl_extutiles_makemaker.sh
 
 . $ROOT/install_scripts/byobu.sh
