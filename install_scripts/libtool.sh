@@ -32,6 +32,7 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
+. $ROOT/install_scripts/m4.sh
 
 PKG_NAME="libtool"
 REPO_URL="https://git.savannah.gnu.org/git/libtool.git"
