@@ -46,13 +46,6 @@ set +e
 INSTALLED_VERSION=$(m4 --version 2>/dev/null | head -n1 | cut -d' ' -f4)
 set -e
 
-FILENAME=`basename ${BASH_SOURCE[0]}`
-FILENAME=${FILENAME%%.*}
-DONENAME="DONE$FILENAME"
-if [ ! -z ${!DONENAME+x} ];then
-  return 0
-fi
-let DONE$FILENAME=1
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   ./configure --prefix=${LOCAL_DIR}
