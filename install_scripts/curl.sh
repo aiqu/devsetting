@@ -77,7 +77,7 @@ if [ ! -z $REINSTALL ] || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
     --enable-crypto-auto \
     --enable-tls-srp \
     --enable-unix-sockets \
-    --disable-shared \
+    --enable-shared \
     --enable-cookies \
     --with-libssh2
   make -s -j$(nproc)
