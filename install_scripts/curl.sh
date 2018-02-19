@@ -32,6 +32,7 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
+. $ROOT/install_scripts/libssh2.sh
 
 PKG_NAME="curl"
 REPO_URL="https://github.com/curl/curl"
@@ -76,8 +77,9 @@ if [ ! -z $REINSTALL ] || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
     --enable-crypto-auto \
     --enable-tls-srp \
     --enable-unix-sockets \
-    --enable-shared \
-    --enable-cookies
+    --disable-shared \
+    --enable-cookies \
+    --with-libssh2
   make -s -j$(nproc)
   make -s install 1>/dev/null
 
