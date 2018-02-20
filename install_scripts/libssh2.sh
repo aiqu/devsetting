@@ -32,6 +32,7 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
+. $ROOT/install_scripts/openssl.sh
 
 PKG_NAME="libssh2"
 REPO_URL="https://github.com/libssh2/libssh2"
