@@ -185,4 +185,4 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8', 'pylint']
 let g:syntastic_mode_map = {
     \ "mode": "active",
-    \ "passive_filetypes": ["cc", "cpp", "c", "hpp", "h"] }
+    \ "passive_filetypes": ["cc", "cpp", "c", "hpp", "h", "go"] }

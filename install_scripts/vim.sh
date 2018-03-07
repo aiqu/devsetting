@@ -90,6 +90,11 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   ${LOCAL_DIR}/bin/vim +PluginInstall +PluginUpdate +qall
   unzip -qu $ROOT/resources/taglist_46.zip -d ~/.vim/
   cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim80/syntax/ejs.vim
+
+  if [[ ! -d $HOME/.vim/pack/plugins/start/vim-go ]]; then
+    git clone https://github.com/fatih/vim-go.git $HOME/.vim/pack/plugins/start/vim-go
+    ${LOCAL_DIR}/bin/vim +GoInstallBinaries +qall
+  fi
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
