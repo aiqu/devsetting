@@ -55,10 +55,6 @@ if [ -d ${LOCAL_DIR}/lib/perl5 ];then
   export PERL5LIB=${LOCAL_DIR}/lib/perl5
 fi
 
-if [ -d $HOME/c3 ];then
-    source $HOME/c3/source.me
-fi
-
 # Alias definitions.
 if [ -f ~/.bash_aliases ]; then
   . ~/.bash_aliases
