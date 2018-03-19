@@ -90,12 +90,13 @@ elif [ $OS == "centos" ];then
 
     printf "[cuda]\nname=cuda\nbaseurl=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64\nenabled=1\ngpgcheck=1\ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" > /etc/yum.repos.d/cuda.repo
 
-    yum install -y cuda-8-0
+    yum install -y cuda-9-0
         
-    CUDNN_DOWNLOAD_SUM=9b09110af48c9a4d7b6344eb4b3e344daa84987ed6177d5c44319732f3bb7f9c && \
-        curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/cudnn-8.0-linux-x64-v6.0.tgz -O && \
-        echo "$CUDNN_DOWNLOAD_SUM  cudnn-8.0-linux-x64-v6.0.tgz" | sha256sum -c - && \
-        tar --no-same-owner -xzf cudnn-8.0-linux-x64-v6.0.tgz -C /usr/local && \
-        rm cudnn-8.0-linux-x64-v6.0.tgz && \
-        ldconfig
+    CUDNN_DOWNLOAD_SUM=d2038dca6e6070aa6879d827fa6c032c942514a6b9bddf5ade275670ca474b9c && \
+    curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.1/cudnn-9.0-linux-x64-v7.1.tgz -O && \
+    echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.0-linux-x64-v7.1.tgz" | sha256sum -c - && \
+    tar --no-same-owner -xzf cudnn-9.0-linux-x64-v7.1.tgz -C /usr/local && \
+    rm cudnn-9.0-linux-x64-v7.1.tgz && \
+    ldconfig
+
 fi
