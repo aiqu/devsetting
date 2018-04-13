@@ -62,7 +62,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
   cd src
   GOROOT_BOOTSTRAP=$BOOTSTRAP_DIR GOROOT_FINAL=$INSTALL_DIR ./make.bash
   rm -rf $INSTALL_DIR && mv $NEW_INSTALL_DIR $INSTALL_DIR
-  ln -s $INSTALL_DIR/bin/* ${LOCAL_DIR}/bin/
+  ln -fs $INSTALL_DIR/bin/* ${LOCAL_DIR}/bin/
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
