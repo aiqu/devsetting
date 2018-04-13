@@ -1,6 +1,7 @@
 alias grep='\grep --color=always'
 alias fgrep='\fgrep --color=auto'
 alias egrep='\egrep --color=auto'
+alias vi='vim'
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
   # enable color support of ls and also add handy aliases
