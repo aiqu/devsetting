@@ -33,27 +33,31 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-PKG_NAME="bison"
-REPO_URL="https://git.savannah.gnu.org/git/bison"
-TAG=$(git ls-remote -t $REPO_URL | grep -v {} | grep 'tags/v' | cut -d/ -f3 | sort -V | tail -n1)
-VER=$(echo $TAG | sed 's/v//')
-DOWN_URL="http://ftp.gnu.org/gnu/bison/bison-$VER.tar.xz"
-FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=$(bison --version | head -n1 | cut -d' ' -f4)
-
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-
-  mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $DOWN_URL | tar xJ
-  cd $FOLDER
-  ./configure --prefix=${LOCAL_DIR}
-  make -s -j${NPROC}
-  make -s install 1>/dev/null
-
-  cd $ROOT && rm -rf $TMP_DIR
+if [ $OS == 'mac' ];then
+  brew install bison
 else
-  gecho "$PKG_NAME $VER is already installed"
-fi
+  PKG_NAME="bison"
+  REPO_URL="https://git.savannah.gnu.org/git/bison"
+  TAG=$(git ls-remote -t $REPO_URL | grep -v {} | grep 'tags/v' | cut -d/ -f3 | sort -V | tail -n1)
+  VER=$(echo $TAG | sed 's/v//')
+  DOWN_URL="http://ftp.gnu.org/gnu/bison/bison-$VER.tar.xz"
+  FOLDER="$PKG_NAME*"
+  INSTALLED_VERSION=$(bison --version | head -n1 | cut -d' ' -f4)
 
-cd $ROOT
+  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+    iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+    curl -L $DOWN_URL | tar xJ
+    cd $FOLDER
+    ./configure --prefix=${LOCAL_DIR}
+    make -s -j${NPROC}
+    make -s install 1>/dev/null
+
+    cd $ROOT && rm -rf $TMP_DIR
+  else
+    gecho "$PKG_NAME $VER is already installed"
+  fi
+
+  cd $ROOT
+fi

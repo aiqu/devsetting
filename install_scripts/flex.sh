@@ -33,46 +33,50 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/bison.sh
-. $ROOT/install_scripts/help2man.sh
+if [ $OS == 'mac' ]; then
+  brew install flex
+else
+  . $ROOT/install_scripts/bison.sh
+  . $ROOT/install_scripts/help2man.sh
 
-PKG_NAME="flex"
-REPO_URL="https://github.com/westes/flex"
-TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|flex' | cut -d/ -f3 | sort -V | tail -n1)
-VER=$(echo $TAG | sed 's/v//')
-FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=$(flex --version | head -n1 | cut -d' ' -f2)
-if $(pkg-config --exists $PKG_NAME);then
-  INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
-fi
+  PKG_NAME="flex"
+  REPO_URL="https://github.com/westes/flex"
+  TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|flex' | cut -d/ -f3 | sort -V | tail -n1)
+  VER=$(echo $TAG | sed 's/v//')
+  FOLDER="$PKG_NAME*"
+  INSTALLED_VERSION=$(flex --version | head -n1 | cut -d' ' -f2)
+  if $(pkg-config --exists $PKG_NAME);then
+    INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
+  fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
-  # install bootstraping flex if no installation exists
-  if [ -z $INSTALLED_VERSION ]; then
+  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+    # install bootstraping flex if no installation exists
+    if [ -z $INSTALLED_VERSION ]; then
+      mkdir -p $TMP_DIR && cd $TMP_DIR
+      BOOTSTRAP_TAG='v2.6.2'
+      BOOTSTRAP_VER='2.6.2'
+      iecho "$PKG_NAME $BOOTSTRAP_VER installation for bootstraping.."
+      curl -L https://github.com/westes/flex/releases/download/$BOOTSTRAP_TAG/flex-${BOOTSTRAP_VER}.tar.gz | tar xz
+      cd $FOLDER
+      ./autogen.sh
+      ./configure --prefix=${LOCAL_DIR}
+      make -s -j${NPROC} && make -s install 1>/dev/null
+      cd $ROOT && rm -rf $TMP_DIR
+    fi
+
+    iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+
     mkdir -p $TMP_DIR && cd $TMP_DIR
-    BOOTSTRAP_TAG='v2.6.2'
-    BOOTSTRAP_VER='2.6.2'
-    iecho "$PKG_NAME $BOOTSTRAP_VER installation for bootstraping.."
-    curl -L https://github.com/westes/flex/releases/download/$BOOTSTRAP_TAG/flex-${BOOTSTRAP_VER}.tar.gz | tar xz
-    cd $FOLDER
+    curl -LO $REPO_URL/archive/$TAG.zip
+    unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
     ./autogen.sh
     ./configure --prefix=${LOCAL_DIR}
     make -s -j${NPROC} && make -s install 1>/dev/null
+
     cd $ROOT && rm -rf $TMP_DIR
+  else
+    gecho "$PKG_NAME $VER is already installed"
   fi
 
-  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-
-  mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO $REPO_URL/archive/$TAG.zip
-  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
-  ./autogen.sh
-  ./configure --prefix=${LOCAL_DIR}
-  make -s -j${NPROC} && make -s install 1>/dev/null
-
-  cd $ROOT && rm -rf $TMP_DIR
-else
-  gecho "$PKG_NAME $VER is already installed"
+  cd $ROOT
 fi
-
-cd $ROOT

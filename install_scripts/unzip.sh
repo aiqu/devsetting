@@ -33,26 +33,30 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-PKG_NAME="unzip"
-REPO_URL="https://downloads.sourceforge.net/infozip/unzip60.tar.gz"
-FOLDER="$PKG_NAME*"
-
-if [ ! -z $REINSATLL ] || [ ! -f ${LOCAL_DIR}/bin/unzip ]; then
-  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-
-  mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL | tar xz
-  cd $FOLDER
-  if [ $OS == 'mac' ]; then
-    make -s -f macos/Makefile -j${NPROC} generic
-  else
-    make -s -f unix/Makefile -j${NPROC} generic
-  fi
-  make -s prefix=${LOCAL_DIR} MANDIR=${LOCAL_DIR}/share/man/man1 -f unix/Makefile install
-
-  cd $ROOT && rm -rf $TMP_DIR
+if [ $OS == 'mac' ];then
+  brew install unzip
 else
-  gecho "$PKG_NAME $VER is already installed"
-fi
+  PKG_NAME="unzip"
+  REPO_URL="https://downloads.sourceforge.net/infozip/unzip60.tar.gz"
+  FOLDER="$PKG_NAME*"
 
-cd $ROOT
+  if [ ! -z $REINSATLL ] || [ ! -f ${LOCAL_DIR}/bin/unzip ]; then
+    iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+    curl -L $REPO_URL | tar xz
+    cd $FOLDER
+    if [ $OS == 'mac' ]; then
+      make -s -f macos/Makefile -j${NPROC} generic
+    else
+      make -s -f unix/Makefile -j${NPROC} generic
+    fi
+    make -s prefix=${LOCAL_DIR} MANDIR=${LOCAL_DIR}/share/man/man1 -f unix/Makefile install
+
+    cd $ROOT && rm -rf $TMP_DIR
+  else
+    gecho "$PKG_NAME $VER is already installed"
+  fi
+
+  cd $ROOT
+fi

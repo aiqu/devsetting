@@ -34,52 +34,52 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 source $ROOT/envset.sh
 
 if [ $OS == 'mac' ];then
-  exit 0
-fi
-
-source "$HOME/.bashrc"
-
-iecho "Python installation.. install location: $LOCAL_DIR"
-
-function install_python {
-  VER=$1
-  WORKDIR="/tmp/tmp_$VER"
-  mkdir -p $WORKDIR && cd $WORKDIR
-  curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
-  cd Python-$VER
-  LDFLAGS="-L${LOCAL_DIR}/lib -L${LOCAL_DIR}/lib64" ./configure \
-    --prefix=${LOCAL_DIR} \
-    --enable-shared \
-    --enable-unicode=ucs4 \
-    --with-threads \
-    --with-system-ffi \
-    --without-ensurepip
-  make -s -j${NPROC}
-  make -s install 1>/dev/null
-  rm -rf $WORKDIR
-
-  cd $HOME
-  MAJOR_VER=$(echo $VER | awk -F'.' '{print $1}')
-  if [ ! -f ${LOCAL_DIR}/bin/pip$MAJOR_VER ]; then
-    curl -L https://bootstrap.pypa.io/get-pip.py | ${LOCAL_DIR}/bin/python$MAJOR_VER
-  fi
-}
-
-PYTHON2_VER='2.7.14'
-PYTHON3_VER='3.6.3'
-INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
-INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
-
-#if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
-  #install_python $PYTHON2_VER
-#else
-  #gecho "Python $PYTHON2_VER is already installed"
-#fi
-
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON3_VER ] || [ $PYTHON3_VER != $INSTALLED_PYTHON3_VER ]; then
-  install_python $PYTHON3_VER
+  brew install python3
 else
-  gecho "Python $PYTHON3_VER is already installed"
+  source "$HOME/.bashrc"
+
+  iecho "Python installation.. install location: $LOCAL_DIR"
+
+  function install_python {
+    VER=$1
+    WORKDIR="/tmp/tmp_$VER"
+    mkdir -p $WORKDIR && cd $WORKDIR
+    curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
+    cd Python-$VER
+    LDFLAGS="-L${LOCAL_DIR}/lib -L${LOCAL_DIR}/lib64" ./configure \
+      --prefix=${LOCAL_DIR} \
+      --enable-shared \
+      --enable-unicode=ucs4 \
+      --with-threads \
+      --with-system-ffi \
+      --without-ensurepip
+    make -s -j${NPROC}
+    make -s install 1>/dev/null
+    rm -rf $WORKDIR
+
+    cd $HOME
+    MAJOR_VER=$(echo $VER | awk -F'.' '{print $1}')
+    if [ ! -f ${LOCAL_DIR}/bin/pip$MAJOR_VER ]; then
+      curl -L https://bootstrap.pypa.io/get-pip.py | ${LOCAL_DIR}/bin/python$MAJOR_VER
+    fi
+  }
+
+  PYTHON2_VER='2.7.14'
+  PYTHON3_VER='3.6.3'
+  INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
+  INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
+
+  #if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
+    #install_python $PYTHON2_VER
+  #else
+    #gecho "Python $PYTHON2_VER is already installed"
+  #fi
+
+  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON3_VER ] || [ $PYTHON3_VER != $INSTALLED_PYTHON3_VER ]; then
+    install_python $PYTHON3_VER
+  else
+    gecho "Python $PYTHON3_VER is already installed"
+  fi
 fi
 
 #pip2 install -Uq pip
