@@ -30,11 +30,16 @@ iecho "Dependencies installation.. install location: $LOCAL_DIR"
 if [ $OS == "mac" ]; then
     set +e
     xcode-select --install
-    which -s brew
+    which brew 1>/dev/null
     if [ $? != 0 ];then
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     else
         brew update
+    fi
+    BASH_VER=$(bash --version | head -n1 | cut -d' ' -f4 | cut -d'(' -f1)
+    if compare_version $BASH_VER '4'; then
+      brew install bash
+      sudo bash -c 'echo /usr/local/bin/bash >> /etc/shells'
     fi
 fi
 
