@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 #    set profile function to bashrc
 #     - Modified https://github.com/dkim010/settings/set_profile.sh

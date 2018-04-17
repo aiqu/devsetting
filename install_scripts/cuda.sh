@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 #    CUDA & Cudnn installer
 #     - Refered nvidia cuda dockerfile
