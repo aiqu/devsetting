@@ -48,9 +48,9 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];th
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip
   cd $FOLDER
-  ./bootstrap --prefix=${LOCAL_DIR} --parallel=$(nproc) --no-system-libs --system-curl
+  ./bootstrap --prefix=${LOCAL_DIR} --parallel=${NPROC} --no-system-libs --system-curl
 
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $PWD && rm -rf $TMP_DIR

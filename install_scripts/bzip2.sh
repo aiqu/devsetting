@@ -46,10 +46,10 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xz
   cd $FOLDER
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install PREFIX=${LOCAL_DIR} 1>/dev/null
   make -s -f Makefile-libbz2_so clean
-  make -s -f Makefile-libbz2_so -j$(nproc)
+  make -s -f Makefile-libbz2_so -j${NPROC}
   cp -a libbz2.so* ${LOCAL_DIR}/lib
   SHAREDLIB=$(find . -name 'libbz2.so*' -type f)
   ln -s $SHAREDLIB ${LOCAL_DIR}/lib/libbz2.so

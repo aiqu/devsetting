@@ -112,7 +112,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
       -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY \
       ..
   fi
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 else
   gecho "OpenCV $VER is already installed"

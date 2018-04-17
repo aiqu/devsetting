@@ -46,7 +46,7 @@ else
   curl -L $REPO_URL | tar xz
   cd $FOLDER
   ./configure --prefix=${LOCAL_DIR} --enable-widec --without-develop --without-cxx-binding --with-shared CPPFLAGS='-P'
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
   ln -sf ${LOCAL_DIR}/include/ncursesw/*.h ${LOCAL_DIR}/include/
   ln -sf libncursesw.so ${LOCAL_DIR}/lib/libcurses.so

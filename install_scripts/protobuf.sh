@@ -55,8 +55,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ];
   mv protobuf-$VER protobuf && cd protobuf
   ./autogen.sh
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
-  make -s check -j$(nproc)
+  make -s -j${NPROC}
+  make -s check -j${NPROC}
   make -s install 1>/dev/null
 else
   gecho "$PKG_NAME $VER is already installed"

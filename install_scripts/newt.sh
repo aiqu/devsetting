@@ -44,7 +44,7 @@ if [ ! -r $VERFILE ] || [ $INSTALLED_VER != $VER ];then
   curl -L ftp://space.mit.edu/pub/davis/slang/v2.1/slang-2.1.4.tar.gz | tar xz
   cd slang-2.1.4
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
@@ -61,7 +61,7 @@ if [ ! -f $VERFILE ];then
   curl -L http://rpm5.org/files/popt/popt-1.16.tar.gz | tar xz
   cd popt-1.16
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
@@ -83,7 +83,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $VER != $INSTALLED_VER ];th
   curl -L $DOWN_URL | tar xz
   cd $FOLDER
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

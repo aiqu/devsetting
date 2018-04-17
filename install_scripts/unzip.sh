@@ -44,9 +44,9 @@ if [ ! -z $REINSATLL ] || [ ! -f ${LOCAL_DIR}/bin/unzip ]; then
   curl -L $REPO_URL | tar xz
   cd $FOLDER
   if [ $OS == 'mac' ]; then
-    make -s -f macos/Makefile -j$(nproc) generic
+    make -s -f macos/Makefile -j${NPROC} generic
   else
-    make -s -f unix/Makefile -j$(nproc) generic
+    make -s -f unix/Makefile -j${NPROC} generic
   fi
   make -s prefix=${LOCAL_DIR} MANDIR=${LOCAL_DIR}/share/man/man1 -f unix/Makefile install
 

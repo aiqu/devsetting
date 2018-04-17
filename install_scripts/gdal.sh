@@ -50,7 +50,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   cd $FOLDER
   ./autogen.sh
   ./configure --prefix=${LOCAL_DIR} --with-libjson-c=internal
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

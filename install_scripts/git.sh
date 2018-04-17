@@ -64,7 +64,7 @@ else
   export LDFLAGS=-L${LOCAL_DIR}/lib
   make -s configure
   ./configure --prefix=${LOCAL_DIR} --with-openssl --with-curl
-  make -s -j$(nproc) all
+  make -s -j${NPROC} all
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

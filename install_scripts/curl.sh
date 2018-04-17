@@ -80,7 +80,7 @@ if [ ! -z $REINSTALL ] || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
     --enable-shared \
     --enable-cookies \
     --with-libssh2
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

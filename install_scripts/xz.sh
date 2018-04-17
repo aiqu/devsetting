@@ -49,7 +49,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $DOWN_URL | tar xz
   cd $FOLDER
   ./configure --prefix=${LOCAL_DIR} --disable-debug
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

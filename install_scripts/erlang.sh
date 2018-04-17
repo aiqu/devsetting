@@ -50,7 +50,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   export ERL_TOP=$(pwd)
   ./otp_build autoconf
   ./configure --prefix=${LOCAL_DIR} --with-ssl=${LOCAL_DIR}/include/openssl --with-ssl-rpath=${LOCAL_DIR}/lib
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

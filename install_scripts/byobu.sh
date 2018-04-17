@@ -48,7 +48,7 @@ if [ ! -z $REINSTALL ] || [ ! -x ${LOCAL_DIR}/bin/byobu ];then
   cd byobu && git pull
   ./autogen.sh
   ./configure --prefix="${LOCAL_DIR}"
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 else
   gecho "$PKG_NAME is already installed"

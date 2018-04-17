@@ -54,7 +54,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   cd $FOLDER
   ./autogen.sh
   ./configure --prefix=${LOCAL_DIR} --with-sysroot=${LOCAL_DIR}/local
-  make -s -j$(nproc) && make -s install 1>/dev/null
+  make -s -j${NPROC} && make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
 else

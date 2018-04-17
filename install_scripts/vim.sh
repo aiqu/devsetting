@@ -73,7 +73,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
     sed -i 's/#prefix = \$(HOME)/prefix = '$LOCAL_DIR_STR'/' src/Makefile
   fi
 
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $PWD

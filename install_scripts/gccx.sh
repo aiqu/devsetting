@@ -83,7 +83,7 @@ function install_gcc() {
     --with-arch=core2 \
     --with-language=c,c++,fortran,go \
     --program-suffix=$SUFFIX
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install-strip 1>/dev/null
   unset CFLAGS CXXFLAGS
   cd $ROOT && rm -rf $WORKDIR

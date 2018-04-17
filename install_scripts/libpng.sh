@@ -52,7 +52,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   export LDFLAGS="-L${LOCAL_DIR}/lib"
   ./autogen.sh
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
   unset LDFLAGS
 

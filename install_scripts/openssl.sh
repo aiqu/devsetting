@@ -49,7 +49,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz
   cd $FOLDER
   ./config --prefix=${LOCAL_DIR} threads
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install_sw 1>/dev/null
   make -s install_man_docs 1>/dev/null
 

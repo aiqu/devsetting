@@ -49,7 +49,7 @@ set -e
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
   
 else

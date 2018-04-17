@@ -59,7 +59,7 @@ if [ ! -z $REINSTALL ] || [ $VERSTR != $INSTALLED_VERSION ];then
   fi
   cd boost_$VERSTR
   ./bootstrap.sh --prefix=${LOCAL_DIR}
-  ./b2 -j$(nproc)
+  ./b2 -j${NPROC}
   ./b2 install
 else
   gecho "$PKG_NAME $VER is already installed"

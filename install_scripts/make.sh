@@ -54,7 +54,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
     sh build.sh
     ./make -s install 1>/dev/null
   else
-    make -s -j$(nproc)
+    make -s -j${NPROC}
     make -s install 1>/dev/null
   fi
 

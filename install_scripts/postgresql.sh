@@ -44,7 +44,7 @@ if [ -z $REINSTALL ] && [ ! -f $BIN ];then
   curl -L $REPO_URL | tar xj
   cd $FOLDER
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

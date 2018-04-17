@@ -32,6 +32,7 @@ TMP_DIR=${TMP_DIR:-/tmp/devsetting}
 
 if [ $(echo $OSTYPE | grep 'linux') ];then
     ENVFILE="$HOME/.bashrc"
+    NPROC=${NPROC}
     if [[ -f /etc/os-release ]]; then
         OS=$(cat /etc/os-release | grep ^ID= | sed 's/ID=[^a-zA-Z]*\([a-zA-Z]\+\)[^a-zA-Z]*/\1/')
     elif [ $(which yum 2>/dev/null) ]; then
@@ -42,6 +43,7 @@ if [ $(echo $OSTYPE | grep 'linux') ];then
     fi
 elif [ $(echo $OSTYPE | grep 'darwin') ];then
     ENVFILE="$HOME/.bash_profile"
+    NPROC=$(sysctl -n hw.physicalcpu)
     OS="mac"
 else
     eecho "Unkown distro"

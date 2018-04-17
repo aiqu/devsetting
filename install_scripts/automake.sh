@@ -50,7 +50,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INST
   curl -L $DOWN_URL$VER.tar.xz | tar xJ
   cd $FOLDER
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

@@ -45,7 +45,7 @@ if [ ! -z $REINSTALL] || [ ! -f ${LOCAL_DIR}/bin/which ]; then
   cd $FOLDER
   autoconf
   ./configure --prefix=${LOCAL_DIR}
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR

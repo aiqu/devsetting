@@ -47,7 +47,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERS
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   mkdir -p build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DCMAKE_CXX_FLAGS="-O2 -pipe" -DCMAKE_C_FLAGS="-O2 -pipe" ..
-  make -s -j$(nproc)
+  make -s -j${NPROC}
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
