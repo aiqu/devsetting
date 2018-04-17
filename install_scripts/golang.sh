@@ -53,7 +53,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERS
     iecho "Cannot find go 1.4 for bootstrap. Install it first"
     mkdir -p $TMP_DIR && cd $TMP_DIR
     curl -L $BOOTSTRAP_TOOLCHAIN | tar xz && cd go/src
-    GOROOT_FINAL=$BOOTSTRAP_DIR ./make.bash
+    CGO_ENABLED=0 GOROOT_FINAL=$BOOTSTRAP_DIR ./make.bash
     rm -rf $BOOTSTRAP_DIR && mv $TMP_DIR/go $BOOTSTRAP_DIR
   fi
 
