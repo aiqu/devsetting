@@ -4,8 +4,10 @@ export GOPATH=$HOME/workspace/golang
 export TERM="xterm-256color"
 export BYOBU_CONFIG_DIR=$HOME/.byobu
 export BYOBU_PREFIX=${LOCAL_DIR}
-export LC_ALL='en_US.utf8'
-export LANG='en_US.utf8'
+if [ ! $(echo $OSTYPE | grep 'darwin') ]; then
+  export LC_ALL='en_US.utf8'
+  export LANG='en_US.utf8'
+fi
 export EDITOR=vim
 export TMUX_TMPDIR=$HOME/.tmux
 mkdir -p $TMUX_TMPDIR ${LOCAL_DIR} $GOROOT $GOPATH $HOME/.lib
