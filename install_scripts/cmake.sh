@@ -56,6 +56,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];th
   make -s install 1>/dev/null
 
   cd $PWD && rm -rf $TMP_DIR
+  hash -r
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
