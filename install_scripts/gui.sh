@@ -38,9 +38,6 @@ if [ -z $XDG_CURRENT_DESKTOP ];then
     exit 1
 fi
 
-WORKDIR=$ROOT/tmp
-mkdir -p $WORKDIR
-
 #install prerequisite
 ${SUDO} add-apt-repository -y ppa:moka/daily
 ${SUDO} apt-get update && sudo apt-get upgrade -y
@@ -49,27 +46,21 @@ ${SUDO} apt-get install -y libgtk-3-dev libvte-2.91-dev gnome-themes-standard gt
 #install terminator
 ${SUDO} apt-get install -y terminator
 
-# install nanum gothic coding font
-FILENAME=nanum.zip
-curl -L https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip -o $FILENAME && unzip -q $FILENAME NanumGothic* -d $HOME/.fonts && rm $FILENAME
+# install coding font
+FILENAME=font.zip
+curl -L https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip -o $FILENAME && unzip -fq $FILENAME NanumGothic* -d $HOME/.fonts && rm $FILENAME
+curl -L https://github.com/naver/d2codingfont/releases/download/VER1.3.1/D2Coding-Ver1.3.1-20180115.zip -o $FILENAME && unzip -fq $FILENAME D2Coding* -d $HOME/.fonts && rm $FILENAME
 ${SUDO} fc-cache
 
 #install Arc-theme and Moka icon theme
-cd $WORKDIR
-ARCFILE=arc.zip
-ARCFOLDER=arc-theme-master
-curl -L https://github.com/horst3180/arc-theme/archive/master.zip -o $ARCFILE && unzip -q $ARCFILE
-cd $ARCFOLDER
-./autogen.sh --prefix=${LOCAL_DIR}
-make -s install 1>/dev/null
+curl -L https://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/all/arc-theme_1488477732.766ae1a-0_all.deb -o arc-theme.deb
+${SUDO} dpkg -i arc-theme.deb
+rm arc-theme.deb
 
-cd $WORKDIR
-ARCICONFILE=arc-icon.zip
-ARCICONFOLDER=arc-icon-theme
-git clone https://github.com/horst3180/arc-icon-theme/archive/master.zip -o $ARCICONFILE && unzip -q $ARCICONFILE
-cd $ARCICONFOLDER
-./autogen.sh --prefix=${LOCAL_DIR}
-make -s install 1>/dev/null
+mkdir -p $TMP_DIR && cd $TMP_DIR
+git clone https://github.com/horst3180/arc-icon-theme --depth 1 && cd arc-icon-theme
+./autogen.sh
+${SUDO} make -j${NPROC} install
 
-cd $PWD
-rm -rf $WORKDIR
+cd $ROOT
+rm -rf $TMP_DIR
