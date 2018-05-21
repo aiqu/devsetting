@@ -32,6 +32,7 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
+. $ROOT/cmake.sh
 
 PKG_NAME="eigen"
 REPO_URL="https://github.com/RLovelett/eigen"
