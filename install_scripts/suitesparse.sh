@@ -31,7 +31,7 @@ let DONE$FILENAME=1
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
-. $ROOT/blas.sh
+. $ROOT/install_scripts/blas.sh
 
 PKG_NAME="SuiteSparse"
 PWD=$(pwd)
