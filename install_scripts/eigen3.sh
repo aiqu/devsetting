@@ -35,7 +35,7 @@ PWD=$(pwd)
 . $ROOT/install_scripts/cmake.sh
 
 PKG_NAME="eigen"
-REPO_URL="https://github.com/RLovelett/eigen"
+REPO_URL="https://github.com/eigenteam/eigen-git-mirror"
 TAG=$(git ls-remote -t $REPO_URL | cut -d/ -f3 | grep -v -e '{}\|[^0-9\.]' | sort -V | tail -n1)
 VER=$TAG
 FOLDER="$PKG_NAME*"
