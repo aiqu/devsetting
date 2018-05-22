@@ -41,8 +41,8 @@ go get -d github.com/tensorflow/tensorflow/tensorflow/go
 cd ${GOPATH}/src/github.com/tensorflow/tensorflow
 ./configure
 bazel build --config opt //tensorflow:libtensorflow.so
-ln -s ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow.so ${LOCAL_DIR}/lib
-ln -s ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow_framework.so ${LOCAL_DIR}/lib
+ln -sf ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow.so ${LOCAL_DIR}/lib
+ln -sf ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow_framework.so ${LOCAL_DIR}/lib
 go test github.com/tensorflow/tensorflow/tensorflow/go
 
 cd $ROOT
