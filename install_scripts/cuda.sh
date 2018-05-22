@@ -90,13 +90,27 @@ elif [ $OS == "centos" ];then
 
     printf "[cuda]\nname=cuda\nbaseurl=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64\nenabled=1\ngpgcheck=1\ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" > /etc/yum.repos.d/cuda.repo
 
-    yum install -y cuda-9-0
-        
-    CUDNN_DOWNLOAD_SUM=d2038dca6e6070aa6879d827fa6c032c942514a6b9bddf5ade275670ca474b9c && \
-    curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.1/cudnn-9.0-linux-x64-v7.1.tgz -O && \
+    CUDA_VERSION=9.0.176
+    CUDA_PKG_VERSION=9-0-${CUDA_VERSION}-1
+
+    yum install -y cuda-cudart-${CUDA_PKG_VERSION} \
+      cuda-libraries-${CUDA_PKG_VERSION}
+    ln -s cuda-9.0 /usr/local/cuda
+    echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
+    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+    if [ -z $RUNTIMEONLY ];then
+      yum install -y cuda-libraries-dev-${CUDA_PKG_VERSION} \
+        cuda-nvml-dev-${CUDA_PKG_VERSION} \
+        cuda-minimal-build-${CUDA_PKG_VERSION} \
+        cuda-comand-line-tools-${CUDA_PKG_VERSION}
+        echo "/usr/local/cuda/lib64/stubs" >> /etc/ld.so.conf.d/nvidia.conf
+    fi
+    rm -rf /var/cache/yum/*
+
+    CUDNN_DOWNLOAD_SUM=60b581d0f05324c33323024a264aa3fb185c533e2f67dae7fda847b926bb7e57 && \
+    curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.4/cudnn-9.0-linux-x64-v7.1.tgz -O && \
     echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.0-linux-x64-v7.1.tgz" | sha256sum -c - && \
-    tar --no-same-owner -xzf cudnn-9.0-linux-x64-v7.1.tgz -C /usr/local && \
+    tar --no-same-owner -xzf cudnn-9.0-linux-x64-v7.1.tgz -C /usr/local --wildcards 'cuda/lib64/libcudnn.so.*' && \
     rm cudnn-9.0-linux-x64-v7.1.tgz && \
     ldconfig
-
 fi
