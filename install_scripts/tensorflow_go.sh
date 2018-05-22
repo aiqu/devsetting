@@ -32,7 +32,7 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
-. $ROOT/install_scripts/go.sh
+. $ROOT/install_scripts/golang.sh
 . $ROOT/install_scripts/bazel.sh
 
 TARGET_DIRECTORY=${LOCAL_DIR}
@@ -40,7 +40,7 @@ TARGET_DIRECTORY=${LOCAL_DIR}
 go get -d github.com/tensorflow/tensorflow/tensorflow/go
 cd ${GOPATH}/src/github.com/tensorflow/tensorflow
 ./configure
-bazel --build --config opt //tensorflow:libtensorflow.so
+bazel build --config opt //tensorflow:libtensorflow.so
 ln -s ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow.so ${LOCAL_DIR}/lib
 ln -s ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow_framework.so ${LOCAL_DIR}/lib
 go test github.com/tensorflow/tensorflow/tensorflow/go
