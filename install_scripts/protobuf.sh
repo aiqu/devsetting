@@ -53,7 +53,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ];
   unzip -q ${TAG}.zip && rm -rf ${TAG}.zip protobuf
   mv protobuf-$VER protobuf && cd protobuf
   ./autogen.sh
-  ./configure --prefix=${LOCAL_DIR}
+  ./configure --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64
   make -s -j${NPROC}
   make -s check -j${NPROC}
   make -s install 1>/dev/null
