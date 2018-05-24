@@ -79,3 +79,7 @@ elif [ $OS == "mac" ];then
     curl -L https://download.docker.com/mac/stable/Docker.dmg -o $HOME/Docker.dmg
     iecho "Run $HOME/Docker.dmg manually"
 fi
+
+# Install docker-compose
+${SUDO} curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
+${SUDO} chmod +x /usr/bin/docker-compose
