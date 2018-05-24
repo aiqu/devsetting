@@ -33,7 +33,9 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 . $ROOT/install_scripts/golang.sh
+VER=0.10.1
 . $ROOT/install_scripts/bazel.sh
+unset VER
 
 TARGET_DIRECTORY=${LOCAL_DIR}
 

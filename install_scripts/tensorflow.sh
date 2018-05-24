@@ -40,7 +40,9 @@ TF_PKG_DIR=${HOME}/.lib/tensorflow_pkg
 pip2 install numpy scipy
 pip3 install numpy scipy
 . $ROOT/install_scripts/jdk8.sh
+VER=0.10.1
 . $ROOT/install_scripts/bazel.sh
+unset VER
 
 #install tensorflow
 go get -d github.com/tensorflow/tensorflow/tensorflow/go
