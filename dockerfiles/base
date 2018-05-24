@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-ARG BASEIMG=centos_7_dev:latest
+ARG BASEIMG=centos7_dev:latest
 FROM gwangmin/$BASEIMG
 
 ARG CFLAGS="-march=core2 -O2 -pipe"

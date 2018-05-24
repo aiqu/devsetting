@@ -16,14 +16,14 @@ jobs:
   include:
     - stage: build docker image
       if: type != cron
-      env: BASEIMG=centos_7_dev TAG=latest
+      env: BASEIMG=centos7_dev TAG=latest
       script:
         - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
         - docker push gwangmin/base:$TAG
 
     - stage: build basic docker image
       if: type = cron
-      env: DOCKERFILE_NAME=centos_7_dev
+      env: DOCKERFILE_NAME=centos7_dev
       script:
         - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
         - docker push gwangmin/${DOCKERFILE_NAME}:latest

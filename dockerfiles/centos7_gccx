@@ -17,11 +17,12 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-FROM gwangmin/centos_7_dev:latest
+FROM gwangmin/centos7_dev:latest
 
 ARG CFLAGS="-O2 -pipe"
+ARG GCCVER=5
 
 RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
         git clone --depth 1 https://github.com/aiqu/devsetting.git $HOME/devsetting && \
-        sudo LOCAL_DIR=/usr bash $HOME/devsetting/install_scripts/gcc5.sh && \
+        sudo LOCAL_DIR=/usr bash $HOME/devsetting/install_scripts/gcc${GCCVER}.sh && \
         rm -rf $HOME/devsetting
