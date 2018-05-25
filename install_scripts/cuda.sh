@@ -95,7 +95,7 @@ elif [ $OS == "centos" ];then
 
     yum install -y cuda-cudart-${CUDA_PKG_VERSION} \
       cuda-libraries-${CUDA_PKG_VERSION}
-    ln -s cuda-9.0 /usr/local/cuda
+    ln -fs cuda-9.0 /usr/local/cuda
     echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
     echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
     if [ -z $RUNTIMEONLY ];then
