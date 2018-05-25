@@ -103,7 +103,6 @@ elif [ $OS == "centos" ];then
         cuda-nvml-dev-${CUDA_PKG_VERSION} \
         cuda-minimal-build-${CUDA_PKG_VERSION} \
         cuda-comand-line-tools-${CUDA_PKG_VERSION}
-        echo "/usr/local/cuda/lib64/stubs" >> /etc/ld.so.conf.d/nvidia.conf
     fi
     rm -rf /var/cache/yum/*
 
