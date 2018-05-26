@@ -42,7 +42,7 @@ source $ROOT/envset.sh
 WORKDIR=$HOME/.lib
 PKG_NAME="protobuf"
 REPO_URL=https://github.com/google/protobuf
-TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
+TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}\|rc' | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//' -)
 INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ]; then
