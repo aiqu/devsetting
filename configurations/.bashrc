@@ -18,7 +18,8 @@ MY_LIBRARY_DIR=${LOCAL_DIR}/lib:${LOCAL_DIR}/lib64
 SYSTEM_LIBRARY_DIR="/usr/local/lib:/usr/local/lib64:/usr/lib:/usr/lib64"
 MY_PKG_CONFIG_DIR=${LOCAL_DIR}/share/pkgconfig:${LOCAL_DIR}/lib/pkgconfig:${LOCAL_DIR}/lib64/pkgconfig
 MY_MANPATH=$HOME/.local/share/man:/usr/local/share/man:/usr/share/man
-MY_PATH=$GOPATH/bin:${LOCAL_DIR}/bin:$HOME/bin
+YARN_BIN=$(yarn global bin 2>/dev/null)
+MY_PATH=$GOPATH/bin:${LOCAL_DIR}/bin:$HOME/bin${YARN_BIN:+":$YARN_BIN"}
 
 [[ ! $PATH == *"$MY_PATH"* ]] && \
   export PATH=${MY_PATH}${PATH:+":$PATH"}
