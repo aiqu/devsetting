@@ -52,7 +52,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INST
   make -s -f Makefile-libbz2_so -j${NPROC}
   cp -af libbz2.so* ${LOCAL_DIR}/lib
   SHAREDLIB=$(find . -name 'libbz2.so*' -type f)
-  ln -s $SHAREDLIB ${LOCAL_DIR}/lib/libbz2.so
+  ln -sf $SHAREDLIB ${LOCAL_DIR}/lib/libbz2.so
 
   cd $ROOT && rm -rf $TMP_DIR
 else
