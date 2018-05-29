@@ -48,6 +48,10 @@ if [ $OS == "ubuntu" ];then
        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
        $(lsb_release -cs) \
        stable"
+    ${SUDO} add-apt-repository -y \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       edge"
     ${SUDO} apt-get update -y
     ${SUDO} apt install -y docker-ce
 elif [ $OS == "debian" ];then
@@ -64,6 +68,10 @@ elif [ $OS == "debian" ];then
        "deb [arch=amd64] https://download.docker.com/linux/debian \
        $(lsb_release -cs) \
        stable"
+    ${SUDO} add-apt-repository -y \
+       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       $(lsb_release -cs) \
+       edge"
     ${SUDO} apt-get update -y
     ${SUDO} apt install -y docker-ce
 elif [ $OS == "centos" ];then
