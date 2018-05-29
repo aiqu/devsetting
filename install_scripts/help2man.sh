@@ -34,10 +34,9 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="help2man"
-REPO_URL="https://anonscm.debian.org/git/users/bod/help2man.git"
-TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
-VER=$(echo $TAG | sed 's/v//')
-DOWN_URL="http://ftpmirror.gnu.org/help2man/help2man-$VER.tar.xz"
+REPO_URL="http://ftp.kaist.ac.kr/gnu/help2man/help2man-1.47.6.tar.xz"
+TAG=$(echo $REPO_URL | cut -d'-' -f2 | sed 's/.tar.xz//')
+VER=$TAG
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=$(help2man --version | head -n1 | cut -d' ' -f3)
 
@@ -45,7 +44,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INST
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $DOWN_URL | tar xJ
+  curl -L $REPO_URL | tar xJ
   cd $FOLDER
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
