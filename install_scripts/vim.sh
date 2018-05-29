@@ -37,7 +37,11 @@ REPO_URL=https://github.com/vim/vim
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 VER=$TAG
 FOLDER="vim-$(echo $TAG | sed 's/v//')"
-INSTALLED_VERSION=v$(vim --version | head -1 | awk '{print $5}').$(vim --version | grep 'patches:'| awk -F'-' '{print $2}' | cut -d',' -f1)
+if hash vim 2>/dev/null;then
+  INSTALLED_VERSION=v$(vim --version | head -1 | awk '{print $5}').$(vim --version | grep 'patches:'| awk -F'-' '{print $2}' | cut -d',' -f1)
+else
+  INSTALLED_VERSION=
+fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
