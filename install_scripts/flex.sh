@@ -49,7 +49,7 @@ else
     INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
   fi
 
-  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
     # install bootstraping flex if no installation exists
     if [ -z $INSTALLED_VERSION ]; then
       mkdir -p $TMP_DIR && cd $TMP_DIR

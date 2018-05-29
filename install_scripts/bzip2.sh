@@ -40,7 +40,7 @@ REPO_URL="http://www.bzip.org/$TAG/bzip2-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=$(${LOCAL_DIR}/bin/bzip2 -h 2>&1 | head -n1 | cut -d' ' -f8 | sed 's/,//')
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

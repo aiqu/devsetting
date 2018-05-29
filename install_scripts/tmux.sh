@@ -34,16 +34,15 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/install_scripts/libevent.sh
 . $ROOT/install_scripts/ncurses.sh
-. $ROOT/install_scripts/newt.sh
 
-PKG_NMAE="tmux"
+PKG_NAME="tmux"
 REPO_URL=https://github.com/tmux/tmux
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
 VER=$TAG
 FOLDER="tmux-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=$(tmux -V | cut -d' ' -f2)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
   iecho "$PKG_NAME $TAG installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

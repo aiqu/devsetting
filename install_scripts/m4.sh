@@ -49,7 +49,7 @@ else
   INSTALLED_VERSION=$(m4 --version 2>/dev/null | head -n1 | cut -d' ' -f4)
   set -e
 
-  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
     ./configure --prefix=${LOCAL_DIR}
     make -s -j${NPROC}

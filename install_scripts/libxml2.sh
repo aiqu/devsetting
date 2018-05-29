@@ -41,7 +41,7 @@ FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/libxml2/libxml/xmlversion.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define LIBXML_DOTTED_VERSION "' | cut -d'"' -f2)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

@@ -41,7 +41,7 @@ FOLDER="proj*"
 VERFILE="${LOCAL_DIR}/include/proj_api.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define PJ_VERSION ' | cut -d' ' -f3)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $VER != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
