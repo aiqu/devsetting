@@ -50,7 +50,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INST
   make -s install PREFIX=${LOCAL_DIR} 1>/dev/null
   make -s -f Makefile-libbz2_so clean
   make -s -f Makefile-libbz2_so -j${NPROC}
-  cp -a libbz2.so* ${LOCAL_DIR}/lib
+  cp -af libbz2.so* ${LOCAL_DIR}/lib
   SHAREDLIB=$(find . -name 'libbz2.so*' -type f)
   ln -s $SHAREDLIB ${LOCAL_DIR}/lib/libbz2.so
 
