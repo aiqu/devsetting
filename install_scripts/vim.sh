@@ -93,7 +93,7 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INST
 
   ${LOCAL_DIR}/bin/vim +PluginInstall +PluginUpdate +qall
   unzip -qu $ROOT/resources/taglist_46.zip -d ~/.vim/
-  cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim80/syntax/ejs.vim
+  cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim81/syntax/ejs.vim
 
   if [[ ! -d $HOME/.vim/pack/plugins/start/vim-go ]]; then
     git clone https://github.com/fatih/vim-go.git $HOME/.vim/pack/plugins/start/vim-go
