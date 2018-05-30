@@ -81,10 +81,10 @@ function compare_version {
     return 1
   fi
 
-  if [ "$(echo -e "$1\n$2" | sort -V | head -n1)" = "$1" ];then
-    return 0
-  else
+  if [ "$(echo -e "$1\n$2" | sort -V | head -n1)" = "$2" ];then
     return 1
+  else
+    return 0
   fi
 }
 
