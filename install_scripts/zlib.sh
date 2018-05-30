@@ -38,11 +38,12 @@ TAG='1.2.11'
 VER=$TAG
 REPO_URL="https://zlib.net/zlib-$TAG.tar.xz"
 FOLDER="$PKG_NAME*"
+INSTALLED_VERSION=
 if pkg-config zlib --exists; then
   INSTALLED_VERSION=$(pkg-config zlib --modversion)
 fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

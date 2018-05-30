@@ -39,9 +39,12 @@ VER=$TAG
 REPO_URL="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(pcregrep --version | cut -d' ' -f3)
+INSTALLED_VERSION=
+if hash pcregrep 2>/dev/null;then
+  INSTALLED_VERSION=$(pcregrep --version | cut -d' ' -f3)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

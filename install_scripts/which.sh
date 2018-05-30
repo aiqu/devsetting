@@ -37,7 +37,7 @@ PKG_NAME="which"
 REPO_URL="http://ftp.gnu.org/gnu/which/which-2.21.tar.gz"
 FOLDER="$PKG_NAME*"
 
-if [ ! -z $REINSTALL] || [ ! -f ${LOCAL_DIR}/bin/which ]; then
+if [ ! -z $REINSTALL] || ! $(hash which 2>/dev/null); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

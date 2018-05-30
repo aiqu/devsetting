@@ -38,9 +38,12 @@ TAG='6.5'
 VER=$TAG
 REPO_URL="https://ftp.gnu.org/gnu/texinfo/texinfo-$TAG.tar.xz"
 FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=$(makeinfo --version 2>/dev/null | head -n1 | cut -d' ' -f4)
+INSTALLED_VERSION=
+if hash makeinfo 2>/dev/null;then
+  INSTALLED_VERSION=$(makeinfo --version 2>/dev/null | head -n1 | cut -d' ' -f4)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

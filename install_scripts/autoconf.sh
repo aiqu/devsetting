@@ -38,9 +38,12 @@ TAG='2.69'
 REPO_URL="http://ftp.gnu.org/gnu/autoconf/autoconf-$TAG.tar.gz"
 VER=$TAG
 FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=$(${LOCAL_DIR}/bin/autoconf --version | head -n1 | cut -d' ' -f4)
+INSTALLED_VERSION=
+if hash autoconf 2>/dev/null;then
+  INSTALLED_VERSION=$(autoconf --version | head -n1 | cut -d' ' -f4)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

@@ -43,9 +43,12 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1
 VER=$(echo $TAG | cut -d'-' -f2)
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(nginx -v 2>&1 | cut -d/ -f2)
+INSTALLED_VERSION=
+if hash nginx 2>/dev/null;then
+  INSTALLED_VERSION=$(nginx -v 2>&1 | cut -d/ -f2)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z "$INSTALLED_VERSION" ] || [ $VER != "$INSTALLED_VERSION" ]; then
+if [ ! -z $REINSTALL ] || [ -z "$INSTALLED_VERSION" ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

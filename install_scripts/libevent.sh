@@ -39,11 +39,12 @@ TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | gre
 FOLDER="libevent-$TAG"
 VER=$(echo $TAG | awk -F'-' '{print $2}')
 VERFILE="${LOCAL_DIR}/include/event2/event-config.h"
+INSTALLED_VERSION=
 if [ -r $VERFILE ];then
   INSTALLED_VERSION=$(grep PACKAGE_VERSION $VERFILE | cut -d'"' -f2)
 fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

@@ -38,8 +38,9 @@ REPO_URL="https://github.com/RainerKuemmerle/g2o"
 TAG="master"
 VER="master"
 FOLDER="$PKG_NAME*"
+INSTALLED_VERSION=
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

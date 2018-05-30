@@ -45,11 +45,12 @@ else
   cd $FOLDER
 
   VER=$(pwd | cut -d'-' -f2)
-  set +e
-  INSTALLED_VERSION=$(m4 --version 2>/dev/null | head -n1 | cut -d' ' -f4)
-  set -e
+  INSTALLED_VERSION=
+  if hash m4 2>/dev/null;then
+    INSTALLED_VERSION=$(m4 --version 2>/dev/null | head -n1 | cut -d' ' -f4)
+  fi
 
-  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
     ./configure --prefix=${LOCAL_DIR}
     make -s -j${NPROC}

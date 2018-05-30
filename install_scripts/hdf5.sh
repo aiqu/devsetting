@@ -38,10 +38,10 @@ REPO_URL="https://support.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.10.1.tar.bz2"
 TAG='1.10.1'
 VER=$TAG
 FOLDER="$PKG_NAME*"
-VERFILE=""
-INSTALLED_VERSION=$()
+VERFILE=$LOCAL_DIR/share/cmake/hdf5-config-version.cmake
+INSTALLED_VERSION=$(cat $VERFILE | grep 'set (PACKAGE_VERSION "' | cut -d'"' -f2)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

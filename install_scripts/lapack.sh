@@ -42,11 +42,12 @@ cd $FOLDER
 TAG=$(grep VERSION README.md | cut -d' ' -f3 | sort -V | tail -n1)
 VER=$TAG
 VERFILE=""
+INSTALLED_VERSION=
 if $(pkg-config --exists $PKG_NAME);then
   INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
 fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p build && cd build

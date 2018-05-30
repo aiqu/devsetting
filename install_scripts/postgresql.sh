@@ -34,10 +34,14 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="postgresql"
-REPO_URL=https://ftp.postgresql.org/pub/source/v10.0/postgresql-10.0.tar.bz2
-BIN=${LOCAL_DIR}/bin/postgres
+VER='10.0'
+REPO_URL=https://ftp.postgresql.org/pub/source/v1${VER}/postgresql-${VER}.tar.bz2
+INSTALLED_VERSION=
+if hash postgres 2>/dev/null;then
+  INSTALLED_VERSION=$(postgres -V | cut -d' ' -f3)
+fi
 FOLDER="$PKG_NAME*"
-if [ -z $REINSTALL ] && [ ! -f $BIN ];then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER);then
   iecho "$PKG_NAME installation.."
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
@@ -49,7 +53,6 @@ if [ -z $REINSTALL ] && [ ! -f $BIN ];then
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  INSTALLED_VERSION=$($BIN -V | cut -d' ' -f3)
   gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
 fi
 

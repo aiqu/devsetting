@@ -44,8 +44,11 @@ PKG_NAME="protobuf"
 REPO_URL=https://github.com/google/protobuf
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}\|rc' | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//' -)
-INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ ! $VER == $INSTALLED_VER ]; then
+INSTALLED_VER=
+if hash protoc 2>/dev/null;then
+  INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
+fi
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   cd $WORKDIR

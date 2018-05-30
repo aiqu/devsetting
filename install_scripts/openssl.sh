@@ -40,9 +40,12 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|pre\|FIPS' | grep OpenSSL | c
 VER=$(echo $TAG | sed 's/OpenSSL.//' | sed 's/_/./g')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(openssl version | cut -d' ' -f2)
+INSTALLED_VERSION=
+if hash openssl 2>/dev/null;then
+  INSTALLED_VERSION=$(openssl version | cut -d' ' -f2)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

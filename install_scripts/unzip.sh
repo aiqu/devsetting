@@ -39,8 +39,12 @@ else
   PKG_NAME="unzip"
   REPO_URL="https://downloads.sourceforge.net/infozip/unzip60.tar.gz"
   FOLDER="$PKG_NAME*"
-
-  if [ ! -z $REINSATLL ] || [ ! -f ${LOCAL_DIR}/bin/unzip ]; then
+  VER='6.00'
+  INSTALLED_VERSION=
+  if hash unzip 2>/dev/null;then
+    INSTALLED_VERSION=$(unzip -v | head -n1 | cut -d' ' -f2)
+  fi
+  if [ ! -z $REINSATLL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
     mkdir -p $TMP_DIR && cd $TMP_DIR

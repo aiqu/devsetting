@@ -39,7 +39,10 @@ REPO_URL=https://github.com/Kitware/CMake
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="CMake-$VER"
-INSTALLED_VER=$($PKG_NAME --version 2>/dev/null | grep version | awk '{print $3}')
+INSTALLED_VER=
+if hash cmake 2>/dev/null;then
+  INSTALLED_VER=$(cmake --version 2>/dev/null | grep version | awk '{print $3}')
+fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
   iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"

@@ -38,9 +38,12 @@ REPO_URL="http://ftp.kaist.ac.kr/gnu/help2man/help2man-1.47.6.tar.xz"
 TAG=$(echo $REPO_URL | cut -d'-' -f2 | sed 's/.tar.xz//')
 VER=$TAG
 FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=$(help2man --version | head -n1 | cut -d' ' -f3)
+INSTALLED_VERSION=
+if hash help2man 2>/dev/null;then
+  INSTALLED_VERSION=$(help2man --version | head -n1 | cut -d' ' -f3)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

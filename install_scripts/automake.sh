@@ -40,10 +40,13 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|branch' | cut -d/ -f3 | sort 
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(automake --version | head -n1 | cut -d' ' -f4)
+INSTALLED_VERSION=
+if hash automake 2>/dev/null;then
+  INSTALLED_VERSION=$(automake --version | head -n1 | cut -d' ' -f4)
+fi
 REQUIRED_VERSION='1.15.1'
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $REQUIRED_VERSION) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $REQUIRED_VERSION); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

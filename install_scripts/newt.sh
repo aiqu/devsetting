@@ -38,7 +38,7 @@ PKG_NAME="slang"
 VER="2.1.4"
 VERFILE="${LOCAL_DIR}/include/slang.h"
 INSTALLED_VER=$(cat $VERFILE | grep -e 'define SLANG_VERSION_STRING "' | cut -d'"' -f2)
-if [ ! -r $VERFILE ] || [ $INSTALLED_VER != $VER ];then
+if [ ! -r $VERFILE ] || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER);then
   iecho "$PKG_NAME $VER installation.."
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L ftp://space.mit.edu/pub/davis/slang/v2.1/slang-2.1.4.tar.gz | tar xz
@@ -75,7 +75,7 @@ TAG=$(git ls-remote -t $REPO_URL | cut -d'/' -f3 | grep -v v | sort -V | tail -n
 VER=$(echo $TAG | sed 's/[r|.zip]//g' | sed 's/-/./g')
 FOLDER="newt-$VER"
 INSTALLED_VER=$(find ${LOCAL_DIR}/lib -mindepth 1 -maxdepth 1 -type f | grep newt.so | sed 's/.*libnewt.so.//')
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || [ $VER != $INSTALLED_VER ];then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER);then
   iecho "$PKG_NAME $VER installation.."
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

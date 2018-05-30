@@ -41,9 +41,9 @@ VER='7.2.0'
 DOWN_URL="http://jp2.php.net/get/php-$VER.tar.xz/from/this/mirror"
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$()
+INSTALLED_VERSION=
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

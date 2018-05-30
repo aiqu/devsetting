@@ -44,9 +44,12 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc\|beta' | grep go | cut -d/
 VER=$(echo $TAG | sed 's/go//')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(go version | cut -d' ' -f3)
+INSTALLED_VERSION=
+if hash go 2>/dev/null;then
+  INSTALLED_VERSION=$(go version | cut -d' ' -f3)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   if [ ! -x $BOOTSTRAP_DIR/bin/go ];then

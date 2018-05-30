@@ -45,14 +45,17 @@ else
   VER=$(echo $TAG | sed 's/curl-//' | sed 's/_/./g')
   FOLDER="$PKG_NAME*"
   VERFILE=""
-  INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
+  INSTALLED_VERSION=
+  if hash curl 2>/dev/null;then
+    INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
+  fi
 
   if [ ! -z $REINSTALL ] || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
     mkdir -p $TMP_DIR && cd $TMP_DIR
     curl -LO $REPO_URL/archive/$TAG.zip
-    ${LOCAL_DIR}/bin/unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+    unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
     ./buildconf
     ./configure --prefix=${LOCAL_DIR} \
       --disable-debug \

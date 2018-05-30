@@ -38,11 +38,12 @@ REPO_URL="http://download.osgeo.org/gdal/2.2.2/gdal-2.2.2.tar.gz"
 TAG=$(echo $REPO_URL | cut -d'/' -f5)
 VER=$TAG
 FOLDER="$PKG_NAME*"
+INSTALLED_VERSION=
 if $(pkg-config --exists gdal); then
   INSTALLED_VERSION=$(pkg-config --modversion gdal)
 fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

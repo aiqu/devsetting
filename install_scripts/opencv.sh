@@ -54,10 +54,11 @@ elif [ $OS == 'ubuntu' ];then
   $SUDO apt install -y libjpeg8-dev libtiff5-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk2.0-dev gfortran tesseract-ocr libtesseract-dev libleptonica-dev libatlas-dev libdc1394-22-dev
 fi
 
+INSTALLED_VERSION=
 if $(which opencv_version); then
   INSTALLED_VERSION=$(opencv_version)
 fi
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   cd $WORKDIR
   if [ ! -d opencv-${TAG} ];then

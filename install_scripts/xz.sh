@@ -40,9 +40,12 @@ VER=$(echo $TAG | sed 's/v//')
 DOWN_URL="https://tukaani.org/xz/xz-$VER.tar.gz"
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(xz -V | head -n1 | cut -d' ' -f4)
+INSTALLED_VERSION=
+if hash xz 2>/dev/null;then
+  INSTALLED_VERSION=$(xz -V | head -n1 | cut -d' ' -f4)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

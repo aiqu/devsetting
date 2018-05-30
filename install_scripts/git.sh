@@ -37,11 +37,12 @@ REPO_URL='https://github.com/git/git'
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc' | cut -d/ -f3 | sort -V | tail -n1)
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG*"
-INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
+INSTALLED_VERSION=
+if hash git 2>/dev/null;then
+  INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
+fi
 
-if [ -z $REINSTALL ] && [ $VER == $INSTALLED_VERSION ];then
-  gecho "$PKG $VER is already installed"
-else
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER);then
   iecho "$PKG $VER installation.. install location: $LOCAL_DIR"
 
   if [ $OS == "mac" ]; then
@@ -68,6 +69,8 @@ else
   make -s install 1>/dev/null
 
   cd $ROOT && rm -rf $TMP_DIR
+else
+  gecho "$PKG $VER is already installed"
 fi
 
 cd $ROOT

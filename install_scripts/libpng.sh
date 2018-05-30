@@ -39,11 +39,12 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|alpha\|beta' | cut -d/ -f3 | sor
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
 VERFILE=""
+INSTALLED_VERSION=
 if $(pkg-config --exists libpng);then
   INSTALLED_VERSION=$(pkg-config --modversion libpng)
 fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

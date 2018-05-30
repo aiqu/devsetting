@@ -73,8 +73,14 @@ else
 
   PYTHON2_VER='2.7.14'
   PYTHON3_VER='3.6.3'
-  INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
-  INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
+  INSTALLED_PYTHON2_VER=
+  if hash python2 2>/dev/null;then
+    INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
+  fi
+  INSTALLED_PYTHON3_VER=
+  if hash python3 2>/dev/null;then
+    INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
+  fi
 
   #if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
     #install_python $PYTHON2_VER
@@ -82,7 +88,7 @@ else
     #gecho "Python $PYTHON2_VER is already installed"
   #fi
 
-  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON3_VER ] || [ $PYTHON3_VER != $INSTALLED_PYTHON3_VER ]; then
+  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
     install_python $PYTHON3_VER
   else
     gecho "Python $PYTHON3_VER is already installed"

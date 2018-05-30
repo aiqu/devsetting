@@ -39,9 +39,12 @@ VER='3.21.0'
 REPO_URL="http://www.sqlite.org/2017/sqlite-autoconf-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(sqlite3 --version | cut -d' ' -f1)
+INSTALLED_VERSION=
+if hash sqlite3 2>/dev/null;then
+  INSTALLED_VERSION=$(sqlite3 --version | cut -d' ' -f1)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

@@ -44,9 +44,12 @@ VER=$(echo $TAG | sed 's/n//')
 DOWN_URL="https://ffmpeg.org/releases/ffmpeg-${VER}.tar.xz"
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=$(ffmpeg --version 2>&1 | head -n1 | cut -d' ' -f3)
+INSTALLED_VERSION=
+if hash ffmpeg 2>/dev/null;then
+  INSTALLED_VERSION=$(ffmpeg --version 2>&1 | head -n1 | cut -d' ' -f3)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

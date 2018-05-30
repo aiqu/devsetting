@@ -39,13 +39,16 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=""
+INSTALLED_VERSION=
+if hash node 2>/dev/null;then
+  INSTALLED_VERSION=$(node -v | sed 's/v//')
+fi
 
 REQUIRED_GCC_VERSION="4.9.4"
 REQUIRED_MAKE_VERSION="3.81"
 REQUIRED_PYTHON_VERSION="2.6"
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   GCC_VERSION=$(gcc --version | head -n1 | cut -d' ' -f3)

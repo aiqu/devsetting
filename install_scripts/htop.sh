@@ -40,11 +40,12 @@ VER=$TAG
 DOWN_URL="https://github.com/hishamhm/htop/archive/$VER.tar.gz"
 FOLDER="$PKG_NAME*"
 VERFILE=""
-if [ -f ${LOCAL_DIR}/bin/htop ];then
+INSTALLED_VERSION=
+if hash htop 2>/dev/null;then
   INSTALLED_VERSION=$(htop --version | head -n1 | cut -d' ' -f2)
 fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

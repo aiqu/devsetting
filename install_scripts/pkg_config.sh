@@ -39,11 +39,12 @@ TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1
 VER=$(echo $TAG | sed 's/pkg-config-//')
 FOLDER="$PKG_NAME*"
 VERFILE=""
-set +e
-INSTALLED_VERSION=$(pkg-config --version 2>/dev/null)
-set -e
+INSTALLED_VERSION=
+if hash pkg-config 2>/dev/null;then
+  INSTALLED_VERSION=$(pkg-config --version 2>/dev/null)
+fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || [ $(compare_version $INSTALLED_VERSION $VER) ]; then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

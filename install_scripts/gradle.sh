@@ -31,9 +31,12 @@ let DONE$FILENAME=1
 
 PKG_NAME='gradle'
 VER='4.3'
-INSTALLED_VERSION=$(gradle --version | grep Gradle | cut -d' ' -f2)
+INSTALLED_VERSION=
+if hash gradle 2>/dev/null;then
+  INSTALLED_VERSION=$(gradle --version | grep Gradle | cut -d' ' -f2)
+fi
 
-if [ ! -z $REINSTALL ] || [ $(compare_version $INSTALLED_VERSION $VER) ];then
+if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] ||  $(compare_version $INSTALLED_VERSION $VER);then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   WORKDIR=${LOCAL_DIR}
