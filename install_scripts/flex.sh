@@ -49,8 +49,8 @@ else
   VER=$(echo $TAG | sed 's/v//')
   FOLDER="$PKG_NAME*"
   INSTALLED_VERSION=
-  if $(pkg-config --exists $PKG_NAME);then
-    INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
+  if hash flex 2>/dev/null;then
+    INSTALLED_VERSION=$(flex -V | cut -d' ' -f2)
   fi
 
   if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then

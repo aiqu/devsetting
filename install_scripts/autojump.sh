@@ -42,12 +42,12 @@ unset _R
 PKG_NAME="autojump"
 REPO_URL="https://github.com/wting/autojump"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | grep 'release' | cut -d/ -f3 | sort -V | tail -n1)
-VER=$(echo $TAG | sed 's/release-//')
+VER=$(echo $TAG | sed 's/release-v//')
 FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=
 if hash autojump 2>/dev/null;then
-  INSTALLED_VERSION=$(autojump -v 2>&1 | cut -d' ' -f2)
+  INSTALLED_VERSION=$(autojump -v 2>&1 | cut -d'v' -f2)
 fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
