@@ -36,7 +36,7 @@ PWD=$(pwd)
 _R=$REINSTALL
 unset $REINSTALL
 . $ROOT/install_scripts/python.sh
-REINSTALL=_R
+REINSTALL=$_R
 unset _R
 
 PKG_NAME="autojump"
