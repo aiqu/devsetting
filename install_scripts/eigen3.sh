@@ -33,6 +33,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 . $ROOT/install_scripts/cmake.sh
+unset INSTALLED_VERSION
 
 PKG_NAME="eigen"
 REPO_URL="https://github.com/eigenteam/eigen-git-mirror"
