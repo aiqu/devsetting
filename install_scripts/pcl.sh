@@ -32,7 +32,11 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
+_R=$REINSTALL
+unset REINSTALL
 . $ROOT/install_scripts/flann.sh
+REINSTALL=$_R
+unset _R
 
 PWD=$(pwd)
 PKG_NAME="pcl"

@@ -36,6 +36,8 @@ TF_SRC_DIR=${GOPATH}/src/tensorflow/tensorflow
 TF_PKG_DIR=${HOME}/.lib/tensorflow_pkg
 
 #install prerequisites
+_R=$REINSTALL
+unset REINSTALL
 . $ROOT/install_scripts/python.sh
 pip2 install numpy scipy
 pip3 install numpy scipy
@@ -43,6 +45,8 @@ pip3 install numpy scipy
 VER=0.10.1
 . $ROOT/install_scripts/bazel.sh
 unset VER
+REINSTALL=$_R
+unset _R
 
 #install tensorflow
 go get -d github.com/tensorflow/tensorflow/tensorflow/go

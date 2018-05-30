@@ -32,7 +32,12 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
+
+_R=$REINSTALL
+unset REINSTALL
 . $ROOT/install_scripts/m4.sh
+REINSTALL=$_R
+unset _R
 
 PKG_NAME="libtool"
 REPO_URL="https://git.savannah.gnu.org/git/libtool.git"

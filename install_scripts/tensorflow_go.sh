@@ -32,10 +32,14 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
+_R=$REINSTALL
+unset REINSTALL
 . $ROOT/install_scripts/golang.sh
 VER=0.10.1
 . $ROOT/install_scripts/bazel.sh
 unset VER
+REINSTALL=$_R
+unset _R
 
 TARGET_DIRECTORY=${LOCAL_DIR}
 

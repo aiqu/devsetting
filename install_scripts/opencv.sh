@@ -32,8 +32,13 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
+
+_R=$REINSTALL
+unset REINSTALL
 . $ROOT/install_scripts/python.sh
 . $ROOT/install_scripts/protobuf.sh
+REINSTALL=$_R
+unset _R
 
 PKG_NAME="opencv"
 REPO_URL=https://github.com/opencv/opencv
