@@ -40,6 +40,9 @@ Plugin 'tpope/vim-fugitive'					"a Git wrapper
 "Shows a git diff in the column and stages/undoes hunks.
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-syntastic/syntastic'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'jason0x43/vim-js-indent'
+Plugin 'Quramy/tsuquyomi'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -186,3 +189,7 @@ let g:syntastic_python_checkers = ['flake8', 'pylint']
 let g:syntastic_mode_map = {
     \ "mode": "active",
     \ "passive_filetypes": ["cc", "cpp", "c", "hpp", "h", "go"] }
+
+">> Typescript
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
