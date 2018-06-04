@@ -69,7 +69,7 @@ elif [ $OS == "debian" ];then
        $(lsb_release -cs) \
        stable"
     ${SUDO} add-apt-repository -y \
-       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+       "deb [arch=amd64] https://download.docker.com/linux/debian \
        $(lsb_release -cs) \
        edge"
     ${SUDO} apt-get update -y
