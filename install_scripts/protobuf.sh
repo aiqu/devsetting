@@ -46,7 +46,7 @@ unset _R
 WORKDIR=$HOME/.lib
 PKG_NAME="protobuf"
 REPO_URL=https://github.com/google/protobuf
-TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}\|rc' | sort -V | tail -n1)
+TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}\|rc' | sort -V | tail -n1 | sed 's/\(v[0-9,\.]\{5\}\).*/\1/')
 VER=$(echo $TAG | sed 's/v//' -)
 INSTALLED_VER=
 if hash protoc 2>/dev/null;then
@@ -56,8 +56,8 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   cd $WORKDIR
-  curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip -q ${TAG}.zip && rm -rf ${TAG}.zip protobuf
+  curl -LO ${REPO_URL}/releases/download/${TAG}/protobuf-all-${VER}.zip
+  unzip -q protobuf-all-${VER}.zip && rm -rf protobuf-all-${VER}.zip protobuf
   mv protobuf-$VER protobuf && cd protobuf
   ./autogen.sh
   ./configure --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64
