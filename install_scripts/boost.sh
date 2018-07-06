@@ -36,8 +36,12 @@ source $ROOT/envset.sh
 PWD=$(pwd)
 WORKDIR=$HOME/.lib
 
-. $ROOT/install_scripts/xz.sh
-. $ROOT/install_scripts/cmake.sh
+_R=$REINSTALL
+unset REINSTALL
+bash $ROOT/install_scripts/xz.sh
+bash $ROOT/install_scripts/cmake.sh
+REINSTALL=$_R
+unset _R
 
 PKG_NAME="boost"
 mkdir -p $WORKDIR && cd $WORKDIR
