@@ -31,7 +31,10 @@ let DONE$FILENAME=1
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
-source $ROOT/envset.sh
+. $ROOT/envset.sh
+. $ROOT/install_scripts/xz.sh
+. $ROOT/install_scripts/zlib.sh
+. $ROOT/install_scripts/readline.sh
 
 if [ $OS == 'mac' ];then
   brew install python3
