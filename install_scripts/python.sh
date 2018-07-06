@@ -35,6 +35,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/install_scripts/xz.sh
 . $ROOT/install_scripts/zlib.sh
 . $ROOT/install_scripts/readline.sh
+. $ROOT/install_scripts/openssl.sh
 
 if [ $OS == 'mac' ];then
   brew install python3
