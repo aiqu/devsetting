@@ -81,7 +81,9 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTAL
   PYTHON2_LIBRARY=${LOCAL_DIR}/lib/libpython2.7.so
   PYTHON3_LIBRARY=${LOCAL_DIR}/lib/libpython3.6m.so
   # uncomment if install it locally
-  #MY_CXX_FLAGS="-O2 -march=native -pipe"
+  if [ ! -z $OPTIMIZE ];then
+    MY_CXX_FLAGS="-O2 -march=native -pipe"
+  fi
   # use own CUDA GENERATION name
   #MY_CUDA_GEN="Pascal"
   if [ -f /usr/local/cuda/version.txt ]; then
