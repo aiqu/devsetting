@@ -53,7 +53,7 @@ if [ -r $VERFILE ];then
   INSTALLED_VERSION=$(grep 'BOOST_LIB_VERSION "' $VERFILE | cut -d'"' -f2)
 fi
 
-if [ ! -z $REINSTALL ] || [ $VERSTR != $INSTALLED_VERSION ];then
+if [ ! -z $REINSTALL ] || [ $VERSTR != "$INSTALLED_VERSION" ];then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   if [ ! -d boost_$VERSTR ];then
     if [ ! -f $SRCFILE ]; then
