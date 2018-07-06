@@ -62,7 +62,7 @@ if [ ! -z $REINSTALL ] || [ $VERSTR != "$INSTALLED_VERSION" ];then
     fi
   fi
   cd boost_$VERSTR
-  ./bootstrap.sh --prefix=${LOCAL_DIR}
+  ./bootstrap.sh --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64
   ./b2 -j${NPROC}
   ./b2 install
 else
