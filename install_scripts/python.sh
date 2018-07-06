@@ -58,8 +58,7 @@ else
       --enable-shared \
       --enable-unicode=ucs4 \
       --with-threads \
-      --with-system-ffi \
-      --without-ensurepip
+      --with-system-ffi
     make -s -j${NPROC}
     make -s install 1>/dev/null
     rm -rf $WORKDIR
