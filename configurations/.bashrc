@@ -13,7 +13,7 @@ export EDITOR=vim
 export TMUX_TMPDIR=$HOME/.tmux
 mkdir -p $TMUX_TMPDIR ${LOCAL_DIR} $GOROOT $GOPATH $HOME/.lib
 
-MY_INCLUDE_DIR=${LOCAL_DIR}/include
+MY_INCLUDE_DIR="${LOCAL_DIR}/include:${LOCAL_DIR}/include/python3.6m"
 MY_LIBRARY_DIR=${LOCAL_DIR}/lib:${LOCAL_DIR}/lib64
 SYSTEM_LIBRARY_DIR="/usr/local/lib:/usr/local/lib64:/usr/lib:/usr/lib64"
 MY_PKG_CONFIG_DIR=${LOCAL_DIR}/share/pkgconfig:${LOCAL_DIR}/lib/pkgconfig:${LOCAL_DIR}/lib64/pkgconfig
