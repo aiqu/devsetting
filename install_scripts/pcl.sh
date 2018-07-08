@@ -34,6 +34,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 _R=$REINSTALL
 unset REINSTALL
+. $ROOT/install_scripts/eigen3.sh
 . $ROOT/install_scripts/flann.sh
 REINSTALL=$_R
 unset _R
@@ -52,7 +53,25 @@ if [ ! -d pcl-${TAG} ];then
   unzip -q ${TAG}.zip && rm ${TAG}.zip
 fi
 cd pcl-${TAG} && mkdir -p build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
+if [ ! -z $VISUALIZATION ];then
+  VISUALIZATION=ON
+else
+  VISUALIZATION=OFF
+fi
+if cmake --find-package -DCOMPILER_ID=GNU -DLANGUAGE=C -DNAME=OpenGL -DMODE=EXIST;then
+  FOUND_OPENGL=ON
+else
+  FOUND_OPENGL=OFF
+fi
+PCL_CMAKE_OPTIONS=(
+  -DCMAKE_BUILD_TYPE=Release
+  -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR}
+  -DWITH_QT=$VISUALIZATION
+  -DWITH_VTK=$VISUALIZATION
+  -DWITH_OPENGL=$FOUND_OPENGL
+)
+
+cmake ${PCL_CMAKE_OPTIONS[@]} ..
 make -s -j${NPROC}
 make -s install 1>/dev/null
 cd $ROOT
