@@ -37,6 +37,7 @@ _R=$REINSTALL
 unset REINSTALL
 . $ROOT/install_scripts/python.sh
 . $ROOT/install_scripts/protobuf.sh
+. $ROOT/install_scripts/tbb.sh
 REINSTALL=$_R
 unset _R
 
