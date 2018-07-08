@@ -50,18 +50,15 @@ CUDA_BIN_PATH="/usr/local/cuda-8.0"
 WORKDIR=$HOME/.lib
 INSTALL_DIR=${LOCAL_DIR}
 
-pip2 install numpy && pip3 install numpy
-
-#TODO
-# remove package manager dependency
-if [ $OS == 'centos' ];then
-  $SUDO yum install -y libjpeg-turbo-devel jasper-devel openexr-devel libtiff-devel libwebp-devel libdc1394-devel libv4l-devel gstreamer-plugins-base-devel tbb-devel
-elif [ $OS == 'ubuntu' ];then
-  $SUDO apt install -y libjpeg8-dev libtiff5-dev libjasper-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk2.0-dev gfortran tesseract-ocr libtesseract-dev libleptonica-dev libatlas-dev libdc1394-22-dev
+if hash pip2 2>/dev/null;then
+  pip2 install numpy
+fi
+if hash pip3 2>/dev/null;then
+  pip3 install numpy
 fi
 
 INSTALLED_VERSION=
-if $(which opencv_version); then
+if $(hash opencv_version); then
   INSTALLED_VERSION=$(opencv_version)
 fi
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
@@ -81,45 +78,41 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTAL
   PYTHON3_INCLUDE_DIR=${LOCAL_DIR}/include/python3.6m
   PYTHON2_LIBRARY=${LOCAL_DIR}/lib/libpython2.7.so
   PYTHON3_LIBRARY=${LOCAL_DIR}/lib/libpython3.6m.so
-  # uncomment if install it locally
+  MY_CXX_FLAGS="-std=c++11"
   if [ ! -z $OPTIMIZE ];then
-    MY_CXX_FLAGS="-O2 -march=native -pipe"
+    MY_CXX_FLAGS="${MY_CXX_FLAGS} -O2 -march=native -pipe"
   fi
   # use own CUDA GENERATION name
   #MY_CUDA_GEN="Pascal"
+  OPENCV_CMAKE_OPTIONS=(
+    -DCMAKE_BUILD_TYPE=RELEASE
+    -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR
+    -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR
+    -DBUILD_opencv_python3=ON
+    -DBUILD_EXAMPLES=OFF
+    -DBUILD_DOCS=OFF
+    -DBUILD_PERF_TESTS=OFF
+    -DBUILD_TESTS=OFF
+    -DENABLE_CCACHE=ON
+    -DENABLE_FAST_MATH=1
+    -DWITH_TBB=ON
+    -DPYTHON2_INCLUDE_DIR=$PYTHON2_INCLUDE_DIR
+    -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR
+    -DPYTHON2_LIBRARY=$PYTHON2_LIBRARY
+    -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY
+  )
   if [ -f /usr/local/cuda/version.txt ]; then
-    cmake -DCMAKE_BUILD_TYPE=RELEASE \
-      -DCMAKE_CXX_FLAGS="-std=c++11 $MY_CXX_FLAGS" \
+    cmake ${OPENCV_CMAKE_OPTIONS[@]} \
+      -DWITH_CUDA=ON \
+      -DCMAKE_CXX_FLAGS="${MY_CXX_FLAGS}" \
       -DCUDA_NVCC_FLAGS="-std=c++11 --expt-relaxed-constexpr" \
       -DCUDA_PROPAGATE_HOST_FLAGS=OFF \
-      -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
-      -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR \
-      -DBUILD_opencv_python3=ON \
-      -DBUILD_EXAMPLES=OFF \
       -DCUDA_FAST_MATH=1 \
-       -DWITH_CUBLAS=1 \
-      -DENABLE_FAST_MATH=1 \
-      -DWITH_TBB=ON \
-      -DPYTHON2_INCLUDE_DIR=$PYTHON2_INCLUDE_DIR \
-      -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR \
-      -DPYTHON2_LIBRARY=$PYTHON2_LIBRARY \
-      -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY \
+      -DWITH_CUBLAS=1 \
       -DCUDA_GENERATION=${MY_CUDA_GEN:="Auto"} \
       ..
   else
-    cmake -DCMAKE_BUILD_TYPE=RELEASE \
-      -DCMAKE_CXX_FLAGS="-std=c++11 $MY_CXX_FLAGS" \
-      -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
-      -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR \
-      -DBUILD_opencv_python3=ON \
-      -DBUILD_EXAMPLES=OFF \
-      -DENABLE_FAST_MATH=1 \
-      -DWITH_TBB=ON \
-      -DPYTHON2_INCLUDE_DIR=$PYTHON2_INCLUDE_DIR \
-      -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR \
-      -DPYTHON2_LIBRARY=$PYTHON2_LIBRARY \
-      -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY \
-      ..
+    cmake ${OPENCV_CMAKE_OPTIONS[@]} -DCMAKE_CXX_FLAGS="${MY_CXX_FLAGS}" ..
   fi
   make -s -j${NPROC}
   make -s install 1>/dev/null
