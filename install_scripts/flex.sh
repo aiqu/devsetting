@@ -36,12 +36,8 @@ PWD=$(pwd)
 if [ $OS == 'mac' ]; then
   brew install flex
 else
-  _R=$REINSTALL
-  unset REINSTALL
   . $ROOT/install_scripts/bison.sh
   . $ROOT/install_scripts/help2man.sh
-  REINSTALL=$_R
-  unset _R
 
   PKG_NAME="flex"
   REPO_URL="https://github.com/westes/flex"

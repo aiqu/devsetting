@@ -33,16 +33,12 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-_R=$REINSTALL
-unset REINSTALL
 . $ROOT/install_scripts/geos.sh
 . $ROOT/install_scripts/proj4.sh
 . $ROOT/install_scripts/gdal.sh
 . $ROOT/install_scripts/libxml2.sh
 . $ROOT/install_scripts/jsonc.sh
 . $ROOT/install_scripts/postgresql.sh
-REINSTALL=$_R
-unset _R
 
 PKG_NAME="postgis"
 REPO_URL="https://github.com/postgis/postgis"

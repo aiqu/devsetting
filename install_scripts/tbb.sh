@@ -33,10 +33,6 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-_R=$REINSTALL
-unset REINSTALL
-REINSTALL=$_R
-unset _R
 
 PKG_NAME="tbb"
 REPO_URL="https://github.com/01org/tbb"

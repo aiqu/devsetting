@@ -33,15 +33,11 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 source $ROOT/envset.sh
 
-_R=$REINSTALL
-unset REINSTALL
 . $ROOT/install_scripts/autoconf.sh
 . $ROOT/install_scripts/automake.sh
 . $ROOT/install_scripts/make.sh
 . $ROOT/install_scripts/unzip.sh
 . $ROOT/install_scripts/libtool.sh
-REINSTALL=$_R
-unset _R
 
 WORKDIR=$HOME/.lib
 PKG_NAME="protobuf"

@@ -33,11 +33,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-_R=$REINSTALL
-unset REINSTALL
 . $ROOT/install_scripts/libpng.sh
-REINSTALL=$_R
-unset _R
 
 PKG_NAME="freetype2"
 REPO_URL="https://git.savannah.gnu.org/git/freetype/freetype2.git"

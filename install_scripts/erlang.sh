@@ -33,11 +33,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 
 . $ROOT/envset.sh
-_R=$REINSTALL
-unset REINSTALL
 . $ROOT/install_scripts/openssl.sh
-REINSTALL=$_R
-unset _R
 
 PKG_NAME="Erlang"
 REPO_URL="https://github.com/erlang/otp"

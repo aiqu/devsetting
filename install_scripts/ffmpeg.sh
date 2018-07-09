@@ -33,13 +33,9 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-_R=$REINSTALL
-unset REINSTALL
 . $ROOT/install_scripts/nasm.sh
 . $ROOT/install_scripts/yasm.sh
 . $ROOT/install_scripts/freetype2.sh
-REINSTALL=$_R
-unset _R
 
 PKG_NAME="ffmpeg"
 REPO_URL="https://git.ffmpeg.org/ffmpeg.git"

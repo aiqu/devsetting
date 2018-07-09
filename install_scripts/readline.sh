@@ -33,11 +33,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-_R=$REINSTALL
-unset REINSTALL
 . $ROOT/install_scripts/ncurses.sh
-REINSTALL=$_R
-unset _R
 
 PKG_NAME="readline"
 REPO_URL="https://git.savannah.gnu.org/git/readline.git"
