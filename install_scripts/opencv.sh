@@ -57,7 +57,7 @@ INSTALLED_VERSION=
 if $(hash opencv_version); then
   INSTALLED_VERSION=$(opencv_version)
 fi
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   cd $WORKDIR
   if [ ! -d opencv-${TAG} ];then

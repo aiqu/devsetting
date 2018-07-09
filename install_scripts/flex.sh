@@ -49,7 +49,7 @@ else
     INSTALLED_VERSION=$(flex -V | cut -d' ' -f2)
   fi
 
-  if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
     # install bootstraping flex if no installation exists
     if [ -z $INSTALLED_VERSION ]; then
       mkdir -p $TMP_DIR && cd $TMP_DIR

@@ -50,7 +50,7 @@ else
     INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
   fi
 
-  if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
     mkdir -p $TMP_DIR && cd $TMP_DIR

@@ -41,7 +41,7 @@ if hash postgres 2>/dev/null;then
   INSTALLED_VERSION=$(postgres -V | cut -d' ' -f3)
 fi
 FOLDER="$PKG_NAME*"
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER);then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER);then
   iecho "$PKG_NAME installation.."
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

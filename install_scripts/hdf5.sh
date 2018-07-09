@@ -41,7 +41,7 @@ FOLDER="$PKG_NAME*"
 VERFILE=$LOCAL_DIR/share/cmake/hdf5-config-version.cmake
 INSTALLED_VERSION=$(cat $VERFILE | grep 'set (PACKAGE_VERSION "' | cut -d'"' -f2)
 
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

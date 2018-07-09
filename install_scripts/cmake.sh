@@ -44,7 +44,7 @@ if hash cmake 2>/dev/null;then
   INSTALLED_VER=$(cmake --version 2>/dev/null | grep version | awk '{print $3}')
 fi
 
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
   iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

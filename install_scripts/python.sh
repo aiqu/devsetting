@@ -85,13 +85,13 @@ else
     INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
   fi
 
-  #if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
+  #if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
     #install_python $PYTHON2_VER
   #else
     #gecho "Python $PYTHON2_VER is already installed"
   #fi
 
-  if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
     install_python $PYTHON3_VER
   else
     gecho "Python $PYTHON3_VER is already installed"

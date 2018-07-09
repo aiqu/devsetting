@@ -49,7 +49,7 @@ if hash go 2>/dev/null;then
   INSTALLED_VERSION=$(go version | cut -d' ' -f3)
 fi
 
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   if [ ! -x $BOOTSTRAP_DIR/bin/go ];then

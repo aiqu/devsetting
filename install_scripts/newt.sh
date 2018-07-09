@@ -75,7 +75,7 @@ TAG=$(git ls-remote -t $REPO_URL | cut -d'/' -f3 | grep -v v | sort -V | tail -n
 VER=$(echo $TAG | sed 's/[r|.zip]//g' | sed 's/-/./g')
 FOLDER="newt-$VER"
 INSTALLED_VER=$(find ${LOCAL_DIR}/lib -mindepth 1 -maxdepth 1 -type f | grep newt.so | sed 's/.*libnewt.so.//')
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER);then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER);then
   iecho "$PKG_NAME $VER installation.."
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

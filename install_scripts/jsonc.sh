@@ -41,7 +41,7 @@ FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/json-c/json_c_version.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define JSON_C_VERSION "' | cut -d'"' -f2)
 
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

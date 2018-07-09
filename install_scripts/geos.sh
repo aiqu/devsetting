@@ -41,7 +41,7 @@ FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/geos_c.h"
 INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define GEOS_VERSION "' | cut -d'"' -f2)
 
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || [ $TAG != $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

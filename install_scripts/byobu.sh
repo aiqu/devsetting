@@ -37,7 +37,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PKG_NAME="byobu"
 REPO_URL=https://github.com/aiqu/byobu
 
-if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ ! -x ${LOCAL_DIR}/bin/byobu ];then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ ! -x ${LOCAL_DIR}/bin/byobu ];then
   iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
 
   mkdir -p $HOME/.lib && cd $HOME/.lib

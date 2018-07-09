@@ -92,4 +92,4 @@ if [ -r $ENVFILE ];then
   . $ENVFILE
 fi
 
-LEVEL=$(( ${LEVEL:-"-1"}+1 ))
+LEVEL=$(( ${LEVEL:-"0"}+1 ))
