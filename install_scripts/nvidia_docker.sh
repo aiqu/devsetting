@@ -51,3 +51,5 @@ ${SUDO} pkill -SIGHUP dockerd
 
 # Test nvidia-smi with the latest official CUDA image
 docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+
+LEVEL=$(( ${LEVEL}-1 ))

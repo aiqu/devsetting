@@ -56,3 +56,5 @@ mkdir -p $HOME/bin
 for f in `ls $BIN_FOLDER/*`;do
 	ln -sf $f $HOME/bin/
 done
+
+LEVEL=$(( ${LEVEL}-1 ))

@@ -52,7 +52,7 @@ INSTALLED_VER=
 if hash protoc 2>/dev/null;then
   INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
 fi
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER); then
+if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   cd $WORKDIR
@@ -67,3 +67,5 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
+
+LEVEL=$(( ${LEVEL}-1 ))

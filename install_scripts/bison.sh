@@ -47,7 +47,7 @@ else
     INSTALLED_VERSION=$(bison --version | head -n1 | cut -d' ' -f4)
   fi
 
-  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+  if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
     mkdir -p $TMP_DIR && cd $TMP_DIR
@@ -64,3 +64,4 @@ else
 
   cd $ROOT
 fi
+LEVEL=$(( ${LEVEL}-1 ))

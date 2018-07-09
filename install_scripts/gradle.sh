@@ -29,6 +29,9 @@ if [ ! -z ${!DONENAME+x} ];then
 fi
 let DONE$FILENAME=1
 
+ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
+
 PKG_NAME='gradle'
 VER='4.3'
 INSTALLED_VERSION=
@@ -36,7 +39,7 @@ if hash gradle 2>/dev/null;then
   INSTALLED_VERSION=$(gradle --version | grep Gradle | cut -d' ' -f2)
 fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] ||  $(compare_version $INSTALLED_VERSION $VER);then
+if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] ||  $(compare_version $INSTALLED_VERSION $VER);then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   WORKDIR=${LOCAL_DIR}
@@ -47,3 +50,6 @@ if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] ||  $(compare_version $INSTA
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
+
+LEVEL=$(( ${LEVEL}-1 ))
+cd $ROOT

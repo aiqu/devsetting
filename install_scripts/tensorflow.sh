@@ -56,3 +56,5 @@ bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_
 bazel-bin/tensorflow/tools/pip_package/build_pip_package $TF_PKG_DIR
 iecho "---------------------------------"
 iecho "output file created at $TF_PKG_DIR"
+
+LEVEL=$(( ${LEVEL}-1 ))

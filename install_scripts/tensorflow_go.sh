@@ -51,4 +51,5 @@ ln -sf ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libte
 ln -sf ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow_framework.so ${LOCAL_DIR}/lib
 go test github.com/tensorflow/tensorflow/tensorflow/go
 
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT

@@ -62,5 +62,6 @@ git clone https://github.com/horst3180/arc-icon-theme --depth 1 && cd arc-icon-t
 ./autogen.sh
 ${SUDO} make -j${NPROC} install
 
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT
 rm -rf $TMP_DIR

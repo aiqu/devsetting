@@ -85,13 +85,13 @@ else
     INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
   fi
 
-  #if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
+  #if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
     #install_python $PYTHON2_VER
   #else
     #gecho "Python $PYTHON2_VER is already installed"
   #fi
 
-  if [ ! -z $REINSTALL ] || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
+  if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
     install_python $PYTHON3_VER
   else
     gecho "Python $PYTHON3_VER is already installed"
@@ -111,3 +111,5 @@ if [ ! -d $HOME/.config ];then
   mkdir $HOME/.config
 fi
 ln -sf $ROOT/configurations/flake8 $HOME/.config/flake8
+
+LEVEL=$(( ${LEVEL}-1 ))

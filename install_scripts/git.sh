@@ -42,7 +42,7 @@ if hash git 2>/dev/null;then
   INSTALLED_VERSION=$(git --version 2>/dev/null | awk '{print $3}')
 fi
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER);then
+if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER);then
   iecho "$PKG $VER installation.. install location: $LOCAL_DIR"
 
   if [ $OS == "mac" ]; then
@@ -73,4 +73,5 @@ else
   gecho "$PKG $VER is already installed"
 fi
 
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT

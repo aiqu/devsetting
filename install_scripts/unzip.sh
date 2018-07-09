@@ -64,3 +64,5 @@ else
 
   cd $ROOT
 fi
+
+LEVEL=$(( ${LEVEL}-1 ))

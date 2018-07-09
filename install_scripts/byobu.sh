@@ -41,7 +41,7 @@ unset _R
 PKG_NAME="byobu"
 REPO_URL=https://github.com/aiqu/byobu
 
-if [ ! -z $REINSTALL ] || [ ! -x ${LOCAL_DIR}/bin/byobu ];then
+if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ ! -x ${LOCAL_DIR}/bin/byobu ];then
   iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
 
   mkdir -p $HOME/.lib && cd $HOME/.lib
@@ -58,4 +58,5 @@ else
   gecho "$PKG_NAME is already installed"
 fi
 
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT

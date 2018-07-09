@@ -48,7 +48,7 @@ REQUIRED_GCC_VERSION="4.9.4"
 REQUIRED_MAKE_VERSION="3.81"
 REQUIRED_PYTHON_VERSION="2.6"
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   GCC_VERSION=$(gcc --version | head -n1 | cut -d' ' -f3)
@@ -84,4 +84,5 @@ else
   gecho "$PKG_NAME $VER is already installed"
 fi
 
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT

@@ -53,4 +53,5 @@ else
   gecho "$PKG_NAME $VER is already installed"
 fi
 
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT

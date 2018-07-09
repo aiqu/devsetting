@@ -74,4 +74,5 @@ PCL_CMAKE_OPTIONS=(
 cmake ${PCL_CMAKE_OPTIONS[@]} ..
 make -s -j${NPROC}
 make -s install 1>/dev/null
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT

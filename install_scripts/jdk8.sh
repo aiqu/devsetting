@@ -29,6 +29,9 @@ if [ ! -z ${!DONENAME+x} ];then
 fi
 let DONE$FILENAME=1
 
+ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
+. $ROOT/envset.sh
+
 PKG_NAME="jdk"
 VER="8u152"
 WORKDIR=${LOCAL_DIR}
@@ -46,3 +49,5 @@ if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8'
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
+
+LEVEL=$(( ${LEVEL}-1 ))

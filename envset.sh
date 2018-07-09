@@ -91,3 +91,5 @@ function compare_version {
 if [ -r $ENVFILE ];then
   . $ENVFILE
 fi
+
+LEVEL=$(( ${LEVEL:-"-1"}+1 ))

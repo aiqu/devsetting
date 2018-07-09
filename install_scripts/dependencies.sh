@@ -69,3 +69,5 @@ fi
 . $ROOT/install_scripts/perl_extutiles_makemaker.sh
 
 . $ROOT/install_scripts/byobu.sh
+
+LEVEL=$(( ${LEVEL}-1 ))

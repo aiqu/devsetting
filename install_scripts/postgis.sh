@@ -52,7 +52,7 @@ FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=$(basename -a -s .so $(find ${LOCAL_DIR}/lib/postgresql -name 'postgis-*' -type f) | cut -d'-' -f2 | sort -V | tail -n1)
 
-if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+if ([ $LEVEL = 0 ] && [ ! -z $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
@@ -68,4 +68,5 @@ else
   gecho "$PKG_NAME $VER is already installed"
 fi
 
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT

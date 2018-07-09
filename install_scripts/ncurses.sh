@@ -54,4 +54,5 @@ else
   cd $ROOT && rm -rf $TMP_DIR
 fi
 
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT

@@ -44,4 +44,5 @@ cd Sophus && git pull && mkdir -p build && cd build && \
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
 make -s -j${NPROC}
 make -s install 1>/dev/null
+LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT
