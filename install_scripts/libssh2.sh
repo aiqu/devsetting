@@ -49,6 +49,10 @@ INSTALLED_VERSION=
 if $(pkg-config --exists $PKG_NAME);then
   INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
 fi
+if [ "$INSTALLED_VERSION" = "1.7.0_DEV" ];then
+  # 1.8.0 produces 1.7.0_DEV version string
+  INSTALLED_VERSION="1.8.0"
+fi
 
 if [ ! -z $REINSTALL ] || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
