@@ -49,7 +49,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL | tar xJ
   cd $FOLDER
-  ./configure --prefix=${LOCAL_DIR}
+  ./configure --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
