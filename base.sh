@@ -31,5 +31,4 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 . $ROOT/install_scripts/vim.sh
 . $ROOT/install_scripts/python.sh
 
-echo "GMLEE $FILENAME OUT $LEVEL"
 LEVEL=$(( ${LEVEL}-1 ))
