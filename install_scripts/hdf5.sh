@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="hdf5"
 REPO_URL="https://support.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.10.1.tar.bz2"
 TAG='1.10.1'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 FOLDER="$PKG_NAME*"
 VERFILE=$LOCAL_DIR/share/cmake/hdf5-config-version.cmake

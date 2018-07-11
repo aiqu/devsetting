@@ -41,6 +41,9 @@ PWD=$(pwd)
 PKG_NAME="Rebar3"
 REPO_URL="https://github.com/erlang/rebar3"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta' | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 FOLDER="rebar3-$TAG"
 INSTALLED_VERSION=

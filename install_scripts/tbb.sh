@@ -37,6 +37,9 @@ PWD=$(pwd)
 PKG_NAME="tbb"
 REPO_URL="https://github.com/01org/tbb"
 TAG="2018_U5"
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER="2018.0.10005"
 FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/tbb/tbb_stddef.h"

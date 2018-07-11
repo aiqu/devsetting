@@ -35,6 +35,9 @@ PWD=$(pwd)
 
 PKG_NAME="ctags"
 TAG='5.8'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 REPO_URL="http://prdownloads.sourceforge.net/ctags/ctags-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"

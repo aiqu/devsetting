@@ -41,6 +41,9 @@ BOOTSTRAP_DIR="${LOCAL_DIR}/go-bootstrap"
 TMP_DIR="/tmp/go"
 REPO_URL="https://go.googlesource.com/go"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc\|beta' | grep go | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/go//')
 FOLDER="$PKG_NAME*"
 VERFILE=""

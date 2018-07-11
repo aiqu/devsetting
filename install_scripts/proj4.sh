@@ -35,6 +35,9 @@ PWD=$(pwd)
 
 PKG_NAME="proj4"
 TAG='4.9.3'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/\.//g')
 REPO_URL="http://download.osgeo.org/proj/proj-$TAG.tar.gz"
 FOLDER="proj*"

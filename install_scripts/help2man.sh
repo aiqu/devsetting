@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="help2man"
 REPO_URL="http://ftp.kaist.ac.kr/gnu/help2man/help2man-1.47.6.tar.xz"
 TAG=$(echo $REPO_URL | cut -d'-' -f2 | sed 's/.tar.xz//')
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=

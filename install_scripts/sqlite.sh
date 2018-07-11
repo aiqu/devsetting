@@ -35,6 +35,9 @@ PWD=$(pwd)
 
 PKG_NAME="sqlite"
 TAG='3210000'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER='3.21.0'
 REPO_URL="http://www.sqlite.org/2017/sqlite-autoconf-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"

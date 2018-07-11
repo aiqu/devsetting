@@ -35,6 +35,9 @@ PWD=$(pwd)
 
 PKG_NAME="bzip2"
 TAG='1.0.6'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 REPO_URL="http://www.bzip.org/$TAG/bzip2-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"

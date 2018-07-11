@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="pkg-config"
 REPO_URL="https://anongit.freedesktop.org/git/pkg-config.git"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/pkg-config-//')
 FOLDER="$PKG_NAME*"
 VERFILE=""

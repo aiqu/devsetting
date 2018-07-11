@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="xz"
 REPO_URL="https://git.tukaani.org/xz.git"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta' | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/v//')
 DOWN_URL="https://tukaani.org/xz/xz-$VER.tar.gz"
 FOLDER="$PKG_NAME*"

@@ -35,6 +35,9 @@ PWD=$(pwd)
 
 PKG_NAME="autoconf"
 TAG='2.69'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 REPO_URL="http://ftp.gnu.org/gnu/autoconf/autoconf-$TAG.tar.gz"
 VER=$TAG
 FOLDER="$PKG_NAME*"

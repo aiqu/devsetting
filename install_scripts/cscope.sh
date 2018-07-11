@@ -35,6 +35,9 @@ PWD=$(pwd)
 
 PKG_NAME="cscope"
 TAG='15.8b'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 REPO_URL="https://downloads.sourceforge.net/project/cscope/cscope/15.8b/cscope-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"

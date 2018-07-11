@@ -35,6 +35,9 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PKG_NAME="vim"
 REPO_URL=https://github.com/vim/vim
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/v//' | awk -F'.' '{printf("%s.%s",$1,$2)}')
 FOLDER="vim-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=

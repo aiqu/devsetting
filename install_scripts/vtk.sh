@@ -46,6 +46,9 @@ PKG_NAME="vtk"
 WORKDIR=$HOME/.lib
 REPO_URL=https://gitlab.kitware.com/vtk/vtk
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 COMMIT_HASH=$(git ls-remote --tags $REPO_URL | grep "$TAG^{}" | awk '{print $1}')
 SRCDIR="vtk-$TAG-$COMMIT_HASH"
 

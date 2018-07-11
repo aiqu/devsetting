@@ -39,6 +39,9 @@ PKG_NAME="readline"
 REPO_URL="https://git.savannah.gnu.org/git/readline.git"
 DOWN_URL="http://git.savannah.gnu.org/cgit/readline.git/snapshot"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta\|rc' | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/readline-//')
 FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/readline/readline.h"

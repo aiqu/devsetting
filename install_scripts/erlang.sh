@@ -38,6 +38,9 @@ PWD=$(pwd)
 PKG_NAME="Erlang"
 REPO_URL="https://github.com/erlang/otp"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|R\|_' | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | cut -d'-' -f2)
 FOLDER="otp-$TAG"
 INSTALLED_VERSION=$(find ${LOCAL_DIR}/lib/erlang/releases -name OTP_VERSION | xargs cat | sort -V | tail -n1)

@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="libexpat"
 REPO_URL="https://github.com/libexpat/libexpat"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | grep R | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/R_//' | sed 's/_/./g')
 FOLDER="$PKG_NAME*"
 VERFILE=""

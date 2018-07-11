@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="bazel"
 REPO_URL="https://github.com/bazelbuild/bazel"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=${VER:-$(echo $TAG | sed 's/v//')}
 FOLDER="$PKG_NAME*"
 VERFILE=""

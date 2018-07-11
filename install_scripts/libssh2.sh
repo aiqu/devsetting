@@ -38,6 +38,9 @@ PWD=$(pwd)
 PKG_NAME="libssh2"
 REPO_URL="https://github.com/libssh2/libssh2"
 TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|start' | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | cut -d'-' -f2)
 FOLDER="$PKG_NAME*"
 VERFILE=""

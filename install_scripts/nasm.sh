@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="nasm"
 REPO_URL="http://www.nasm.us/pub/nasm/releasebuilds/2.13.01/nasm-2.13.01.tar.bz2"
 TAG='2.13.01'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 FOLDER="$PKG_NAME*"
 VERFILE=""

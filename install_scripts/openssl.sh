@@ -37,6 +37,9 @@ PKG_NAME="openssl"
 SRC_DIR=$HOME/.lib/openssl
 REPO_URL="https://github.com/openssl/openssl"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|pre\|FIPS' | grep OpenSSL | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/OpenSSL.//' | sed 's/_/./g')
 FOLDER="$PKG_NAME*"
 VERFILE=""

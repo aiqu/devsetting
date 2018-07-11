@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="geos"
 REPO_URL="http://git.osgeo.org/gogs/geos/geos"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc\|rel\|start\|beta' | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/geos_c.h"

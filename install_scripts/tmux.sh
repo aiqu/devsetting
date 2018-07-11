@@ -38,6 +38,9 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PKG_NAME="tmux"
 REPO_URL=https://github.com/tmux/tmux
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 FOLDER="tmux-$(echo $TAG | sed 's/v//')"
 INSTALLED_VERSION=

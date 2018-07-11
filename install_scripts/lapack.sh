@@ -40,6 +40,9 @@ mkdir -p $TMP_DIR && cd $TMP_DIR
 git clone --depth=1 $REPO_URL
 cd $FOLDER
 TAG=$(grep VERSION README.md | cut -d' ' -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 VERFILE=""
 INSTALLED_VERSION=

@@ -35,6 +35,9 @@ PWD=$(pwd)
 
 PKG_NAME="yasm"
 TAG='1.3.0'
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$TAG
 REPO_URL="http://www.tortall.net/projects/yasm/releases/yasm-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"

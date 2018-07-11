@@ -38,6 +38,9 @@ PWD=$(pwd)
 PKG_NAME="libarchive"
 REPO_URL="https://github.com/libarchive/libarchive"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=

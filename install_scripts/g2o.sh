@@ -36,6 +36,9 @@ PWD=$(pwd)
 PKG_NAME="g2o"
 REPO_URL="https://github.com/RainerKuemmerle/g2o"
 TAG="master"
+if [ $LEVEL -le 1 ];then
+  TAG=${CUSTOMTAG:-$TAG}
+fi
 VER="master"
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=
