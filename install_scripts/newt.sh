@@ -57,7 +57,7 @@ VERFILE="${LOCAL_DIR}/include/popt.h"
 if [ ! -f $VERFILE ];then
   iecho "$PKG_NAME $VER installation.."
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L http://rpm5.org/files/popt/popt-1.16.tar.gz | tar xz
+  curl -L ftp://anduin.linuxfromscratch.org/BLFS/popt/popt-1.16.tar.gz | tar xz
   cd popt-1.16
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
