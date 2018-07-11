@@ -42,7 +42,7 @@ source $ROOT/envset.sh
 WORKDIR=$HOME/.lib
 PKG_NAME="protobuf"
 REPO_URL=https://github.com/google/protobuf
-TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}\|rc' | sort -V | tail -n1 | sed 's/\(v[0-9,\.]\{5\}\).*/\1/')
+TAG='v3.5.1'
 if [ $LEVEL -le 1 ];then
   TAG=${CUSTOMTAG:-$TAG}
 fi
