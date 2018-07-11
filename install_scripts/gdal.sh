@@ -36,9 +36,8 @@ PWD=$(pwd)
 PKG_NAME="gdal"
 REPO_URL="http://download.osgeo.org/gdal/2.2.2/gdal-2.2.2.tar.gz"
 TAG=$(echo $REPO_URL | cut -d'/' -f5)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=

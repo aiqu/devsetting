@@ -35,9 +35,8 @@ PWD=$(pwd)
 
 PKG_NAME="pcre"
 TAG='8.41'
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 REPO_URL="ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"

@@ -37,9 +37,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PKG_NAME="cmake"
 REPO_URL=https://github.com/Kitware/CMake
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="CMake-$VER"
 INSTALLED_VER=

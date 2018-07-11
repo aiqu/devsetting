@@ -38,9 +38,8 @@ PWD=$(pwd)
 PKG_NAME="freetype2"
 REPO_URL="https://git.savannah.gnu.org/git/freetype/freetype2.git"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|freetype\|start\|import\|BETA\|REAL\|beta' | cut -d/ -f3 | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER='21.0.15'
 DOWN_URL="https://git.savannah.gnu.org/cgit/freetype/freetype2.git/snapshot/freetype2-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"

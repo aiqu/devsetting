@@ -43,9 +43,8 @@ PWD=$(pwd)
 PKG_NAME="postgis"
 REPO_URL="https://github.com/postgis/postgis"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta\|rc\|start\|gis\|pre' | cut -d/ -f3 | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | awk -F'.' '{print $1 "." $2}')
 FOLDER="$PKG_NAME*"
 VERFILE=""

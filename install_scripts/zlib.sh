@@ -35,9 +35,8 @@ PWD=$(pwd)
 
 PKG_NAME="zlib"
 TAG='1.2.11'
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 REPO_URL="https://zlib.net/zlib-$TAG.tar.xz"
 FOLDER="$PKG_NAME*"

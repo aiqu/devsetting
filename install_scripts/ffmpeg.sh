@@ -40,9 +40,8 @@ PWD=$(pwd)
 PKG_NAME="ffmpeg"
 REPO_URL="https://git.ffmpeg.org/ffmpeg.git"
 TAG=$(git ls-remote https://git.ffmpeg.org/ffmpeg.git | awk -F/ '{print $3}' | grep -v -e '{}\|-\|v\|release\|oldabi' | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/n//')
 DOWN_URL="https://ffmpeg.org/releases/ffmpeg-${VER}.tar.xz"
 FOLDER="$PKG_NAME*"

@@ -32,7 +32,6 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-
 #slang library installation
 PKG_NAME="slang"
 VER="2.1.4"
@@ -72,9 +71,8 @@ fi
 PKG_NAME="newt"
 REPO_URL=https://pagure.io/newt.git
 TAG=$(git ls-remote -t $REPO_URL | cut -d'/' -f3 | grep -v v | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/[r|.zip]//g' | sed 's/-/./g')
 FOLDER="newt-$VER"
 INSTALLED_VER=$(find ${LOCAL_DIR}/lib -mindepth 1 -maxdepth 1 -type f | grep newt.so | sed 's/.*libnewt.so.//')

@@ -36,9 +36,8 @@ PWD=$(pwd)
 PKG_NAME="flann"
 REPO_URL="https://github.com/mariusmuja/flann"
 TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|-' | cut -d/ -f3 | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 FOLDER="$PKG_NAME*"
 VERFILE=""

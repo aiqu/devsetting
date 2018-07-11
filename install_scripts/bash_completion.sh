@@ -36,9 +36,8 @@ PWD=$(pwd)
 PKG_NAME="bash-completion"
 REPO_URL="https://github.com/scop/bash-completion"
 TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|alt' | cut -d/ -f3 | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 FOLDER="$PKG_NAME*"
 VERFILE=""

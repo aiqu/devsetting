@@ -41,9 +41,8 @@ PKG_NAME="opencv"
 REPO_URL=https://github.com/opencv/opencv
 CONTRIB_REPO_URL=https://github.com/opencv/opencv_contrib
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e '-' | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 CUDA_BIN_PATH="/usr/local/cuda-8.0"
 WORKDIR=$HOME/.lib

@@ -37,9 +37,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PKG_NAME="libevent"
 REPO_URL=https://github.com/libevent/libevent
 TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 FOLDER="libevent-$TAG"
 VER=$(echo $TAG | awk -F'-' '{print $2}')
 VERFILE="${LOCAL_DIR}/include/event2/event-config.h"

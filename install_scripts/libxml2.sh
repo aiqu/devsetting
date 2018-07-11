@@ -36,9 +36,8 @@ PWD=$(pwd)
 PKG_NAME="libxml2"
 REPO_URL="http://github.com/GNOME/libxml2"
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc' | cut -d/ -f3 | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//g')
 FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/libxml2/libxml/xmlversion.h"

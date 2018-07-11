@@ -39,9 +39,8 @@ PKG_NAME="libtool"
 REPO_URL="https://git.savannah.gnu.org/git/libtool.git"
 DOWN_URL="http://ftpmirror.gnu.org/libtool/libtool-"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=

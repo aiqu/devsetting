@@ -43,9 +43,8 @@ WORKDIR=$HOME/.lib
 PKG_NAME="protobuf"
 REPO_URL=https://github.com/google/protobuf
 TAG='v3.5.1'
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//' -)
 INSTALLED_VER=
 if hash protoc 2>/dev/null;then

@@ -35,9 +35,8 @@ PWD=$(pwd)
 
 PKG_NAME="texinfo"
 TAG='6.5'
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 REPO_URL="https://ftp.gnu.org/gnu/texinfo/texinfo-$TAG.tar.xz"
 FOLDER="$PKG_NAME*"

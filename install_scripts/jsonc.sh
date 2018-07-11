@@ -36,9 +36,8 @@ PWD=$(pwd)
 PKG_NAME="json-c"
 REPO_URL="https://github.com/json-c/json-c"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | cut -d'-' -f3)
 FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/json-c/json_c_version.h"

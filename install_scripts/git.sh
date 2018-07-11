@@ -35,9 +35,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PKG='git'
 REPO_URL='https://github.com/git/git'
 TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|rc' | cut -d/ -f3 | sort -V | tail -n1)
-if [ $LEVEL -le 1 ];then
-  TAG=${CUSTOMTAG:-$TAG}
-fi
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
 FOLDER="$PKG*"
 INSTALLED_VERSION=
