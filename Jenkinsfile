@@ -14,7 +14,7 @@ pipeline {
                   node('slave') {
                     unstash 'source'
                     sh '''
-                        sudo docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos_7_dev ${DOCKER_BUILD_OPTION} .
+                        sudo docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos7_dev ${DOCKER_BUILD_OPTION} .
                         sudo docker push gwangmin/base:latest
                     '''
                     }
@@ -23,7 +23,7 @@ pipeline {
                   node('slave') {
                     unstash 'source'
                     sh '''
-                        sudo docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos_7_gcc_7 ${DOCKER_BUILD_OPTION} .
+                        sudo docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos7_gcc7 ${DOCKER_BUILD_OPTION} .
                         sudo docker push gwangmin/base:gcc7
                     '''
                     }
