@@ -33,11 +33,16 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-if [ $OS == 'mac' ];then
-  brew install curl
-elif [ $OS == 'ubuntu' ];then
-  ${SUDO} apt install -y libcurl4-openssl-dev
+if pkg-config libcurl --exists;then
+  INSTALLED_VERSION=$(pkg-config libcurl --modversion)
+  gecho "libcurl $INSTALLED_VERSION already installed"
 else
-  ${SUDO} yum install -y curl-devel
+  if [ $OS == 'mac' ];then
+    brew install curl
+  elif [ $OS == 'ubuntu' ];then
+    ${SUDO} apt install -y libcurl4-openssl-dev
+  else
+    ${SUDO} yum install -y curl-devel
+  fi
 fi
 LEVEL=$(( ${LEVEL}-1 ))
