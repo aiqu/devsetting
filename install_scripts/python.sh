@@ -99,7 +99,7 @@ else
   fi
 fi
 
-if [ -z $PYTHON_CORE_ONLY ];then
+if [ ! -z $PYTHON_PACKAGE ];then
   #pip2 install -Uq pip
   pip3 install -Uq pip
 
