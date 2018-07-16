@@ -36,33 +36,33 @@ source $ROOT/envset.sh
 PWD=$(pwd)
 WORKDIR=$HOME/.lib
 
-bash $ROOT/install_scripts/xz.sh
-bash $ROOT/install_scripts/cmake.sh
-
 PKG_NAME="boost"
 mkdir -p $WORKDIR && cd $WORKDIR
-VER='1.65.1'
-VERSTR='1_65_1'
-SRCFILE="boost_$VERSTR.tar.bz2"
+CUSTOMTAGNAME="${PKG_NAME}TAG"
+TAG=${!CUSTOMTAGNAME:-'1.67.0'}
+VER=$(echo $TAG | sed 's/\./_/g')
+VERSTR=$(echo $VER | sed 's/_0//')
+SRCFILE="boost_$VER.tar.bz2"
 VERFILE=${LOCAL_DIR}/include/boost/version.hpp
+INSTALLED_VERSION=""
 if [ -r $VERFILE ];then
   INSTALLED_VERSION=$(grep 'BOOST_LIB_VERSION "' $VERFILE | cut -d'"' -f2)
 fi
 
-if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ $VERSTR != "$INSTALLED_VERSION" ];then
-  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-  if [ ! -d boost_$VERSTR ];then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VERSTR); then
+  iecho "$PKG_NAME $TAG installation.. install location: $LOCAL_DIR"
+  if [ ! -d boost_$VER ];then
     if [ ! -f $SRCFILE ]; then
-      iecho "Downloading Boost $VER"
-      curl -L https://dl.bintray.com/boostorg/release/$VER/source/$SRCFILE | tar xjf -
+      iecho "Downloading Boost $TAG"
+      curl -L https://sourceforge.net/projects/boost/files/boost/$TAG/$SRCFILE/download | tar xjf -
     fi
   fi
-  cd boost_$VERSTR
+  cd boost_$VER
   ./bootstrap.sh --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64 --without-libraries=python
   ./b2 -j${NPROC}
   ./b2 install
 else
-  gecho "$PKG_NAME $VER is already installed"
+  gecho "$PKG_NAME $TAG is already installed"
 fi
 
 LEVEL=$(( ${LEVEL}-1 ))
