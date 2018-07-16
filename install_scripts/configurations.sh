@@ -46,7 +46,11 @@ for f in `ls -d $CONF_FOLDER/.[^\.]*`;do
     if [ -d $HOME/$(basename $f) ];then
         rm -rf $HOME/$(basename $f)
     fi
-    ln -sf $f $HOME/$(basename $f)
+    if [ -z $HARD_COPY ];then
+      ln -sf $f $HOME/$(basename $f)
+    else
+      cp -r $f $HOME/$(basename $f)
+    fi
 done
 
 BIN_FOLDER=`$READLINK -f $ROOT/bin`
@@ -55,6 +59,11 @@ mkdir -p $HOME/bin
 
 for f in `ls $BIN_FOLDER/*`;do
 	ln -sf $f $HOME/bin/
+  if [ -z $HARD_COPY ];then
+    ln -sf $f $HOME/$(basename $f)
+  else
+    cp -r $f $HOME/$(basename $f)
+  fi
 done
 
 LEVEL=$(( ${LEVEL}-1 ))
