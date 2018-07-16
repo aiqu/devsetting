@@ -35,7 +35,8 @@ PWD=$(pwd)
 
 PKG_NAME="xz"
 REPO_URL="https://git.tukaani.org/xz.git"
-TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta' | cut -d/ -f3 | sort -V | tail -n1)
+#TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|alpha\|beta' | cut -d/ -f3 | sort -V | tail -n1)
+TAG='v5.2.2'
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
@@ -54,7 +55,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   curl -L $DOWN_URL | tar xz
   cd $FOLDER
   # Apply patch to fix yum issue on CentOS
-  patch -p0 < $ROOT/patch/liblzma.map.patch
+  #patch -p0 < $ROOT/patch/liblzma.map.patch
   ./configure --prefix=${LOCAL_DIR} --disable-debug
   make -s -j${NPROC}
   make -s install 1>/dev/null
