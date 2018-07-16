@@ -98,18 +98,20 @@ else
   fi
 fi
 
-#pip2 install -Uq pip
-pip3 install -Uq pip
+if [ -z $PYTHON_CORE_ONLY ];then
+  #pip2 install -Uq pip
+  pip3 install -Uq pip
 
-#pip2 install -q jupyter jupyterthemes flake8
-pip3 install -q jupyter jupyterthemes flake8
-jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
-cp $ROOT/resources/jupyter/jupyter_notebook_config.py $HOME/.jupyter/
-cp -r $ROOT/resources/jupyter/kernels ${LOCAL_DIR}/share/jupyter/
+  #pip2 install -q jupyter jupyterthemes flake8
+  pip3 install -q jupyter jupyterthemes flake8
+  jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
+  cp $ROOT/resources/jupyter/jupyter_notebook_config.py $HOME/.jupyter/
+  cp -r $ROOT/resources/jupyter/kernels ${LOCAL_DIR}/share/jupyter/
 
-if [ ! -d $HOME/.config ];then
-  mkdir $HOME/.config
+  if [ ! -d $HOME/.config ];then
+    mkdir $HOME/.config
+  fi
+  ln -sf $ROOT/configurations/flake8 $HOME/.config/flake8
 fi
-ln -sf $ROOT/configurations/flake8 $HOME/.config/flake8
 
 LEVEL=$(( ${LEVEL}-1 ))
