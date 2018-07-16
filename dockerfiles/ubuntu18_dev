@@ -1,0 +1,7 @@
+FROM library/ubuntu:bionic
+
+RUN apt update -y \
+      && apt upgrade -y \
+      && apt install -y build-essential git pkg-config cmake curl locales \
+      && locale-gen en_US.utf8 \
+      && apt clean

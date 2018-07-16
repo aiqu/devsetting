@@ -21,12 +21,28 @@ jobs:
         - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
         - docker push gwangmin/base:$TAG
 
+    - stage: build docker image
+      if: type != cron
+      env: BASEIMG=ubuntu_dev:bionic TAG=ubuntu
+      script:
+        - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/base:$TAG
+
     - stage: build basic docker image
       if: type = cron
       env: DOCKERFILE_NAME=centos7_dev
       script:
         - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
         - docker push gwangmin/${DOCKERFILE_NAME}:latest
+
+    - stage: build basic docker image
+      if: type = cron
+      env: 
+        - DOCKERFILE_NAME=ubuntu18_dev
+        - TAG=ubuntu_dev:bionic
+      script:
+        - docker build -t gwangmin/${TAG} -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/${TAG}
 
     - stage: build basic docker image
       if: type = cron
