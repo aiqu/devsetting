@@ -33,6 +33,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 . $ROOT/install_scripts/zlib.sh
 . $ROOT/install_scripts/curl.sh
+. $ROOT/install_scripts/unzip.sh
 
 PKG_NAME="cmake"
 REPO_URL=https://github.com/Kitware/CMake
