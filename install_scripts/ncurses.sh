@@ -36,10 +36,12 @@ PKG_NAME="ncurses"
 REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz
 FOLDER='ncurses*'
 VERFILE="${LOCAL_DIR}/include/ncursesw/curses.h"
-if [ -z $REINSTALL ] && [ -r $VERFILE ];then
+INSTALLED_VERSION=
+if [ -r $VERFILE ];then
   INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define NCURSES_VERSION ' | cut -d'"' -f2)
-  gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
-else
+fi
+
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
@@ -52,6 +54,8 @@ else
   ln -sf libncursesw.so ${LOCAL_DIR}/lib/libcurses.so
 
   cd $ROOT && rm -rf $TMP_DIR
+else
+  gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
 fi
 
 LEVEL=$(( ${LEVEL}-1 ))
