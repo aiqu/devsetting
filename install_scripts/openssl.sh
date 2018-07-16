@@ -53,12 +53,12 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz
   cd $FOLDER
-  ./config --prefix=${LOCAL_DIR} threads
+  ./config --prefix=${LOCAL_DIR} threads shared
   make -s -j${NPROC}
   make -s install_sw 1>/dev/null
   make -s install_man_docs 1>/dev/null
 
-  cd $ROOT && rm -rf $SRC_DIR && mv $TMP_DIR/$FOLDER $SRC_DIR && rm -rf $TMP_DIR
+  cd $ROOT && rm -rf $TMP_DIR
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
