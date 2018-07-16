@@ -33,6 +33,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/python.sh
+
 PKG_NAME="tbb"
 REPO_URL="https://github.com/01org/tbb"
 TAG="2018_U5"
