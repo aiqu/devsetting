@@ -55,7 +55,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz
   cd $FOLDER
-  ./config --prefix=${LOCAL_DIR} threads shared
+  ./config --prefix=${LOCAL_DIR} --openssldir=${LOCAL_DIR}/ssl threads shared enable-ssl3-method enable-ssl3 zlib -Wl,-rpath,'$(LIBRPATH)'
   make -s -j${NPROC}
   make -s install_sw 1>/dev/null
   make -s install_man_docs 1>/dev/null
