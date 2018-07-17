@@ -45,8 +45,8 @@ VER=$(echo $TAG | sed 's/OpenSSL.//' | sed 's/_/./g')
 FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=
-if hash openssl 2>/dev/null;then
-  INSTALLED_VERSION=$(openssl version | cut -d' ' -f2)
+if pkg-config --exists openssl 2>/dev/null;then
+  INSTALLED_VERSION=$(pkg-config --modversion openssl)
 fi
 
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
