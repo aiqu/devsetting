@@ -33,6 +33,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/zlib.sh
+
 PKG_NAME="openssl"
 SRC_DIR=$HOME/.lib/openssl
 REPO_URL="https://github.com/openssl/openssl"
