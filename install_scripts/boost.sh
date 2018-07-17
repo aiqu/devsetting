@@ -34,14 +34,13 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 source $ROOT/envset.sh
 
 PWD=$(pwd)
-WORKDIR=$HOME/.lib
 
 PKG_NAME="boost"
-mkdir -p $WORKDIR && cd $WORKDIR
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-'1.67.0'}
 VER=$(echo $TAG | sed 's/\./_/g')
 VERSTR=$(echo $VER | sed 's/_0//')
+FOLDER="$PKG_NAME*"
 SRCFILE="boost_$VER.tar.bz2"
 VERFILE=${LOCAL_DIR}/include/boost/version.hpp
 INSTALLED_VERSION=""
@@ -51,16 +50,14 @@ fi
 
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VERSTR); then
   iecho "$PKG_NAME $TAG installation.. install location: $LOCAL_DIR"
-  if [ ! -d boost_$VER ];then
-    if [ ! -f $SRCFILE ]; then
-      iecho "Downloading Boost $TAG"
-      curl -L https://sourceforge.net/projects/boost/files/boost/$TAG/$SRCFILE/download | tar xjf -
-    fi
-  fi
-  cd boost_$VER
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl -L https://sourceforge.net/projects/boost/files/boost/$TAG/$SRCFILE/download | tar xjf -
+  cd $FOLDER
   ./bootstrap.sh --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64 --without-libraries=python
   ./b2 -j${NPROC}
   ./b2 install 1>/dev/null
+
+  cd $ROOT && rm -rf $TMP_DIR
 else
   gecho "$PKG_NAME $TAG is already installed"
 fi

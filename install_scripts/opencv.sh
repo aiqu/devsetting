@@ -45,8 +45,6 @@ CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 CUDA_BIN_PATH="/usr/local/cuda-8.0"
-WORKDIR=$HOME/.lib
-INSTALL_DIR=${LOCAL_DIR}
 
 if hash pip2 2>/dev/null;then
   pip2 install numpy
@@ -61,17 +59,13 @@ if $(hash opencv_version); then
 fi
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-  cd $WORKDIR
-  if [ ! -d opencv-${TAG} ];then
-    curl -LO ${REPO_URL}/archive/${TAG}.zip
-    unzip -q ${TAG}.zip && rm ${TAG}.zip
-  fi
-  if [ ! -d opencv_contrib-${TAG} ];then
-    curl -LO ${CONTRIB_REPO_URL}/archive/${TAG}.zip
-    unzip -q ${TAG}.zip && rm ${TAG}.zip
-  fi
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl -LO ${REPO_URL}/archive/${TAG}.zip
+  unzip -q ${TAG}.zip && rm ${TAG}.zip
+  curl -LO ${CONTRIB_REPO_URL}/archive/${TAG}.zip
+  unzip -q ${TAG}.zip && rm ${TAG}.zip
   cd opencv-${TAG} && mkdir -p build && cd build 
-  CONTRIB_MODULE_DIR="$WORKDIR/opencv_contrib-${TAG}/modules"
+  CONTRIB_MODULE_DIR="$TMP_DIR/opencv_contrib-${TAG}/modules"
   PYTHON2_INCLUDE_DIR=${LOCAL_DIR}/include/python2.7
   PYTHON3_INCLUDE_DIR=${LOCAL_DIR}/include/python3.6m
   PYTHON2_LIBRARY=${LOCAL_DIR}/lib/libpython2.7.so
@@ -84,7 +78,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   #MY_CUDA_GEN="Pascal"
   OPENCV_CMAKE_OPTIONS=(
     -DCMAKE_BUILD_TYPE=RELEASE
-    -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR
+    -DCMAKE_INSTALL_PREFIX=$LOCAL_DIR
     -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR
     -DBUILD_opencv_python3=ON
     -DBUILD_EXAMPLES=OFF
@@ -114,6 +108,8 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   fi
   make -s -j${NPROC}
   make -s install 1>/dev/null
+
+  cd $ROOT && rm -rf $TMP_DIR
 else
   gecho "OpenCV $VER is already installed"
 fi

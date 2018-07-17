@@ -35,10 +35,9 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 PKG_NAME="SuiteSparse"
 PWD=$(pwd)
-WORKDIR=$HOME/.lib
 
 iecho "$PKG_NAME installation.."
-mkdir -p $WORKDIR && cd $WORKDIR
+mkdir -p $TMP_DIR && cd $TMP_DIR
 VER='4.5.6'
 SRCFILE="SuiteSparse-$VER.tar.gz"
 if [ ! -d SuiteSparse ]; then
@@ -49,4 +48,4 @@ make -s metis  # At this step, "No rule to make target 'w'" would happen. It is 
 make -s BLAS=-lblas library -j
 make -s install INSTALL=${LOCAL_DIR} BLAS=-lblas 1>/dev/null
 LEVEL=$(( ${LEVEL}-1 ))
-cd $ROOT
+cd $ROOT && rm -rf $TMP_DIR

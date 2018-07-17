@@ -37,40 +37,49 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 PWD=$(pwd)
 PKG_NAME="pcl"
-WORKDIR=$HOME/.lib
 
-iecho "$PKG_NAME installation.."
-cd $WORKDIR
 REPO_URL=https://github.com/PointCloudLibrary/pcl
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' -e 'ros' | sort -V | tail -n1)
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
-if [ ! -d pcl-${TAG} ];then
-  iecho "Downloading pcl $TAG"
+VER=$(echo $TAG | sed 's/pcl-//')
+INSTALLED_VERSION=
+VERFILE=$(find / -name 'pcl_common*\.pc' 2>/dev/null | sort -V | tail -n1)
+if [ -r $VERFILE ];then
+  INSTALLED_VERSION=$(pkg-config --modversion $(echo $(basename $VERFILE) | sed 's/\.pc//'))
+fi
+
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || [ $INSTALLED_VERSION != $VER ];then
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+
+  mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO ${REPO_URL}/archive/${TAG}.zip
   unzip -q ${TAG}.zip && rm ${TAG}.zip
-fi
-cd pcl-${TAG} && mkdir -p build && cd build
-if [ ! -z $VISUALIZATION ];then
-  VISUALIZATION=ON
-else
-  VISUALIZATION=OFF
-fi
-if cmake --find-package -DCOMPILER_ID=GNU -DLANGUAGE=C -DNAME=OpenGL -DMODE=EXIST;then
-  FOUND_OPENGL=ON
-else
-  FOUND_OPENGL=OFF
-fi
-PCL_CMAKE_OPTIONS=(
-  -DCMAKE_BUILD_TYPE=Release
-  -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR}
-  -DWITH_QT=$VISUALIZATION
-  -DWITH_VTK=$VISUALIZATION
-  -DWITH_OPENGL=$FOUND_OPENGL
-)
+  cd pcl-${TAG} && mkdir -p build && cd build
+  if [ ! -z $VISUALIZATION ];then
+    VISUALIZATION=ON
+  else
+    VISUALIZATION=OFF
+  fi
+  if cmake --find-package -DCOMPILER_ID=GNU -DLANGUAGE=C -DNAME=OpenGL -DMODE=EXIST;then
+    FOUND_OPENGL=ON
+  else
+    FOUND_OPENGL=OFF
+  fi
+  PCL_CMAKE_OPTIONS=(
+    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR}
+    -DWITH_QT=$VISUALIZATION
+    -DWITH_VTK=$VISUALIZATION
+    -DWITH_OPENGL=$FOUND_OPENGL
+  )
 
-cmake ${PCL_CMAKE_OPTIONS[@]} ..
-make -s -j${NPROC}
-make -s install 1>/dev/null
+  cmake ${PCL_CMAKE_OPTIONS[@]} ..
+  make -s -j${NPROC}
+  make -s install 1>/dev/null
+  cd $ROOT && rm -rf $TMP_DIR
+else
+  gecho "$PKG_NAME $VER is already installed"
+fi
+
 LEVEL=$(( ${LEVEL}-1 ))
-cd $ROOT

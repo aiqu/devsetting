@@ -43,7 +43,6 @@ elif [ $OS == 'ubuntu' ];then
 fi
 
 PKG_NAME="vtk"
-WORKDIR=$HOME/.lib
 REPO_URL=https://gitlab.kitware.com/vtk/vtk
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -V | tail -n1)
 CUSTOMTAGNAME="${PKG_NAME}TAG"
@@ -51,15 +50,16 @@ TAG=${!CUSTOMTAGNAME:-$TAG}
 COMMIT_HASH=$(git ls-remote --tags $REPO_URL | grep "$TAG^{}" | awk '{print $1}')
 SRCDIR="vtk-$TAG-$COMMIT_HASH"
 
-iecho "$PKG_NAME installation.."
-cd $WORKDIR
-if [ ! -d $SRCDIR ]; then
-  iecho "Downloading vtk $TAG"
+  mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L https://gitlab.kitware.com/vtk/vtk/repository/$TAG/archive.tar.bz2 | tar xjf -
+  cd $FOLDER && mkdir -p build && cd build
+  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
+  make -s -j${NPROC}
+  make -s install 1>/dev/null
+
+  cd $ROOT && rm -rf $TMP_DIR
+else
+  gecho "$PKG_NAME $VER is already installed"
 fi
-cd $SRCDIR && mkdir -p build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
-make -s -j${NPROC}
-make -s install 1>/dev/null
+
 LEVEL=$(( ${LEVEL}-1 ))
-cd $ROOT

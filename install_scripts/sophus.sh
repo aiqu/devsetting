@@ -34,15 +34,12 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="Sophus"
-WORKDIR=$HOME/.lib
 iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
-mkdir -p $WORKDIR && cd $WORKDIR
-if [ ! -d Sophus ]; then
-  git clone https://github.com/strasdat/Sophus.git
-fi
+mkdir -p $TMP_DIR && cd $TMP_DIR
+git clone https://github.com/strasdat/Sophus.git
 cd Sophus && git pull && mkdir -p build && cd build && \
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
 make -s -j${NPROC}
 make -s install 1>/dev/null
 LEVEL=$(( ${LEVEL}-1 ))
-cd $ROOT
+cd $ROOT && rm -rf $TMP_DIR

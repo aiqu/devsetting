@@ -39,7 +39,6 @@ source $ROOT/envset.sh
 . $ROOT/install_scripts/unzip.sh
 . $ROOT/install_scripts/libtool.sh
 
-WORKDIR=$HOME/.lib
 PKG_NAME="protobuf"
 REPO_URL=https://github.com/google/protobuf
 TAG='v3.5.1'
@@ -53,7 +52,7 @@ fi
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
-  cd $WORKDIR
+  mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -LO ${REPO_URL}/releases/download/${TAG}/protobuf-all-${VER}.zip
   unzip -q protobuf-all-${VER}.zip && rm -rf protobuf-all-${VER}.zip protobuf
   mv protobuf-$VER protobuf && cd protobuf
@@ -62,6 +61,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] |
   make -s -j${NPROC}
   make -s check -j${NPROC}
   make -s install 1>/dev/null
+  cd $ROOT && rm -rf $TMP_DIR
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
