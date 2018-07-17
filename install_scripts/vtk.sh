@@ -47,8 +47,15 @@ REPO_URL=https://gitlab.kitware.com/vtk/vtk
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e 'rc' | sort -V | tail -n1)
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
-COMMIT_HASH=$(git ls-remote --tags $REPO_URL | grep "$TAG^{}" | awk '{print $1}')
-SRCDIR="vtk-$TAG-$COMMIT_HASH"
+VER=$TAG
+FOLDER="PKG_NAME*"
+INSTALLED_VERSION=
+if pkg-config --exists vtk;then
+  INSTALLED_VERSION=$(pkg-config --modversion vtk)
+fi
+
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || [ $INSTALLED_VERSION != $VER ];then
+  iecho "$PKG_NAME installation.."
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L https://gitlab.kitware.com/vtk/vtk/repository/$TAG/archive.tar.bz2 | tar xjf -
