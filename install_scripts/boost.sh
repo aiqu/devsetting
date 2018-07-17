@@ -60,7 +60,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   cd boost_$VER
   ./bootstrap.sh --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64 --without-libraries=python
   ./b2 -j${NPROC}
-  ./b2 install
+  ./b2 install 1>/dev/null
 else
   gecho "$PKG_NAME $TAG is already installed"
 fi
