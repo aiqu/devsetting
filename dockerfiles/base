@@ -22,8 +22,7 @@ FROM gwangmin/$BASEIMG
 
 ARG CFLAGS="-march=core2 -O2 -pipe"
 
-RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
-        cd $HOME && \
-        git clone https://github.com/aiqu/devsetting.git && \
-        cd devsetting && bash base.sh && \
-        sudo yum clean all && sudo rm -rf /var/cache/yum
+RUN export CFLAGS="$CFLAGS" CXXFLAGS="$CFLAGS" \
+        && git clone https://github.com/aiqu/devsetting.git \
+        && HARD_COPY=1 devsetting/base.sh \
+        && devsetting/cleanup.sh
