@@ -57,8 +57,12 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   cd $FOLDER
   ./config --prefix=${LOCAL_DIR} --openssldir=${LOCAL_DIR}/ssl threads shared enable-ssl3-method enable-ssl3 zlib -Wl,-rpath,'$(LIBRPATH)'
   make -s -j${NPROC}
-  make -s install_sw 1>/dev/null
-  make -s install_man_docs 1>/dev/null
+  make -s -j${NPROC} install 1>/dev/null
+  rm -rf ${LOCAL_DIR}/share/doc/openssl
+  cp -r /etc/ssl/certs/* ${LOCAL_DIR}/ssl/certs/
+  if [ $OS == 'centos' ];then
+    ln -s /etc/pki/tls/cert.pem ${LOCAL_DIR}/ssl/cert.pem
+  fi
 
   cd $ROOT && rm -rf $TMP_DIR
 else
