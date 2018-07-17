@@ -32,7 +32,6 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
-. $ROOT/install_scripts/xz.sh
 . $ROOT/install_scripts/zlib.sh
 . $ROOT/install_scripts/readline.sh
 . $ROOT/install_scripts/openssl.sh
@@ -48,7 +47,7 @@ else
     REINSTALL=1 $ROOT/install_scripts/bzip2.sh
   fi
   if [ ! -r /usr/include/lzma.h ] && [ ! -r /usr/local/include/lzma.h ] && [ ! -r $LOCAL_DIR/include/lzma.h ];then
-    REINSTALL=1 $ROOT/install_scripts/bzip2.sh
+    REINSTALL=1 $ROOT/install_scripts/xz.sh
   fi
 
   function install_python {
