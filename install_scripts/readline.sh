@@ -57,6 +57,16 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     --enable-shared \
     --enable-static \
     --with-curses
+  # Fix undefined symbol UP issue
+  # https://stackoverflow.com/questions/46881581/libreadline-so-7-undefined-symbol-up
+  LIBTINFO=$(find / -name 'libtinfo.so*' 2>/dev/null | head -n1)
+  if [ -z $LIBTINFO ];then
+    eecho "Cannot find libtinfo!"
+    exit 1
+  fi
+  for mfile in $(find "$PWD" -name 'Makefile'); do
+    sed -i "s|SHLIB_LIBS =|SHLIB_LIBS = $LIBTINFO|g" "$mfile"
+  done
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
