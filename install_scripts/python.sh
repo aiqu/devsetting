@@ -73,8 +73,8 @@ else
     fi
   }
 
-  PYTHON2_VER='2.7.14'
-  PYTHON3_VER='3.6.3'
+  PYTHON2_VER='2.7.15'
+  PYTHON3_VER='3.6.6'
   INSTALLED_PYTHON2_VER=
   if hash python2 2>/dev/null;then
     INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
