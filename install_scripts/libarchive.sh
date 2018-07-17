@@ -34,6 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 . $ROOT/install_scripts/xz.sh
+. $ROOT/install_scripts/unzip.sh
 
 PKG_NAME="libarchive"
 REPO_URL="https://github.com/libarchive/libarchive"
