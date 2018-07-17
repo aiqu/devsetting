@@ -41,7 +41,10 @@ else
 
   PKG_NAME="flex"
   REPO_URL="https://github.com/westes/flex"
-  TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|flex' | cut -d/ -f3 | sort -V | tail -n1)
+  #TAG=$(git ls-remote -t $REPO_URL | grep -v -e '{}\|flex' | cut -d/ -f3 | sort -V | tail -n1)
+  # Fix version to 2.6.3 until 2.6.5 released 
+  # https://github.com/westes/flex/issues/219
+  TAG='v2.6.3'
   VER=$(echo $TAG | sed 's/v//')
   FOLDER="$PKG_NAME*"
   INSTALLED_VERSION=
