@@ -43,9 +43,10 @@ TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/pcl-//')
+FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=
 VERFILE=$(find / -name 'pcl_common*\.pc' 2>/dev/null | sort -V | tail -n1)
-if [ -r $VERFILE ];then
+if [ $VERFILE ] && [ -r $VERFILE ];then
   INSTALLED_VERSION=$(pkg-config --modversion $(echo $(basename $VERFILE) | sed 's/\.pc//'))
 fi
 
@@ -53,9 +54,8 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip -q ${TAG}.zip && rm ${TAG}.zip
-  cd pcl-${TAG} && mkdir -p build && cd build
+  curl -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz
+  cd $FOLDER && mkdir -p build && cd build
   if [ ! -z $VISUALIZATION ];then
     VISUALIZATION=ON
   else
