@@ -93,6 +93,7 @@ else
   if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
     install_python $PYTHON3_VER
     ln -sf $LOCAL_DIR/bin/python3 $LOCAL_DIR/bin/python
+    ln -sf $LOCAL_DIR/bin/pip3 $LOCAL_DIR/bin/pip
   else
     gecho "Python $PYTHON3_VER is already installed"
   fi
