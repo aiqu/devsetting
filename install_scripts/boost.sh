@@ -49,7 +49,7 @@ if cmake --find-package -DNAME=Boost -DCOMPILER_ID=GNU -DLANGUAGE=C -DMODE=EXIST
   INSTALLED_VERSION=$(grep 'BOOST_LIB_VERSION "' $VERFILE | cut -d'"' -f2)
 fi
 
-if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VERSTR); then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $TAG installation.. install location: $LOCAL_DIR"
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L https://sourceforge.net/projects/boost/files/boost/$TAG/$SRCFILE/download | tar xjf -
