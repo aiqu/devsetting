@@ -44,7 +44,7 @@ if [ $OS == 'ubuntu' ];then
   ${SUDO} debconf-set-selections preseed.txt
   rm preseed.txt
   DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true ${SUDO} apt install -y ros-kinetic-ros-base
-  pip install -y rosinstall rosinstall-generator wstool catkin_pkg
+  pip install rosinstall rosinstall-generator wstool catkin_pkg
   echo "source /opt/ros/kinetic/setup.bash" >> $HOME/.bashrc
 else
   iecho "Current OS($OS) does not support ROS"
