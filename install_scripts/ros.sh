@@ -34,6 +34,8 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 if [ $OS == 'ubuntu' ];then
+  . $ROOT/install_scripts/python.sh
+
   CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d'=' -f2)
   ${SUCO} bash -c "echo \"deb http://packages.ros.org/ros/ubuntu $CODENAME main\" > /etc/apt/sources.list.d/ros-latest.list"
   ${SUDO} apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
