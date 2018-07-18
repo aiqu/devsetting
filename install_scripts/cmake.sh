@@ -33,7 +33,6 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 . $ROOT/install_scripts/zlib.sh
 . $ROOT/install_scripts/curl.sh
-. $ROOT/install_scripts/unzip.sh
 
 PKG_NAME="cmake"
 REPO_URL=https://github.com/Kitware/CMake
@@ -53,8 +52,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] |
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
   iecho "Downloading CMake $VER"
-  curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip -q ${TAG}.zip
+  curl -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz
   cd $FOLDER
   ./bootstrap --prefix=${LOCAL_DIR} --parallel=${NPROC}
 
