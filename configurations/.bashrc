@@ -60,7 +60,7 @@ if [ -d ${LOCAL_DIR}/lib/perl5 ];then
 fi
 
 # Alias definitions.
-if [ -f ~/.bash_aliases ]; then
+if [ -r ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 
@@ -104,5 +104,9 @@ case "$TERM" in
     ;;
 esac
 
-. $HOME/.promptrc
-. $HOME/.git-completion
+if [ -r $HOME/.promptrc ];then
+  . $HOME/.promptrc
+fi
+if [ -r $HOME/.git-completion ];then
+  . $HOME/.git-completion
+fi
