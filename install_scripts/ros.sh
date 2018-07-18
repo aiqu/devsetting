@@ -37,15 +37,23 @@ if [ $OS == 'ubuntu' ];then
   . $ROOT/install_scripts/python.sh
 
   CODENAME=$(cat /etc/os-release | grep VERSION_CODENAME | cut -d'=' -f2)
+  if [ $CODENAME = 'xenial' ];then
+    ROSNAME='kinetic'
+  elif [ $CODENAME = 'bionic' ];then
+    ROSNAME='melodic'
+  else
+    eecho "Current OS ($CODENAME) has no supported ROS version"
+    exit 1
+  fi
   ${SUCO} bash -c "echo \"deb http://packages.ros.org/ros/ubuntu $CODENAME main\" > /etc/apt/sources.list.d/ros-latest.list"
   ${SUDO} apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
   ${SUDO} apt update
   echo -e 'tzdata tzdata/Areas select Asia\ntzdata tzdata/Zones/Europe select Seoul' > preseed.txt
   ${SUDO} debconf-set-selections preseed.txt
   rm preseed.txt
-  DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true ${SUDO} apt install -y ros-kinetic-ros-base
+  DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true ${SUDO} apt install -y ros-$ROSNAME-ros-base
   pip install rosinstall rosinstall-generator wstool catkin_pkg
-  echo "source /opt/ros/kinetic/setup.bash" >> $HOME/.bashrc
+  echo "source /opt/ros/$ROSNAME/setup.bash" >> $HOME/.bashrc
 else
   iecho "Current OS($OS) does not support ROS"
 fi
