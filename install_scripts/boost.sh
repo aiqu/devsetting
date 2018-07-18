@@ -42,9 +42,10 @@ VER=$(echo $TAG | sed 's/\./_/g')
 VERSTR=$(echo $VER | sed 's/_0//')
 FOLDER="$PKG_NAME*"
 SRCFILE="boost_$VER.tar.bz2"
-VERFILE=${LOCAL_DIR}/include/boost/version.hpp
 INSTALLED_VERSION=""
-if [ -r $VERFILE ];then
+if cmake --find-package -DNAME=Boost -DCOMPILER_ID=GNU -DLANGUAGE=C -DMODE=EXIST 2>&1 1>/dev/null;then
+  INCLUDE_DIR=$(cmake --find-package -DNAME=Boost -DCOMPILER_ID=GNU -DLANGUAGE=C -DMODE=COMPILE | sed 's/-I//' | tr -d '[:space:]')
+  VERFILE="${INCLUDE_DIR}/boost/version.hpp"
   INSTALLED_VERSION=$(grep 'BOOST_LIB_VERSION "' $VERFILE | cut -d'"' -f2)
 fi
 
@@ -59,7 +60,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
 
   cd $ROOT && rm -rf $TMP_DIR
 else
-  gecho "$PKG_NAME $TAG is already installed"
+  gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
 fi
 
 LEVEL=$(( ${LEVEL}-1 ))
