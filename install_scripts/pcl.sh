@@ -34,6 +34,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/install_scripts/eigen3.sh
 . $ROOT/install_scripts/flann.sh
+. $ROOT/install_scripts/boost.sh
 
 PWD=$(pwd)
 PKG_NAME="pcl"
