@@ -43,7 +43,7 @@ VERSTR=$(echo $VER | sed 's/_0//')
 FOLDER="$PKG_NAME*"
 SRCFILE="boost_$VER.tar.bz2"
 INSTALLED_VERSION=""
-if cmake --find-package -DNAME=Boost -DCOMPILER_ID=GNU -DLANGUAGE=C -DMODE=EXIST 2>&1 1>/dev/null;then
+if cmake --find-package -DNAME=Boost -DCOMPILER_ID=GNU -DLANGUAGE=C -DMODE=EXIST >/dev/null 2>&1 ;then
   INCLUDE_DIR=$(cmake --find-package -DNAME=Boost -DCOMPILER_ID=GNU -DLANGUAGE=C -DMODE=COMPILE | sed 's/-I//' | tr -d '[:space:]')
   VERFILE="${INCLUDE_DIR}/boost/version.hpp"
   INSTALLED_VERSION=$(grep 'BOOST_LIB_VERSION "' $VERFILE | cut -d'"' -f2)
