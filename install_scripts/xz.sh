@@ -54,8 +54,10 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl -L $DOWN_URL | tar xz
   cd $FOLDER
-  # Apply patch to fix yum issue on CentOS
-  #patch -p0 < $ROOT/patch/liblzma.map.patch
+  if [ $OS = 'centos' ];then
+    # Apply patch to fix yum issue on CentOS
+    patch -p0 < $ROOT/patch/liblzma.map.patch
+  fi
   ./configure --prefix=${LOCAL_DIR} --disable-debug
   make -s -j${NPROC}
   make -s install 1>/dev/null
