@@ -38,11 +38,20 @@ jobs:
     - stage: build basic docker image
       if: type = cron
       env: 
-        - DOCKERFILE_NAME=ubuntu18_dev
-        - TAG=ubuntu_dev:bionic
+        - DOCKERFILE_NAME=ubuntu_dev
+        - TAG=bionic
       script:
-        - docker build -t gwangmin/${TAG} -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
-        - docker push gwangmin/${TAG}
+        - docker build -t gwangmin/ubuntu_dev:${TAG} -f dockerfiles/$DOCKERFILE_NAME --build-arg VERSION=${TAG} $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/ubuntu_dev:${TAG}
+
+    - stage: build basic docker image
+      if: type = cron
+      env: 
+        - DOCKERFILE_NAME=ubuntu_dev
+        - TAG=xenial
+      script:
+        - docker build -t gwangmin/ubuntu_dev:${TAG} -f dockerfiles/$DOCKERFILE_NAME --build-arg VERSION=${TAG} $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/ubuntu_dev:${TAG}
 
     - stage: build basic docker image
       if: type = cron
