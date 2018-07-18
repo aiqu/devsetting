@@ -50,8 +50,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO $REPO_URL/archive/$TAG.zip
-  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  curl -LO $REPO_URL/archive/$VER.tar.gz | tar xz && cd $FOLDER
   mkdir -p build && cd build
   # Fix build issue https://github.com/mariusmuja/flann/issues/369
   touch ../src/cpp/empty.cpp
