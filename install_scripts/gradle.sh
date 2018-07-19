@@ -32,6 +32,8 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/unzip.sh
+
 PKG_NAME='gradle'
 VER='4.3'
 INSTALLED_VERSION=
