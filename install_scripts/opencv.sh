@@ -60,10 +60,8 @@ fi
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $TAG); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip -q ${TAG}.zip && rm ${TAG}.zip
-  curl -LO ${CONTRIB_REPO_URL}/archive/${TAG}.zip
-  unzip -q ${TAG}.zip && rm ${TAG}.zip
+  curl -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz
+  curl -L ${CONTRIB_REPO_URL}/archive/${TAG}.tar.gz | tar xz
   cd opencv-${TAG} && mkdir -p build && cd build 
   CONTRIB_MODULE_DIR="$TMP_DIR/opencv_contrib-${TAG}/modules"
   PYTHON2_INCLUDE_DIR=${LOCAL_DIR}/include/python2.7

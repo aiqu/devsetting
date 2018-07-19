@@ -54,8 +54,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO $REPO_URL/archive/$TAG.zip
-  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   ./bootstrap
   mv rebar3 ${LOCAL_DIR}/bin
 

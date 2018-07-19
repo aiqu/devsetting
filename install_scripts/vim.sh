@@ -49,9 +49,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
-  curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip -q ${TAG}.zip
-  cd $FOLDER
+  curl -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz && cd $FOLDER
 
   LOCAL_DIR_STR=$(echo "$LOCAL_DIR" | sed 's|/|\\/|g')
   if [ $OS == 'mac' ];then
@@ -93,7 +91,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   fi
 
   ${LOCAL_DIR}/bin/vim +PluginInstall +PluginUpdate +qall
-  unzip -qu $ROOT/resources/taglist_46.zip -d ~/.vim/
+  tar xfz $ROOT/resources/taglist_46.tar.gz -C ~/.vim/
   cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim81/syntax/ejs.vim
 
   if [[ ! -d $HOME/.vim/pack/plugins/start/vim-go ]]; then

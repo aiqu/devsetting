@@ -56,7 +56,7 @@ function install_gcc() {
 
   mkdir -p $WORKDIR && cd $WORKDIR
   if [ ! -d $GCC_SOURCE_DIR ];then
-    curl -LO https://github.com/gcc-mirror/gcc/archive/gcc-$VER-release.zip && unzip -q gcc-$VER-release.zip
+    curl -L https://github.com/gcc-mirror/gcc/archive/gcc-$VER-release.tar.gz | tar xz
   fi
   cd $GCC_SOURCE_DIR
   if [ ! -d gmp ]; then

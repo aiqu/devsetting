@@ -52,9 +52,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
-  curl -LO ${REPO_URL}/archive/${TAG}.zip
-  unzip -q ${TAG}.zip
-  cd $FOLDER
+  curl -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz && cd $FOLDER
   # Wierd, but install twice for pkg-config and cmake
   ./autogen.sh
   ./configure --prefix=${LOCAL_DIR} --disable-debug-mode --disable-samples

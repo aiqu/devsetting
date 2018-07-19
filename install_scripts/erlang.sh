@@ -48,8 +48,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO $REPO_URL/archive/$TAG.zip
-  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   export ERL_TOP=$(pwd)
   ./otp_build autoconf
   ./configure --prefix=${LOCAL_DIR} --with-ssl=${LOCAL_DIR}/include/openssl --with-ssl-rpath=${LOCAL_DIR}/lib

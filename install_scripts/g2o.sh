@@ -35,7 +35,7 @@ PWD=$(pwd)
 
 PKG_NAME="g2o"
 REPO_URL="https://github.com/RainerKuemmerle/g2o"
-TAG="master"
+TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER="master"
@@ -46,8 +46,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO $REPO_URL/archive/$TAG.zip
-  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   mkdir -p build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DCMAKE_CXX_FLAGS="-O2 -pipe" -DCMAKE_C_FLAGS="-O2 -pipe" ..
   make -s -j${NPROC}
