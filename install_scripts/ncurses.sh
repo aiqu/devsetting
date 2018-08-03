@@ -35,7 +35,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PKG_NAME="ncurses"
 REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz
 FOLDER='ncurses*'
-VERFILE="${LOCAL_DIR}/include/ncursesw/curses.h"
+VERFILE="${LOCAL_DIR}/include/ncurses.h"
 INSTALLED_VERSION=
 if [ -r $VERFILE ];then
   INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define NCURSES_VERSION ' | cut -d'"' -f2)
