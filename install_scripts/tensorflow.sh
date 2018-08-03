@@ -45,6 +45,12 @@ pip3 install numpy scipy
 #install tensorflow
 go get -d github.com/tensorflow/tensorflow/tensorflow/go
 cd ${GOPATH}/src/github.com/tensorflow/tensorflow
+git fetch
+TAG=$(git tag | grep -v rc | sort -V | tail -n1)
+CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
+VER=$(echo $TAG | sed 's/v//')
+git checkout $TAG
 ./configure
 bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
 bazel-bin/tensorflow/tools/pip_package/build_pip_package $TF_PKG_DIR
