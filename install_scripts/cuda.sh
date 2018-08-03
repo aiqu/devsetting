@@ -90,14 +90,15 @@ elif [ $OS == "centos" ];then
 
     printf "[cuda]\nname=cuda\nbaseurl=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64\nenabled=1\ngpgcheck=1\ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" > /etc/yum.repos.d/cuda.repo
 
-    CUDA_VERSION=9.0.176
-    CUDA_PKG_VERSION=9-0-${CUDA_VERSION}-1
+    CUDA_VERSION=9.2.148
+    CUDA_PKG_VERSION=9-2-${CUDA_VERSION}-1
 
     yum install -y cuda-cudart-${CUDA_PKG_VERSION} \
-      cuda-libraries-${CUDA_PKG_VERSION}
-    ln -fs cuda-9.0 /usr/local/cuda
-    echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf
-    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+      cuda-libraries-${CUDA_PKG_VERSION} \
+      cuda-nvcc-${CUDA_PKG_VERSION}
+    rm -f /usr/local/cuda
+    ln -s cuda-9.2 /usr/local/cuda
+    echo -e "/usr/local/nvidia/lib\n/usr/local/nvidia/lib64\n/usr/local/cuda/lib\n/usr/local/cuda/lib64" > /etc/ld.so.conf.d/nvidia.conf
     if [ -z $RUNTIMEONLY ];then
       yum install -y cuda-libraries-dev-${CUDA_PKG_VERSION} \
         cuda-nvml-dev-${CUDA_PKG_VERSION} \
@@ -106,10 +107,19 @@ elif [ $OS == "centos" ];then
     fi
     rm -rf /var/cache/yum/*
 
-    CUDNN_DOWNLOAD_SUM=60b581d0f05324c33323024a264aa3fb185c533e2f67dae7fda847b926bb7e57 && \
-    curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.4/cudnn-9.0-linux-x64-v7.1.tgz -O && \
-    echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.0-linux-x64-v7.1.tgz" | sha256sum -c - && \
-    tar --no-same-owner -xzf cudnn-9.0-linux-x64-v7.1.tgz -C /usr/local --wildcards 'cuda/lib64/libcudnn.so.*' && \
-    rm cudnn-9.0-linux-x64-v7.1.tgz && \
-    ldconfig
+    CUDNN_DOWNLOAD_SUM=f875340f812b942408098e4c9807cb4f8bdaea0db7c48613acece10c7c827101 && \
+      curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.4/cudnn-9.2-linux-x64-v7.1.tgz -O && \
+      echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.2-linux-x64-v7.1.tgz" | sha256sum -c - && \
+      tar --no-same-owner -xzf cudnn-9.2-linux-x64-v7.1.tgz -C /usr/local && \
+      rm cudnn-9.2-linux-x64-v7.1.tgz && \
+      ldconfig
+
+  # Install NCCL 2.2.13
+  curl -L 'https://drive.google.com/uc?authuser=0&id=1cw4LWfuerNheqmVsxKngQvP4YWhu83il&export=download' -o nccl.txz \
+    && mkdir -p nccl /usr/local/cuda/lib \
+    && tar xf nccl.txz --strip-components=1 -C nccl \
+    && cp -a nccl/include/* /usr/local/cuda/include/ \
+    && cp -a nccl/lib/* /usr/local/cuda/lib/ \
+    && cp -a nccl/NCCL-SLA.txt /usr/local/cuda/ \
+    && rm -rf nccl.txz nccl && ldconfig
 fi
