@@ -66,3 +66,4 @@ bazel build --config opt //tensorflow/tools/lib_package:libtensorflow
 tar xf bazel-bin/tensorflow/tools/lib_package/libtensorflow.tar.gz -C ${LOCAL_DIR}
 
 LEVEL=$(( ${LEVEL}-1 ))
+cd $ROOT
