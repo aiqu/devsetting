@@ -98,6 +98,7 @@ else
     gecho "Python $PYTHON3_VER is already installed"
   fi
 fi
+pip install -U pip
 
 if [ ! -z $PYTHON_PACKAGE ];then
   #pip2 install -Uq pip
