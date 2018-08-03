@@ -36,7 +36,7 @@ PKG_NAME="jdk"
 VER="8u181"
 WORKDIR=${LOCAL_DIR}
 
-if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8' || ! which jar 2>/dev/null ;then
+if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8' || ! hash jar 2>/dev/null ;then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
   mkdir -p $WORKDIR && cd $WORKDIR
 
