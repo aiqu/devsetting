@@ -103,7 +103,7 @@ elif [ $OS == "centos" ];then
       yum install -y cuda-libraries-dev-${CUDA_PKG_VERSION} \
         cuda-nvml-dev-${CUDA_PKG_VERSION} \
         cuda-minimal-build-${CUDA_PKG_VERSION} \
-        cuda-comand-line-tools-${CUDA_PKG_VERSION}
+        cuda-command-line-tools-${CUDA_PKG_VERSION}
     fi
     rm -rf /var/cache/yum/*
 
