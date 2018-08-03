@@ -33,6 +33,8 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/jdk8.sh
+
 PKG_NAME="bazel"
 REPO_URL="https://github.com/bazelbuild/bazel"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
