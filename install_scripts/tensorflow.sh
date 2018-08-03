@@ -51,7 +51,9 @@ CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
 git checkout $TAG
-patch -p1 $ROOT/patch/tensorflow_swig.patch
+set +e
+patch -p1 --forward -r - < $ROOT/patch/tensorflow_swig.patch
+set -e
 ./configure
 bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
 bazel-bin/tensorflow/tools/pip_package/build_pip_package $TF_PKG_DIR
