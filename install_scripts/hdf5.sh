@@ -50,7 +50,9 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   curl -L $REPO_URL | tar xj
   cd $FOLDER
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
+  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
+    -DHDF5_ENABLE_THREADSAFE=ON \
+    ..
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
