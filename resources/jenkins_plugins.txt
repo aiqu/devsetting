@@ -106,3 +106,6 @@ ssh-agent
 blueocean-rest
 matrix-auth
 apache-httpcomponents-client-4-api
+greenballs
+simple-theme-plugin
+kubernetes
