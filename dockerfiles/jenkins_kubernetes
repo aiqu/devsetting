@@ -1,0 +1,36 @@
+#    Build jenkins image with preinstalled plugins and docker
+#
+#    Copyright (C) 2018 Gwangmin Lee
+#    
+#    Author: Gwangmin Lee <gwangmin0123@gmail.com>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+FROM jenkins/jenkins:latest
+
+USER root
+COPY resources/jenkins_plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt && \
+        mkdir -p /tmp && git clone https://github.com/aiqu/devsetting && \
+        cd devsetting && bash install_scripts/docker.sh && \
+        rm -rf /tmp/devsetting && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+        usermod -aG sudo,docker jenkins && chmod u+w /etc/sudoers && \
+        sed -i 's/ALL=(ALL:ALL) /\0NOPASSWD:/g' /etc/sudoers && \
+        chmod u-w /etc/sudoers
+
+VOLUME /var/jenkins_home /var/run/docker.sock /workspace
+EXPOSE 8080 50000
+
+USER jenkins
+
