@@ -1,7 +1,3 @@
-if [ -f /etc/bashrc ]; then
-  . /etc/bashrc
-fi
-
 LOCAL_DIR=${LOCAL_DIR:-"$HOME/.local"}
 export GOROOT=${LOCAL_DIR}/go
 export GOPATH=$HOME/workspace/golang
