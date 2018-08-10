@@ -1,2 +1,4 @@
 export PATH="/usr/local/sbin:$PATH"
-source $HOME/.bashrc
+if [ -f $HOME/.bashrc ];then
+  source $HOME/.bashrc
+fi
