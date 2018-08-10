@@ -54,7 +54,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] |
   iecho "Downloading CMake $VER"
   curl --retry 10 -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz
   cd $FOLDER
-  ./bootstrap --prefix=${LOCAL_DIR} --parallel=${NPROC}
+  ./bootstrap --prefix=${LOCAL_DIR} --parallel=${NPROC} --system-curl
 
   make -s -j${NPROC}
   make -s install 1>/dev/null
