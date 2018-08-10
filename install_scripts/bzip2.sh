@@ -38,7 +38,8 @@ TAG='1.0.6'
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
-REPO_URL="http://www.bzip.org/$TAG/bzip2-$TAG.tar.gz"
+#REPO_URL="http://www.bzip.org/$TAG/bzip2-$TAG.tar.gz"
+REPO_URL="https://www.dropbox.com/s/k6l90e8mj7t4sf4/bzip2-1.0.6.tar.gz"
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=
 if hash bzip2 2>/dev/null;then
