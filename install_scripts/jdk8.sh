@@ -43,7 +43,7 @@ if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8'
   FILENAME='jdk-8u181-linux-x64.tar.gz'
   FOLDERNAME='jdk1.8.0_181'
 
-  curl -jkL \
+  curl --retry 10 -jkL \
     -H "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
     "http://download.oracle.com/otn-pub/java/jdk/8u181-b13/96a7b8442fe848ef90c96a2fad6ed6d1/$FILENAME" \
     | tar xz

@@ -56,23 +56,23 @@ function install_gcc() {
 
   mkdir -p $WORKDIR && cd $WORKDIR
   if [ ! -d $GCC_SOURCE_DIR ];then
-    curl -L https://github.com/gcc-mirror/gcc/archive/gcc-$VER-release.tar.gz | tar xz
+    curl --retry 10 -L https://github.com/gcc-mirror/gcc/archive/gcc-$VER-release.tar.gz | tar xz
   fi
   cd $GCC_SOURCE_DIR
   if [ ! -d gmp ]; then
-    curl -L https://gmplib.org/download/gmp/$GMP.tar.xz | tar xJf -
+    curl --retry 10 -L https://gmplib.org/download/gmp/$GMP.tar.xz | tar xJf -
     mv $GMP gmp
   fi
   if [ ! -d mpfr ]; then
-    curl -L http://www.mpfr.org/$MPFR/$MPFR.tar.xz | tar xJf -
+    curl --retry 10 -L http://www.mpfr.org/$MPFR/$MPFR.tar.xz | tar xJf -
     mv $MPFR mpfr
   fi
   if [ ! -d mpc ]; then
-    curl -L ftp://ftp.gnu.org/gnu/mpc/$MPC.tar.gz | tar xzf -
+    curl --retry 10 -L ftp://ftp.gnu.org/gnu/mpc/$MPC.tar.gz | tar xzf -
     mv $MPC mpc
   fi
   if [ ! -d isl ]; then
-    curl -L ftp://gcc.gnu.org/pub/gcc/infrastructure/$ISL.tar.bz2 | tar xjf -
+    curl --retry 10 -L ftp://gcc.gnu.org/pub/gcc/infrastructure/$ISL.tar.bz2 | tar xjf -
     mv $ISL isl
   fi
   export CLFAGS=$CFLAGS CXXFLAGS=$CFLAGS

@@ -40,7 +40,7 @@ INSTALLED_VER=$(cat $VERFILE | grep -e 'define SLANG_VERSION_STRING "' | cut -d'
 if [ ! -r $VERFILE ] || [ -z $INSTALLED_VER ] || $(compare_version $INSTALLED_VER $VER);then
   iecho "$PKG_NAME $VER installation.."
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L ftp://space.mit.edu/pub/davis/slang/v2.1/slang-2.1.4.tar.gz | tar xz
+  curl --retry 10 -L ftp://space.mit.edu/pub/davis/slang/v2.1/slang-2.1.4.tar.gz | tar xz
   cd slang-2.1.4
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
@@ -57,7 +57,7 @@ VERFILE="${LOCAL_DIR}/include/popt.h"
 if [ ! -f $VERFILE ];then
   iecho "$PKG_NAME $VER installation.."
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L ftp://anduin.linuxfromscratch.org/BLFS/popt/popt-1.16.tar.gz | tar xz
+  curl --retry 10 -L ftp://anduin.linuxfromscratch.org/BLFS/popt/popt-1.16.tar.gz | tar xz
   cd popt-1.16
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
@@ -81,7 +81,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] |
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   DOWN_URL=https://releases.pagure.org/newt/newt-$VER.tar.gz
-  curl -L $DOWN_URL | tar xz
+  curl --retry 10 -L $DOWN_URL | tar xz
   cd $FOLDER
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}

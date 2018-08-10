@@ -45,7 +45,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME installation.."
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL | tar xj
+  curl --retry 10 -L $REPO_URL | tar xj
   cd $FOLDER
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}

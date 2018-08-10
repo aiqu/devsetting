@@ -60,7 +60,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   fi
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
+  curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   export CC=gcc
   export LDFLAGS=-L${LOCAL_DIR}/lib
   make -s configure

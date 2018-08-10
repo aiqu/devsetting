@@ -55,7 +55,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz
+  curl --retry 10 -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz
   cd $FOLDER && mkdir -p build && cd build
   if [ ! -z $VISUALIZATION ];then
     VISUALIZATION=ON

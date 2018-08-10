@@ -48,7 +48,7 @@ else
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
     mkdir -p $TMP_DIR && cd $TMP_DIR
-    curl -L $REPO_URL | tar xz
+    curl --retry 10 -L $REPO_URL | tar xz
     cd $FOLDER
     if [ $OS == 'mac' ]; then
       make -s -f macos/Makefile -j${NPROC} generic

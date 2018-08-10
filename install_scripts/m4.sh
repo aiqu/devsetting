@@ -41,7 +41,7 @@ else
   FOLDER="$PKG_NAME*"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL | tar xJ
+  curl --retry 10 -L $REPO_URL | tar xJ
   cd $FOLDER
 
   VER=$(pwd | cut -d'-' -f2)

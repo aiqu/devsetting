@@ -42,7 +42,7 @@ ${SUDO} yum remove nvidia-docker
 
 # Add the package repositories
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | \
+curl --retry 10 -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | \
   ${SUDO} tee /etc/yum.repos.d/nvidia-docker.repo
 
 # Install nvidia-docker2 and reload the Docker daemon configuration

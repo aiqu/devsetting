@@ -41,9 +41,9 @@ if [ $OS == "ubuntu" ];then
     ${SUDO} apt-get install -y \
         apt-transport-https \
         ca-certificates \
-        curl \
+        curl --retry 10 \
         software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | ${SUDO} apt-key add -
+    curl --retry 10 -fsSL https://download.docker.com/linux/ubuntu/gpg | ${SUDO} apt-key add -
     ${SUDO} add-apt-repository -y \
        "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
        $(lsb_release -cs) \
@@ -60,10 +60,10 @@ elif [ $OS == "debian" ];then
     ${SUDO} apt-get install -y \
         apt-transport-https \
         ca-certificates \
-        curl \
+        curl --retry 10 \
         gnupg2 \
         software-properties-common
-    curl -fsSL https://download.docker.com/linux/debian/gpg | ${SUDO} apt-key add -
+    curl --retry 10 -fsSL https://download.docker.com/linux/debian/gpg | ${SUDO} apt-key add -
     ${SUDO} add-apt-repository -y \
        "deb [arch=amd64] https://download.docker.com/linux/debian \
        $(lsb_release -cs) \
@@ -84,7 +84,7 @@ elif [ $OS == "centos" ];then
     ${SUDO} systemctl start docker
     ${SUDO} docker run --rm hello-world
 elif [ $OS == "mac" ];then
-    curl -L https://download.docker.com/mac/stable/Docker.dmg -o $HOME/Docker.dmg
+    curl --retry 10 -L https://download.docker.com/mac/stable/Docker.dmg -o $HOME/Docker.dmg
     iecho "Run $HOME/Docker.dmg manually"
 fi
 

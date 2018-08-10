@@ -52,7 +52,7 @@ fi
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ]; then
   iecho "$PKG_NAME $TAG installation.. install location: $LOCAL_DIR"
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L https://dl.bintray.com/boostorg/release/$TAG/source/$SRCFILE | tar xjf -
+  curl --retry 10 -L https://dl.bintray.com/boostorg/release/$TAG/source/$SRCFILE | tar xjf -
   cd $FOLDER
   ./bootstrap.sh --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64 --without-libraries=python
   ./b2 -j${NPROC}

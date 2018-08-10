@@ -59,7 +59,7 @@ else
       BOOTSTRAP_TAG='v2.6.2'
       BOOTSTRAP_VER='2.6.2'
       iecho "$PKG_NAME $BOOTSTRAP_VER installation for bootstraping.."
-      curl -L https://github.com/westes/flex/releases/download/$BOOTSTRAP_TAG/flex-${BOOTSTRAP_VER}.tar.gz | tar xz
+      curl --retry 10 -L https://github.com/westes/flex/releases/download/$BOOTSTRAP_TAG/flex-${BOOTSTRAP_VER}.tar.gz | tar xz
       cd $FOLDER
       ./autogen.sh
       ./configure --prefix=${LOCAL_DIR}
@@ -70,7 +70,7 @@ else
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
     mkdir -p $TMP_DIR && cd $TMP_DIR
-    curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
+    curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
     ./autogen.sh
     ./configure --prefix=${LOCAL_DIR}
     make -s -j${NPROC} && make -s install 1>/dev/null

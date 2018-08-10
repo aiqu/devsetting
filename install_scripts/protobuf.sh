@@ -53,7 +53,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] |
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L ${REPO_URL}/releases/download/${TAG}/protobuf-all-${VER}.tar.gz | tar xz
+  curl --retry 10 -L ${REPO_URL}/releases/download/${TAG}/protobuf-all-${VER}.tar.gz | tar xz
   rm -rf protobuf
   mv protobuf-$VER protobuf && cd protobuf
   ./autogen.sh

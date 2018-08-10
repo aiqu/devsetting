@@ -48,12 +48,12 @@ ${SUDO} apt-get install -y terminator
 
 # install coding font
 FILENAME=font.zip
-curl -L https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip -o $FILENAME && unzip -fq $FILENAME NanumGothic* -d $HOME/.fonts && rm $FILENAME
-curl -L https://github.com/naver/d2codingfont/releases/download/VER1.3.1/D2Coding-Ver1.3.1-20180115.zip -o $FILENAME && unzip -fq $FILENAME D2Coding* -d $HOME/.fonts && rm $FILENAME
+curl --retry 10 -L https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip -o $FILENAME && unzip -fq $FILENAME NanumGothic* -d $HOME/.fonts && rm $FILENAME
+curl --retry 10 -L https://github.com/naver/d2codingfont/releases/download/VER1.3.1/D2Coding-Ver1.3.1-20180115.zip -o $FILENAME && unzip -fq $FILENAME D2Coding* -d $HOME/.fonts && rm $FILENAME
 ${SUDO} fc-cache
 
 #install Arc-theme and Moka icon theme
-curl -L https://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/all/arc-theme_1488477732.766ae1a-0_all.deb -o arc-theme.deb
+curl --retry 10 -L https://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/all/arc-theme_1488477732.766ae1a-0_all.deb -o arc-theme.deb
 ${SUDO} dpkg -i arc-theme.deb
 rm arc-theme.deb
 

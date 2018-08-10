@@ -55,7 +55,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL/get/$TAG.gz | tar xz
+  curl --retry 10 -L $REPO_URL/get/$TAG.gz | tar xz
   cd $FOLDER
   mkdir -p build && cd build
   cmake -DCMAKE_BUILD_TYPE=RELEASE \

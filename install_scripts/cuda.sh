@@ -85,7 +85,7 @@ if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
 
 elif [ $OS == "centos" ];then
     NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
-        curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/7fa2af80.pub | sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA && \
+        curl --retry 10 -fsSL https://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/7fa2af80.pub | sed '/^Version/d' > /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA && \
         echo "$NVIDIA_GPGKEY_SUM  /etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" | sha256sum -c --strict -
 
     printf "[cuda]\nname=cuda\nbaseurl=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64\nenabled=1\ngpgcheck=1\ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" > /etc/yum.repos.d/cuda.repo
@@ -108,14 +108,14 @@ elif [ $OS == "centos" ];then
     rm -rf /var/cache/yum/*
 
     CUDNN_DOWNLOAD_SUM=f875340f812b942408098e4c9807cb4f8bdaea0db7c48613acece10c7c827101 && \
-      curl -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.4/cudnn-9.2-linux-x64-v7.1.tgz -O && \
+      curl --retry 10 -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.4/cudnn-9.2-linux-x64-v7.1.tgz -O && \
       echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.2-linux-x64-v7.1.tgz" | sha256sum -c - && \
       tar --no-same-owner -xzf cudnn-9.2-linux-x64-v7.1.tgz -C /usr/local/cuda && \
       rm cudnn-9.2-linux-x64-v7.1.tgz && \
       ldconfig
 
   # Install NCCL 2.2.13
-  curl -L 'https://drive.google.com/uc?authuser=0&id=1cw4LWfuerNheqmVsxKngQvP4YWhu83il&export=download' -o nccl.txz \
+  curl --retry 10 -L 'https://drive.google.com/uc?authuser=0&id=1cw4LWfuerNheqmVsxKngQvP4YWhu83il&export=download' -o nccl.txz \
     && mkdir -p nccl /usr/local/cuda/lib \
     && tar xf nccl.txz --strip-components=1 -C nccl \
     && cp -a nccl/include/* /usr/local/cuda/include/ \

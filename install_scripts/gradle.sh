@@ -46,7 +46,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
 
   WORKDIR=${LOCAL_DIR}
   mkdir -p $WORKDIR && cd $WORKDIR
-  curl -LO https://services.gradle.org/distributions/gradle-$VER-bin.zip
+  curl --retry 10 -LO https://services.gradle.org/distributions/gradle-$VER-bin.zip
   unzip -oq gradle-$VER-bin.zip && rm gradle-$VER-bin.zip
   ln -s $(pwd)/gradle-$VER/bin/gradle ${LOCAL_DIR}/bin/gradle
 else

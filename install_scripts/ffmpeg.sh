@@ -58,7 +58,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   BUILDDIR=$WORKDIR/build
   BINDIR=${LOCAL_DIR}/bin
 
-  curl -L $DOWN_URL | tar xJ
+  curl --retry 10 -L $DOWN_URL | tar xJ
   cd $FOLDER
 
   ./configure \

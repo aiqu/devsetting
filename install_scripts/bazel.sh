@@ -52,7 +52,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO $REPO_URL/releases/download/$VER/bazel-$VER-dist.zip && unzip bazel-$VER-dist.zip
+  curl --retry 10 -LO $REPO_URL/releases/download/$VER/bazel-$VER-dist.zip && unzip bazel-$VER-dist.zip
   ./compile.sh
   cp output/bazel ${LOCAL_DIR}/bin/bazel
 

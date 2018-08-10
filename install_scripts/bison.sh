@@ -51,7 +51,7 @@ else
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
     mkdir -p $TMP_DIR && cd $TMP_DIR
-    curl -L $DOWN_URL | tar xJ
+    curl --retry 10 -L $DOWN_URL | tar xJ
     cd $FOLDER
     ./configure --prefix=${LOCAL_DIR}
     make -s -j${NPROC}

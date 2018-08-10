@@ -75,7 +75,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   fi
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
+  curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
   make -s install 1>/dev/null

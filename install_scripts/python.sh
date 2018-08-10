@@ -54,7 +54,7 @@ else
     VER=$1
     WORKDIR="/tmp/tmp_$VER"
     mkdir -p $WORKDIR && cd $WORKDIR
-    curl -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
+    curl --retry 10 -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
     cd Python-$VER
     LDFLAGS="-L${LOCAL_DIR}/lib -L${LOCAL_DIR}/lib64" ./configure \
       --prefix=${LOCAL_DIR} \
@@ -69,7 +69,7 @@ else
     cd $HOME
     MAJOR_VER=$(echo $VER | awk -F'.' '{print $1}')
     if [ ! -f ${LOCAL_DIR}/bin/pip$MAJOR_VER ]; then
-      curl -L https://bootstrap.pypa.io/get-pip.py | ${LOCAL_DIR}/bin/python$MAJOR_VER
+      curl --retry 10 -L https://bootstrap.pypa.io/get-pip.py | ${LOCAL_DIR}/bin/python$MAJOR_VER
     fi
   }
 

@@ -56,7 +56,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -LO $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
+  curl --retry 10 -LO $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   mkdir -p build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DBUILD_SHARED_LIBS=ON ..
   make -s -j${NPROC}
