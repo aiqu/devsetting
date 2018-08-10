@@ -41,7 +41,7 @@ if [ $OS == "ubuntu" ];then
     ${SUDO} apt-get install -y \
         apt-transport-https \
         ca-certificates \
-        curl --retry 10 \
+        curl \
         software-properties-common
     curl --retry 10 -fsSL https://download.docker.com/linux/ubuntu/gpg | ${SUDO} apt-key add -
     ${SUDO} add-apt-repository -y \
@@ -60,7 +60,7 @@ elif [ $OS == "debian" ];then
     ${SUDO} apt-get install -y \
         apt-transport-https \
         ca-certificates \
-        curl --retry 10 \
+        curl \
         gnupg2 \
         software-properties-common
     curl --retry 10 -fsSL https://download.docker.com/linux/debian/gpg | ${SUDO} apt-key add -
@@ -89,5 +89,5 @@ elif [ $OS == "mac" ];then
 fi
 
 # Install docker-compose
-${SUDO} curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
+${SUDO} curl --retry 10 -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-$(uname -s)-$(uname -m) -o /usr/bin/docker-compose
 ${SUDO} chmod +x /usr/bin/docker-compose
