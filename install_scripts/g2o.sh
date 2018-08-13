@@ -35,10 +35,10 @@ PWD=$(pwd)
 
 PKG_NAME="g2o"
 REPO_URL="https://github.com/RainerKuemmerle/g2o"
-TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
+TAG="master"
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
-VER="master"
+VER="$TAG"
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=
 
