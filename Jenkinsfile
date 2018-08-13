@@ -12,24 +12,22 @@ pipeline {
       }
     }
     stage('base & jenkins') {
-      steps {
-        failFast true
-        parallel {
-          stage ("base:latest") {
-            steps {
-              sh '''
-                sudo docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos7_dev ${DOCKER_BUILD_OPTION} .
-                sudo docker push gwangmin/base:latest
-                '''
-            }
+      failFast true
+      parallel {
+        stage ("base:latest") {
+          steps {
+            sh '''
+              sudo docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos7_dev ${DOCKER_BUILD_OPTION} .
+              sudo docker push gwangmin/base:latest
+              '''
           }
-          stage ("base:gcc7") {
-            steps {
-              sh '''
-                sudo docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos7_gcc7 ${DOCKER_BUILD_OPTION} .
-                sudo docker push gwangmin/base:gcc7
-                '''
-            }
+        }
+        stage ("base:gcc7") {
+          steps {
+            sh '''
+              sudo docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos7_gcc7 ${DOCKER_BUILD_OPTION} .
+              sudo docker push gwangmin/base:gcc7
+              '''
           }
         }
       }
