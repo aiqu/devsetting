@@ -38,8 +38,7 @@ TAG='1.0.6'
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
-#REPO_URL="http://www.bzip.org/$TAG/bzip2-$TAG.tar.gz"
-REPO_URL="https://www.dropbox.com/s/k6l90e8mj7t4sf4/bzip2-1.0.6.tar.gz"
+REPO_URL="https://gitlab.com/bzip/bzip2/-/archive/master/bzip2-master.tar"
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=
 if hash bzip2 2>/dev/null;then
@@ -50,7 +49,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl --retry 10 -L $REPO_URL | tar xz
+  curl --retry 10 -L $REPO_URL | tar x
   cd $FOLDER
   make -s -j${NPROC}
   make -s install PREFIX=${LOCAL_DIR} 1>/dev/null
