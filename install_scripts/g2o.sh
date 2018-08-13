@@ -48,7 +48,12 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DCMAKE_CXX_FLAGS="-O2 -pipe" -DCMAKE_C_FLAGS="-O2 -pipe" ..
+  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
+    -DCMAKE_CXX_FLAGS="-O2 -pipe" \
+    -DCMAKE_C_FLAGS="-O2 -pipe" \
+    -DG2O_BUILD_APPS=OFF \
+    -DG2O_BUILD_EXAMPLES=OFF \
+    ..
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
