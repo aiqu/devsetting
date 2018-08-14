@@ -76,7 +76,6 @@ blueocean-git-pipeline
 build-timeout
 mapdb-api
 workflow-support
-copy-to-slave
 workflow-basic-steps
 subversion
 pipeline-stage-step
