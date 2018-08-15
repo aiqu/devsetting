@@ -29,7 +29,6 @@ junit
 ws-cleanup
 pipeline-stage-view
 durable-task
-ghprb
 jira
 docker-commons
 pipeline-build-step
