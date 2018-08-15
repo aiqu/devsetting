@@ -37,7 +37,7 @@ if [ $OS == 'mac' ];then
   brew install m4
 else
   PKG_NAME="m4"
-  REPO_URL="http://ftp.gnu.org/gnu/m4/m4-latest.tar.xz"
+  REPO_URL="http://ftp.kaist.ac.kr/gnu/m4/m4-latest.tar.xz"
   FOLDER="$PKG_NAME*"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR

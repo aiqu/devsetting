@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="which"
-REPO_URL="http://ftp.gnu.org/gnu/which/which-2.21.tar.gz"
+REPO_URL="http://ftp.kaist.ac.kr/gnu/which/which-2.21.tar.gz"
 FOLDER="$PKG_NAME*"
 
 if [ ! -z $REINSTALL] || ! $(hash which 2>/dev/null); then

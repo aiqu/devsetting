@@ -38,7 +38,7 @@ TAG='6.5'
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
-REPO_URL="https://ftp.gnu.org/gnu/texinfo/texinfo-$TAG.tar.xz"
+REPO_URL="https://ftp.kaist.ac.kr/gnu/texinfo/texinfo-$TAG.tar.xz"
 FOLDER="$PKG_NAME*"
 INSTALLED_VERSION=
 if hash makeinfo 2>/dev/null;then

@@ -34,7 +34,7 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="make"
-REPO_URL="http://ftp.gnu.org/gnu/make/make-3.82.tar.bz2"
+REPO_URL="http://ftp.kaist.ac.kr/gnu/make/make-3.82.tar.bz2"
 TAG=$(echo $REPO_URL | cut -d'-' -f2 | sed 's/.tar.bz2//');
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}

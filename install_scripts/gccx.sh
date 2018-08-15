@@ -68,7 +68,7 @@ function install_gcc() {
     mv $MPFR mpfr
   fi
   if [ ! -d mpc ]; then
-    curl --retry 10 -L ftp://ftp.gnu.org/gnu/mpc/$MPC.tar.gz | tar xzf -
+    curl --retry 10 -L ftp://ftp.kaist.ac.kr/gnu/mpc/$MPC.tar.gz | tar xzf -
     mv $MPC mpc
   fi
   if [ ! -d isl ]; then

@@ -40,7 +40,7 @@ else
   REPO_URL="https://git.savannah.gnu.org/git/bison"
   TAG=$(git ls-remote -t $REPO_URL | grep -v {} | grep 'tags/v' | cut -d/ -f3 | sort -V | tail -n1)
   VER=$(echo $TAG | sed 's/v//')
-  DOWN_URL="http://ftp.gnu.org/gnu/bison/bison-$VER.tar.xz"
+  DOWN_URL="http://ftp.kaist.ac.kr/gnu/bison/bison-$VER.tar.xz"
   FOLDER="$PKG_NAME*"
   INSTALLED_VERSION=
   if hash bison 2>/dev/null;then

@@ -35,7 +35,7 @@ PWD=$(pwd)
 
 PKG_NAME="gettext"
 REPO_URL="https://git.savannah.gnu.org/git/gettext"
-DOWN_URL="http://ftp.gnu.org/gnu/gettext/gettext-"
+DOWN_URL="http://ftp.kaist.ac.kr/gnu/gettext/gettext-"
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
