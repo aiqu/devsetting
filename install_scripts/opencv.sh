@@ -64,9 +64,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   curl --retry 10 -L ${CONTRIB_REPO_URL}/archive/${TAG}.tar.gz | tar xz
   cd opencv-${TAG} && mkdir -p build && cd build 
   CONTRIB_MODULE_DIR="$TMP_DIR/opencv_contrib-${TAG}/modules"
-  PYTHON2_INCLUDE_DIR=${LOCAL_DIR}/include/python2.7
   PYTHON3_INCLUDE_DIR=${LOCAL_DIR}/include/python3.6m
-  PYTHON2_LIBRARY=${LOCAL_DIR}/lib/libpython2.7.so
   PYTHON3_LIBRARY=${LOCAL_DIR}/lib/libpython3.6m.so
   MY_CXX_FLAGS="-std=c++11"
   if [ ! -z $OPTIMIZE ];then
@@ -78,17 +76,35 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     -DCMAKE_BUILD_TYPE=RELEASE
     -DCMAKE_INSTALL_PREFIX=$LOCAL_DIR
     -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR
-    -DBUILD_opencv_python3=ON
+    -DBUILD_opencv_python2=OFF
+    -DBUILD_opencv_python3=${OPENCV_PYTHON3:-'ON'}
+    -DBUILD_opencv_datasets=OFF
+    -DBUILD_opencv_dnn=OFF
+    -DBUILD_opencv_dnn_objdetect=OFF
+    -DBUILD_opencv_face=OFF
+    -DBUILD_opencv_java_bindings_generator=OFF
+    -DBUILD_opencv_python_bindings_generator=${OPENCV_PYTHON3:-'ON'}
+    -DBUILD_opencv_video=OFF
+    -DBUILD_opencv_videoio=OFF
+    -DBUILD_opencv_videostab=OFF
+    -DBUILD_opencv_apps=OFF
     -DBUILD_EXAMPLES=OFF
     -DBUILD_DOCS=OFF
     -DBUILD_PERF_TESTS=OFF
     -DBUILD_TESTS=OFF
+    -DBUILD_JAVA=OFF
     -DENABLE_CCACHE=ON
     -DENABLE_FAST_MATH=1
     -DWITH_TBB=ON
-    -DPYTHON2_INCLUDE_DIR=$PYTHON2_INCLUDE_DIR
+    -DWITH_VTK=OFF
+    -DWITH_FFMPEG=OFF
+    -DWITH_GSTREAMER=OFF
+    -DWITH_GTK=OFF
+    -DWITH_V4L=OFF
+    -DWITH_DSHOW=OFF
+    -DWITH_MATLAB=OFF
+    -DWITH_GPHOTO2=OFF
     -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR
-    -DPYTHON2_LIBRARY=$PYTHON2_LIBRARY
     -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY
   )
   if [ -f /usr/local/cuda/version.txt ]; then
