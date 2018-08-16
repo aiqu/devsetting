@@ -47,6 +47,9 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
+  set +e
+  patch -p1 --forward -r - < $ROOT/patch/g2o_eigen_version_string.patch
+  set -e
   mkdir -p build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
     -DCMAKE_CXX_FLAGS="-O2 -pipe" \
