@@ -1,4 +1,5 @@
 LOCAL_DIR=${LOCAL_DIR:-"$HOME/.local"}
+unset TMOUT
 export GOROOT=${LOCAL_DIR}/go
 export GOPATH=$HOME/workspace/golang
 export TERM="xterm-256color"
