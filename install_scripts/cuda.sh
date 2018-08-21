@@ -110,7 +110,7 @@ elif [ $OS == "centos" ];then
     CUDNN_DOWNLOAD_SUM=f875340f812b942408098e4c9807cb4f8bdaea0db7c48613acece10c7c827101 && \
       curl --retry 10 -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.4/cudnn-9.2-linux-x64-v7.1.tgz -O && \
       echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.2-linux-x64-v7.1.tgz" | sha256sum -c - && \
-      tar --no-same-owner -xzf cudnn-9.2-linux-x64-v7.1.tgz -C /usr/local/cuda && \
+      tar --no-same-owner -xzf cudnn-9.2-linux-x64-v7.1.tgz -C /usr/local && \
       rm cudnn-9.2-linux-x64-v7.1.tgz && \
       ldconfig
 
