@@ -56,6 +56,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     -DCMAKE_C_FLAGS="-O2 -pipe" \
     -DG2O_BUILD_APPS=OFF \
     -DG2O_BUILD_EXAMPLES=OFF \
+    -DBUILD_WITH_MARCH_NATIVE=OFF \
     ..
   make -s -j${NPROC}
   make -s install 1>/dev/null
