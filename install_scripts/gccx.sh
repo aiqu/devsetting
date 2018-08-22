@@ -38,7 +38,7 @@ function install_gcc() {
   MAJOR_VER=$(echo $VER | cut -d'_' -f1)
   SUFFIX="-$MAJOR_VER"
 
-  if [ -f ${LOCAL_DIR}/bin/gcc$SUFFIX ] && [ $(${LOCAL_DIR}/bin/gcc$SUFFIX --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
+  if [ -z $REINSTALL ] && [ -f ${LOCAL_DIR}/bin/gcc$SUFFIX ] && [ $(${LOCAL_DIR}/bin/gcc$SUFFIX --version | sed -n '1p' | cut -d' ' -f3) == $VER_STR ];then
     gecho "gcc $VER is already installed"
     return 0
   fi
