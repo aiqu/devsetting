@@ -68,7 +68,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   PYTHON3_LIBRARY=${LOCAL_DIR}/lib/libpython3.6m.so
   MY_CXX_FLAGS="-std=c++11"
   if [ ! -z $OPTIMIZE ];then
-    MY_CXX_FLAGS="${MY_CXX_FLAGS} -O2 -march=native -pipe"
+    MY_CXX_FLAGS="${MY_CXX_FLAGS} -O2 -march=native"
   fi
   # use own CUDA GENERATION name
   #MY_CUDA_GEN="Pascal"

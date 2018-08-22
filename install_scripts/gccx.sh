@@ -44,7 +44,7 @@ function install_gcc() {
   fi
 
   iecho "GCC $VER installation.. install location: $LOCAL_DIR"
-  CFLAGS="-O2 -pipe"
+  CFLAGS="${CFLAGS} -O2"
 
   WORKDIR=$HOME/.lib/gcc-$VER
   GCC_SOURCE_DIR="$WORKDIR/gcc-gcc-$VER-release"

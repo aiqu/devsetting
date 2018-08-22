@@ -52,8 +52,8 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   set -e
   mkdir -p build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
-    -DCMAKE_CXX_FLAGS="-O2 -pipe" \
-    -DCMAKE_C_FLAGS="-O2 -pipe" \
+    -DCMAKE_CXX_FLAGS="-O2" \
+    -DCMAKE_C_FLAGS="-O2" \
     -DG2O_BUILD_APPS=OFF \
     -DG2O_BUILD_EXAMPLES=OFF \
     -DBUILD_WITH_MARCH_NATIVE=OFF \
