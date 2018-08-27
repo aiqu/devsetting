@@ -50,6 +50,7 @@ TAG=$(git tag | grep -v rc | sort -V | tail -n1)
 CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
+git stash
 git checkout $TAG
 set +e
 patch -p1 --forward -r - < $ROOT/patch/tensorflow_swig.patch
