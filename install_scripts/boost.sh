@@ -57,7 +57,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   ./bootstrap.sh --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64 --without-libraries=python
   ./b2 -j${NPROC}
   ./b2 install 1>/dev/null
-  ln -s ${LOCAL_DIR}/lib64/libboost* ${LOCAL_DIR}/lib
+  ln -sf ${LOCAL_DIR}/lib64/libboost* ${LOCAL_DIR}/lib
 
   cd $ROOT && rm -rf $TMP_DIR
 else
