@@ -68,7 +68,6 @@ git-server
 pam-auth
 metrics
 workflow-step-api
-ssh-slaves
 display-url-api
 credentials-binding
 blueocean-git-pipeline
