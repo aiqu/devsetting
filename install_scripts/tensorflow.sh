@@ -56,14 +56,14 @@ set +e
 patch -p1 --forward -r - < $ROOT/patch/tensorflow_swig.patch
 set -e
 ./configure
-bazel build --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
+bazel build -cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" --config=opt --config=cuda //tensorflow/tools/pip_package:build_pip_package
 bazel-bin/tensorflow/tools/pip_package/build_pip_package $TF_PKG_DIR
 iecho "---------------------------------"
 iecho "output file created at $TF_PKG_DIR"
 pip install $TF_PKG_DIR/tensorflow-$VER*
 
 # Install C library
-bazel build --config opt //tensorflow/tools/lib_package:libtensorflow
+bazel build -cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" --config opt //tensorflow/tools/lib_package:libtensorflow
 tar xf bazel-bin/tensorflow/tools/lib_package/libtensorflow.tar.gz -C ${LOCAL_DIR}
 
 LEVEL=$(( ${LEVEL}-1 ))

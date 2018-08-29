@@ -42,9 +42,8 @@ TARGET_DIRECTORY=${LOCAL_DIR}
 go get -d github.com/tensorflow/tensorflow/tensorflow/go
 cd ${GOPATH}/src/github.com/tensorflow/tensorflow
 ./configure
-bazel build --config opt //tensorflow:libtensorflow.so
-cp ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow.so ${LOCAL_DIR}/lib
-cp ${GOPATH}/src/github.com/tensorflow/tensorflow/bazel-bin/tensorflow/libtensorflow_framework.so ${LOCAL_DIR}/lib
+bazel build --cxxopt="-D_GLIBCXX_USE_CXX11_ABI=0" --config opt //tensorflow/tools/lib_package:libtensorflow
+tar xf bazel-bin/tensorflow/tools/lib_package/libtensorflow.tar.gz -C ${LOCAL_DIR}
 go test github.com/tensorflow/tensorflow/tensorflow/go
 
 LEVEL=$(( ${LEVEL}-1 ))
