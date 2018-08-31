@@ -106,6 +106,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     -DWITH_GPHOTO2=OFF
     -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR
     -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY
+    -DOPENCV_ENABLE_NONFREE=ON
   )
   if [ -f /usr/local/cuda/version.txt ]; then
     cmake ${OPENCV_CMAKE_OPTIONS[@]} \
