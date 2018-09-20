@@ -105,10 +105,13 @@ if [ ! -z $PYTHON_PACKAGE ];then
   pip3 install -Uq pip
 
   #pip2 install -q jupyter jupyterthemes flake8
-  pip3 install -q jupyter jupyterthemes flake8
+  pip3 install -q jupyter jupyterthemes flake8 nbzip
   jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
   cp $ROOT/resources/jupyter/jupyter_notebook_config.py $HOME/.jupyter/
   cp -r $ROOT/resources/jupyter/kernels ${LOCAL_DIR}/share/jupyter/
+  jupyter serverextension enable --py nbzip --user
+  jupyter nbextension install --py nbzip --user
+  jupyter nbextension enable --py nbzip --user
 
   if [ ! -d $HOME/.config ];then
     mkdir $HOME/.config
