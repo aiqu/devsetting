@@ -2,7 +2,7 @@ LOCAL_DIR=${LOCAL_DIR:-"$HOME/.local"}
 unset TMOUT
 export GOROOT=${LOCAL_DIR}/go
 export GOPATH=$HOME/workspace/golang
-export TERM="xterm"
+export TERM="xterm-256color"
 export BYOBU_CONFIG_DIR=$HOME/.byobu
 export BYOBU_PREFIX=${LOCAL_DIR}
 export ACLOCAL_PATH=${LOCAL_DIR}/share/aclocal
