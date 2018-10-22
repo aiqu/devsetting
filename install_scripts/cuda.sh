@@ -40,48 +40,53 @@ if [ ! $(whoami) == 'root' ];then
 fi
 
 if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
+  VERSION_ID=$(cat /etc/os-release | grep VERSION_ID | cut -d'"' -f2)
+  if [ $VERSION_ID != "16.04" ];then
+    eecho "This script only supports Ubuntu 16.04"
+    exit 1
+  fi
+  apt update && \
+    apt install -y --no-install-recommends ca-certificates apt-transport-https gnupg-curl && \
     NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
-        NVIDIA_GPGKEY_FPR=ae09fe4bbd223a84b2ccfce3f60f4b3d7fa2af80 && \
-        apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub && \
-        apt-key adv --export --no-emit-version -a $NVIDIA_GPGKEY_FPR | tail -n +5 > cudasign.pub && \
-        echo "$NVIDIA_GPGKEY_SUM  cudasign.pub" | sha256sum -c --strict - && rm cudasign.pub && \
-        echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list
+    NVIDIA_GPGKEY_FPR=ae09fe4bbd223a84b2ccfce3f60f4b3d7fa2af80 && \
+    apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub && \
+    apt-key adv --export --no-emit-version -a $NVIDIA_GPGKEY_FPR | tail -n +5 > cudasign.pub && \
+    echo "$NVIDIA_GPGKEY_SUM  cudasign.pub" | sha256sum -c --strict - && rm cudasign.pub && \
+    echo "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/cuda.list
     echo "deb http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
 
-    export CUDA_VERSION=8.0.61
-    export CUDA_PKG_VERSION=8-0=$CUDA_VERSION-1
-    export CUDNN_VERSION=6.0.21
+  CUDA_VERSION=9.2.148
+  CUDA_PKG_VERSION="9-2=${CUDA_VERSION}-1"
+  NCCL_VERSION=2.3.5
+  CUDNN_VERSION=7.2.1.38
 
-    apt update
-    apt-get install -y --no-install-recommends \
-            cuda-core-$CUDA_PKG_VERSION \
-            cuda-nvrtc-$CUDA_PKG_VERSION \
-            cuda-nvgraph-$CUDA_PKG_VERSION \
-            cuda-cusolver-$CUDA_PKG_VERSION \
-            cuda-cublas-8-0=8.0.61.2-1 \
-            cuda-cufft-$CUDA_PKG_VERSION \
-            cuda-curand-$CUDA_PKG_VERSION \
-            cuda-cusparse-$CUDA_PKG_VERSION \
-            cuda-npp-$CUDA_PKG_VERSION \
-            cuda-cudart-$CUDA_PKG_VERSION \
-            cuda-misc-headers-$CUDA_PKG_VERSION \
-            cuda-command-line-tools-$CUDA_PKG_VERSION \
-            cuda-nvrtc-dev-$CUDA_PKG_VERSION \
-            cuda-nvml-dev-$CUDA_PKG_VERSION \
-            cuda-nvgraph-dev-$CUDA_PKG_VERSION \
-            cuda-cusolver-dev-$CUDA_PKG_VERSION \
-            cuda-cublas-dev-8-0=8.0.61.2-1 \
-            cuda-cufft-dev-$CUDA_PKG_VERSION \
-            cuda-curand-dev-$CUDA_PKG_VERSION \
-            cuda-cusparse-dev-$CUDA_PKG_VERSION \
-            cuda-npp-dev-$CUDA_PKG_VERSION \
-            cuda-cudart-dev-$CUDA_PKG_VERSION \
-            cuda-driver-dev-$CUDA_PKG_VERSION \
-            libcudnn7=$CUDNN_VERSION-1+cuda8.0 \
-            libcudnn7-dev=$CUDNN_VERSION-1+cuda8.0 && \
-            ${SUDO} ln -s /usr/local/cuda-8.0 /usr/local/cuda
+  apt install -y --no-install-recommends --allow-downgrades \
+    cuda-cudart-$CUDA_PKG_VERSION \
+    cuda-libraries-$CUDA_PKG_VERSION \
+    cuda-nvtx-$CUDA_PKG_VERSION \
+    libnccl2=$NCCL_VERSION-2+cuda9.2 \
+    libcudnn7=$CUDNN_VERSION-1+cuda9.2 \
 
-    echo "/usr/local/cuda/lib64" >> /etc/ld.so.conf.d/cuda.conf && ldconfig
+  if [ -z $RUNTIMEONLY ];then
+    apt install -y --no-install-recommends \
+      cuda-libraries-dev-$CUDA_PKG_VERSION \
+      cuda-nvml-dev-$CUDA_PKG_VERSION \
+      cuda-minimal-build-$CUDA_PKG_VERSION \
+      cuda-command-line-tools-$CUDA_PKG_VERSION \
+      libnccl-dev=$NCCL_VERSION-2+cuda9.2 \
+      libcudnn7-dev=$CUDNN_VERSION-1+cuda9.2
+  fi
+
+  apt-mark hold libnccl2 libcudnn7
+  rm -f /usr/local/cuda
+  ln -s cuda-9.2 /usr/local/cuda
+  if ! $(grep -q '/usr/local/nvidia/lib' /etc/ld.so.conf.d/nvidia.conf 2>/dev/null);then
+    echo "/usr/local/nvidia/lib\n/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
+  fi
+  if ! $(grep -q '/usr/local/cuda/lib64/stubs' /etc/ld.so.conf.d/cuda.conf 2>/dev/null);then
+    echo "/usr/local/cuda/lib64/stubs" >> /etc/ld.so.conf.d/cuda.conf
+  fi
+  ldconfig
 
 elif [ $OS == "centos" ];then
     NVIDIA_GPGKEY_SUM=d1be581509378368edeec8c1eb2958702feedf3bc3d17011adbf24efacce4ab5 && \
@@ -98,7 +103,11 @@ elif [ $OS == "centos" ];then
       cuda-nvcc-${CUDA_PKG_VERSION}
     rm -f /usr/local/cuda
     ln -s cuda-9.2 /usr/local/cuda
-    echo -e "/usr/local/nvidia/lib\n/usr/local/nvidia/lib64\n/usr/local/cuda/lib\n/usr/local/cuda/lib64" > /etc/ld.so.conf.d/nvidia.conf
+    LIBSTRING="/usr/local/nvidia/lib\n/usr/local/nvidia/lib64\n/usr/local/cuda/lib\n/usr/local/cuda/lib64"
+    LDCONFFILE='/etc/ld.so.conf.d/nvidia.conf'
+    if ! $(grep -q $LIBSTRING $LDCONFFILE 2>/dev/null);then
+      echo -e $LIBSTRING > $LDCONFFILE
+    fi
     if [ -z $RUNTIMEONLY ];then
       yum install -y cuda-libraries-dev-${CUDA_PKG_VERSION} \
         cuda-nvml-dev-${CUDA_PKG_VERSION} \
