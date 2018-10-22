@@ -60,7 +60,8 @@ if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
   NCCL_VERSION=2.3.5
   CUDNN_VERSION=7.2.1.38
 
-  apt install -y --no-install-recommends --allow-downgrades \
+  apt update && \
+    apt install -y --no-install-recommends --allow-downgrades \
     cuda-cudart-$CUDA_PKG_VERSION \
     cuda-libraries-$CUDA_PKG_VERSION \
     cuda-nvtx-$CUDA_PKG_VERSION \
