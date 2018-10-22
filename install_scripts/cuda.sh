@@ -65,7 +65,6 @@ if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
     cuda-cudart-$CUDA_PKG_VERSION \
     cuda-libraries-$CUDA_PKG_VERSION \
     cuda-nvtx-$CUDA_PKG_VERSION \
-    libnccl2=$NCCL_VERSION-2+cuda9.2 \
     libcudnn7=$CUDNN_VERSION-1+cuda9.2 \
 
   if [ -z $RUNTIMEONLY ];then
@@ -74,7 +73,6 @@ if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
       cuda-nvml-dev-$CUDA_PKG_VERSION \
       cuda-minimal-build-$CUDA_PKG_VERSION \
       cuda-command-line-tools-$CUDA_PKG_VERSION \
-      libnccl-dev=$NCCL_VERSION-2+cuda9.2 \
       libcudnn7-dev=$CUDNN_VERSION-1+cuda9.2
   fi
 
@@ -126,13 +124,7 @@ elif [ $OS == "centos" ];then
       tar --no-same-owner -xzf cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz -C /usr/local && \
       rm cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz && \
       ldconfig
-
-  # Install NCCL 2.2.13
-  curl --retry 10 -L 'https://drive.google.com/uc?authuser=0&id=1cw4LWfuerNheqmVsxKngQvP4YWhu83il&export=download' -o nccl.txz \
-    && mkdir -p nccl /usr/local/cuda/lib \
-    && tar xf nccl.txz --strip-components=1 -C nccl \
-    && cp -a nccl/include/* /usr/local/cuda/include/ \
-    && cp -a nccl/lib/* /usr/local/cuda/lib/ \
-    && cp -a nccl/NCCL-SLA.txt /usr/local/cuda/ \
-    && rm -rf nccl.txz nccl && ldconfig
 fi
+# Install NCCL
+. $ROOT/install_scripts/nccl.sh
+LEVEL=$(( ${LEVEL}-1 ))
