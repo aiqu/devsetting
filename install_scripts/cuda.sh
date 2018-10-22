@@ -97,31 +97,34 @@ elif [ $OS == "centos" ];then
     printf "[cuda]\nname=cuda\nbaseurl=http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64\nenabled=1\ngpgcheck=1\ngpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-NVIDIA" > /etc/yum.repos.d/cuda.repo
 
     CUDA_VERSION=9.2.148
-    CUDA_PKG_VERSION=9-2-${CUDA_VERSION}-1
+    CUDA_PKG_VERSION="9-2-${CUDA_VERSION}-1"
+    CUDNN_VERSION=7.2.1.38
 
-    yum install -y cuda-cudart-${CUDA_PKG_VERSION} \
+    yum install -y \
+      cuda-cudart-${CUDA_PKG_VERSION} \
       cuda-libraries-${CUDA_PKG_VERSION} \
-      cuda-nvcc-${CUDA_PKG_VERSION}
+      cuda-nvtx-${CUDA_PKG_VERSION}
     rm -f /usr/local/cuda
     ln -s cuda-9.2 /usr/local/cuda
-    LIBSTRING="/usr/local/nvidia/lib\n/usr/local/nvidia/lib64\n/usr/local/cuda/lib\n/usr/local/cuda/lib64"
+    LIBSTRING="/usr/local/nvidia/lib\n/usr/local/nvidia/lib64\n/usr/local/cuda/lib\n/usr/local/cuda/lib64\n/usr/local/cuda/lib64/stubs"
     LDCONFFILE='/etc/ld.so.conf.d/nvidia.conf'
     if ! $(grep -q $LIBSTRING $LDCONFFILE 2>/dev/null);then
       echo -e $LIBSTRING > $LDCONFFILE
     fi
     if [ -z $RUNTIMEONLY ];then
-      yum install -y cuda-libraries-dev-${CUDA_PKG_VERSION} \
+      yum install -y \
+        cuda-libraries-dev-${CUDA_PKG_VERSION} \
         cuda-nvml-dev-${CUDA_PKG_VERSION} \
         cuda-minimal-build-${CUDA_PKG_VERSION} \
         cuda-command-line-tools-${CUDA_PKG_VERSION}
     fi
     rm -rf /var/cache/yum/*
 
-    CUDNN_DOWNLOAD_SUM=f875340f812b942408098e4c9807cb4f8bdaea0db7c48613acece10c7c827101 && \
-      curl --retry 10 -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.1.4/cudnn-9.2-linux-x64-v7.1.tgz -O && \
-      echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.2-linux-x64-v7.1.tgz" | sha256sum -c - && \
-      tar --no-same-owner -xzf cudnn-9.2-linux-x64-v7.1.tgz -C /usr/local && \
-      rm cudnn-9.2-linux-x64-v7.1.tgz && \
+    CUDNN_DOWNLOAD_SUM=3e78f5f0edbe614b56f00ff2d859c5409d150c87ae6ba3df09f97d537909c2e9 && \
+      curl --retry 10 -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.2.1/cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz -O && \
+      echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz" | sha256sum -c - && \
+      tar --no-same-owner -xzf cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz -C /usr/local && \
+      rm cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz && \
       ldconfig
 
   # Install NCCL 2.2.13
