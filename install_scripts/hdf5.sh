@@ -34,8 +34,8 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="hdf5"
-REPO_URL="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.4/src/hdf5-1.10.4.tar.bz2"
-TAG='1.10.4'
+REPO_URL="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.1/src/hdf5-1.10.1.tar.bz2"
+TAG='1.10.1'
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
