@@ -84,8 +84,8 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     -DBUILD_opencv_face=OFF
     -DBUILD_opencv_java_bindings_generator=OFF
     -DBUILD_opencv_python_bindings_generator=${OPENCV_PYTHON3:-'ON'}
-    -DBUILD_opencv_video=OFF
-    -DBUILD_opencv_videoio=OFF
+    -DBUILD_opencv_video=ON
+    -DBUILD_opencv_videoio=ON
     -DBUILD_opencv_videostab=OFF
     -DBUILD_opencv_apps=OFF
     -DBUILD_EXAMPLES=OFF
@@ -97,16 +97,19 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     -DENABLE_FAST_MATH=1
     -DWITH_TBB=ON
     -DWITH_VTK=OFF
-    -DWITH_FFMPEG=OFF
+    -DWITH_FFMPEG=ON
     -DWITH_GSTREAMER=OFF
     -DWITH_GTK=OFF
-    -DWITH_V4L=OFF
+    -DWITH_V4L=ON
     -DWITH_DSHOW=OFF
     -DWITH_MATLAB=OFF
     -DWITH_GPHOTO2=OFF
     -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR
     -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY
     -DOPENCV_ENABLE_NONFREE=ON
+    -DBUILD_JPEG=ON
+    -DBUILD_PNG=ON
+    -DBUILD_TIFF=ON
   )
   if [ -f /usr/local/cuda/version.txt ]; then
     cmake ${OPENCV_CMAKE_OPTIONS[@]} \
