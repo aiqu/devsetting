@@ -75,7 +75,9 @@ elif [ $OS == "debian" ];then
     ${SUDO} apt-get update -y
     ${SUDO} apt install -y docker-ce
 elif [ $OS == "centos" ];then
+    set +e
     ${SUDO} yum update -y
+    set -e
     ${SUDO} yum remove -y docker docker-common docker-selinux docker-engine
     ${SUDO} yum install -y yum-utils device-mapper-persistent-data lvm2
     ${SUDO} yum-config-manager -y --add-repo https://download.docker.com/linux/centos/docker-ce.repo
