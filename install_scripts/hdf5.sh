@@ -47,16 +47,23 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl --retry 10 -L $REPO_URL | tar xj
+  #curl --retry 10 -L $REPO_URL | tar xj
   cd $FOLDER
   mkdir -p build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_STATIC_EXECS=OFF \
+    -DHDF5_ENABLE_COVERAGE=OFF \
     -DHDF5_ENABLE_THREADSAFE=ON \
+    -DALLOW_UNSUPPORTED=ON \
+    -DHDF5_BUILD_TOOLS=OFF \
+    -DHDF5_BUILD_EXAMPLES=OFF \
+    -DHDF5_BUILD_FORTRAN=OFF \
     ..
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
-  cd $ROOT && rm -rf $TMP_DIR
+  #cd $ROOT && rm -rf $TMP_DIR
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
