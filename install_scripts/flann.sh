@@ -54,7 +54,11 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p build && cd build
   # Fix build issue https://github.com/mariusmuja/flann/issues/369
   touch ../src/cpp/empty.cpp
-  sed 's/\(add_library(flann\(_cpp\)* SHARED \)""/\1empty.cpp/' -i ../src/cpp/CMakeLists.txt
+  if [ $OS = 'mac' ];then
+    sed -i i'.bak' 's/\(add_library(flann\(_cpp\)* SHARED \)""/\1empty.cpp/' ../src/cpp/CMakeLists.txt
+  else
+    sed -i 's/\(add_library(flann\(_cpp\)* SHARED \)""/\1empty.cpp/' ../src/cpp/CMakeLists.txt
+  fi
   cmake -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DBUILD_EXAMPLES=OFF ..
   make -s -j${NPROC}
   make -s install 1>/dev/null

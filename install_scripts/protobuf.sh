@@ -44,7 +44,7 @@ REPO_URL=https://github.com/google/protobuf
 TAG='v3.5.1'
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
-VER=$(echo $TAG | sed 's/v//' -)
+VER=$(echo $TAG | sed 's/v//')
 INSTALLED_VER=
 if hash protoc 2>/dev/null;then
   INSTALLED_VER=$(protoc --version 2>/dev/null | awk '{print $2}')
