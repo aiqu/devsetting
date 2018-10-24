@@ -47,7 +47,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  #curl --retry 10 -L $REPO_URL | tar xj
+  curl --retry 10 -L $REPO_URL | tar xj
   cd $FOLDER
   mkdir -p build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
@@ -63,7 +63,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
-  #cd $ROOT && rm -rf $TMP_DIR
+  cd $ROOT && rm -rf $TMP_DIR
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
