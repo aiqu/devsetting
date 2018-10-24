@@ -36,67 +36,63 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/install_scripts/readline.sh
 . $ROOT/install_scripts/openssl.sh
 
-if [ $OS == 'mac' ];then
-  brew install python3
+source "$HOME/.bashrc"
+
+iecho "Python installation.. install location: $LOCAL_DIR"
+
+if [ ! -r /usr/include/bzlib.h ] && [ ! -r /usr/local/include/bzlib.h ] && [ ! -r $LOCAL_DIR/include/bzlib.h ];then
+  REINSTALL=1 $ROOT/install_scripts/bzip2.sh
+fi
+if [ ! -r /usr/include/lzma.h ] && [ ! -r /usr/local/include/lzma.h ] && [ ! -r $LOCAL_DIR/include/lzma.h ];then
+  REINSTALL=1 $ROOT/install_scripts/xz.sh
+fi
+
+function install_python {
+  VER=$1
+  WORKDIR="/tmp/tmp_$VER"
+  mkdir -p $WORKDIR && cd $WORKDIR
+  curl --retry 10 -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
+  cd Python-$VER
+  LDFLAGS="-L${LOCAL_DIR}/lib -L${LOCAL_DIR}/lib64" ./configure \
+    --prefix=${LOCAL_DIR} \
+    --enable-shared \
+    --enable-unicode=ucs4 \
+    --with-threads \
+    --with-system-ffi
+  make -s -j${NPROC}
+  make -s install 1>/dev/null
+  rm -rf $WORKDIR
+
+  cd $HOME
+  MAJOR_VER=$(echo $VER | awk -F'.' '{print $1}')
+  if [ ! -f ${LOCAL_DIR}/bin/pip$MAJOR_VER ]; then
+    curl --retry 10 -L https://bootstrap.pypa.io/get-pip.py | ${LOCAL_DIR}/bin/python$MAJOR_VER
+  fi
+}
+
+PYTHON2_VER='2.7.15'
+PYTHON3_VER='3.6.6'
+INSTALLED_PYTHON2_VER=
+if hash python2 2>/dev/null;then
+  INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
+fi
+INSTALLED_PYTHON3_VER=
+if hash python3 2>/dev/null;then
+  INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
+fi
+
+#if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
+  #install_python $PYTHON2_VER
+#else
+  #gecho "Python $PYTHON2_VER is already installed"
+#fi
+
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
+  install_python $PYTHON3_VER
+  ln -sf $LOCAL_DIR/bin/python3 $LOCAL_DIR/bin/python
+  ln -sf $LOCAL_DIR/bin/pip3 $LOCAL_DIR/bin/pip
 else
-  source "$HOME/.bashrc"
-
-  iecho "Python installation.. install location: $LOCAL_DIR"
-
-  if [ ! -r /usr/include/bzlib.h ] && [ ! -r /usr/local/include/bzlib.h ] && [ ! -r $LOCAL_DIR/include/bzlib.h ];then
-    REINSTALL=1 $ROOT/install_scripts/bzip2.sh
-  fi
-  if [ ! -r /usr/include/lzma.h ] && [ ! -r /usr/local/include/lzma.h ] && [ ! -r $LOCAL_DIR/include/lzma.h ];then
-    REINSTALL=1 $ROOT/install_scripts/xz.sh
-  fi
-
-  function install_python {
-    VER=$1
-    WORKDIR="/tmp/tmp_$VER"
-    mkdir -p $WORKDIR && cd $WORKDIR
-    curl --retry 10 -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
-    cd Python-$VER
-    LDFLAGS="-L${LOCAL_DIR}/lib -L${LOCAL_DIR}/lib64" ./configure \
-      --prefix=${LOCAL_DIR} \
-      --enable-shared \
-      --enable-unicode=ucs4 \
-      --with-threads \
-      --with-system-ffi
-    make -s -j${NPROC}
-    make -s install 1>/dev/null
-    rm -rf $WORKDIR
-
-    cd $HOME
-    MAJOR_VER=$(echo $VER | awk -F'.' '{print $1}')
-    if [ ! -f ${LOCAL_DIR}/bin/pip$MAJOR_VER ]; then
-      curl --retry 10 -L https://bootstrap.pypa.io/get-pip.py | ${LOCAL_DIR}/bin/python$MAJOR_VER
-    fi
-  }
-
-  PYTHON2_VER='2.7.15'
-  PYTHON3_VER='3.6.6'
-  INSTALLED_PYTHON2_VER=
-  if hash python2 2>/dev/null;then
-    INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
-  fi
-  INSTALLED_PYTHON3_VER=
-  if hash python3 2>/dev/null;then
-    INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
-  fi
-
-  #if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
-    #install_python $PYTHON2_VER
-  #else
-    #gecho "Python $PYTHON2_VER is already installed"
-  #fi
-
-  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
-    install_python $PYTHON3_VER
-    ln -sf $LOCAL_DIR/bin/python3 $LOCAL_DIR/bin/python
-    ln -sf $LOCAL_DIR/bin/pip3 $LOCAL_DIR/bin/pip
-  else
-    gecho "Python $PYTHON3_VER is already installed"
-  fi
+  gecho "Python $PYTHON3_VER is already installed"
 fi
 pip install -U pip
 
