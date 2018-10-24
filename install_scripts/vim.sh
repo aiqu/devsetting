@@ -90,7 +90,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   fi
 
-  ${LOCAL_DIR}/bin/vim +PluginInstall +PluginUpdate +qall
+  vim +PluginInstall +PluginUpdate +qall
   tar xfz $ROOT/resources/taglist_46.tar.gz -C ~/.vim/
   cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim81/syntax/ejs.vim
 
