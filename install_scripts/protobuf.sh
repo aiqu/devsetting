@@ -41,7 +41,7 @@ source $ROOT/envset.sh
 
 PKG_NAME="protobuf"
 REPO_URL=https://github.com/google/protobuf
-TAG='v3.5.1'
+TAG='v3.6.1'
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
