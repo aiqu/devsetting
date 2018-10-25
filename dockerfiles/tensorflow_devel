@@ -1,0 +1,20 @@
+FROM ubuntu:16.04
+ARG TYPE=gpu
+
+WORKDIR /root
+
+RUN /bin/bash -c " \
+      apt update -y \
+      && apt install -y --no-install-recommends curl ca-certificates git pkg-config zip g++ zlib1g-dev unzip \
+      && git clone http://github.com/aiqu/devsetting \
+      && HARD_COPY=1 devsetting/install_scripts/configurations.sh \
+      && sed -i 's/en_US.utf8/C/' /root/.bashrc \
+      && . /root/.bashrc \
+      && devsetting/install_scripts/python.sh \
+      && pip install -U --user six numpy wheel mock setuptools \
+      && pip install -U --user keras_applications==1.0.5 keras_preprocessing==1.0.3 --no-deps \
+      && curl -LO https://github.com/bazelbuild/bazel/releases/download/0.15.2/bazel-0.15.2-installer-linux-x86_64.sh \
+      && bash bazel-0.15.2-installer-linux-x86_64.sh \
+      && if [ $TYPE = 'gpu' ];then bash devsetting/install_scripts/cuda.sh; fi \
+      && apt clean && rm -rf /var/lib/apt/lists bazel-0.15.2-installer-linux-x86_64.sh devsetting \
+      "
