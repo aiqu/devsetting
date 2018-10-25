@@ -60,7 +60,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   ./configure --prefix=${LOCAL_DIR} --disable-debug
   make -s -j${NPROC}
   make -s install 1>/dev/null
-  ldconfig
+  ${SUDO} ldconfig
 
   cd $ROOT && rm -rf $TMP_DIR
 else
