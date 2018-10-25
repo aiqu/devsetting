@@ -12,7 +12,7 @@ pipeline {
         slackSend(message: "${MSG_PREFIX} started ${MSG_LINK}", failOnError: true, color: 'good')
       }
     }
-    stage('base & jenkins') {
+    stage('base') {
       failFast true
       parallel {
         stage ("base:latest") {
