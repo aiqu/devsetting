@@ -33,4 +33,4 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/install_scripts/gccx.sh
 
-install_gcc "7_2_0"
+install_gcc "7_3_0"
