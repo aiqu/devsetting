@@ -64,7 +64,7 @@ function install_gcc() {
     mv $GMP gmp
   fi
   if [ ! -d mpfr ]; then
-    curl --retry 10 -L http://www.mpfr.org/$MPFR/$MPFR.tar.xz | tar xJf -
+    curl --retry 10 -L https://ftp.gnu.org/gnu/mpfr/$MPFR.tar.xz | tar xJf -
     mv $MPFR mpfr
   fi
   if [ ! -d mpc ]; then
