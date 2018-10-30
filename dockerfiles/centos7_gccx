@@ -19,7 +19,7 @@
 
 FROM gwangmin/centos7_dev:latest
 
-ARG CFLAGS="-O2 -pipe"
+ARG CFLAGS="-O2 -march=core2 -mtune=core-avx2"
 ARG GCCVER=5
 
 RUN export CFLAGS=$CFLAGS CXXFLAGS=$CFLAGS && \
