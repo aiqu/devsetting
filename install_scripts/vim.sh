@@ -98,6 +98,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     git clone https://github.com/fatih/vim-go.git $HOME/.vim/pack/plugins/start/vim-go
     ${LOCAL_DIR}/bin/vim +GoInstallBinaries +qall
   fi
+  ${LOCAL_DIR}/bin/vim +GoUpdateBinaries +qall
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
