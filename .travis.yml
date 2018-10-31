@@ -18,6 +18,27 @@ jobs:
       if: type != cron
       env: BASEIMG=centos7_dev TAG=latest
       script:
+        - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG --build-arg CFLAGS="-march=core2 -mtune=core-avx2 -O2" $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/base:$TAG
+
+    - stage: build docker image
+      if: type != cron
+      env: BASEIMG=centos7_gcc5 TAG=gcc5
+      script:
+        - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/base:$TAG
+
+    - stage: build docker image
+      if: type != cron
+      env: BASEIMG=centos7_gcc7 TAG=gcc7
+      script:
+        - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/base:$TAG
+
+    - stage: build docker image
+      if: type != cron
+      env: BASEIMG=centos7_gcc8 TAG=gcc8
+      script:
         - docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
         - docker push gwangmin/base:$TAG
 

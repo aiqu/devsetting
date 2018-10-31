@@ -19,8 +19,17 @@ pipeline {
           steps {
             sh '''
               sudo docker login -u ${REG_USR} -p ${REG_PSW}
-              sudo docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos7_dev ${DOCKER_BUILD_OPTION} .
+              sudo docker build -t gwangmin/base:latest -f dockerfiles/base --build-arg BASEIMG=centos7_dev --build-arg CFLAGS="-march=core2 -mtune=core-avx2 -O2" ${DOCKER_BUILD_OPTION} .
               sudo docker push gwangmin/base:latest
+              '''
+          }
+        }
+        stage ("base:gcc5") {
+          steps {
+            sh '''
+              sudo docker login -u ${REG_USR} -p ${REG_PSW}
+              sudo docker build -t gwangmin/base:gcc5 -f dockerfiles/base --build-arg BASEIMG=centos7_gcc5 ${DOCKER_BUILD_OPTION} .
+              sudo docker push gwangmin/base:gcc7
               '''
           }
         }
@@ -29,6 +38,15 @@ pipeline {
             sh '''
               sudo docker login -u ${REG_USR} -p ${REG_PSW}
               sudo docker build -t gwangmin/base:gcc7 -f dockerfiles/base --build-arg BASEIMG=centos7_gcc7 ${DOCKER_BUILD_OPTION} .
+              sudo docker push gwangmin/base:gcc7
+              '''
+          }
+        }
+        stage ("base:gcc8") {
+          steps {
+            sh '''
+              sudo docker login -u ${REG_USR} -p ${REG_PSW}
+              sudo docker build -t gwangmin/base:gcc8 -f dockerfiles/base --build-arg BASEIMG=centos7_gcc8 ${DOCKER_BUILD_OPTION} .
               sudo docker push gwangmin/base:gcc7
               '''
           }
