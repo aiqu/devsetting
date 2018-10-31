@@ -32,17 +32,69 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
+. $ROOT/install_scripts/unzip.sh
 
-if pkg-config libcurl --exists;then
-  INSTALLED_VERSION=$(pkg-config libcurl --modversion)
-  gecho "libcurl $INSTALLED_VERSION already installed"
+if [ $OS == 'mac' ];then
+  brew install curl
 else
-  if [ $OS == 'mac' ];then
-    brew install curl
-  elif [ $OS == 'ubuntu' ];then
-    ${SUDO} apt install -y libcurl4-openssl-dev
-  else
-    ${SUDO} yum install -y curl-devel
+  . $ROOT/install_scripts/libssh2.sh
+
+  PKG_NAME="curl"
+  REPO_URL="https://github.com/curl/curl"
+  TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|pre' | grep curl | cut -d/ -f3 | sort -V | tail -n1)
+  VER=$(echo $TAG | sed 's/curl-//' | sed 's/_/./g')
+  FOLDER="$PKG_NAME*"
+  VERFILE=""
+  INSTALLED_VERSION=
+  if hash curl 2>/dev/null;then
+    INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
   fi
+
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
+    iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+    curl -LO $REPO_URL/archive/$TAG.zip
+    unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+    ./buildconf
+    ./configure --prefix=${LOCAL_DIR} \
+      --disable-debug \
+      --enable-optimize \
+      --disable-curldebug \
+      --enable-shared \
+      --enable-static \
+      --enable-http \
+      --enable-ftp \
+      --enable-file \
+      --enable-ldap \
+      --enable-ldaps \
+      --enable-rtsp \
+      --enable-proxy \
+      --enable-dict \
+      --enable-telnet \
+      --enable-tftp \
+      --enable-pop3 \
+      --enable-imap \
+      --enable-smb \
+      --enable-smtp \
+      --enable-gopher \
+      --enable-manual \
+      --enable-libcurl-option \
+      --enable-ipv6 \
+      --disable-versioned-symbols \
+      --enable-sspi \
+      --enable-crypto-auto \
+      --enable-tls-srp \
+      --enable-unix-sockets \
+      --enable-cookies
+    make -s -j${NPROC}
+    make -s install 1>/dev/null
+
+    cd $ROOT && rm -rf $TMP_DIR
+  else
+    gecho "$PKG_NAME $VER is already installed"
+  fi
+
+  cd $ROOT
 fi
 LEVEL=$(( ${LEVEL}-1 ))
