@@ -29,6 +29,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 . $ROOT/install_scripts/autojump.sh
 . $ROOT/install_scripts/git.sh
 . $ROOT/install_scripts/vim.sh
+. $ROOT/install_scripts/neovim.sh
 PYTHON_PACKAGE=ON . $ROOT/install_scripts/python.sh
 
 LEVEL=$(( ${LEVEL}-1 ))
