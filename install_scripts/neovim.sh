@@ -47,9 +47,11 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
-  make -s -j${NPROC} CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$LOCAL_DIR -DCMAKE_BUILD_TYPE=RelWithDebInfo"
+  make -s -j${NPROC} CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=$LOCAL_DIR -DCMAKE_BUILD_TYPE=Release"
   make -s install 1>/dev/null
 
+  mkdir -p $HOME/.config/nvim
+  cp $ROOT/resources/init.vim $HOME/.config/nvim/
   pip install -U neovim
 
   cd $ROOT && rm -rf $TMP_DIR
