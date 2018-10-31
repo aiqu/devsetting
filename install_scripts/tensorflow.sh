@@ -49,6 +49,7 @@ go get -d github.com/tensorflow/tensorflow/tensorflow/go
 cd ${GOPATH}/src/github.com/tensorflow/tensorflow
 git fetch
 TAG=$(git tag | grep -v rc | sort -V | tail -n1)
+PKG_NAME="tensorflow"
 CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
