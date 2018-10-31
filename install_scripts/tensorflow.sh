@@ -40,6 +40,7 @@ TF_PKG_DIR=${HOME}/.lib/tensorflow_pkg
 . $ROOT/install_scripts/golang.sh
 . $ROOT/install_scripts/python.sh
 pip3 install numpy scipy
+bazelTAG='v0.15.0'
 . $ROOT/install_scripts/bazel.sh
 pip3 install keras_applications==1.0.4 keras_preprocessing==1.0.2 --no-deps
 
