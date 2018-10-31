@@ -90,15 +90,10 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
   fi
 
-  vim +PluginInstall +PluginUpdate +qall
+  vim +PluginInstall +PluginUpdate +GoInstallBinaries +GoUpdateBinaries +qall
   tar xfz $ROOT/resources/taglist_46.tar.gz -C ~/.vim/
   cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim81/syntax/ejs.vim
 
-  if [[ ! -d $HOME/.vim/pack/plugins/start/vim-go ]]; then
-    git clone https://github.com/fatih/vim-go.git $HOME/.vim/pack/plugins/start/vim-go
-    ${LOCAL_DIR}/bin/vim +GoInstallBinaries +qall
-  fi
-  ${LOCAL_DIR}/bin/vim +GoUpdateBinaries +qall
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
