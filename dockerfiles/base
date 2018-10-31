@@ -20,7 +20,7 @@
 ARG BASEIMG=centos7_dev:latest
 FROM gwangmin/$BASEIMG
 
-ARG CFLAGS="-march=core2"
+ARG CFLAGS="-march=core2 -mtune=broadwell -O2"
 
 RUN export CFLAGS="$CFLAGS" CXXFLAGS="$CFLAGS" \
         && cd $HOME \
