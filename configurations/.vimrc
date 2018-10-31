@@ -44,6 +44,9 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'jason0x43/vim-js-indent'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'fatih/vim-go'
+Plugin 'fatih/molokai'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'milkypostman/vim-togglelist'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -194,3 +197,23 @@ let g:syntastic_mode_map = {
 ">> Typescript
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+
+">> vim-go
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+autocmd FileType go nmap <leader>d  <Plug>(go-decls-dir)
+autocmd FileType go nmap <leader>i  <Plug>(go-info)
+let g:go_def_mode = "godef"
+
+" set vim's update rate to 100ms
+set updatetime=100
