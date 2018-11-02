@@ -29,7 +29,7 @@ pipeline {
             sh '''
               sudo docker login -u ${REG_USR} -p ${REG_PSW}
               sudo docker build -t gwangmin/base:gcc5 -f dockerfiles/base --build-arg BASEIMG=centos7_gcc5 ${DOCKER_BUILD_OPTION} .
-              sudo docker push gwangmin/base:gcc7
+              sudo docker push gwangmin/base:gcc5
               '''
           }
         }
@@ -47,7 +47,7 @@ pipeline {
             sh '''
               sudo docker login -u ${REG_USR} -p ${REG_PSW}
               sudo docker build -t gwangmin/base:gcc8 -f dockerfiles/base --build-arg BASEIMG=centos7_gcc8 ${DOCKER_BUILD_OPTION} .
-              sudo docker push gwangmin/base:gcc7
+              sudo docker push gwangmin/base:gcc8
               '''
           }
         }
