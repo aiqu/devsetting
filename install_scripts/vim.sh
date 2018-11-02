@@ -93,6 +93,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   vim +PluginInstall +PluginUpdate +GoInstallBinaries +GoUpdateBinaries +qall
   tar xfz $ROOT/resources/taglist_46.tar.gz -C ~/.vim/
   cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim81/syntax/ejs.vim
+  pip install -U cpplint
 
 else
   gecho "$PKG_NAME $VER is already installed"

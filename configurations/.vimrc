@@ -190,9 +190,11 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_checkers = ['flake8', 'pylint']
+let g:syntastic_cpp_checkers = ['cpplint']
+let g:syntastic_cpp_cpplint_exec = "cpplint"
+
 let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["cc", "cpp", "c", "hpp", "h", "go"] }
+    \ "mode": "active"}
 
 ">> Typescript
 autocmd QuickFixCmdPost [^l]* nested cwindow
