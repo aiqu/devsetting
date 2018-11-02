@@ -219,3 +219,7 @@ let g:go_def_mode = "godef"
 
 " set vim's update rate to 100ms
 set updatetime=100
+
+">> ctrlp
+let g:ctrlp_cmd = 'CtrlPLastMode'
+let g:ctrlp_extensions = ['tag', 'line', 'dir']
