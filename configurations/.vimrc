@@ -194,7 +194,8 @@ let g:syntastic_cpp_checkers = ['cpplint']
 let g:syntastic_cpp_cpplint_exec = "cpplint"
 
 let g:syntastic_mode_map = {
-    \ "mode": "active"}
+    \ "mode": "active",
+    \ "passive_filetypes": ["go"]}
 
 ">> Typescript
 autocmd QuickFixCmdPost [^l]* nested cwindow
@@ -216,6 +217,7 @@ autocmd FileType go nmap <leader>t  <Plug>(go-test)
 autocmd FileType go nmap <leader>d  <Plug>(go-decls-dir)
 autocmd FileType go nmap <leader>i  <Plug>(go-info)
 let g:go_def_mode = "godef"
+let g:go_fmt_autosave = 1
 
 " set vim's update rate to 100ms
 set updatetime=100
