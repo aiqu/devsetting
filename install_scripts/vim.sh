@@ -32,6 +32,9 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/python.sh
+. $ROOT/install_scripts/golang.sh
+
 PKG_NAME="vim"
 REPO_URL=https://github.com/vim/vim
 TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
@@ -82,22 +85,25 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   cd $PWD
   rm -rf $TMP_DIR
 
-  mkdir -p $HOME/.vim
-  cd $HOME/.vim
-
-  if [[ ! -d $HOME/.vim/bundle/Vundle.vim ]]
-  then
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  fi
-
-  vim +PluginInstall +PluginUpdate +GoInstallBinaries +GoUpdateBinaries +qall
-  tar xfz $ROOT/resources/taglist_46.tar.gz -C ~/.vim/
-  cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim81/syntax/ejs.vim
-  pip install -U cpplint
-
 else
   gecho "$PKG_NAME $VER is already installed"
 fi
+
+# Install vim plugins
+mkdir -p $HOME/.vim
+cd $HOME/.vim
+
+if [[ ! -d $HOME/.vim/bundle/Vundle.vim ]]
+then
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
+
+vim +PluginInstall +PluginUpdate +GoInstallBinaries +GoUpdateBinaries +qall
+tar xfz $ROOT/resources/taglist_46.tar.gz -C ~/.vim/
+cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim81/syntax/ejs.vim
+pip install -U cpplint
+cd ~/.vim/bundle/YouCompleteMe
+python3 install.py --clang-completer --go-completer
 
 LEVEL=$(( ${LEVEL}-1 ))
 cd $ROOT
