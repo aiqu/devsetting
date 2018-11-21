@@ -76,6 +76,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     -DCMAKE_BUILD_TYPE=RELEASE
     -DCMAKE_INSTALL_PREFIX=$LOCAL_DIR
     -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR
+    -DPYTHON_DEFAULT_EXECUTABLE=$(which python)
     -DBUILD_opencv_python2=OFF
     -DBUILD_opencv_python3=${OPENCV_PYTHON3:-'ON'}
     -DBUILD_opencv_datasets=OFF
@@ -125,6 +126,9 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   fi
   make -s -j${NPROC}
   make -s install 1>/dev/null
+  if [ ${OPENCV_PYTHON3} == 'ON' ];then
+    cp lib/python3/cv2.*.so $(python -c 'import site; print(site.getsitepackages()[0])')
+  fi
 
   cd $ROOT && rm -rf $TMP_DIR
 else
