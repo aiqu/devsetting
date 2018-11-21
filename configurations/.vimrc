@@ -229,3 +229,4 @@ let g:ctrlp_extensions = ['tag', 'line', 'dir']
 
 ">> YCM
 set completeopt-=preview
+let g:ycm_show_diagnostics_ui = 0
