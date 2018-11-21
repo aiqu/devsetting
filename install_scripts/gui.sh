@@ -48,6 +48,7 @@ ${SUDO} apt-get install -y terminator
 
 # install coding font
 FILENAME=font.zip
+mkdir -p $HOME/.fonts
 curl --retry 10 -L https://github.com/naver/nanumfont/releases/download/VER2.5/NanumGothicCoding-2.5.zip -o $FILENAME && unzip -fq $FILENAME NanumGothic* -d $HOME/.fonts && rm $FILENAME
 curl --retry 10 -L https://github.com/naver/d2codingfont/releases/download/VER1.3.1/D2Coding-Ver1.3.1-20180115.zip -o $FILENAME && unzip -fq $FILENAME D2Coding* -d $HOME/.fonts && rm $FILENAME
 ${SUDO} fc-cache
