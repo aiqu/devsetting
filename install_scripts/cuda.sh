@@ -58,7 +58,7 @@ if [ $OS == "ubuntu" ] || [ $OS == "debian" ];then
   CUDA_VERSION=9.2.148
   CUDA_PKG_VERSION="9-2=${CUDA_VERSION}-1"
   NCCL_VERSION=2.3.5
-  CUDNN_VERSION=7.2.1.38
+  CUDNN_VERSION=7.4.1.5
 
   apt update && \
     apt install -y --no-install-recommends --allow-downgrades \
@@ -96,7 +96,7 @@ elif [ $OS == "centos" ];then
 
     CUDA_VERSION=9.2.148
     CUDA_PKG_VERSION="9-2-${CUDA_VERSION}-1"
-    CUDNN_VERSION=7.2.1.38
+    CUDNN_VERSION=7.3.1.20
 
     yum install -y \
       cuda-cudart-${CUDA_PKG_VERSION} \
@@ -118,8 +118,8 @@ elif [ $OS == "centos" ];then
     fi
     rm -rf /var/cache/yum/*
 
-    CUDNN_DOWNLOAD_SUM=3e78f5f0edbe614b56f00ff2d859c5409d150c87ae6ba3df09f97d537909c2e9 && \
-      curl --retry 10 -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.2.1/cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz -O && \
+    CUDNN_DOWNLOAD_SUM=aa652e95e66deb2970247fdeb5c5f6ae8b30ab6a35050df1354613acb1da6d05 && \
+      curl --retry 10 -fsSL http://developer.download.nvidia.com/compute/redist/cudnn/v7.3.1/cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz -O && \
       echo "$CUDNN_DOWNLOAD_SUM  cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz" | sha256sum -c - && \
       tar --no-same-owner -xzf cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz -C /usr/local && \
       rm cudnn-9.2-linux-x64-v${CUDNN_VERSION}.tgz && \
