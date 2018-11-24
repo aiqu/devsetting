@@ -44,6 +44,13 @@ jobs:
 
     - stage: build docker image
       if: type != cron
+      env: BASEIMG=centos7_clang TAG=clang
+      script:
+        - travis_wait 50 docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/base:$TAG
+
+    - stage: build docker image
+      if: type != cron
       env: BASEIMG=ubuntu_dev:bionic TAG=ubuntu
       script:
         - travis_wait 50 docker build -t gwangmin/base:$TAG -f dockerfiles/base --build-arg BASEIMG=$BASEIMG $DOCKER_BUILD_OPTION .

@@ -51,6 +51,15 @@ pipeline {
               '''
           }
         }
+        stage ("base:clang") {
+          steps {
+            sh '''
+              sudo docker login -u ${REG_USR} -p ${REG_PSW}
+              sudo docker build -t gwangmin/base:clang -f dockerfiles/base --build-arg BASEIMG=centos7_clang ${DOCKER_BUILD_OPTION} .
+              sudo docker push gwangmin/base:clang
+              '''
+          }
+        }
       }
     }
   }
