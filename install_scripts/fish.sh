@@ -45,7 +45,7 @@ TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
 FOLDER="$PKG_NAME*"
 VERFILE=""
-INSTALLED_VERSION=
+INSTALLED_VERSION=$(fish --version 2>/dev/null | cut -d' ' -f3)
 
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
