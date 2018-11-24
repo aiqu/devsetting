@@ -41,21 +41,29 @@ else
 
   PKG_NAME="curl"
   REPO_URL="https://github.com/curl/curl"
-  TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|pre' | grep curl | cut -d/ -f3 | sort -V | tail -n1)
+  if [ $OS == 'centos' ];then
+    # use the centos7 repository version to avoid a conflict
+    TAG='curl-7_29_0'
+  else
+    TAG=$(git ls-remote -t $REPO_URL | grep -v '{}\|pre' | grep curl | cut -d/ -f3 | sort -V | tail -n1)
+  fi
+  CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"
+  TAG=${!CUSTOMTAGNAME:-$TAG}
   VER=$(echo $TAG | sed 's/curl-//' | sed 's/_/./g')
   FOLDER="$PKG_NAME*"
   VERFILE=""
   INSTALLED_VERSION=
-  if hash curl 2>/dev/null;then
-    INSTALLED_VERSION=$(curl --version | head -n1 | cut -d' ' -f2 | sed 's/-DEV//')
+  PKG_CONFIG_PATH="/usr/lib/pkgconfig:$PKG_CONFIG_PATH"
+  if PKG_CONFIG_PATH=$PKG_CONFIG_PATH pkg-config --exists libcurl;then
+    INSTALLED_VERSION=$(PKG_CONFIG_PATH=$PKG_CONFIG_PATH pkg-config --modversion libcurl)
   fi
 
-  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ ! -f ${LOCAL_DIR}/bin/curl ]; then
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ]; then
     iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
     mkdir -p $TMP_DIR && cd $TMP_DIR
-    curl -LO $REPO_URL/archive/$TAG.zip
-    unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+    curl -L $REPO_URL/archive/$TAG.tar.gz | tar xz
+    cd $FOLDER
     ./buildconf
     ./configure --prefix=${LOCAL_DIR} \
       --disable-debug \
@@ -92,7 +100,7 @@ else
 
     cd $ROOT && rm -rf $TMP_DIR
   else
-    gecho "$PKG_NAME $VER is already installed"
+    gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
   fi
 
   cd $ROOT
