@@ -33,12 +33,14 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+. $ROOT/install_scripts/cmake.sh
+
 PKG_NAME="clang"
 TAG='7.0.0'
 CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
-INSTALLED_VERSION=$(hash -r; clang --version | head -n1 | cut -d' ' -f3)
+INSTALLED_VERSION=$(hash -r; clang --version 2>/dev/null | head -n1 | cut -d' ' -f3)
 
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
@@ -47,7 +49,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   UNPACK_CMD='tar xJ --strip-components=1 -C'
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl -L $REPO_URL/$TAG/llvm-$TAG.src.tar.xz | tar xJ
+  curl -L $REPO_URL/llvm-$TAG.src.tar.xz | tar xJ
   cd llvm*
   cd tools
   mkdir -p clang clang/tools/extra lld polly
