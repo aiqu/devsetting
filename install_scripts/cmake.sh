@@ -40,19 +40,19 @@ TAG=$(git ls-remote --tags $REPO_URL | awk -F/ '{print $3}' | grep -v -e '{}' -e
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/v//')
-FOLDER="CMake-$VER"
+FOLDER="$PKG_NAME*"
 INSTALLED_VER=
 if hash cmake 2>/dev/null;then
   INSTALLED_VER=$(cmake --version 2>/dev/null | grep version | awk '{print $3}')
 fi
 
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] || [ $INSTALLED_VER != $VER ];then
-  iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
 
   iecho "Downloading CMake $VER"
-  curl --retry 10 -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz
+  curl --retry 10 -L ${REPO_URL}/releases/download/${TAG}/cmake-${VER}.tar.gz | tar xz
   cd $FOLDER
   ./bootstrap --prefix=${LOCAL_DIR} --parallel=${NPROC} --system-curl
 
