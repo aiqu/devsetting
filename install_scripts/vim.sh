@@ -98,7 +98,7 @@ then
   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-vim +PluginInstall +PluginUpdate +GoInstallBinaries +GoUpdateBinaries +qall
+vim +PluginInstall +PluginUpdate +qall
 tar xfz $ROOT/resources/taglist_46.tar.gz -C ~/.vim/
 cp $ROOT/resources/ejs.vim ${LOCAL_DIR}/share/vim/vim81/syntax/ejs.vim
 pip install -U cpplint
