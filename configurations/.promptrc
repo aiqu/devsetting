@@ -19,22 +19,82 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+_normal() {
+  echo -e "\e[0m"
+}
+_red() {
+  echo -e "\e[31;1m"
+}
+_green() {
+  echo -e "\e[32;1m"
+}
+_yello() {
+  echo -e "\e[32;1m"
+}
+_blue() {
+  echo -e "\e[34;1m"
+}
+_cyan() {
+  echo -e "\e[36;1m"
+}
+_brgreen() {
+  echo -e "\e[92;1m"
+}
+
+_status_code_msg() {
+  if [ $1 -ne 0 ];then
+    echo -e "\e[31;1m$1🤔"
+  fi
+}
+
 git_branch() {
   local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
   if [[ -n $branch ]]; then
-    echo -e "($branch)"
+    local status=''
+    # check modified status
+    if git status --porcelain 2>/dev/null | grep -qi -e '^.M\|^.D';then
+      status=$status'❗'
+    fi
+    if git status --porcelain 2>/dev/null | grep -qi -e '^M\|^D';then
+      status=$status'➕'
+    fi
+    if git status --porcelain 2>/dev/null | grep -qi -e '^??';then
+      status=$status'❓'
+    fi
+
+    if [ -z $status ];then
+      echo -e "\e[32;1m$branch\e[0m"
+    else
+      echo -e "\e[31;1m$branch$status\e[0m"
+    fi
   fi
 }
 
 prompt_symbol() {
   if [ "$USER" = "root" ]; then
-    printf "%s" "#";
+    echo -e "#"
   else
-    printf "%s" "\$"
+    echo -e "\$"
   fi
+}
+
+__prompt_command() {
+  local last_status="$?"
+  PS1="${debian_chroot:+($debian_chroot)}"
+  PS1+="\$(_status_code_msg $last_status)\$(_normal)"
+  PS1+="\u@\h "
+  PS1+="\$(_cyan)\w "
+  local cur_git_branch_name=$(git_branch)
+  if [ ! -z $cur_git_branch_name ];then
+    PS1+="\$(_blue)(${cur_git_branch_name}\$(_blue))"
+  fi
+  PS1+="\$(_brgreen)\$(prompt_symbol) \$(_normal)"
 }
 
 # Ensure that we're in bash
 if [ -n "$BASH" ]; then
-  PS1="${debian_chroot:+($debian_chroot)}\[\e[32m\]\u@\h\e[37m:\[\e[0m\]\w\[\e[31m\]\$(git_branch)\[\e[0m\]\$(prompt_symbol) "
+  if [[ $PROMPT_COMMAND != *"__prompt_command"* ]];then
+    PROMPT_COMMAND="__prompt_command; ${PROMPT_COMMAND}"
+  fi
 fi
+

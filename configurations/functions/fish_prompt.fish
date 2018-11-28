@@ -25,7 +25,7 @@ function fish_prompt
             git status --porcelain ^/dev/null | grep -qi -e '^M\|^D'
         end
         function _is_repo_has_untracked
-            git status --porcelain ^/dev/null | grep -qi -e '^\s*??'
+            git status --porcelain ^/dev/null | grep -qi -e '^??'
         end
 
         function _repo_type
