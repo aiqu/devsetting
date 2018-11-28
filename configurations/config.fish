@@ -23,7 +23,7 @@ set -l MY_CMAKE_PREFIX_PATH {$LOCAL_DIR}/share
 set -l MY_PKG_CONFIG_DIR {$LOCAL_DIR,usr}/{share,lib,lib64}/pkgconfig
 set -l MY_MANPATH {$LOCAL_DIR,/usr/local,/usr}/share/man
 set -l MY_PATH {$GOPATH,$LOCAL_DIR,~}/bin
-if hash yarn ^ /dev/null
+if type -q yarn
   set MY_PATH (yarn global bin) $MY_PATH
 end
 
