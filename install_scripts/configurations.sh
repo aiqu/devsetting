@@ -66,4 +66,13 @@ for f in `ls $BIN_FOLDER/*`;do
   fi
 done
 
+mkdir -p $HOME/.config/fish
+if [ -z $HARD_COPY ];then
+  ln -sf $CONF_FOLDER/config.fish $HOME/.config/fish/config.fish
+  ln -sf $CONF_FOLDER/functions $HOME/.config/fish/functions
+else
+  cp -r $CONF_FOLDER/config.fish $HOME/.config/fish/
+  cp -r $CONF_FOLDER/functions $HOME/.config/fish/
+fi
+
 LEVEL=$(( ${LEVEL}-1 ))
