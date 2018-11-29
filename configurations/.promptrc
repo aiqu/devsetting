@@ -19,76 +19,54 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-_normal() {
-  echo -e "\e[0m"
-}
-_red() {
-  echo -e "\e[31;1m"
-}
-_green() {
-  echo -e "\e[32;1m"
-}
-_yello() {
-  echo -e "\e[32;1m"
-}
-_blue() {
-  echo -e "\e[34;1m"
-}
-_cyan() {
-  echo -e "\e[36;1m"
-}
-_brgreen() {
-  echo -e "\e[92;1m"
-}
+__P_RESET="\[$(tput sgr0)\]"
+__P_BOLD="\[$(tput bold)\]"
+__P_BLACK="\[$(tput setaf 0)\]"
+__P_RED="\[$(tput setaf 1)\]"
+__P_GREEN="\[$(tput setaf 2)\]"
+__P_YELLOW="\[$(tput setaf 3)\]"
+__P_BLUE="\[$(tput setaf 4)\]"
+__P_MAGENTA="\[$(tput setaf 5)\]"
+__P_CYAN="\[$(tput setaf 6)\]"
+__P_WHITE="\[$(tput setaf 7)\]"
+__P_BRGREEN="\[$(tput setaf 10)\]"
 
-_status_code_msg() {
-  if [ $1 -ne 0 ];then
-    echo -e "\e[31;1m$1🤔"
+__prompt_command() {
+  local last_status="$?"
+  # -- Status code message
+  local status_code_msg=""
+  if [ $last_status -ne 0 ];then
+    status_code_msg="${__P_BOLD}${__P_RED}${last_status} ${__P_RESET}"
   fi
-}
-
-git_branch() {
+  # -- Git status messgae
   local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
   if [[ -n $branch ]]; then
     local status=''
     # check modified status
     if git status --porcelain 2>/dev/null | grep -qi -e '^.M\|^.D';then
-      status=$status'❗'
+      status+="${__P_RED}!"
     fi
     if git status --porcelain 2>/dev/null | grep -qi -e '^M\|^D';then
-      status=$status'➕'
+      status+="${__P_GREEN}+"
     fi
     if git status --porcelain 2>/dev/null | grep -qi -e '^??';then
-      status=$status'❓'
+      status+="${__P_RED}?"
     fi
 
     if [ -z $status ];then
-      echo -e "\e[32;1m$branch\e[0m"
+      branch="${__P_GREEN}${branch}"
     else
-      echo -e "\e[31;1m$branch$status\e[0m"
+      branch="${__P_RED}${branch} ${status}"
     fi
+    branch="${__P_BOLD}${__P_BLUE}(${branch}${__P_BLUE})${__P_RESET}"
   fi
-}
-
-prompt_symbol() {
-  if [ "$USER" = "root" ]; then
-    echo -e "#"
-  else
-    echo -e "\$"
-  fi
-}
-
-__prompt_command() {
-  local last_status="$?"
+  # -- Set prompt message
   PS1="${debian_chroot:+($debian_chroot)}"
-  PS1+="\$(_status_code_msg $last_status)\$(_normal)"
+  PS1+="${status_code_msg}"
   PS1+="\u@\h "
-  PS1+="\$(_cyan)\w "
-  local cur_git_branch_name=$(git_branch)
-  if [ ! -z $cur_git_branch_name ];then
-    PS1+="\$(_blue)(${cur_git_branch_name}\$(_blue))"
-  fi
-  PS1+="\$(_brgreen)\$(prompt_symbol) \$(_normal)"
+  PS1+="${__P_BOLD}${__P_CYAN}\w${__P_RESET} "
+  PS1+="${branch}"
+  PS1+="${__P_BRGREEN}\\$ ${__P_RESET}"
 }
 
 # Ensure that we're in bash
