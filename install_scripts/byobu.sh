@@ -32,7 +32,7 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-# . $ROOT/install_scripts/tmux.sh
+. $ROOT/install_scripts/tmux.sh
 
 PKG_NAME="byobu"
 REPO_URL=https://github.com/aiqu/byobu
