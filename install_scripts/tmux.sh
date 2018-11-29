@@ -34,6 +34,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/install_scripts/libevent.sh
 . $ROOT/install_scripts/ncurses.sh
+. $ROOT/install_scripts/utf8proc.sh
 
 PKG_NAME="tmux"
 REPO_URL=https://github.com/tmux/tmux
@@ -53,7 +54,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz && cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=${LOCAL_DIR}
+  ./configure --prefix=${LOCAL_DIR} --enable-utf8proc CPPFLAGS="-I${LOCAL_DIR}/include -I${LOCAL_DIR}/include/ncurses" LDFLAGS="-L${LOCAL_DIR}/lib"
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
