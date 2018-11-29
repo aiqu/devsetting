@@ -55,24 +55,23 @@ done
 
 BIN_FOLDER=`$READLINK -f $ROOT/bin`
 
-mkdir -p $HOME/bin
+mkdir -p $LOCAL_DIR/bin
 
 for f in `ls $BIN_FOLDER/*`;do
-	ln -sf $f $HOME/bin/
   if [ -z $HARD_COPY ];then
-    ln -sf $f $HOME/$(basename $f)
+    ln -sf $f $LOCAL_DIR/bin/$(basename $f)
   else
-    cp -r $f $HOME/$(basename $f)
+    cp -af $f $LOCAL_DIR/bin/$(basename $f)
   fi
 done
 
 mkdir -p $HOME/.config/fish
 if [ -z $HARD_COPY ];then
-  ln -sf $CONF_FOLDER/config.fish $HOME/.config/fish/config.fish
-  ln -sf $CONF_FOLDER/functions $HOME/.config/fish/functions
+  ln -sf $CONF_FOLDER/config.fish $HOME/.config/fish/
+  ln -sf $CONF_FOLDER/functions $HOME/.config/fish/
 else
-  cp -r $CONF_FOLDER/config.fish $HOME/.config/fish/
-  cp -r $CONF_FOLDER/functions $HOME/.config/fish/
+  cp -af $CONF_FOLDER/config.fish $HOME/.config/fish/
+  cp -af $CONF_FOLDER/functions $HOME/.config/fish/
 fi
 
 LEVEL=$(( ${LEVEL}-1 ))
