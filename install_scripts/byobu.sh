@@ -32,26 +32,34 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/tmux.sh
+# . $ROOT/install_scripts/tmux.sh
 
 PKG_NAME="byobu"
 REPO_URL=https://github.com/aiqu/byobu
+TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
+CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"
+TAG=${!CUSTOMTAGNAME:-$TAG}
+VER=$TAG
+FOLDER="$PKG_NAME*"
+VERFILE=""
+INSTALLED_VERSION=
+if hash byobu 2>/dev/null;then
+  INSTALLED_VERSION=$(byobu --version | head -n1 | cut -d' ' -f3)
+fi
 
-if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ ! -x ${LOCAL_DIR}/bin/byobu ];then
-  iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
-  mkdir -p $HOME/.lib && cd $HOME/.lib
-  if [ ! -d byobu ];then
-    git clone --depth=1 $REPO_URL
-  fi
-
-  cd byobu && git pull
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   ./autogen.sh
-  ./configure --prefix="${LOCAL_DIR}"
+  ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
   make -s install 1>/dev/null
+
+  cd $ROOT && rm -rf $TMP_DIR
 else
-  gecho "$PKG_NAME is already installed"
+  gecho "$PKG_NAME $VER is already installed"
 fi
 
 LEVEL=$(( ${LEVEL}-1 ))
