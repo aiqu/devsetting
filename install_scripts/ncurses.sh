@@ -47,7 +47,15 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L $REPO_URL | tar xz
   cd $FOLDER
-  ./configure --prefix=${LOCAL_DIR} --enable-widec --without-develop --without-cxx-binding --with-shared CPPFLAGS='-P'
+  ./configure \
+    --prefix=${LOCAL_DIR} \
+    --enable-pc-files \
+    --enable-widec \
+    --without-develop \
+    --without-cxx-binding \
+    --with-shared \
+    --with-ext-colors \
+    CPPFLAGS='-P'
   make -s -j${NPROC}
   make -s install 1>/dev/null
   ln -sf ${LOCAL_DIR}/include/ncursesw/*.h ${LOCAL_DIR}/include/
