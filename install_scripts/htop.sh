@@ -54,7 +54,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   curl --retry 10 -L $DOWN_URL | tar xz
   cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=${LOCAL_DIR}
+  ./configure --prefix=${LOCAL_DIR} --enable-unicode
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
