@@ -24,7 +24,7 @@ function setunion2 -S -d "add values of second variable not exist on first varia
     return
   end
   for p in $$argv[2]
-    if not string match -q $p $$argv[1]
+    if not string match -q "*$p*" $$argv[1]
       set $argv[1] $p":"$$argv[1]
     end
   end
