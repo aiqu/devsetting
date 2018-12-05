@@ -19,7 +19,7 @@ end
 set -l MY_INCLUDE_DIR {$LOCAL_DIR}/{include,include/python3.6m}
 set -l MY_LIBRARY_DIR {$LOCAL_DIR}/{lib,lib64}
 set -l SYSTEM_LIBRARY_DIR /usr/local/{lib,lib64} /usr/{lib,lib64}
-set -l MY_CMAKE_PREFIX_PATH {$LOCAL_DIR}/share
+set -l MY_CMAKE_PREFIX_PATH {$LOCAL_DIR} {$LOCAL_DIR}/{share,lib64}
 set -l MY_PKG_CONFIG_DIR {$LOCAL_DIR,usr}/{share,lib,lib64}/pkgconfig
 set -l MY_MANPATH {$LOCAL_DIR,/usr/local,/usr}/share/man
 set -l MY_PATH {$GOPATH,$LOCAL_DIR,~}/bin
