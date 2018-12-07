@@ -17,7 +17,6 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-rm -rf cscope.files cscope.files tags
+rm cscope.* tags
 ctags -R .
-find . \( -name '*.c' -o -name '*.cpp' -o -name '*.cc' -o -name '*.h' -o -name '*.s' -o -name '*.S' -o -name '*.hpp' \) -print > cscope.files
-cscope -i cscope.files 
+cscope -RUbq 
