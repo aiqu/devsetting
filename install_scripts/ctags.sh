@@ -34,24 +34,22 @@ PWD=$(pwd)
 . $ROOT/envset.sh
 
 PKG_NAME="ctags"
-TAG='5.8'
-CUSTOMTAGNAME="${PKG_NAME}TAG"
+REPO_URL="https://github.com/universal-ctags/ctags"
+TAG='master'
+CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$TAG
-REPO_URL="http://prdownloads.sourceforge.net/ctags/ctags-$TAG.tar.gz"
 FOLDER="$PKG_NAME*"
 VERFILE=""
 INSTALLED_VERSION=
-if hash ctags 2>/dev/null;then
-  INSTALLED_VERSION=$(ctags --version | head -n1 | cut -d' ' -f3 | sed 's/,//')
-fi
 
-if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || ! hash ctags 2>/dev/null;then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl --retry 10 -L $REPO_URL | tar xz
-  cd $FOLDER
+  curl --retry 10 -LO $REPO_URL/archive/$TAG.zip
+  unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
+  ./autogen.sh
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
   make -s install 1>/dev/null
