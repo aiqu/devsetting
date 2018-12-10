@@ -49,6 +49,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'milkypostman/vim-togglelist'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'dag/vim-fish'
+Plugin 'majutsushi/tagbar'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -144,8 +145,6 @@ let Tlist_Exit_OnlyWindow = 1					"Close Vim if the taglist is the only window.
 map F <ESC>ggVG=
 "Delete trailing space
 map T <ESC>:%s/\s\+$//e<CR>
-"Taglist shortcut
-map <C-l> :Tlist<CR><C-w>w
 
 ">> NERDtree
 
@@ -246,3 +245,6 @@ let g:NERDCommentEmptyLines = 1
 let g:NERDTrimTrailingWhitespace = 1
 " Enable NERDCommenterToggle to check all selected lines is commented or not 
 let g:NERDToggleCheckAllLines = 1
+
+">> tagbar
+nmap <C-l> :TagbarToggle<CR>
