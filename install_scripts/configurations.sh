@@ -69,9 +69,11 @@ mkdir -p $HOME/.config/fish
 if [ -z $HARD_COPY ];then
   ln -sf $CONF_FOLDER/config.fish $HOME/.config/fish/
   ln -sf $CONF_FOLDER/functions $HOME/.config/fish/
+  ln -sf $CONF_FOLDER/completions $HOME/.config/fish/
 else
   cp -af $CONF_FOLDER/config.fish $HOME/.config/fish/
   cp -af $CONF_FOLDER/functions $HOME/.config/fish/
+  cp -af $CONF_FOLDER/completions $HOME/.config/fish/
 fi
 
 LEVEL=$(( ${LEVEL}-1 ))
