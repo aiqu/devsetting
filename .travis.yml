@@ -97,6 +97,13 @@ jobs:
 
     - stage: build basic docker image
       if: type = cron
+      env: DOCKERFILE_NAME=jenkins_kubernetes
+      script:
+        - docker build -t gwangmin/${DOCKERFILE_NAME}:latest -f dockerfiles/$DOCKERFILE_NAME $DOCKER_BUILD_OPTION .
+        - docker push gwangmin/${DOCKERFILE_NAME}:latest
+
+    - stage: build basic docker image
+      if: type = cron
       env: DOCKERFILE_NAME=tensorflow_devel
       script:
         - docker build -t gwangmin/${DOCKERFILE_NAME}:cpu -f dockerfiles/$DOCKERFILE_NAME --build-arg TYPE=cpu $DOCKER_BUILD_OPTION .
