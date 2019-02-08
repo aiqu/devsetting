@@ -38,18 +38,39 @@ iecho "$PKG_NAME $VER installation.."
 # Referenced https://github.com/NVIDIA/nvidia-docker
 # If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
 docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
-${SUDO} yum remove nvidia-docker
-
-# Add the package repositories
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-curl --retry 10 -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | \
-  ${SUDO} tee /etc/yum.repos.d/nvidia-docker.repo
+if [ $OS = 'centos' ];then
+  set -e
+  ${SUDO} yum remove nvidia-docker
+  set +e
 
-# Install nvidia-docker2 and reload the Docker daemon configuration
-${SUDO} yum install -y nvidia-docker2
+  # Add the package repositories
+  curl --retry 10 -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | \
+    ${SUDO} tee /etc/yum.repos.d/nvidia-docker.repo
+
+  # Install nvidia-docker2
+  ${SUDO} yum install -y nvidia-docker2
+elif [ $OS = 'ubuntu' ];then
+  set +e
+  ${SUDO} apt purge -y nvidia-docker
+  set -e
+
+  # Add the package repositories
+  curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+  curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
+    sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+  sudo apt update
+
+  # Install nvidia-docker2
+  sudo apt install -y nvidia-docker2
+fi
+# Reload the Docker daemon configuration
 ${SUDO} pkill -SIGHUP dockerd
 
 # Test nvidia-smi with the latest official CUDA image
-docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
+
+iecho "$PKG_NAME successfully installed"
+iecho "you may want to add \"default-runtime\": \"nvidia\" to /etc/docker/daemon.json"
 
 LEVEL=$(( ${LEVEL}-1 ))
