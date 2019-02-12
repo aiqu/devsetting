@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #
-#    <packagename> installer
+#    packagename installer
 #
-#    Copyright (C) 2018 Gwangmin Lee
+#    Copyright (C) 2019 Gwangmin Lee
 #    
 #    Author: Gwangmin Lee <gwangmin0123@gmail.com>
 #
