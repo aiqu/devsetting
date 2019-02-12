@@ -57,7 +57,12 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] |
   rm -rf protobuf
   mv protobuf-$VER protobuf && cd protobuf
   ./autogen.sh
-  ./configure --prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64
+  CONFIG_OPTIONS="--prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64"
+  BUILDSTATIC="${PKG_NAME}STATIC"
+  if [ ! -z ${!BUILDSTATIC} ]; then
+    CONFIG_OPTIONS="$CONFIG_OPTIONS --disable-shared"
+  fi
+  ./configure $CONFIG_OPTIONS
   make -s -j${NPROC}
   make -s check -j${NPROC}
   make -s install 1>/dev/null

@@ -48,13 +48,18 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
-    -DCMAKE_CXX_FLAGS="-O2" \
-    -DCMAKE_C_FLAGS="-O2" \
+  BUILDSTATIC="${PKG_NAME}STATIC"
+  CMAKE_OPTIONS=" \
+    -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
+    -DCMAKE_BUILD_TYPE=Release \
     -DG2O_BUILD_APPS=OFF \
     -DG2O_BUILD_EXAMPLES=OFF \
     -DBUILD_WITH_MARCH_NATIVE=OFF \
-    ..
+    "
+  if [ ! -z ${!BUILDSTATIC} ];then
+    CMAKE_OPTIONS="${CMAKE_OPTIONS} -DBUILD_SHARED_LIBS=OFF -DBUILD_LGPL_SHARED_LIBS=OFF"
+  fi
+  cmake $CMAKE_OPTIONS ..
   make -s -j${NPROC}
   make -s install 1>/dev/null
 

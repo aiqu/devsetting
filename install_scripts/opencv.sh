@@ -111,6 +111,12 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     -DBUILD_PNG=ON
     -DBUILD_TIFF=ON
   )
+  BUILDSTATIC="${PKG_NAME}STATIC"
+  if [ ! -z ${!BUILDSTATIC} ];then
+    OPENCV_CMAKE_OPTIONS+=(
+      -DBUILD_SHARED_LIBS=OFF
+    )
+  fi
   if [ -f /usr/local/cuda/version.txt ]; then
     cmake ${OPENCV_CMAKE_OPTIONS[@]} \
       -DWITH_CUDA=ON \

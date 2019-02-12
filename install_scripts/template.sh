@@ -54,8 +54,14 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   unzip -q $TAG.zip && rm -rf $TAG.zip && cd $FOLDER
   curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
-  ./configure --prefix=${LOCAL_DIR}
+  BUILDSTATIC="$(echo ${PKG_NAME} | sed 's/-//')STATIC"
+  CMAKE_OPTIONS="-DCMAKE_INSTALL_PREFIX=${LOCAL_DIR}"
+  CONFIG_OPTIONS="--prefix=${LOCAL_DIR}"
+  if [ ! -z ${!BUILDSTATIC} ];then
+    echo "disable shared build"
+  fi
+  cmake $CMAKE_OPTIONS ..
+  ./configure $CONFIG_OPTIONS
   make -s -j${NPROC}
   make -s install 1>/dev/null
 

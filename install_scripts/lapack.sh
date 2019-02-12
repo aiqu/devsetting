@@ -53,7 +53,19 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p build && cd build
-  cmake -DBUILD_SHARED_LIBS=ON -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} ..
+  CMAKE_OPTIONS=" \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
+    -DUSE_OPTIMIZED_BLAS=ON \
+    -DCBLAS=ON \
+    "
+  BUILDSTATIC="${PKG_NAME}STATIC"
+  if [ ! -z ${!BUILDSTATIC} ];then
+    CMAKE_OPTIONS="$CMAKE_OPTIONS -DBUILD_SHARED_LIBS=OFF -DBLA_STATIC=ON"
+  else
+    CMAKE_OPTIONS="$CMAKE_OPTIONS -DBUILD_SHARED_LIBS=ON"
+  fi
+  cmake $CMAKE_OPTIONS ..
   make -s -j${NPROC}
   make -s install 1>/dev/null
 

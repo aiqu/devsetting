@@ -52,7 +52,12 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz && cd $FOLDER
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DCMAKE_BUILD_TYPE=Release -DFLATBUFFERS_BUILD_SHAREDLIB=ON ..
+  CMAKE_OPTIONS="-DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DCMAKE_BUILD_TYPE=Release"
+  BUILDSTATIC="$(echo ${PKG_NAME} | sed 's/-//')STATIC"
+  if [ -z ${!BUILDSTATIC} ]; then
+    CMAKE_OPTIONS="${CMAKE_OPTIONS} -DFLATBUFFERS_BUILD_SHAREDLIB=ON"
+  fi
+  cmake $CMAKE_OPTIONS ..
   make -s -j${NPROC}
   ./flattests
   make -s install 1>/dev/null
