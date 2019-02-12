@@ -53,10 +53,17 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   curl --retry 10 -L $REPO_URL/archive/$TAG.tar.gz | tar xz
   cd $FOLDER
   mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
+  CMAKE_OPTIONS=" \
+    -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
     -DYAML_CPP_BUILD_TESTS=OFF \
-    -DBUILD_SHARED_LIBS=ON \
-    ..
+    "
+  BUILDSTATIC="$(echo ${PKG_NAME} | sed 's/-//')STATIC"
+  if [ ! -z ${!BUILDSTATIC} ];then
+    CMAKE_OPTIONS="${CMAKE_OPTIONS} -DBUILD_SHARED_LIBS=OFF"
+  else
+    CMAKE_OPTIONS="${CMAKE_OPTIONS} -DBUILD_SHARED_LIBS=ON"
+  fi
+  cmake $CMAKE_OPTIONS ..
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
