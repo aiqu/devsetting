@@ -32,7 +32,10 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
-. $ROOT/install_scripts/cmake.sh
+
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/cmake.sh
+fi
 
 PKG_NAME="eigen"
 REPO_URL="https://github.com/eigenteam/eigen-git-mirror"
