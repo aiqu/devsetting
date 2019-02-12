@@ -41,14 +41,15 @@ PWD=$(pwd)
 
 iecho "$PKG_NAME installation.."
 mkdir -p $TMP_DIR && cd $TMP_DIR
-VER='4.5.6'
+VER='5.4.0'
 SRCFILE="SuiteSparse-$VER.tar.gz"
 if [ ! -d SuiteSparse ]; then
   curl --retry 10 -L http://faculty.cse.tamu.edu/davis/SuiteSparse/$SRCFILE | tar xzf -
 fi
 cd SuiteSparse
-make -s metis  # At this step, "No rule to make target 'w'" would happen. It is safe to ignore it.
-make -s BLAS=-lblas library -j
-make -s install INSTALL=${LOCAL_DIR} BLAS=-lblas 1>/dev/null
-LEVEL=$(( ${LEVEL}-1 ))
+make -s BLAS=-lblas JOBS=${NPROC} library
+make -s BLAS=-lblas JOBS=${NPROC} INSTALL=${LOCAL_DIR} library 1>/dev/null
+# install static libraries also
+find . -name '*\.a' | xargs -I{} cp {} ${LOCAL_DIR}/lib
 cd $ROOT && rm -rf $TMP_DIR
+LEVEL=$(( ${LEVEL}-1 ))
