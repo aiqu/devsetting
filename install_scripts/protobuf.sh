@@ -36,11 +36,10 @@ source $ROOT/envset.sh
 . $ROOT/install_scripts/autoconf.sh
 . $ROOT/install_scripts/automake.sh
 . $ROOT/install_scripts/make.sh
-. $ROOT/install_scripts/unzip.sh
 . $ROOT/install_scripts/libtool.sh
 
 PKG_NAME="protobuf"
-REPO_URL=https://github.com/google/protobuf
+REPO_URL=https://github.com/protocolbuffers/protobuf
 TAG='v3.6.1'
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
@@ -54,8 +53,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] |
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L ${REPO_URL}/releases/download/${TAG}/protobuf-all-${VER}.tar.gz | tar xz
-  rm -rf protobuf
-  mv protobuf-$VER protobuf && cd protobuf
+  cd protobuf-$VER
   ./autogen.sh
   CONFIG_OPTIONS="--prefix=${LOCAL_DIR} --libdir=${LOCAL_DIR}/lib64"
   BUILDSTATIC="${PKG_NAME}STATIC"
