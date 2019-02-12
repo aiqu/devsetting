@@ -33,14 +33,12 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/python.sh
-
 PKG_NAME="tbb"
 REPO_URL="https://github.com/01org/tbb"
-TAG="2018_U5"
+TAG=$(git ls-remote -t $REPO_URL | cut -d/ -f3 | grep 20 | sort -V | tail -n1)
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
-VER="2018.0.10005"
+VER="2019.0.10003"
 FOLDER="$PKG_NAME*"
 VERFILE="${LOCAL_DIR}/include/tbb/tbb_stddef.h"
 INSTALLED_VERSION=
