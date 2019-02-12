@@ -32,9 +32,11 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/eigen3.sh
-. $ROOT/install_scripts/flann.sh
-. $ROOT/install_scripts/boost.sh
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/eigen3.sh
+  . $ROOT/install_scripts/flann.sh
+  . $ROOT/install_scripts/boost.sh
+fi
 
 PWD=$(pwd)
 PKG_NAME="pcl"

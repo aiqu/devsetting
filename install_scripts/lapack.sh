@@ -33,6 +33,10 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/openblas.sh
+fi
+
 PKG_NAME="lapack"
 FOLDER="$PKG_NAME*"
 REPO_URL="https://github.com/Reference-LAPACK/lapack-release"

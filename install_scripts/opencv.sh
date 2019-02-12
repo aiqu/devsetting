@@ -33,9 +33,11 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/python.sh
-. $ROOT/install_scripts/protobuf.sh
-. $ROOT/install_scripts/tbb.sh
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/python.sh
+  . $ROOT/install_scripts/protobuf.sh
+  . $ROOT/install_scripts/tbb.sh
+fi
 
 PKG_NAME="opencv"
 REPO_URL=https://github.com/opencv/opencv

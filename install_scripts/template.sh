@@ -33,6 +33,10 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+if [ -z $SKIPDEPS ]; then
+  echo "write prerequisites"
+fi
+
 PKG_NAME="packagename"
 REPO_URL=""
 TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)

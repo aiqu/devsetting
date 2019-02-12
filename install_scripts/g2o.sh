@@ -33,6 +33,10 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/suitesparse.sh
+fi
+
 PKG_NAME="g2o"
 REPO_URL="https://github.com/RainerKuemmerle/g2o"
 TAG="master"

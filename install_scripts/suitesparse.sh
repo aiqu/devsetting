@@ -31,7 +31,10 @@ let DONE$FILENAME=1
 
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
-. $ROOT/install_scripts/lapack.sh
+
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/lapack.sh
+fi
 
 PKG_NAME="SuiteSparse"
 PWD=$(pwd)
