@@ -40,13 +40,11 @@ fi
 PKG_NAME="lapack"
 FOLDER="$PKG_NAME*"
 REPO_URL="https://github.com/Reference-LAPACK/lapack-release"
-mkdir -p $TMP_DIR && cd $TMP_DIR
-git clone --depth=1 $REPO_URL
-cd $FOLDER
-TAG=$(grep VERSION README.md | cut -d' ' -f3 | sort -V | tail -n1)
+DOWN_URL="http://www.netlib.org/lapack"
+TAG=$(git ls-remote $REPO_URL | grep 'heads' | awk -F/ '{print$3}' | sort -V | tail -n1)
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
-VER=$TAG
+VER=$(echo $TAG | sed 's/lapack-//')
 VERFILE=""
 INSTALLED_VERSION=
 if $(pkg-config --exists $PKG_NAME);then
@@ -56,6 +54,9 @@ fi
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
+  mkdir -p $TMP_DIR && cd $TMP_DIR
+  curl --retry 10 -L $DOWN_URL/$TAG.tar.gz | tar xz
+  cd $FOLDER
   mkdir -p build && cd build
   CMAKE_OPTIONS=" \
     -DCMAKE_BUILD_TYPE=Release \
