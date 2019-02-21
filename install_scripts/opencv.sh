@@ -74,52 +74,50 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   fi
   # use own CUDA GENERATION name
   #MY_CUDA_GEN="Pascal"
-  OPENCV_CMAKE_OPTIONS=(
-    -DCMAKE_BUILD_TYPE=RELEASE
-    -DCMAKE_INSTALL_PREFIX=$LOCAL_DIR
-    -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR
-    -DPYTHON_DEFAULT_EXECUTABLE=$(which python)
-    -DBUILD_opencv_python2=OFF
-    -DBUILD_opencv_python3=${OPENCV_PYTHON3:-'ON'}
-    -DBUILD_opencv_datasets=OFF
-    -DBUILD_opencv_dnn=OFF
-    -DBUILD_opencv_dnn_objdetect=OFF
-    -DBUILD_opencv_face=OFF
-    -DBUILD_opencv_java_bindings_generator=OFF
-    -DBUILD_opencv_python_bindings_generator=${OPENCV_PYTHON3:-'ON'}
-    -DBUILD_opencv_video=ON
-    -DBUILD_opencv_videoio=ON
-    -DBUILD_opencv_videostab=OFF
-    -DBUILD_opencv_apps=OFF
-    -DBUILD_EXAMPLES=OFF
-    -DBUILD_DOCS=OFF
-    -DBUILD_PERF_TESTS=OFF
-    -DBUILD_TESTS=OFF
-    -DBUILD_JAVA=OFF
-    -DENABLE_CCACHE=ON
-    -DENABLE_FAST_MATH=1
-    -DWITH_TBB=ON
-    -DWITH_VTK=ON
-    -DWITH_FFMPEG=ON
-    -DWITH_GSTREAMER=OFF
-    -DWITH_GTK=ON
-    -DWITH_V4L=ON
-    -DWITH_DSHOW=OFF
-    -DWITH_MATLAB=OFF
-    -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR
-    -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY
-    -DOPENCV_ENABLE_NONFREE=ON
-    -DWITH_JPEG=ON
-    -DWITH_PNG=ON
-    -DWITH_TIFF=ON
-    -DWITH_PROTOBUF=ON
-    -DBUILD_PROTOBUF=OFF
-  )
+  OPENCV_CMAKE_OPTIONS=" ${OPENCV_CMAKE_OPTIONS} \
+    -DCMAKE_BUILD_TYPE=RELEASE \
+    -DCMAKE_INSTALL_PREFIX=$LOCAL_DIR \
+    -DOPENCV_EXTRA_MODULES_PATH=$CONTRIB_MODULE_DIR \
+    -DPYTHON_DEFAULT_EXECUTABLE=$(which python) \
+    -DBUILD_opencv_python2=OFF \
+    -DBUILD_opencv_python3=${OPENCV_PYTHON3:-'ON'} \
+    -DBUILD_opencv_datasets=OFF \
+    -DBUILD_opencv_dnn=OFF \
+    -DBUILD_opencv_dnn_objdetect=OFF \
+    -DBUILD_opencv_face=OFF \
+    -DBUILD_opencv_java_bindings_generator=OFF \
+    -DBUILD_opencv_python_bindings_generator=${OPENCV_PYTHON3:-'ON'} \
+    -DBUILD_opencv_video=ON \
+    -DBUILD_opencv_videoio=ON \
+    -DBUILD_opencv_videostab=OFF \
+    -DBUILD_opencv_apps=OFF \
+    -DBUILD_EXAMPLES=OFF \
+    -DBUILD_DOCS=OFF \
+    -DBUILD_PERF_TESTS=OFF \
+    -DBUILD_TESTS=OFF \
+    -DBUILD_JAVA=OFF \
+    -DENABLE_CCACHE=ON \
+    -DENABLE_FAST_MATH=1 \
+    -DWITH_TBB=ON \
+    -DWITH_VTK=ON \
+    -DWITH_FFMPEG=ON \
+    -DWITH_GSTREAMER=OFF \
+    -DWITH_GTK=ON \
+    -DWITH_V4L=ON \
+    -DWITH_DSHOW=OFF \
+    -DWITH_MATLAB=OFF \
+    -DPYTHON3_INCLUDE_DIR=$PYTHON3_INCLUDE_DIR \
+    -DPYTHON3_LIBRARY=$PYTHON3_LIBRARY \
+    -DOPENCV_ENABLE_NONFREE=ON \
+    -DWITH_JPEG=ON \
+    -DWITH_PNG=ON \
+    -DWITH_TIFF=ON \
+    -DWITH_PROTOBUF=ON \
+    -DBUILD_PROTOBUF=OFF \
+  "
   BUILDSTATIC="${PKG_NAME}STATIC"
   if [ ! -z ${!BUILDSTATIC} ];then
-    OPENCV_CMAKE_OPTIONS+=(
-      -DBUILD_SHARED_LIBS=OFF
-    )
+    OPENCV_CMAKE_OPTIONS="$OPENCV_CMAKE_OPTIONS -DBUILD_SHARED_LIBS=OFF"
   fi
   if [ -f /usr/local/cuda/version.txt ]; then
     cmake ${OPENCV_CMAKE_OPTIONS[@]} \
@@ -132,7 +130,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
       -DCUDA_GENERATION=${MY_CUDA_GEN:="Auto"} \
       ..
   else
-    cmake ${OPENCV_CMAKE_OPTIONS[@]} -DCMAKE_CXX_FLAGS="${MY_CXX_FLAGS}" ..
+    cmake ${OPENCV_CMAKE_OPTIONS} -DCMAKE_CXX_FLAGS="${MY_CXX_FLAGS}" ..
   fi
   make -s -j${NPROC}
   make -s install 1>/dev/null
