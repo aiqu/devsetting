@@ -32,7 +32,6 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
-. $ROOT/install_scripts/unzip.sh
 
 if [ $OS == 'mac' ];then
   brew install curl
