@@ -55,6 +55,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
     --without-cxx-binding \
     --with-shared \
     --with-ext-colors \
+    --with-install-prefix=${LOCAL_DIR} \
     CPPFLAGS='-P'
   make -s -j${NPROC}
   make -s install 1>/dev/null
