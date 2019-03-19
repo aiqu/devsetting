@@ -33,10 +33,6 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-if [ -z $SKIPDEPS ];then
-  . $ROOT/install_scripts/cmake.sh
-fi
-
 PKG_NAME="eigen"
 REPO_URL="https://github.com/eigenteam/eigen-git-mirror"
 TAG=$(git ls-remote -t $REPO_URL | cut -d/ -f3 | grep -v -e '{}\|[^0-9\.]' | sort -V | tail -n1)

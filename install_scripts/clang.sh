@@ -33,8 +33,6 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/cmake.sh
-
 PKG_NAME="clang"
 TAG='7.0.0'
 CUSTOMTAGNAME="$(echo ${PKG_NAME} | sed 's/-//')TAG"

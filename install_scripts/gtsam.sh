@@ -33,7 +33,6 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/cmake.sh
 . $ROOT/install_scripts/hdf5.sh
 . $ROOT/install_scripts/boost.sh
 . $ROOT/install_scripts/tbb.sh
