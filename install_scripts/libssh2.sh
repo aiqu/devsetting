@@ -48,15 +48,15 @@ if $(pkg-config --exists $PKG_NAME);then
   INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
 fi
 if [ "$INSTALLED_VERSION" = "1.7.0_DEV" ];then
-  # 1.8.0 produces 1.7.0_DEV version string
-  INSTALLED_VERSION="1.8.0"
+  # 1.8.0 and 1.8.1 produces 1.7.0_DEV version string
+  INSTALLED_VERSION="1.8.1"
 fi
 
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
   iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
 
   mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl --retry 10 -L $REPO_URL/releases/download/$TAG/$TAG.tar.gz | tar xz && cd $FOLDER
+  curl --retry 10 -L $REPO_URL/archive/$PKG_NAME-$VER.tar.gz | tar xz && cd $FOLDER
   mkdir -p build && cd build
   cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} -DBUILD_SHARED_LIBS=ON ..
   make -s -j${NPROC}
