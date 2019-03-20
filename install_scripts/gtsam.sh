@@ -39,7 +39,7 @@ PWD=$(pwd)
 
 PKG_NAME="gtsam"
 REPO_URL="https://bitbucket.org/gtborg/gtsam"
-TAG=$(git ls-remote -t $REPO_URL | grep -v -e 'rc\|pre\|{}' | cut -d/ -f3 | sort -V | tail -n1)
+TAG=$(git ls-remote -t $REPO_URL | grep -v -e 'rc\|pre\|{}\|wrap\|alpha' | cut -d/ -f3 | sort -V | tail -n1)
 CUSTOMTAGNAME="${PKG_NAME}TAG"
 TAG=${!CUSTOMTAGNAME:-$TAG}
 VER=$(echo $TAG | sed 's/-alpha.*//')
