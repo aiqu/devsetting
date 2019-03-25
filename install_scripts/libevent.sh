@@ -32,42 +32,46 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-PKG_NAME="libevent"
-REPO_URL=https://github.com/libevent/libevent
-TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
-CUSTOMTAGNAME="${PKG_NAME}TAG"
-TAG=${!CUSTOMTAGNAME:-$TAG}
-FOLDER="libevent-$TAG"
-VER=$(echo $TAG | awk -F'-' '{print $2}')
-VERFILE="${LOCAL_DIR}/include/event2/event-config.h"
-INSTALLED_VERSION=
-if [ -r $VERFILE ];then
-  INSTALLED_VERSION=$(grep PACKAGE_VERSION $VERFILE | cut -d'"' -f2)
-fi
-
-if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
-  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-
-  mkdir -p $TMP_DIR && cd $TMP_DIR
-
-  curl --retry 10 -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz && cd $FOLDER
-  # Wierd, but install twice for pkg-config and cmake
-  ./autogen.sh
-  ./configure --prefix=${LOCAL_DIR} --disable-debug-mode --disable-samples
-  make -s -j${NPROC} && make -s install 1>/dev/null
-  mkdir -p build && cd build
-  cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
-    -DEVENT__DISABLE_DEBUG_MODE=ON \
-    -DEVENT__DISABLE_TESTS=ON \
-    -DEVENT__DISABLE_SAMPLES=ON \
-    ..
-  make -s -j${NPROC}
-  make -s install 1>/dev/null
-
-  cd $ROOT && rm -rf $TMP_DIR
+if [ $OS = "mac" ];then
+  brew install libevent
 else
-  gecho "$PKG_NAME $VER is already installed"
-fi
+  PKG_NAME="libevent"
+  REPO_URL=https://github.com/libevent/libevent
+  TAG=$(git ls-remote --tags $REPO_URL | grep release | awk -F/ '{print $3}' | grep -v '{}' | sort -V | tail -n1)
+  CUSTOMTAGNAME="${PKG_NAME}TAG"
+  TAG=${!CUSTOMTAGNAME:-$TAG}
+  FOLDER="libevent-$TAG"
+  VER=$(echo $TAG | awk -F'-' '{print $2}')
+  VERFILE="${LOCAL_DIR}/include/event2/event-config.h"
+  INSTALLED_VERSION=
+  if [ -r $VERFILE ];then
+    INSTALLED_VERSION=$(grep PACKAGE_VERSION $VERFILE | cut -d'"' -f2)
+  fi
 
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+    iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+
+    curl --retry 10 -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz && cd $FOLDER
+    # Wierd, but install twice for pkg-config and cmake
+    ./autogen.sh
+    ./configure --prefix=${LOCAL_DIR} --disable-debug-mode --disable-samples
+    make -s -j${NPROC} && make -s install 1>/dev/null
+    mkdir -p build && cd build
+    cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_DIR} \
+      -DEVENT__DISABLE_DEBUG_MODE=ON \
+      -DEVENT__DISABLE_TESTS=ON \
+      -DEVENT__DISABLE_SAMPLES=ON \
+      ..
+    make -s -j${NPROC}
+    make -s install 1>/dev/null
+
+    cd $ROOT && rm -rf $TMP_DIR
+  else
+    gecho "$PKG_NAME $VER is already installed"
+  fi
+
+  cd $ROOT
+fi
 LEVEL=$(( ${LEVEL}-1 ))
-cd $ROOT

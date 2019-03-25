@@ -33,35 +33,39 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/m4.sh
-
-PKG_NAME="libtool"
-REPO_URL="https://git.savannah.gnu.org/git/libtool.git"
-DOWN_URL="http://ftpmirror.gnu.org/libtool/libtool-"
-TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
-CUSTOMTAGNAME="${PKG_NAME}TAG"
-TAG=${!CUSTOMTAGNAME:-$TAG}
-VER=$(echo $TAG | sed 's/v//')
-FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=
-if hash libtool 2>/dev/null;then
-  INSTALLED_VERSION=$(libtool --version 2>/dev/null | head -n1 | cut -d' ' -f4)
-fi
-
-if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
-  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-
-  mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl --retry 10 -L $DOWN_URL$VER.tar.gz | tar xz
-  cd $FOLDER
-  ./configure --prefix=${LOCAL_DIR}
-  make -s -j${NPROC}
-  make -s install 1>/dev/null
-
-  cd $ROOT && rm -rf $TMP_DIR
+if [ $OS = "mac" ];then
+  brew install libtool
 else
-  gecho "$PKG_NAME $VER is already installed"
-fi
+  . $ROOT/install_scripts/m4.sh
 
+  PKG_NAME="libtool"
+  REPO_URL="https://git.savannah.gnu.org/git/libtool.git"
+  DOWN_URL="http://ftpmirror.gnu.org/libtool/libtool-"
+  TAG=$(git ls-remote -t $REPO_URL | grep -v {} | cut -d/ -f3 | sort -V | tail -n1)
+  CUSTOMTAGNAME="${PKG_NAME}TAG"
+  TAG=${!CUSTOMTAGNAME:-$TAG}
+  VER=$(echo $TAG | sed 's/v//')
+  FOLDER="$PKG_NAME*"
+  INSTALLED_VERSION=
+  if hash libtool 2>/dev/null;then
+    INSTALLED_VERSION=$(libtool --version 2>/dev/null | head -n1 | cut -d' ' -f4)
+  fi
+
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+    iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+    curl --retry 10 -L $DOWN_URL$VER.tar.gz | tar xz
+    cd $FOLDER
+    ./configure --prefix=${LOCAL_DIR}
+    make -s -j${NPROC}
+    make -s install 1>/dev/null
+
+    cd $ROOT && rm -rf $TMP_DIR
+  else
+    gecho "$PKG_NAME $VER is already installed"
+  fi
+
+  cd $ROOT
+fi
 LEVEL=$(( ${LEVEL}-1 ))
-cd $ROOT

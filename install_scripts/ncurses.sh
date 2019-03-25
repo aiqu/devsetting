@@ -32,40 +32,44 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-PKG_NAME="ncurses"
-REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz
-FOLDER='ncurses*'
-VERFILE="${LOCAL_DIR}/include/ncurses.h"
-INSTALLED_VERSION=
-if [ -r $VERFILE ];then
-  INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define NCURSES_VERSION ' | cut -d'"' -f2)
-fi
-
-if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ]; then
-  iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
-
-  mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl --retry 10 -L $REPO_URL | tar xz
-  cd $FOLDER
-  ./configure \
-    --prefix=${LOCAL_DIR} \
-    --enable-pc-files \
-    --enable-widec \
-    --without-develop \
-    --without-cxx-binding \
-    --with-shared \
-    --with-ext-colors \
-    --with-install-prefix=${LOCAL_DIR} \
-    CPPFLAGS='-P'
-  make -s -j${NPROC}
-  make -s install 1>/dev/null
-  ln -sf ${LOCAL_DIR}/include/ncursesw/*.h ${LOCAL_DIR}/include/
-  ln -sf libncursesw.so ${LOCAL_DIR}/lib/libcurses.so
-
-  cd $ROOT && rm -rf $TMP_DIR
+if [ $OS = "mac" ];then
+  brew install ncurses
 else
-  gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
-fi
+  PKG_NAME="ncurses"
+  REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz
+  FOLDER='ncurses*'
+  VERFILE="${LOCAL_DIR}/include/ncurses.h"
+  INSTALLED_VERSION=
+  if [ -r $VERFILE ];then
+    INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define NCURSES_VERSION ' | cut -d'"' -f2)
+  fi
 
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ]; then
+    iecho "$PKG_NAME installation.. install location: $LOCAL_DIR"
+
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+    curl --retry 10 -L $REPO_URL | tar xz
+    cd $FOLDER
+    ./configure \
+      --prefix=${LOCAL_DIR} \
+      --enable-pc-files \
+      --enable-widec \
+      --without-develop \
+      --without-cxx-binding \
+      --with-shared \
+      --with-ext-colors \
+      --with-install-prefix=${LOCAL_DIR} \
+      CPPFLAGS='-P'
+    make -s -j${NPROC}
+    make -s install 1>/dev/null
+    ln -sf ${LOCAL_DIR}/include/ncursesw/*.h ${LOCAL_DIR}/include/
+    ln -sf libncursesw.so ${LOCAL_DIR}/lib/libcurses.so
+
+    cd $ROOT && rm -rf $TMP_DIR
+  else
+    gecho "$PKG_NAME $INSTALLED_VERSION is already installed"
+  fi
+
+  cd $ROOT
+fi
 LEVEL=$(( ${LEVEL}-1 ))
-cd $ROOT

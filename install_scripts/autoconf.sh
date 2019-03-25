@@ -33,32 +33,36 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-PKG_NAME="autoconf"
-TAG='2.69'
-CUSTOMTAGNAME="${PKG_NAME}TAG"
-TAG=${!CUSTOMTAGNAME:-$TAG}
-REPO_URL="http://ftp.kaist.ac.kr/gnu/autoconf/autoconf-$TAG.tar.gz"
-VER=$TAG
-FOLDER="$PKG_NAME*"
-INSTALLED_VERSION=
-if hash autoconf 2>/dev/null;then
-  INSTALLED_VERSION=$(autoconf --version | head -n1 | cut -d' ' -f4)
-fi
-
-if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
-  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-
-  mkdir -p $TMP_DIR && cd $TMP_DIR
-  curl --retry 10 -L $REPO_URL | tar xz
-  cd $FOLDER
-  ./configure --prefix=${LOCAL_DIR}
-  make -s -j${NPROC}
-  make -s install 1>/dev/null
-
-  cd $ROOT && rm -rf $TMP_DIR
+if [ $OS = "mac" ];then
+  brew install autoconf
 else
-  gecho "$PKG_NAME $VER is already installed"
-fi
+  PKG_NAME="autoconf"
+  TAG='2.69'
+  CUSTOMTAGNAME="${PKG_NAME}TAG"
+  TAG=${!CUSTOMTAGNAME:-$TAG}
+  REPO_URL="http://ftp.kaist.ac.kr/gnu/autoconf/autoconf-$TAG.tar.gz"
+  VER=$TAG
+  FOLDER="$PKG_NAME*"
+  INSTALLED_VERSION=
+  if hash autoconf 2>/dev/null;then
+    INSTALLED_VERSION=$(autoconf --version | head -n1 | cut -d' ' -f4)
+  fi
 
+  if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
+    iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+
+    mkdir -p $TMP_DIR && cd $TMP_DIR
+    curl --retry 10 -L $REPO_URL | tar xz
+    cd $FOLDER
+    ./configure --prefix=${LOCAL_DIR}
+    make -s -j${NPROC}
+    make -s install 1>/dev/null
+
+    cd $ROOT && rm -rf $TMP_DIR
+  else
+    gecho "$PKG_NAME $VER is already installed"
+  fi
+
+  cd $ROOT
+fi
 LEVEL=$(( ${LEVEL}-1 ))
-cd $ROOT
