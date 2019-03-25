@@ -37,6 +37,10 @@ if [ -z $SKIPDEPS ]; then
   . $ROOT/install_scripts/zlib.sh
   . $ROOT/install_scripts/readline.sh
   . $ROOT/install_scripts/openssl.sh
+  . $ROOT/install_scripts/libffi.sh
+  . $ROOT/install_scripts/gdbm.sh
+  . $ROOT/install_scripts/sqlite.sh
+  . $ROOT/install_scripts/libuuid.sh
 
   if [ ! -r /usr/include/bzlib.h ] && [ ! -r /usr/local/include/bzlib.h ] && [ ! -r $LOCAL_DIR/include/bzlib.h ];then
     REINSTALL=1 $ROOT/install_scripts/bzip2.sh
