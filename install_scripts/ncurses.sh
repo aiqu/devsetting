@@ -35,7 +35,7 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 if [ $OS = "mac" ];then
   brew install ncurses
 else
-  PKG_NAME="ncurses"
+  PKG_NAME="ncursesw"
   REPO_URL=http://invisible-island.net/datafiles/release/ncurses.tar.gz
   FOLDER='ncurses*'
   VERFILE="${LOCAL_DIR}/include/ncurses.h"
@@ -52,13 +52,12 @@ else
     cd $FOLDER
     ./configure \
       --prefix=${LOCAL_DIR} \
+      --with-pkg-config-libdir=${LOCAL_DIR}/share/pkgconfig \
       --enable-pc-files \
       --enable-widec \
       --without-develop \
-      --without-cxx-binding \
       --with-shared \
       --with-ext-colors \
-      --with-install-prefix=${LOCAL_DIR} \
       CPPFLAGS='-P'
     make -s -j${NPROC}
     make -s install 1>/dev/null
