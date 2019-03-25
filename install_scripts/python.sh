@@ -52,47 +52,35 @@ fi
 
 source "$HOME/.bashrc"
 
-iecho "Python installation.. install location: $LOCAL_DIR"
 
 function install_python {
   VER=$1
+  iecho "Python $VER installation.. install location: $LOCAL_DIR"
   WORKDIR="/tmp/tmp_$VER"
   mkdir -p $WORKDIR && cd $WORKDIR
   curl --retry 10 -L https://www.python.org/ftp/python/$VER/Python-$VER.tar.xz | tar xJf -
   cd Python-$VER
-  LDFLAGS="-L${LOCAL_DIR}/lib -L${LOCAL_DIR}/lib64" ./configure \
+  CONFIG_OPTIONS=" \
     --prefix=${LOCAL_DIR} \
     --enable-shared \
-    --enable-unicode=ucs4 \
-    --with-threads \
-    --with-system-ffi
+    --with-ensurepip \
+    "
+  if [ ! -z $PYTHON_OPTIMIZE ]; then
+    CONFIG_OPTIONS="$CONFIG_OPTIONS --enable-optimizations --with-lto"
+  fi
+  LDFLAGS="-L${LOCAL_DIR}/lib -L${LOCAL_DIR}/lib64" ./configure $CONFIG_OPTIONS
   make -s -j${NPROC}
   make -s install 1>/dev/null
   rm -rf $WORKDIR
 
   cd $HOME
-  MAJOR_VER=$(echo $VER | awk -F'.' '{print $1}')
-  if [ ! -f ${LOCAL_DIR}/bin/pip$MAJOR_VER ]; then
-    curl --retry 10 -L https://bootstrap.pypa.io/get-pip.py | ${LOCAL_DIR}/bin/python$MAJOR_VER
-  fi
 }
 
-PYTHON2_VER='2.7.15'
-PYTHON3_VER='3.6.6'
-INSTALLED_PYTHON2_VER=
-if hash python2 2>/dev/null;then
-  INSTALLED_PYTHON2_VER=$(${LOCAL_DIR}/bin/python2 --version 2>&1 | grep Python | awk '{print $2}')
-fi
+PYTHON3_VER='3.7.2'
 INSTALLED_PYTHON3_VER=
 if hash python3 2>/dev/null;then
   INSTALLED_PYTHON3_VER=$(${LOCAL_DIR}/bin/python3 --version 2>&1 | grep Python | awk '{print $2}')
 fi
-
-#if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON2_VER ] || [ $PYTHON2_VER != $INSTALLED_PYTHON2_VER ]; then
-  #install_python $PYTHON2_VER
-#else
-  #gecho "Python $PYTHON2_VER is already installed"
-#fi
 
 if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_PYTHON3_VER ] || $(compare_version $INSTALLED_PYTHON3_VER $PYTHON3_VER); then
   install_python $PYTHON3_VER
@@ -104,10 +92,8 @@ fi
 pip install -U pip
 
 if [ ! -z $PYTHON_PACKAGE ];then
-  #pip2 install -Uq pip
   pip3 install -Uq pip
 
-  #pip2 install -q jupyter jupyterthemes flake8
   pip3 install -q jupyter jupyterthemes flake8 nbzip
   jt -t grade3 -f source -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T
   cp $ROOT/resources/jupyter/jupyter_notebook_config.py $HOME/.jupyter/
