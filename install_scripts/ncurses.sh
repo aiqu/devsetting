@@ -40,8 +40,8 @@ else
   FOLDER='ncurses*'
   VERFILE="${LOCAL_DIR}/include/ncurses.h"
   INSTALLED_VERSION=
-  if [ -r $VERFILE ];then
-    INSTALLED_VERSION=$(cat $VERFILE | grep -e 'define NCURSES_VERSION ' | cut -d'"' -f2)
+  if pkg-config --exists $PKG_NAME;then
+    INSTALLED_VERSION=$(pkg-config --modversion $PKG_NAME)
   fi
 
   if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ]; then
