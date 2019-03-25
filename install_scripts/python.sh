@@ -32,20 +32,23 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 
 . $ROOT/envset.sh
-. $ROOT/install_scripts/zlib.sh
-. $ROOT/install_scripts/readline.sh
-. $ROOT/install_scripts/openssl.sh
+
+if [ -z $SKIPDEPS ]; then
+  . $ROOT/install_scripts/zlib.sh
+  . $ROOT/install_scripts/readline.sh
+  . $ROOT/install_scripts/openssl.sh
+
+  if [ ! -r /usr/include/bzlib.h ] && [ ! -r /usr/local/include/bzlib.h ] && [ ! -r $LOCAL_DIR/include/bzlib.h ];then
+    REINSTALL=1 $ROOT/install_scripts/bzip2.sh
+  fi
+  if [ ! -r /usr/include/lzma.h ] && [ ! -r /usr/local/include/lzma.h ] && [ ! -r $LOCAL_DIR/include/lzma.h ];then
+    REINSTALL=1 $ROOT/install_scripts/xz.sh
+  fi
+fi
 
 source "$HOME/.bashrc"
 
 iecho "Python installation.. install location: $LOCAL_DIR"
-
-if [ ! -r /usr/include/bzlib.h ] && [ ! -r /usr/local/include/bzlib.h ] && [ ! -r $LOCAL_DIR/include/bzlib.h ];then
-  REINSTALL=1 $ROOT/install_scripts/bzip2.sh
-fi
-if [ ! -r /usr/include/lzma.h ] && [ ! -r /usr/local/include/lzma.h ] && [ ! -r $LOCAL_DIR/include/lzma.h ];then
-  REINSTALL=1 $ROOT/install_scripts/xz.sh
-fi
 
 function install_python {
   VER=$1

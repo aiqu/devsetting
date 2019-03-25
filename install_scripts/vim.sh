@@ -32,8 +32,10 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/python.sh
-. $ROOT/install_scripts/golang.sh
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/python.sh
+  . $ROOT/install_scripts/golang.sh
+fi
 
 PKG_NAME="vim"
 REPO_URL=https://github.com/vim/vim

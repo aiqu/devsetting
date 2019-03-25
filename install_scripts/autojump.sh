@@ -33,7 +33,9 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/python.sh
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/python.sh
+fi
 
 PKG_NAME="autojump"
 REPO_URL="https://github.com/wting/autojump"

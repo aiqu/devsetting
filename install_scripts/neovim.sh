@@ -33,7 +33,9 @@ ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 PWD=$(pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/libtool.sh
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/libtool.sh
+fi
 
 PKG_NAME="neovim"
 REPO_URL="http://github.com/neovim/neovim"
