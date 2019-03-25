@@ -7,11 +7,12 @@ function setunion -S -d "add values of second variable not exist on first variab
     set -x $argv[1] $$argv[2]
     return
   end
-  for p in $$argv[2]
-    if not string match -q $p $$argv[1]
-      set $argv[1] $p $$argv[1]
+  for p in $$argv[1]
+    if not string match -q $p $$argv[2]
+      set -a $argv[2] $p
     end
   end
+  set $argv[1] $$argv[2]
 end
 
 function setunion2 -S -d "add values of second variable not exist on first variable to first variable and form a single string"
