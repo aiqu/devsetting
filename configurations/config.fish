@@ -10,7 +10,7 @@ set -x EDITOR vim
 set -x TMUX_TMPDIR ~/.tmux
 mkdir -p $TMUX_TMPDIR $LOCAL_DIR $GOROOT $GOPATH ~/.lib
 if string match -qi Darwin (uname)
-  set -x PATH /usr/local/sbin $PATH
+  set -a PATH /usr/local/sbin $HOME/Library/Python/3.7/bin
 else
   set -x LC_ALL en_US.utf8
   set -x LANG en_US.utf8
