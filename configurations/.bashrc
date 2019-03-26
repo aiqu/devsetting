@@ -120,6 +120,10 @@ if [ -r $HOME/.git-completion ];then
   . $HOME/.git-completion
 fi
 
+if [ -r $HOME/.ssh/config ];then
+  export GIT_SSH_COMMAND="ssh -F $HOME/.ssh/config"
+fi
+
 for i in $HOME/.profile.d/*.sh ; do
     if [ -r "$i" ]; then
         if [ "${-#*i}" != "$-" ]; then

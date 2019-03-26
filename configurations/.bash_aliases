@@ -8,6 +8,9 @@ if [ $(echo $OSTYPE | grep 'linux') ];then
   alias ll='\ls -alF --color=auto'
   alias la='\ls -A --color=auto'
   alias l='\ls -CF --color=auto'
+  if [ -r $HOME/.ssh/config ];then
+    alias ssh="\ssh -F $HOME/.ssh/config"
+  fi
 
   alias startvpn='sudo systemctl start openvpn@client.service'
   alias stopvpn='sudo systemctl stop openvpn@client.service'
