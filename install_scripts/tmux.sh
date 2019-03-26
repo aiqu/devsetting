@@ -32,9 +32,15 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/libevent.sh
-. $ROOT/install_scripts/ncurses.sh
-. $ROOT/install_scripts/utf8proc.sh
+if [ -z $SKIPDEPS ]; then
+  . $ROOT/install_scripts/pkg_config.sh
+  . $ROOT/install_scripts/libevent.sh
+  . $ROOT/install_scripts/ncurses.sh
+  # producing issues with fish shell on tmux
+  # a newline character prompted occationaly
+  # if build without utf8proc, problem vanishes
+  # . $ROOT/install_scripts/utf8proc.sh 
+fi
 
 PKG_NAME="tmux"
 REPO_URL=https://github.com/tmux/tmux
@@ -54,7 +60,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION
   mkdir -p $TMP_DIR && cd $TMP_DIR
   curl --retry 10 -L ${REPO_URL}/archive/${TAG}.tar.gz | tar xz && cd $FOLDER
   ./autogen.sh
-  ./configure --prefix=${LOCAL_DIR} --enable-utf8proc CPPFLAGS="-I${LOCAL_DIR}/include -I${LOCAL_DIR}/include/ncurses" LDFLAGS="-L${LOCAL_DIR}/lib"
+  CPPFLAGS="-I${LOCAL_DIR}/include -I${LOCAL_DIR}/include/ncurses -I${LOCAL_DIR}/include/ncursesw" LDFLAGS="-L${LOCAL_DIR}/lib" ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
   make -s install 1>/dev/null
 
