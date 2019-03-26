@@ -83,6 +83,7 @@ if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VER ] |
   DOWN_URL=https://releases.pagure.org/newt/newt-$VER.tar.gz
   curl --retry 10 -L $DOWN_URL | tar xz
   cd $FOLDER
+  patch -N -i $ROOT/patch/newt_configure.patch configure
   ./configure --prefix=${LOCAL_DIR}
   make -s -j${NPROC}
   make -s install 1>/dev/null
