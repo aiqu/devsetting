@@ -32,7 +32,10 @@ let DONE$FILENAME=1
 ROOT=$(cd $(dirname ${BASH_SOURCE[0]})/.. && pwd)
 . $ROOT/envset.sh
 
-. $ROOT/install_scripts/tmux.sh
+if [ -z $SKIPDEPS ];then
+  . $ROOT/install_scripts/tmux.sh
+  . $ROOT/install_scripts/newt.sh
+fi
 
 PKG_NAME="byobu"
 REPO_URL=https://github.com/aiqu/byobu
