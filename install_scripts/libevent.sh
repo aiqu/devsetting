@@ -44,8 +44,8 @@ else
   VER=$(echo $TAG | awk -F'-' '{print $2}')
   VERFILE="${LOCAL_DIR}/include/event2/event-config.h"
   INSTALLED_VERSION=
-  if [ -r $VERFILE ];then
-    INSTALLED_VERSION=$(grep PACKAGE_VERSION $VERFILE | cut -d'"' -f2)
+  if pkg-config --exists libevent;then
+    INSTALLED_VERSION=$(pkg-config --modversion libevent | cut -d'-' -f1)
   fi
 
   if ([ ! -z $REINSTALL ] && [ $LEVEL -le $REINSTALL ]) || [ -z $INSTALLED_VERSION ] || $(compare_version $INSTALLED_VERSION $VER); then
