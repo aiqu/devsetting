@@ -73,3 +73,7 @@ set -x HISTFILESIZE 0
 if [ -r $HOME/.ssh/config ]
   set -x GIT_SSH_COMMAND "ssh -F $HOME/.ssh/config"
 end
+
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+
+type -tq jenv; and status --is-interactive; and source (jenv init -|psub)

@@ -36,21 +36,31 @@ PKG_NAME="jdk"
 VER="8u201"
 WORKDIR=${LOCAL_DIR}
 
-if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8' || ! hash jar 2>/dev/null ;then
-  iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
-  mkdir -p $WORKDIR && cd $WORKDIR
-
-  FILENAME='jdk-8u201-linux-x64.tar.gz'
-  FOLDERNAME='jdk1.8.0_201'
-
-  curl --retry 10 -jkL \
-    -H "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
-    "https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/$FILENAME" \
-    | tar xz
-  mkdir -p ${LOCAL_DIR}/bin
-  ln -s ${LOCAL_DIR}/$FOLDERNAME/bin/* ${LOCAL_DIR}/bin/
+if [ $OS = 'mac' ];then
+  brew update
+  brew tap caskroom/cask
+  brew cask install java8
+  brew install jenv
+  for d in /Library/Java/JavaVirtualMachines/*jdk*;do
+    jenv add $d/Contents/Home
+  done
 else
-  gecho "$PKG_NAME $VER is already installed"
+  if ! java -version 2>&1 | grep -q '1.8' || ! javac -version 2>&1 | grep -q '1.8' || ! hash jar 2>/dev/null ;then
+    iecho "$PKG_NAME $VER installation.. install location: $LOCAL_DIR"
+    mkdir -p $WORKDIR && cd $WORKDIR
+
+    FILENAME='jdk-8u201-linux-x64.tar.gz'
+    FOLDERNAME='jdk1.8.0_201'
+
+    curl --retry 10 -jkL \
+      -H "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" \
+      "https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/$FILENAME" \
+      | tar xz
+    mkdir -p ${LOCAL_DIR}/bin
+    ln -s ${LOCAL_DIR}/$FOLDERNAME/bin/* ${LOCAL_DIR}/bin/
+  else
+    gecho "$PKG_NAME $VER is already installed"
+  fi
 fi
 
 LEVEL=$(( ${LEVEL}-1 ))
