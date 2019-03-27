@@ -69,3 +69,7 @@ set -x HISTCONTROL ignoreboth
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 set -x HISTSIZE 500
 set -x HISTFILESIZE 0
+
+if [ -r $HOME/.ssh/config ]
+  set -x GIT_SSH_COMMAND "ssh -F $HOME/.ssh/config"
+end
