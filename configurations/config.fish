@@ -5,6 +5,7 @@ set -x GOROOT {$LOCAL_DIR}/go
 set -x GOPATH ~/workspace/golang
 set -x BYOBU_CONFIG_DIR ~/.byobu
 set -x BYOBU_PREFIX $LOCAL_DIR
+set -x BYOBU_PYTHON '/usr/bin/env python'
 set -x ACLOCAL_PATH {$LOCAL_DIR}/share/aclocal
 set -x EDITOR vim
 set -x TMUX_TMPDIR ~/.tmux
