@@ -51,6 +51,7 @@ Plugin 'milkypostman/vim-togglelist'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'dag/vim-fish'
 Plugin 'majutsushi/tagbar'
+Plugin 'integralist/vim-mypy'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
