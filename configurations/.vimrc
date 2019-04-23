@@ -39,7 +39,8 @@ Plugin 'vim-airline/vim-airline-themes'		"
 Plugin 'tpope/vim-fugitive'					"a Git wrapper 
 "Shows a git diff in the column and stages/undoes hunks.
 Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'jason0x43/vim-js-indent'
 Plugin 'Quramy/tsuquyomi'
@@ -180,23 +181,31 @@ vnoremap <space> zf
 
 au BufNewFile,BufRead *.ejs set filetype=ejs
 
-">> Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_python_checkers = ['flake8', 'pylint']
-let g:syntastic_cpp_checkers = ['cpplint']
-let g:syntastic_cpp_cpplint_exec = "cpplint"
-
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "passive_filetypes": ["go"]}
+" ">> Syntastic
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+"
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+"
+" let g:syntastic_python_checkers = ['flake8', 'pylint']
+" let g:syntastic_cpp_checkers = ['cpplint']
+" let g:syntastic_cpp_cpplint_exec = "cpplint"
+"
+" let g:syntastic_mode_map = {
+"     \ "mode": "active",
+"     \ "passive_filetypes": ["go"]}
+">> ALE
+let g:ale_linters = {
+      \ 'python': ['pylint'],
+      \ }
+let g:airline#extensions#ale#enabled = 1
+let g:ale_close_preview_on_insert = 1
+let g:ale_open_list = 1
+let g:ale_list_window_size = 3
 
 ">> Typescript
 autocmd QuickFixCmdPost [^l]* nested cwindow
