@@ -79,13 +79,9 @@ test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shel
 
 type -tq jenv; and status --is-interactive; and source (jenv init -|psub)
 
-if [ -d $HOME/.pyenv ]
+if status --is-interactive && [ -d {$HOME}/.pyenv ]
   set -x PYENV_ROOT $HOME/.pyenv
-  set -p PATH $PYENV_ROOT/bin
-  if command -sq pyenv 1>/dev/null 2>&1
-    pyenv init - | source
-  end
-  if [ -d $PYENV_ROOT/plugins/pyenv-virtualenv ]
-    pyenv virtualenv-init - | source
-  end
+  set -p PATH {$PYENV_ROOT}/bin
+  type -tq pyenv; and source (pyenv init -|psub)
+  test -d {$PYENV_ROOT}/plugins/pyenv-virtualenv; and source (pyenv virtualenv-init -|psub)
 end
