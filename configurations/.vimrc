@@ -258,3 +258,7 @@ let g:NERDToggleCheckAllLines = 1
 
 ">> tagbar
 nmap <C-l> :TagbarToggle<CR>
+
+">> vim-fugitive
+" gdiff vertical insteadof horizontal
+set diffopt+=vertical

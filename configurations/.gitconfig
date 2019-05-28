@@ -30,3 +30,14 @@
     username = gwangmin.lee
 [help]
 	autocorrect = 1
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[merge]
+  tool = nvimdiff
+[mergetool]
+  keepBackup = false
+[mergetool "nvimdiff"]
+  cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
