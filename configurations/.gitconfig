@@ -1,40 +1,36 @@
 [user]
-	name = Gwangmin Lee
-	email = gwangmin0123@gmail.com
+  name = Gwangmin Lee
+  email = gwangmin0123@gmail.com
 [core]
-    editor = vim
-	autocrlf = input
-	whitespace = trailing-space,space-before-tab,cr-at-eol
+  editor = vim
+  autocrlf = input
+  whitespace = trailing-space,space-before-tab,cr-at-eol
 [diff]
-    tool = vimdiff
+  tool = vimdiff
 [color]
-    ui = auto
-    branch = auto
-    interactive = auto
-    status = auto
+  ui = auto
+  branch = auto
+  interactive = auto
+  status = auto
 [alias]
-    st = status
-    stat = status
-    sb = submodule
-    co = checkout
-    br = branch
+  st = status
+  stat = status
+  sb = submodule
+  co = checkout
+  br = branch
 [push]
-    default = current
+  default = current
 [credential]
-    helper = cache --timeout=3600
+  helper = cache --timeout=3600
 [credential "https://github.com"]
-    username = aiqu
-[credential "https://es.naverlabs.com"]
-    username = gwangmin.lee
-[credential "https://oss.navercorp.com"]
-    username = gwangmin.lee
+  username = aiqu
 [help]
-	autocorrect = 1
+  autocorrect = 1
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [merge]
   tool = nvimdiff
 [mergetool]
