@@ -136,7 +136,7 @@ if [ -r $HOME/.ssh/config ];then
   export GIT_SSH_COMMAND="ssh -F $HOME/.ssh/config"
 fi
 
-for i in $HOME/.profile.d/*.sh ; do
+for i in $(find $HOME/.profile.d -type f,l) ; do
     if [ -r "$i" ]; then
         if [ "${-#*i}" != "$-" ]; then
             . "$i"
