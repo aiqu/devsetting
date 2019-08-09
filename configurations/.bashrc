@@ -2,19 +2,12 @@ LOCAL_DIR=${LOCAL_DIR:-"$HOME/.local"}
 unset TMOUT
 export GOROOT=${LOCAL_DIR}/go
 export GOPATH=$HOME/workspace/golang
-export TERM=${TERM:-"screen-256color"}
-export BYOBU_CONFIG_DIR=$HOME/.byobu
-export BYOBU_PREFIX=${LOCAL_DIR}
-export BYOBU_PYTHON='/usr/bin/env python'
 export ACLOCAL_PATH=${LOCAL_DIR}/share/aclocal
 if [ ! $(echo $OSTYPE | grep 'darwin') ]; then
   export LC_ALL='en_US.utf8'
   export LANG='en_US.utf8'
 fi
 export EDITOR=vim
-export TMUX_TMPDIR=$HOME/.tmux
-mkdir -p $TMUX_TMPDIR ${LOCAL_DIR} $GOROOT $GOPATH $HOME/.lib
-
 MY_INCLUDE_DIR="${LOCAL_DIR}/include"
 if [ -r ${LOCAL_DIR}/include ];then
   for pydir in $(find ${LOCAL_DIR}/include -type d -name 'python*');do
@@ -73,9 +66,23 @@ if [ -r ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 
-if [ ! $(echo $- | grep i) ];then
-  return;
-fi
+# DO NOT PROCEED FURTHER IF NOT RUNNING INTERACTIVELY
+case $- in
+  *i*) ;;
+    *) return ;;
+esac
+
+# START OF INTERACTIVE SHELL CONFIGURATION
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+export TERM=${TERM:-"screen-256color"}
+export BYOBU_CONFIG_DIR=$HOME/.byobu
+[ -x ${LOCAL_DIR}/bin/byobu ] && export BYOBU_PREFIX=${LOCAL_DIR}
+export BYOBU_PYTHON='/usr/bin/env python'
+export TMUX_TMPDIR=$HOME/.tmux
+mkdir -p $TMUX_TMPDIR ${LOCAL_DIR} $GOROOT $GOPATH $HOME/.lib
 
 export PROMPT_DIRTRIM="3"
 
@@ -84,7 +91,12 @@ if [[ $PS1 && -f ${LOCAL_DIR}/share/bash-completion/bash_completion ]]; then
   . ${LOCAL_DIR}/share/bash-completion/bash_completion
 fi
 
-[[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]] && source $HOME/.autojump/etc/profile.d/autojump.sh
+# Enable autojump
+if [[ -s /usr/share/autojump/autojump.sh ]]; then
+  source /usr/share/autojump/autojump.sh
+elif [[ -s $HOME/.autojump/etc/profile.d/autojump.sh ]]; then
+  source $HOME/.autojump/etc/profile.d/autojump.sh
+fi
 
 # don't put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoreboth

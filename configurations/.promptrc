@@ -30,13 +30,17 @@ __P_MAGENTA="\[$(tput setaf 5)\]"
 __P_CYAN="\[$(tput setaf 6)\]"
 __P_WHITE="\[$(tput setaf 7)\]"
 __P_BRGREEN="\[$(tput setaf 10)\]"
+__P_GBLUE="\[\e[38;5;69m\]"
+__P_GYELLOW="\[\e[38;5;214m\]"
+__P_GRED="\[\e[38;5;167m\]"
+__P_GGREEN="\[\e[38;5;71m\]"
 
 __prompt_command() {
   local last_status="$?"
   # -- Status code message
   local status_code_msg=""
   if [ $last_status -ne 0 ];then
-    status_code_msg="${__P_BOLD}${__P_RED}${last_status} ${__P_RESET}"
+    status_code_msg="${__P_BOLD}${last_status} ${__P_RESET}"
   fi
   # -- Git status messgae
   local branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
@@ -63,10 +67,10 @@ __prompt_command() {
   # -- Set prompt message
   PS1="${debian_chroot:+($debian_chroot)}"
   PS1+="${status_code_msg}"
-  PS1+="\u@\h "
-  PS1+="${__P_BOLD}${__P_CYAN}\w${__P_RESET} "
+  PS1+="${__P_GBLUE}\u${__P_GYELLOW}@${__P_GRED}\h"
+  PS1+="${__P_GYELLOW}:${__P_GGREEN}\w${__P_RESET}"
   PS1+="${branch}"
-  PS1+="${__P_BRGREEN}\\$ ${__P_RESET}"
+  PS1+="${__P_GYELLOW}\\$ ${__P_RESET}"
 }
 
 # Ensure that we're in bash
